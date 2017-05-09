@@ -20,14 +20,18 @@ export class ApiRequest {
     }
 
     public getParams(data): string {
-        if (typeof data === 'string') return data;
+        if (typeof data === 'string') {
+            return data;
+        }
 
         try {
             let params = '';
             for (let key in data) {
-                params += (params ? '&' : '') + key + '=' + data[key];
+                if (key) {
+                    params += (params ? '&' : '') + key + '=' + data[key];
+                }
             }
-            return params
+            return params;
         } catch (err) {
             return data;
         }

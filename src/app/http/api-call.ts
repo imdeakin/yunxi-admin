@@ -9,15 +9,17 @@ export class ApiCall {
     constructor(private apiRequest: ApiRequest, private apiConfig: ApiConfig) {
     }
 
-    public getAdminInfo(adminId, success, failure?): void {
+    public getAdminInfo(admindId, success, failure?): void {
         let opts: ReqOpts = {
             url: this.apiConfig.paths.getAdminInfo,
-            data: {adminId: adminId},
-            success: function (data) {
+            data: {
+                adminId: admindId
+            },
+            success: (data) => {
                 console.log(data);
                 success(data);
             },
-            failure: function (code, msg) {
+            failure: (code, msg) => {
                 console.error('Get admin info error ==> code: ' + code + ', msg: ' + msg);
                 if (failure) {
                     failure(code, msg);
