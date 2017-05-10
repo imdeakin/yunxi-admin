@@ -16,11 +16,29 @@ export class ApiCall {
                 adminId: admindId
             },
             success: (data) => {
-                console.log(data);
                 success(data);
             },
             failure: (code, msg) => {
                 console.error('Get admin info error ==> code: ' + code + ', msg: ' + msg);
+                if (failure) {
+                    failure(code, msg);
+                }
+            }
+        };
+        this.apiRequest.post(opts);
+    }
+
+    public getSalesInfo(admindId, success, failure?): void {
+        let opts: ReqOpts = {
+            url: this.apiConfig.paths.getSalesInfo,
+            data: {
+                adminId: admindId
+            },
+            success: (data) => {
+                success(data);
+            },
+            failure: (code, msg) => {
+                console.error('Get sales info error ==> code: ' + code + ', msg: ' + msg);
                 if (failure) {
                     failure(code, msg);
                 }

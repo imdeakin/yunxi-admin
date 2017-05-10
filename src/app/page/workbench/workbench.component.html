@@ -1,0 +1,52 @@
+<div class="manager-page">
+    <div class="header">
+        <h3>{{title}}<s></s></h3>
+    </div>
+    <div class="content" [style.height]="contentHeight + 'px'">
+        <div class="tong-ji">
+            <div class="x8">
+                <div class="x6 section">
+                    <div>
+                        <div class="count">{{salesInfo.daily_sales}}</div>
+                        <div class="name">今日营业额</div>
+                    </div>
+                </div>
+                <div class="x6 section">
+                    <div>
+                        <div class="count">{{salesInfo.day_order}}</div>
+                        <div class="name">今日订单</div>
+                    </div>
+                </div>
+            </div>
+            <div class="x4">
+                <div class="section">
+                    <div>
+                        <div class="count">{{salesInfo.number_users}}</div>
+                        <div class="name">总用户数</div>
+                    </div>
+                </div>
+            </div>
+            <div class="x8">
+                <div class="section bar-graph">
+                    <div>
+                        <bar-graph [salesInfo]="salesInfo"></bar-graph>
+                    </div>
+                </div>
+            </div>
+            <div class="x4">
+                <div class="section db-section">
+                    <div>
+                        <div>
+                            <div class="count">{{salesInfo.turnover}}</div>
+                            <div class="name">总营业额</div>
+                        </div>
+                        <div>
+                            <div class="count">{{salesInfo.blanket_order}}</div>
+                            <div class="name">总订单量</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

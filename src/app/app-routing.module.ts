@@ -5,11 +5,13 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent }   from './dashboard.component';
 
+import { WorkbenchPageComponent } from './page/workbench';
 import { WeizhangPageComponent } from './page/weizhang';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/weizhang', pathMatch: 'full' },
-    { path: 'weizhang',  component: WeizhangPageComponent },
+    {path: '', redirectTo: '/weizhang', pathMatch: 'full'},
+    {path: 'workbench', component: WorkbenchPageComponent},
+    {path: 'weizhang', component: WeizhangPageComponent},
     // { path: 'detail/:id', component: HeroDetailComponent },
     // { path: 'heroes',     component: HeroesComponent }
 ];

@@ -1,0 +1,42 @@
+.bar-graph-con {
+    position: relative;
+    padding-top: 24px;
+}
+
+.bar-graph-line-group {
+    position: relative;
+    z-index: 10;
+}
+
+.bar-graph-line {
+    height: 40px;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-size: 12px;
+    text-align: left;
+    color: #959595;
+    border-top: 1px solid #cee7f3;
+}
+
+.bar-graph-x {
+    padding-left: 60px;
+}
+
+.bar-graph-item {
+    position: relative;
+    font-size: 14px;
+    color: #7a7a7a;
+    text-align: center;
+    line-height: 20px;
+}
+
+.bar-graph-item .count {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    width: 50%;
+    height: 24px;
+    background: #26a4e3;
+    border-radius: 2px;
+    margin-left: -25%;
+}

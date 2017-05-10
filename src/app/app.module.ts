@@ -8,12 +8,14 @@ import { NgModule } from '@angular/core';
  */
 import { ENV_PROVIDERS } from './environment';
 import { AppRoutingModule } from './app-routing.module';
-import {Ng2PaginationModule} from "ng2-pagination"
+import { Ng2PaginationModule } from "ng2-pagination"
 
 // App is our top level component
 import { AppComponent } from './app.component';
 import { HeadBarComponent } from './com/head-bar';
 import { AccordionNavComponent } from './com/accordion-nav';
+import { BarGraphPageComponent } from './page/workbench/bar-graph';
+import { WorkbenchPageComponent } from './page/workbench';
 import { WeizhangPageComponent } from './page/weizhang';
 
 // Providers
@@ -38,6 +40,8 @@ import '../styles/main.css';
         AppComponent,
         HeadBarComponent,
         AccordionNavComponent,
+        BarGraphPageComponent,
+        WorkbenchPageComponent,
         WeizhangPageComponent
     ],
     providers: [ // expose our Services and Providers into Angular's dependency injection

@@ -10,6 +10,7 @@ export class ApiConfig {
     public imgRoot: string = this.server + '';
     public paths = {
         getAdminInfo: this.root + '/system/adminInfo', // 获取管理员信息
+        getSalesInfo: this.root + '/system/getSalesInfo', // 获取销售信息
     };
 
     public getImgFullPath(imgPath: string): string {

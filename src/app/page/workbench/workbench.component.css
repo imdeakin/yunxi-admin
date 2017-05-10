@@ -1,0 +1,40 @@
+.manager-page .header {
+    background: transparent;
+}
+
+.manager-page .content {
+    padding: 20px;
+    width: 900px;
+}
+
+.tong-ji .section {
+    padding: 20px 18px;
+}
+
+.tong-ji .section > div {
+    background: #fff;
+    text-align: center;
+    height: 156px;
+    box-shadow: 5px 5px 5px #eaeaea;
+}
+
+.tong-ji .bar-graph > div, .tong-ji .db-section > div {
+    height: 312px;
+}
+
+.tong-ji .section .count {
+    padding-top: 45px;
+    font-size: 26px;
+    color: #009be8;
+    line-height: 36px;
+}
+
+.tong-ji .section .name {
+    font-size: 14px;
+    color: #646464;
+    line-height: 32px;
+}
+
+
+
+
