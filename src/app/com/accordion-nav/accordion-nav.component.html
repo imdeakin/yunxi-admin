@@ -10,7 +10,7 @@
             <li class="ac-item ac-sub-item"
                 *ngFor="let subItem of navItem['items']"
                 [ngClass]="{'active': subItem['active']}">
-                <div class="ac-item-title ac-sub-item-title">{{subItem['title']}}</div>
+                <div class="ac-item-title ac-sub-item-title"><a routerLink="{{subItem['link']}}">{{subItem['title']}}</a></div>
                 <div class="badge"></div>
             </li>
         </ul>

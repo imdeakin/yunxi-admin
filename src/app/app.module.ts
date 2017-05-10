@@ -14,6 +14,7 @@ import { Ng2PaginationModule } from "ng2-pagination"
 import { AppComponent } from './app.component';
 import { HeadBarComponent } from './com/head-bar';
 import { AccordionNavComponent } from './com/accordion-nav';
+import { DatePickerComponent } from './com/date-picker';
 import { BarGraphPageComponent } from './page/workbench/bar-graph';
 import { WorkbenchPageComponent } from './page/workbench';
 import { WeizhangPageComponent } from './page/weizhang';
@@ -40,6 +41,7 @@ import '../styles/main.css';
         AppComponent,
         HeadBarComponent,
         AccordionNavComponent,
+        DatePickerComponent,
         BarGraphPageComponent,
         WorkbenchPageComponent,
         WeizhangPageComponent

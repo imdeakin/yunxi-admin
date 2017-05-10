@@ -10,6 +10,18 @@
                         <label>云洗账号</label>
                         <input type="text" name="account" value="">
                     </div>
+                    <div class="input-group">
+                        <label>时间段</label>
+                        <input type='text' value={{selDate}} (change)="setInputDate($event)"/>
+                        <date-picker
+                                [value]="value"
+                                [minDate]="minDate"
+                                [maxDate]="maxDate"
+                                [disableDays]="disableDays"
+                                [toContainPrevMonth]="toContainPrevMonth"
+                                [toContainNextMonth]="toContainNextMonth"
+                                (selectedDate)='setDate($event)'></date-picker>
+                    </div>
                 </form>
             </div>
             <div class="manager-table">
@@ -29,26 +41,27 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex }; let i = index">
-                            <td>{{i+1}}</td>
-                            <td>{{item.account}}</td>
-                            <td>{{item.car_num}}</td>
-                            <td>{{item.fine}}</td>
-                            <td>{{item.charge}}</td>
-                            <td>{{item.commission}}</td>
-                            <td>{{item.amount}}</td>
-                            <td>{{item.order_time}}</td>
-                            <td>{{item.position}}</td>
-                            <td>
-                                <div class="table-btns">
-                                    <button>查看明细</button>
-                                    <button>新增</button>
-                                </div>
-                            </td>
-                        </tr>
+                    <tr *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex }; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{item.account}}</td>
+                        <td>{{item.car_num}}</td>
+                        <td>{{item.fine}}</td>
+                        <td>{{item.charge}}</td>
+                        <td>{{item.commission}}</td>
+                        <td>{{item.amount}}</td>
+                        <td>{{item.order_time}}</td>
+                        <td>{{item.position}}</td>
+                        <td>
+                            <div class="table-btns">
+                                <button>查看明细</button>
+                                <button>新增</button>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
-                <pagination-controls (pageChange)="curPageIndex = $event" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+                <pagination-controls (pageChange)="curPageIndex = $event" previousLabel="上一页"
+                                     nextLabel="下一页"></pagination-controls>
             </div>
         </div>
     </div>

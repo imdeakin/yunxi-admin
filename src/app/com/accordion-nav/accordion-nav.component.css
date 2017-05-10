@@ -73,6 +73,10 @@
     color: #2facec;
 }
 
+.ac-sub-item.active .ac-item-title {
+
+}
+
 .ac-item.active > .ac-sub-container {
     transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
 }

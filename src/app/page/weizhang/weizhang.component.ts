@@ -46,6 +46,14 @@ export class WeizhangPageComponent implements OnInit {
         }
     ];
 
+    private selDate: string = 'MM/DD/YYYY';
+    private minDate: string = '01/01/2016';
+    private maxDate: string = '12/31/2017';
+    private disableDays: number[] = [0, 6];    //For Sunday and Saturday
+    private toContainPrevMonth: boolean = false;
+    private toContainNextMonth: boolean = false;
+    private value: string = '';
+
     constructor(private elRef: ElementRef) {
     }
 
@@ -73,5 +81,13 @@ export class WeizhangPageComponent implements OnInit {
             size = maxSize;
         }
         this.perPageSize = size;
+    }
+
+    public setInputDate(event) {
+        this.value = event.target.value;
+    }
+
+    public setDate(date) {
+        this.selDate = date;
     }
 }
