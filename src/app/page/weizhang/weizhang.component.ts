@@ -59,7 +59,7 @@ export class WeizhangPageComponent implements OnInit {
     public updateContentHeight(): void {
         this.contentHeight = this.elRef.nativeElement.firstChild.offsetHeight - 40;
         this.updatePerPageSize();
-    }                                                                                                                                               
+    }
 
     public updatePerPageSize(): void {
         let itemHeight = 53;
@@ -73,6 +73,5 @@ export class WeizhangPageComponent implements OnInit {
             size = maxSize;
         }
         this.perPageSize = size;
-        console.log('perPageSize: ' + this.perPageSize);
     }
 }
