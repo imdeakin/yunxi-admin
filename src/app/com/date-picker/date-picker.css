@@ -1,4 +1,5 @@
 #wp-calendar {
+    float: right;
     color: #666;
     font-size: 12px;
     -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.3);
@@ -56,7 +57,7 @@
     border-color: #fff #bbbbbb #bbbbbb #fff;
     background: #555555;
     background: -webkit-gradient(linear, left top, left bottom, from(#555555), to(#555555));
-    background: -moz-linear-gradient(top,  #555555,  #555555);    
+    background: -moz-linear-gradient(top,  #555555,  #555555);
 }
 
 #wp-calendar tbody td.pad {

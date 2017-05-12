@@ -2,16 +2,34 @@
     <li class="ac-item"
         *ngFor="let navItem of navList"
         [ngClass]="{'active': navItem['active']}">
-        <div class="ac-item-title" (click)="toggleNavItem(navItem);">{{navItem['title']}}
+        <div *ngIf="navItem['items'].length" class="ac-item-title" (click)="toggleNavItem(navItem);">
+            {{navItem['title']}}
             <i class="icon-font arrow-up" *ngIf="navItem['active']">&#xe731;</i>
             <i class="icon-font arrow-down" *ngIf="!navItem['active']">&#xe733;</i>
         </div>
-        <ul class="nav ac-container ac-sub-container" [style.height]="getSubConHeight(navItem)">
+        <div *ngIf="!navItem['items'].length" class="ac-item-title">{{navItem['title']}}</div>
+        <ul *ngIf="navItem['items'].length" class="nav ac-container ac-sub-container"
+            [style.height]="getSubConHeight(navItem)">
             <li class="ac-item ac-sub-item"
                 *ngFor="let subItem of navItem['items']"
                 [ngClass]="{'active': subItem['active']}">
-                <div class="ac-item-title ac-sub-item-title"><a routerLink="{{subItem['link']}}">{{subItem['title']}}</a></div>
-                <div class="badge"></div>
+                <template [ngIf]="!subItem['items']?.length">
+                    <div class="ac-item-title ac-sub-item-title"><a routerLink="{{subItem['link']}}">{{subItem['title']}}</a></div>
+                    <div class="badge"></div>
+                </template>
+                <template [ngIf]="subItem['items']?.length">
+                    <div class="ac-item-title ac-sub-item-title" (click)="toggleNavItem(subItem);">{{subItem['title']}}
+                        <i class="icon-font arrow-up" *ngIf="subItem['active']">&#xe731;</i>
+                        <i class="icon-font arrow-down" *ngIf="!subItem['active']">&#xe733;</i>
+                    </div>
+                    <ul class="nav ac-container ac-sub-container" [style.height]="getSubConHeight(navItem, subItem)">
+                        <li class="ac-item ac-sub-item"
+                            *ngFor="let grandSubItem of subItem['items']"
+                            [ngClass]="{'active': grandSubItem['active']}">
+                            <div class="ac-item-title ac-sub-item-title"><a routerLink="{{grandSubItem['link']}}">{{grandSubItem['title']}}</a></div>
+                        </li>
+                    </ul>
+                </template>
             </li>
         </ul>
     </li>

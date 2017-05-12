@@ -41,6 +41,12 @@
     line-height: 36px;
 }
 
+.ac-container .ac-sub-item-title > a {
+    padding: 0;
+    color: #787878;
+    line-height: 36px;
+}
+
 .ac-item.active .ac-item-title {
     color: #787878;
 }
@@ -65,16 +71,17 @@
     background: #2facec;
 }
 
-.ac-sub-item.active .badge, .ac-sub-item:hover .badge {
+.ac-sub-item.active .badge, .ac-sub-item:hover > .badge {
     display: block;
 }
 
 .ac-sub-item.active .ac-item-title {
-    color: #2facec;
+    padding: 0 !important;
+    color: #787878 !important;;
 }
 
-.ac-sub-item.active .ac-item-title {
-
+.ac-sub-item.active .ac-item-title:hover {
+    color: #2facec !important;;
 }
 
 .ac-item.active > .ac-sub-container {

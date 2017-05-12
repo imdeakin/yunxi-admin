@@ -15,7 +15,12 @@ export class AccordionNavComponent {
             items: [
                 {
                     title: '油卡套餐',
-                    link: '/weizhang'
+                    items: [
+                        {
+                            title: '购买',
+                            link: '/weizhang'
+                        }
+                    ]
                 },
                 {
                     title: '油卡绑定列表',
@@ -207,11 +212,33 @@ export class AccordionNavComponent {
         }
     ];
 
+    /**
+     * 展开或收起的切换
+     * @param navItem 可操作的菜单项
+     */
     public toggleNavItem(navItem): void {
         navItem.active = !navItem.active;
     }
 
-    public getSubConHeight(navItem) {
-        return navItem['active'] ? navItem['items'].length * 36 + 'px' : 0;
+    /**
+     * 计算子列表高度
+     * @param navItem 导航项
+     * @param subItem 子项 如果有传递 则表明是子菜单触发该方法
+     * @returns {string|number}
+     */
+    public getSubConHeight(navItem, subItem?) {
+        if (subItem) { // 当是子菜单触发时 只需要计算子菜单的高度
+            return subItem['active'] ? subItem['items'].length * 36 + 'px' : 0;
+        } else { // 当是导航项触发时 要先计算其内已展开的子菜单高度总合 再加上 导航的子列表高度 才是最终的高度
+            let subItems = navItem['items'];
+            let height = navItem['items'].length * 36;
+            for (let i = 0, len = subItems.length; i < len; i++) {
+                let subItem = subItems[i];
+                if (subItem['active']) {
+                    height += subItem['items'].length * 36;
+                }
+            }
+            return navItem['active'] ? height + 'px' : 0;
+        }
     }
 }

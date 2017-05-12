@@ -18,34 +18,39 @@ export class DatePickerComponent implements OnChanges {
 
     @Output() public selectedDate = new EventEmitter();
 
-    public daysofWeek: String[];
-    public currMonth: string;
-    public currYear: string;
-    public months: String[];
+    public daysofWeek: string[];
+    public currMonthStr: string;
+    public currMonth: number;
+    public currYear: number;
+    public months: string[];
     public dates: any = [];
     public completeDates: any;
     public tempArray: any;
-    public prevMonth: string;
-    public nextMonth: string;
-    public prevYear: string;
-    public nextYear: string;
+    public prevMonth: number;
+    public nextMonth: number;
+    public prevYear: number;
+    public nextYear: number;
     public showDp = 'none';
 
     public ngOnChanges(): void {
         this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-        this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        this.currMonth = this.months[new Date().getMonth()].toString();
-        this.currYear = new Date().getFullYear().toString();
+        // this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        // this.daysofWeek = ['日', '一', '二', '三', '四', '五', '六'];
+        this.months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+        this.currMonth = new Date().getMonth();
+        this.currMonthStr = this.months[this.currMonth] + '';
+        this.currYear = new Date().getFullYear();
         // Set previous and next months
-        this.prevMonth = this.months[new Date().getMonth() - 1].toString();
-        this.nextMonth = this.months[new Date().getMonth() + 1].toString();
-        this.prevYear = (parseInt(this.currYear) - 1).toString();
-        this.nextYear = (parseInt(this.currYear) + 1).toString();
+        this.prevMonth = this.currMonth - 1;
+        this.nextMonth = this.currMonth + 1;
+        this.prevYear = this.currYear - 1;
+        this.nextYear = this.currYear + 1;
         // Set Date Array
         if (this.value !== '') {
             let givenDate = moment(this.value, 'MM/DD/YYYY', true);
-            this.currMonth = this.months[givenDate.month()].toString();
-            this.currYear = givenDate.year().toString();
+            this.currMonth = givenDate.month();
+            this.currMonthStr = this.months[this.currMonth];
+            this.currYear = givenDate.year();
             this.dates = this.setDateArray(this.currMonth, this.currYear, givenDate.date());
         } else {
             this.dates = this.setDateArray(this.currMonth, this.currYear, '');
@@ -64,19 +69,20 @@ export class DatePickerComponent implements OnChanges {
     public setPrevMonth(): void {
         this.nextMonth = this.currMonth;
         this.currMonth = this.prevMonth;
+        this.currMonthStr = this.months[this.currMonth];
         // Set new previous month
         let tempDate = new Date(this.currMonth + '/' + '1' + '/' + this.currYear);
-        if (this.currMonth === 'Jan') {
+        if (this.currMonth === 0) {
             // Set previous month to December
-            this.prevMonth = this.months[11].toString();
+            this.prevMonth = 11;
         } else {
-            this.prevMonth = this.months[tempDate.getMonth() - 1].toString();
+            this.prevMonth = tempDate.getMonth() - 1;
         }
-        if (this.currMonth === 'Dec') {
+        if (this.currMonth === 11) {
             // Set current year to previous year
             this.currYear = this.prevYear;
-            this.prevYear = (parseInt(this.currYear) - 1).toString();
-            this.nextYear = (parseInt(this.currYear) + 1).toString();
+            this.prevYear = this.currYear - 1;
+            this.nextYear = this.currYear + 1;
         }
         // Set Date Array to previous month
         this.dates = this.setDateArray(this.currMonth, this.currYear, '');
@@ -85,22 +91,27 @@ export class DatePickerComponent implements OnChanges {
     public setNextMonth() {
         this.prevMonth = this.currMonth;
         this.currMonth = this.nextMonth;
+        this.currMonthStr = this.months[this.currMonth];
         // Set new next month
         let tempDate = new Date(this.currMonth + '/' + '1' + '/' + this.currYear);
-        if (this.currMonth === 'Dec') {
+        if (this.currMonth === 11) {
             // Set next month to January
-            this.nextMonth = this.months[0].toString();
+            this.nextMonth = 0;
         } else {
-            this.nextMonth = this.months[tempDate.getMonth() + 1].toString();
+            this.nextMonth = tempDate.getMonth() + 1;
         }
-        if (this.currMonth === 'Jan') {
+        if (this.currMonth === 0) {
             // Set current year to previous year
             this.currYear = this.nextYear;
-            this.prevYear = (parseInt(this.currYear) - 1).toString();
-            this.nextYear = (parseInt(this.currYear) + 1).toString();
+            this.prevYear = this.currYear - 1;
+            this.nextYear = this.currYear + 1;
         }
+        console.log('tempDate: ');
+        console.log(tempDate);
+        console.log('currMonth: ' + this.months[this.currMonth]);
+        console.log('nextMonth: ' + this.months[this.nextMonth]);
         // Set Date Array to next month
-        this.dates = this.setDateArray(this.currMonth, this.currYear, '');
+        this.dates = this.setDateArray(this.currMonthStr, this.currYear, '');
     }
 
     public  setDateArray(month, year, date): any {
@@ -149,8 +160,8 @@ export class DatePickerComponent implements OnChanges {
         let spaceArray = [];
         if (firstDate.getDay() !== 0) {
             // Not Sunday
-            let pMonth = this.months.indexOf(month) - 1;
-            let prevLast = this.decideDate(this.months[pMonth], year);
+            let pMonth = month - 1;
+            let prevLast = this.decideDate(month, year);
             // Fix it to display last date last
             for (let i = 0; i < firstDate.getDay(); i++) {
                 if (this.toContainPrevMonth) {
@@ -212,23 +223,22 @@ export class DatePickerComponent implements OnChanges {
             }
         }
         return tempDateMain;
-
     }
 
     public  decideDate(month, year): number {
         let last = 31;
         switch (month) {
-            case 'Feb':
+            case 1:
                 // Feb
                 last = 28;
                 if ((parseInt(year) % 4) === 0) {
                     last = last + 1;
                 }
                 break;
-            case 'Apr' :
-            case 'Jun' :
-            case 'Sep' :
-            case 'Nov' :
+            case 3 :
+            case 5 :
+            case 8 :
+            case 10 :
                 // April, June, September, November
                 last = 30;
                 break;
@@ -243,7 +253,7 @@ export class DatePickerComponent implements OnChanges {
             if (sDate.date !== '') {
                 // Set the new date array with active date
                 this.dates = this.setDateArray(this.currMonth, this.currYear, sDate.date);
-                let selDate = moment().year(this.currYear).month(this.currMonth).date(sDate.date).format('MM/DD/YYYY', true);
+                let selDate = moment().year(this.currYear).month(this.currMonth).date(sDate.date).format('YYYY-MM-DD', true);
                 this.selectedDate.next(selDate);
             }
         }
