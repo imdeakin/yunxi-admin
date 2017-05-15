@@ -47,8 +47,8 @@ export class WeizhangPageComponent implements OnInit {
     ];
 
     private selDate: string = '';
-    private minDate: string = '01/01/2016';
-    private maxDate: string = '12/31/2017';
+    private minDate: string = '1970/01/01';
+    private maxDate: string = '9999/12/31';
     private disableDays: number[] = [0, 6];    //For Sunday and Saturday
     private toContainPrevMonth: boolean = false;
     private toContainNextMonth: boolean = false;

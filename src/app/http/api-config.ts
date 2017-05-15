@@ -11,6 +11,7 @@ export class ApiConfig {
     public paths = {
         getAdminInfo: this.root + '/system/adminInfo', // 获取管理员信息
         getSalesInfo: this.root + '/system/getSalesInfo', // 获取销售信息
+        getYoukaTaocanList: this.root + '/oiling/packageInfoList', // 获取油卡套餐列表
     };
 
     public getImgFullPath(imgPath: string): string {

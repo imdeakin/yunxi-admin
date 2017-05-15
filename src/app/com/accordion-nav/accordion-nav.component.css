@@ -1,89 +1,85 @@
 .ac-container {
-    width: 100%;
-    text-align: left;
+  width: 100%;
+  text-align: left;
 }
 
 .ac-item {
-    padding: 0 20px;
+  padding: 0 20px;
 }
 
 .ac-item.active {
-    background: #e9e9e9;
+  background: #e9e9e9;
 }
 
 .ac-container .ac-item-title {
-    position: relative;
-    font-size: 14px;
-    line-height: 45px;
-    color: #787878;
-    cursor: pointer;
+  position: relative;
+  font-size: 14px;
+  line-height: 45px;
+  color: #787878;
+  cursor: pointer;
 }
 
-.ac-item.active .ac-item-title {
-    color: #009be8;
+.ac-item.active > .ac-item-title, .ac-item.active > .ac-item-title > a {
+  color: #009be8;
 }
 
 .ac-item-title > .icon-font {
-    position: absolute;
-    top: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .ac-container .ac-sub-container {
-    position: relative;
-    height: 0;
-    transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
-    overflow: hidden;
+  position: relative;
+  height: 0;
+  transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+  overflow: hidden;
 }
 
 .ac-container .ac-sub-item-title {
-    font-size: 12px;
-    line-height: 36px;
+  font-size: 12px;
+  line-height: 36px;
 }
 
 .ac-container .ac-sub-item-title > a {
-    padding: 0;
-    color: #787878;
-    line-height: 36px;
-}
-
-.ac-item.active .ac-item-title {
-    color: #787878;
+  padding: 0;
+  color: #787878;
+  line-height: 36px;
 }
 
 .ac-sub-item.active {
-    background: transparent;
+  background: transparent;
 }
 
 .ac-sub-item .badge {
-    position: absolute;
-    display: none;
-    top: 50%;
-    left: 0;
-    width: 5px;
-    height: 26px;
-    margin-top: -13px;
-    min-width: inherit;
-    font-size: 0;
-    line-height: 0;
-    padding: 0;
-    border-radius: 0;
-    background: #2facec;
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 0;
+  width: 5px;
+  height: 26px;
+  margin-top: -13px;
+  min-width: inherit;
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: #2facec;
 }
 
 .ac-sub-item.active .badge, .ac-sub-item:hover > .badge {
-    display: block;
+  display: block;
 }
 
 .ac-sub-item.active .ac-item-title {
-    padding: 0 !important;
-    color: #787878 !important;;
+  padding: 0 !important;
+  color: #787878 !important;;
 }
 
 .ac-sub-item.active .ac-item-title:hover {
-    color: #2facec !important;;
+  color: #2facec !important;;
 }
 
 .ac-item.active > .ac-sub-container {
-    transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+  transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
 }

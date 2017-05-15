@@ -1,23 +1,24 @@
 <i class="icon-font" (click)='openDatePicker()'>&#xe60a;</i>
 <div id="wp-calendar-wrapper">
-    <table id="wp-calendar" [style.display]="showDp">
-        <caption>
-            <i class='icon-font' style='float:left' (click)='setPrevMonth()'>&#xe732;</i>
-            <label>{{currMonth}} {{currYear}}</label>
-            <i class='icon-font' style='float:right' (click)='setNextMonth(this)'>&#xe6f8;</i>
-        </caption>
-        <thead>
-        <tr>
-            <th *ngFor="let day of daysofWeek">{{day}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let date of dates">
-            <td *ngFor="let d of date" (click)='setDate(d)'
-                [class.disabled]='d.disabled'
-                [class.selDate]='d.selected'
-                [class.empty]='d.empty'>{{d.date}}</td>
-        </tr>
-        </tbody>
-    </table>
+  <table id="wp-calendar" [style.display]="showDp">
+    <caption>
+      <i class='icon-font' style='float:left' (click)='setPrevMonth()'>&#xe732;</i>
+      <label>{{currYear}}年{{currMonthStr}}</label>
+      <i class='icon-font' style='float:right' (click)='setNextMonth(this)'>&#xe6f8;</i>
+    </caption>
+    <thead>
+    <tr>
+      <th *ngFor="let day of daysofWeek">{{day}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let date of dates">
+      <td *ngFor="let d of date" (click)='setDate(d)'
+          [class.disabled]='d.disabled'
+          [class.selDate]='d.selected'
+          [class.empty]='d.empty'>{{d.date}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
