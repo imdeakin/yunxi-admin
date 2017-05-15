@@ -2,6 +2,9 @@
  * Created by Deakin on 2017/5/8 0008.
  */
 import {Component, OnInit} from '@angular/core';
+import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'accordion-nav',
@@ -275,7 +278,19 @@ export class AccordionNavComponent implements OnInit {
     }
   ];
 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  }
+
   public ngOnInit(): void {
+    this.router.events
+      .filter(event => event instanceof NavigationEnd)
+      .map(() => this.activatedRoute) // 将filter处理后的Observable再次处理
+      .subscribe((event) => {
+        console.log('NavigationEnd:', event);
+        console.log(event.url);
+        console.log(this.router.url);
+      });
+
     this.initNavStatus({
       items: this.navList
     });
