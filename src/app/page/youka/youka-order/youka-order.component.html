@@ -16,22 +16,42 @@
         <table>
           <thead>
           <tr>
-            <th>用户账户</th>
-            <th>油卡姓名</th>
+            <th>订单流水号</th>
+            <th>交易流水号</th>
             <th>加油卡号</th>
-            <th>添加时间</th>
-            <th>类型</th>
-            <th>是否默认</th>
+            <th>用户账户</th>
+            <th>分期数</th>
+            <th>已到账期数</th>
+            <th>充值日期</th>
+            <th>最近到账时间</th>
+            <th>金额</th>
+            <th>每期金额</th>
+            <th>套餐类型</th>
+            <th>业务项</th>
+            <th>状态</th>
+            <th>操作</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total}; let i = index">
-            <td>{{item.mobile}}</td>
-            <td>{{item.user_name}}</td>
+            <td>{{item.sn}}</td>
+            <td>{{item.trade_code}}</td>
             <td>{{item.oil_card}}</td>
+            <td>{{item.mobile}}</td>
+            <td>{{item.total_periods}}</td>
+            <td>{{item.used_periods}}</td>
+            <td>{{item.pay_time}}</td>
             <td>{{item.create_time}}</td>
-            <td>{{getYoukaTypeText(item.type)}}</td>
-            <td>{{getYoukaDefaultText(item.is_default)}}</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.price}}</td>
+            <td>{{getTaocanClassText(item.classify)}}</td>
+            <td>{{item.described}}</td>
+            <td>{{getTaocanOrderStatusText(item.status)}}</td>
+            <td>
+              <div class="table-btns">
+                <a class="table-btn" href="#">查看</a>
+              </div>
+            </td>
           </tr>
           <tr *ngIf="!tableList?.length">
             <td colspan="6">没有符合条件的数据</td>

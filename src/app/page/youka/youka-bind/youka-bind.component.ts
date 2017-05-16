@@ -3,7 +3,8 @@
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {ApiCall} from '../../../http/api-call';
-import {YoukaTaocan} from '../data-type/youka-taocan';
+import {YoukaBind} from '../data-type/youka-bind';
+import {YoukaFunction} from '../data-type/youka-function';
 
 @Component({
   selector: 'youka-bind',
@@ -13,9 +14,11 @@ import {YoukaTaocan} from '../data-type/youka-taocan';
 export class YoukaBindComponent implements OnInit {
   public title = '油卡绑定列表';
   public contentHeight = 0;
+  public total = 1;
   public perPageSize = 1;
   public curPageIndex = 0;
-  public tableList: YoukaTaocan[];
+  public tableList: YoukaBind[];
+  public search_oilCard: string = '';
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall) {
   }
@@ -25,24 +28,25 @@ export class YoukaBindComponent implements OnInit {
     window.addEventListener('resize', () => {
       this.updateContentHeight();
     });
-    this.getYoukaTaocanList();
+    this.getYoukaBindList();
   }
 
   /**
-   * 获取油卡套餐列表
+   * 获取油卡绑定列表
    */
-  public getYoukaTaocanList(): void {
-    this.apiCall.getYoukaTaocanList(this.curPageIndex + 1, this.perPageSize, (list) => {
+  public getYoukaBindList(): void {
+    this.apiCall.getYoukaBindList(this.search_oilCard, this.curPageIndex + 1, this.perPageSize, (list, total) => {
       this.tableList = list;
+      this.total = total || 1;
     });
   }
 
-  public getTaocanClassText(classify: number): string {
-    return YoukaTaocan.getClassText(classify);
+  public getYoukaDefaultText(classify: number): string {
+    return YoukaFunction.getDefaultText(classify);
   }
 
-  public getTaocanTypeText(type: number): string {
-    return YoukaTaocan.getTypeText(type);
+  public getYoukaTypeText(type: number): string {
+    return YoukaFunction.getYoukaTypeText(type);
   }
 
   /**

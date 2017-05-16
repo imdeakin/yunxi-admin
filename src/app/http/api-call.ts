@@ -64,4 +64,42 @@ export class ApiCall {
       failure: failure
     });
   }
+
+  public getYoukaBindList(oilCard: string, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getYoukaBindList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        oilCard: oilCard
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取油卡购买套餐订单列表
+   * @param oilCard 油卡号码
+   * @param tradeMode 交易方式：1、支付宝，2、微信，3、云付通，4，余额
+   * @param classify 分类：1、默认套餐，2、优惠活动，3、会员专享
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getYoukaOrderList(oilCard: string, tradeMode: number, classify: number, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getYoukaOrderList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        oilCard: oilCard,
+        tradeMode: tradeMode,
+        classify: classify
+      },
+      success: success,
+      failure: failure
+    });
+  }
 }

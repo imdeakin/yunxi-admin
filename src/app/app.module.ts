@@ -18,7 +18,7 @@ import {DatePickerComponent} from './com/date-picker';
 import {BarGraphPageComponent} from './page/workbench/bar-graph';
 import {WorkbenchPageComponent} from './page/workbench';
 import {WeizhangPageComponent} from './page/weizhang';
-import {YoukaTaocanComponent, YoukaBindComponent} from './page/youka';
+import {YoukaTaocanComponent, YoukaBindComponent, YoukaOrderComponent} from './page/youka';
 
 // Providers
 import {ApiRequest, ApiConfig, ApiCall} from './http';
@@ -47,7 +47,8 @@ import '../styles/main.css';
     WorkbenchPageComponent,
     WeizhangPageComponent,
     YoukaTaocanComponent,
-    YoukaBindComponent
+    YoukaBindComponent,
+    YoukaOrderComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

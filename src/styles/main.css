@@ -96,6 +96,11 @@ html, body {
   background: transparent;
 }
 
+.manager-page .filter-bar .text-btn.text-sub {
+  font-size: 14px;
+  color: #5d5d5d;
+}
+
 .manager-page .filter-bar .text-btn:hover {
   text-decoration: underline;
 }

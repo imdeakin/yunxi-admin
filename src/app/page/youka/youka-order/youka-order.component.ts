@@ -3,21 +3,24 @@
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {ApiCall} from '../../../http/api-call';
-import {YoukaTaocan} from '../data-type/youka-taocan';
+import {YoukaOrder} from '../data-type/youka-order';
 import {YoukaFunction} from '../data-type/youka-function';
 
 @Component({
-  selector: 'youka-taocan',
-  templateUrl: './youka-taocan.component.html',
-  styleUrls: ['./youka-taocan.component.css']
+  selector: 'youka-order',
+  templateUrl: './youka-order.component.html',
+  styleUrls: ['./youka-order.component.css']
 })
-export class YoukaTaocanComponent implements OnInit {
-  public title = '油卡套餐';
+export class YoukaOrderComponent implements OnInit {
+  public title = '油卡绑定列表';
   public contentHeight = 0;
   public total = 1;
   public perPageSize = 1;
   public curPageIndex = 0;
-  public tableList: YoukaTaocan[];
+  public tableList: YoukaOrder[];
+  public filter_oilCard: string = '';
+  public filter_tradeMode: number;
+  public filter_classify: number;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall) {
   }
@@ -27,14 +30,14 @@ export class YoukaTaocanComponent implements OnInit {
     window.addEventListener('resize', () => {
       this.updateContentHeight();
     });
-    this.getYoukaTaocanList();
+    this.getYoukaOrderList();
   }
 
   /**
-   * 获取油卡套餐列表
+   * 获取油卡绑定列表
    */
-  public getYoukaTaocanList(): void {
-    this.apiCall.getYoukaTaocanList(this.curPageIndex + 1, this.perPageSize, (list, total) => {
+  public getYoukaOrderList(): void {
+    this.apiCall.getYoukaOrderList(this.filter_oilCard, this.filter_tradeMode, this.filter_classify, this.curPageIndex + 1, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total || 1;
     });
@@ -44,8 +47,8 @@ export class YoukaTaocanComponent implements OnInit {
     return YoukaFunction.getYoucaTaocanClassText(classify);
   }
 
-  public getTaocanTypeText(type: number): string {
-    return YoukaFunction.getYoukaTaocanPayTypeText(type);
+  public getTaocanOrderStatusText(status: number): string {
+    return YoukaFunction.getYoukaOrderStatus(status);
   }
 
   /**

@@ -28,7 +28,7 @@ export class AccordionNavComponent implements OnInit {
         },
         {
           title: '油卡购买套餐的订单管理',
-          link: '/weizhang'
+          link: '/youka-order'
         },
         {
           title: '到账记录',
@@ -282,34 +282,41 @@ export class AccordionNavComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    // 通用router事件 监听路径变化
     this.router.events
       .filter(event => event instanceof NavigationEnd)
       .map(() => this.activatedRoute) // 将filter处理后的Observable再次处理
       .subscribe((event) => {
-        console.log('NavigationEnd:', event);
-        console.log(event.url);
-        console.log(this.router.url);
+        this.resetNavStatus({
+          items: this.navList
+        }, this.router.url);
       });
-
-    this.initNavStatus({
-      items: this.navList
-    });
   }
 
-  public initNavStatus(navItem): boolean {
-    let curLink = '/youka-bind';
+  /**
+   * 重置导航状态
+   * @param navItem 导航列表
+   * @param curLink 当前页路径
+   * @returns {boolean} 返回当前层是否已激活
+   */
+  public resetNavStatus(navItem, curLink): boolean {
     let items = navItem['items'] || [];
+    let curLevleActive = false;
     for (let i = 0, len = items.length; i < len; i++) {
       let item = items[i];
       let link = item['link'];
-      if (link === curLink || (item['items'] && this.initNavStatus(item))) {
-        item.active = true;
-        return true;
+      if (!curLevleActive) {
+        if (link === curLink || (item['items'] && this.resetNavStatus(item, curLink))) {
+          item.active = true;
+          curLevleActive = true;
+        } else {
+          item.active = false;
+        }
       } else {
         item.active = false;
       }
     }
-    return false;
+    return curLevleActive;
   }
 
   /**

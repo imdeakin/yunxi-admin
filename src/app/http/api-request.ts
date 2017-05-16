@@ -125,7 +125,7 @@ export class ApiRequest {
     private extactReqData(data: ApiData, success: any, failure: any) {
         if (data.code === 0) {
             if (success) {
-                success(data.result);
+                success(data.result, data.total);
             }
         } else {
             if (failure) {
