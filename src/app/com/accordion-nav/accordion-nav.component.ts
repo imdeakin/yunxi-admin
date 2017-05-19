@@ -32,7 +32,7 @@ export class AccordionNavComponent implements OnInit {
         },
         {
           title: '到账记录',
-          link: '/weizhang'
+          link: '/youka-record'
         }
       ]
     },

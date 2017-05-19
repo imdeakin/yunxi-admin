@@ -5,6 +5,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {ApiCall} from '../../../http/api-call';
 import {YoukaTaocan} from '../data-type/youka-taocan';
 import {YoukaFunction} from '../data-type/youka-function';
+import {FuncServer} from '../../../serv/func.server';
 
 @Component({
   selector: 'youka-taocan',
@@ -14,29 +15,38 @@ import {YoukaFunction} from '../data-type/youka-function';
 export class YoukaTaocanComponent implements OnInit {
   public title = '油卡套餐';
   public contentHeight = 0;
-  public total = 1;
+  public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
+  public curPageIndex = 1;
   public tableList: YoukaTaocan[];
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall) {
+  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
 
   public ngOnInit(): void {
-    this.updateContentHeight();
-    window.addEventListener('resize', () => {
-      this.updateContentHeight();
-    });
+    this.computeOnResize();
     this.getYoukaTaocanList();
+  }
+
+  public computeOnResize() {
+    this.contentHeight = this.funcServer.getContentHeight(this.elRef);
+    this.perPageSize = this.funcServer.getPerPageSize(this.contentHeight);
+    window.addEventListener('resize', () => {
+      this.contentHeight = this.funcServer.getContentHeight(this.elRef);
+      this.perPageSize = this.funcServer.getPerPageSize(this.contentHeight);
+    });
   }
 
   /**
    * 获取油卡套餐列表
    */
-  public getYoukaTaocanList(): void {
-    this.apiCall.getYoukaTaocanList(this.curPageIndex + 1, this.perPageSize, (list, total) => {
+  public getYoukaTaocanList(curPageIndex?): void {
+    if (curPageIndex) {
+      this.curPageIndex = curPageIndex;
+    }
+    this.apiCall.getYoukaTaocanList(this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-      this.total = total || 1;
+      this.total = total;
     });
   }
 
@@ -46,30 +56,5 @@ export class YoukaTaocanComponent implements OnInit {
 
   public getTaocanTypeText(type: number): string {
     return YoukaFunction.getYoukaTaocanPayTypeText(type);
-  }
-
-  /**
-   * 计算更新内容高度
-   */
-  public updateContentHeight(): void {
-    this.contentHeight = this.elRef.nativeElement.firstChild.offsetHeight - 40;
-    this.updatePerPageSize();
-  }
-
-  /**
-   * 计算更新每页条数
-   */
-  public updatePerPageSize(): void {
-    let itemHeight = 53;
-    let maxHeight = this.contentHeight - 70 - 50 - 67;
-    let size = Math.floor(maxHeight / itemHeight);
-    let minSize = 1;
-    let maxSize = 30;
-    if (size < minSize) {
-      size = minSize;
-    } else if (size > maxSize) {
-      size = maxSize;
-    }
-    this.perPageSize = size;
   }
 }

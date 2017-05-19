@@ -5,6 +5,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {ApiCall} from '../../../http/api-call';
 import {YoukaOrder} from '../data-type/youka-order';
 import {YoukaFunction} from '../data-type/youka-function';
+import {FuncServer} from '../../../serv/func.server';
 
 @Component({
   selector: 'youka-order',
@@ -12,34 +13,91 @@ import {YoukaFunction} from '../data-type/youka-function';
   styleUrls: ['./youka-order.component.css']
 })
 export class YoukaOrderComponent implements OnInit {
-  public title = '油卡绑定列表';
+  public title = '油卡购买套餐的订单管理';
   public contentHeight = 0;
-  public total = 1;
+  public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
+  public curPageIndex = 1;
   public tableList: YoukaOrder[];
-  public filter_oilCard: string = '';
-  public filter_tradeMode: number;
-  public filter_classify: number;
+  public filterData = {
+    oilCard: '',
+    classify: '',
+    tradeMode: ''
+  };
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall) {
+  public classifyOptions = [
+    {
+      value: '',
+      text: '所有'
+    },
+    {
+      value: 1,
+      text: '默认套餐'
+    },
+    {
+      value: 2,
+      text: '优惠活动'
+    },
+    {
+      value: 3,
+      text: '会员专享'
+    }
+  ];
+
+  public tradeModeOptions = [
+    {
+      value: '',
+      text: '所有'
+    },
+    {
+      value: 1,
+      text: '支付宝'
+    },
+    {
+      value: 2,
+      text: '微信'
+    },
+    {
+      value: 3,
+      text: '云付通'
+    },
+    {
+      value: 4,
+      text: '余额'
+    }
+  ];
+
+  public select_active = {
+    classify: true
+  };
+
+  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
 
   public ngOnInit(): void {
-    this.updateContentHeight();
-    window.addEventListener('resize', () => {
-      this.updateContentHeight();
-    });
+    this.computeOnResize();
     this.getYoukaOrderList();
+  }
+
+  public computeOnResize() {
+    this.contentHeight = this.funcServer.getContentHeight(this.elRef);
+    this.perPageSize = this.funcServer.getPerPageSize(this.contentHeight);
+    window.addEventListener('resize', () => {
+      this.contentHeight = this.funcServer.getContentHeight(this.elRef);
+      this.perPageSize = this.funcServer.getPerPageSize(this.contentHeight);
+    });
   }
 
   /**
    * 获取油卡绑定列表
    */
-  public getYoukaOrderList(): void {
-    this.apiCall.getYoukaOrderList(this.filter_oilCard, this.filter_tradeMode, this.filter_classify, this.curPageIndex + 1, this.perPageSize, (list, total) => {
+  public getYoukaOrderList(curPageIndex?): void {
+    if (curPageIndex) {
+      this.curPageIndex = curPageIndex;
+    }
+    this.apiCall.getYoukaOrderList(this.filterData.oilCard, this.filterData.tradeMode, this.filterData.classify, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-      this.total = total || 1;
+      this.total = total;
     });
   }
 
@@ -51,28 +109,7 @@ export class YoukaOrderComponent implements OnInit {
     return YoukaFunction.getYoukaOrderStatus(status);
   }
 
-  /**
-   * 计算更新内容高度
-   */
-  public updateContentHeight(): void {
-    this.contentHeight = this.elRef.nativeElement.firstChild.offsetHeight - 40;
-    this.updatePerPageSize();
-  }
-
-  /**
-   * 计算更新每页条数
-   */
-  public updatePerPageSize(): void {
-    let itemHeight = 53;
-    let maxHeight = this.contentHeight - 70 - 50 - 67;
-    let size = Math.floor(maxHeight / itemHeight);
-    let minSize = 1;
-    let maxSize = 30;
-    if (size < minSize) {
-      size = minSize;
-    } else if (size > maxSize) {
-      size = maxSize;
-    }
-    this.perPageSize = size;
+  public filterSubmit(): void {
+    this.getYoukaOrderList(0);
   }
 }

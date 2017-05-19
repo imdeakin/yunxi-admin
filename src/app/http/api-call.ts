@@ -17,8 +17,8 @@ export class ApiCall {
     let opts: ReqOpts = {
       url: url,
       data: data,
-      success: (data) => {
-        success(data);
+      success: (data, total) => {
+        success(data, total);
       },
       failure: (code, msg) => {
         console.error('Call api error: ' + url);
@@ -88,7 +88,7 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public getYoukaOrderList(oilCard: string, tradeMode: number, classify: number, curPageIndex: number, pageSize: number, success, failure?): void {
+  public getYoukaOrderList(oilCard, tradeMode, classify, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getYoukaOrderList,
       data: {
@@ -97,6 +97,19 @@ export class ApiCall {
         oilCard: oilCard,
         tradeMode: tradeMode,
         classify: classify
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getYoukaRecordList(oilCard, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getYoukaRecordList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        oilCard: oilCard
       },
       success: success,
       failure: failure

@@ -8,7 +8,7 @@
         <form class="clearfix">
           <div class="input-group">
             <input type="text" name="oilCard" value="" placeholder="请输入加油卡号" [(ngModel)]="search_oilCard">
-            <button class="text-btn text-sub" (click)="getYoukaBindList(0);">搜索</button>
+            <button class="text-btn text-sub" (click)="getYoukaRecordList(0);">搜索</button>
           </div>
         </form>
       </div>
@@ -16,27 +16,35 @@
         <table>
           <thead>
           <tr>
-            <th>用户账户</th>
-            <th>油卡姓名</th>
+            <th>订单号</th>
             <th>加油卡号</th>
-            <th>添加时间</th>
-            <th>类型</th>
-            <th>是否默认</th>
+            <th>到账时间</th>
+            <th>到账金额</th>
+            <th>套餐描述</th>
+            <th>总期数</th>
+            <th>到账期数</th>
+            <th>操作</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total}; let i = index">
-            <td>{{item.mobile}}</td>
-            <td>{{item.user_name}}</td>
+            <td>{{item.charge_order_id}}</td>
             <td>{{item.oil_card}}</td>
             <td>{{item.create_time}}</td>
-            <td>{{getYoukaTypeText(item.type)}}</td>
-            <td>{{getYoukaDefaultText(item.is_default)}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.described}}</td>
+            <td>{{item.total_periods}}</td>
+            <td>{{item.used_periods}}</td>
+            <td>
+              <div class="table-btns">
+                <a class="table-btn" href="#">查看</a>
+              </div>
+            </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls *ngIf="tableList?.length" (pageChange)="getYoukaBindList($event)" previousLabel="上一页"
+        <pagination-controls *ngIf="tableList?.length" (pageChange)="getYoukaRecordList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>

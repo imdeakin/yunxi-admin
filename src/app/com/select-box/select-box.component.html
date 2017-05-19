@@ -1,0 +1,10 @@
+<div class="select-box" [ngClass]="{'select-active': active}">
+  <input [name]="name" type="text" value="" readonly
+         [placeholder]="placeholder"
+         [(ngModel)]="curText"
+         (click)="active = !active">
+  <i class="icon-font">&#xe734;</i>
+  <div class="select-option-list">
+    <div class="select-option-item" *ngFor="let item of options" (click)="selectOption(item)">{{item.text}}</div>
+  </div>
+</div>

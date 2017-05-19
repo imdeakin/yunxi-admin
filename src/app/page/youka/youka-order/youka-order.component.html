@@ -5,11 +5,20 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix">
+        <form class="clearfix" (ngSubmit)="filterSubmit()">
           <div class="input-group">
-            <input type="text" name="oilCard" value="" placeholder="请输入加油卡号" [(ngModel)]="search_oilCard">
-            <button class="text-btn text-sub" (click)="getYoukaBindList();">搜索</button>
+            <label>加油卡号</label>
+            <input type="text" name="oilCard" value="" placeholder="" [(ngModel)]="filterData.oilCard">
           </div>
+          <div class="input-group">
+            <label>套餐类型</label>
+            <select-box [name]="'classify'" [options]="classifyOptions" (optionSelect)="filterData.classify = $event"></select-box>
+          </div>
+          <div class="input-group">
+            <label>交易方式</label>
+            <select-box [name]="'tradeMode'" [options]="tradeModeOptions" (optionSelect)="filterData.tradeMode = $event"></select-box>
+          </div>
+          <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
       <div class="manager-table">
@@ -33,7 +42,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total}; let i = index">
+          <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total}; let i = index">
             <td>{{item.sn}}</td>
             <td>{{item.trade_code}}</td>
             <td>{{item.oil_card}}</td>
@@ -53,12 +63,10 @@
               </div>
             </td>
           </tr>
-          <tr *ngIf="!tableList?.length">
-            <td colspan="6">没有符合条件的数据</td>
-          </tr>
           </tbody>
         </table>
-        <pagination-controls *ngIf="tableList?.length" (pageChange)="curPageIndex = $event" previousLabel="上一页"
+        <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
+        <pagination-controls *ngIf="tableList?.length" (pageChange)="getYoukaOrderList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>

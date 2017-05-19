@@ -5,9 +5,15 @@ import {NgModule}             from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent}   from './dashboard.component';
 
-import {WorkbenchPageComponent} from './page/workbench';
-import {WeizhangPageComponent} from './page/weizhang';
-import {YoukaTaocanComponent, YoukaBindComponent, YoukaOrderComponent} from './page/youka';
+import {
+  WorkbenchPageComponent,
+  WeizhangPageComponent,
+
+  YoukaTaocanComponent,
+  YoukaBindComponent,
+  YoukaOrderComponent,
+  YoukaRecordComponent
+} from './page';
 
 const routes: Routes = [
   {path: '', redirectTo: '/weizhang', pathMatch: 'full'},
@@ -16,6 +22,7 @@ const routes: Routes = [
   {path: 'youka-taocan', component: YoukaTaocanComponent},
   {path: 'youka-bind', component: YoukaBindComponent},
   {path: 'youka-order', component: YoukaOrderComponent},
+  {path: 'youka-record', component: YoukaRecordComponent},
   // { path: 'detail/:id', component: HeroDetailComponent },
   // { path: 'heroes',     component: HeroesComponent }
 ];

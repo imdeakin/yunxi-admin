@@ -14,6 +14,7 @@ export class ApiConfig {
     getYoukaTaocanList: this.root + '/oiling/packageInfoList', // 获取油卡套餐列表
     getYoukaBindList: this.root + '/oiling/oilBoundList', // 获取油卡套餐列表
     getYoukaOrderList: this.root + '/oiling/depositList', // 获取油卡购买套餐订单列表
+    getYoukaRecordList: this.root + '/oiling/oilAccountList', // 获取油卡到账记录列表
   };
 
   public getImgFullPath(imgPath: string): string {

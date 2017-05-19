@@ -12,17 +12,29 @@ import {Ng2PaginationModule} from "ng2-pagination"
 
 // App is our top level component
 import {AppComponent} from './app.component';
-import {HeadBarComponent} from './com/head-bar';
-import {AccordionNavComponent} from './com/accordion-nav';
-import {DatePickerComponent} from './com/date-picker';
-import {BarGraphPageComponent} from './page/workbench/bar-graph';
-import {WorkbenchPageComponent} from './page/workbench';
-import {WeizhangPageComponent} from './page/weizhang';
-import {YoukaTaocanComponent, YoukaBindComponent, YoukaOrderComponent} from './page/youka';
+import {
+  HeadBarComponent,
+  AccordionNavComponent,
+  DatePickerComponent,
+  SelectBoxComponent,
+  CityPickerComponent,
+  CityPickerServer
+} from './com';
+import {
+  WorkbenchPageComponent,
+  BarGraphPageComponent,
+
+  WeizhangPageComponent,
+
+  YoukaTaocanComponent,
+  YoukaBindComponent,
+  YoukaOrderComponent,
+  YoukaRecordComponent
+} from './page';
 
 // Providers
 import {ApiRequest, ApiConfig, ApiCall} from './http';
-import {ElClass} from './serv/el-class';
+import {FuncServer} from './serv/func.server';
 
 // stylesheet
 import '../styles/main.css';
@@ -43,19 +55,23 @@ import '../styles/main.css';
     HeadBarComponent,
     AccordionNavComponent,
     DatePickerComponent,
+    SelectBoxComponent,
+    CityPickerComponent,
     BarGraphPageComponent,
     WorkbenchPageComponent,
     WeizhangPageComponent,
     YoukaTaocanComponent,
     YoukaBindComponent,
-    YoukaOrderComponent
+    YoukaOrderComponent,
+    YoukaRecordComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     ApiRequest,
     ApiConfig,
     ApiCall,
-    ElClass
+    FuncServer,
+    CityPickerServer
   ],
   bootstrap: [AppComponent]
 })

@@ -3,22 +3,22 @@
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {ApiCall} from '../../../http/api-call';
-import {YoukaBind} from '../data-type/youka-bind';
+import {YoukaRecord} from '../data-type/youka-record';
 import {YoukaFunction} from '../data-type/youka-function';
 import {FuncServer} from '../../../serv/func.server';
 
 @Component({
-  selector: 'youka-bind',
-  templateUrl: './youka-bind.component.html',
-  styleUrls: ['./youka-bind.component.css']
+  selector: 'youka-record',
+  templateUrl: './youka-record.component.html',
+  styleUrls: ['./youka-record.component.css']
 })
-export class YoukaBindComponent implements OnInit {
-  public title = '油卡绑定列表';
+export class YoukaRecordComponent implements OnInit {
+  public title = '到账记录';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: YoukaBind[];
+  public tableList: YoukaRecord[];
   public search_oilCard: string = '';
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
@@ -26,7 +26,7 @@ export class YoukaBindComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaBindList();
+    this.getYoukaRecordList();
   }
 
   public computeOnResize() {
@@ -41,11 +41,11 @@ export class YoukaBindComponent implements OnInit {
   /**
    * 获取油卡绑定列表
    */
-  public getYoukaBindList(curPageIndex?): void {
+  public getYoukaRecordList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getYoukaBindList(this.search_oilCard, this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getYoukaRecordList(this.search_oilCard, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
     });

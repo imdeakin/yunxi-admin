@@ -1,0 +1,56 @@
+.select-box {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  margin-left: 8px;
+  background: white;
+}
+
+.select-box > input {
+  position: relative;
+  width: 100%;
+  line-height: 22px;
+  border: 1px solid #acacac;
+  border-radius: 12px;
+  padding: 0 12px;
+  margin-left: 0;
+  cursor: pointer;
+  background: transparent;
+  z-index: 2;
+}
+
+.select-box .icon-font {
+  position: absolute;
+  top: 0;
+  right: 6px;
+  color: #737373;
+  line-height: 24px;
+  z-index: 1;
+}
+
+.select-box .select-option-list {
+  position: absolute;
+  display: none;
+  width: 100%;
+  border: 1px solid #acacac;
+  border-radius: 8px;
+  background: white;
+  margin-top: 1px;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.select-box.select-active .select-option-list {
+  display: block;
+}
+
+.select-box .select-option-item {
+  color: #737373;
+  line-height: 22px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.select-box .select-option-item:hover {
+  background: #ccc;
+}
