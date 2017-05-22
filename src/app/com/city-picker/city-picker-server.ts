@@ -4043,9 +4043,6 @@ export class CityPickerServer {
     }
   };
   public countryCode = '86';
-  public provinceList;
-  public cityList;
-  public districtList;
 
   public getList(code) {
     return this.cityData[code];
@@ -4053,5 +4050,30 @@ export class CityPickerServer {
 
   public getProvinceList() {
     return this.getList(this.countryCode);
+  }
+
+  /**
+   * 将省市编号转换成省市名
+   * @param codes 编号集
+   * @param splitSeparator 编号集的连接符 默认'/'
+   * @param concatSeparator 省市名的连接符 默认'-'
+   * @returns {string} 省市名
+   */
+  public codeToText(codes: string, splitSeparator?: string, concatSeparator?: string) {
+    if (!splitSeparator) {
+      splitSeparator = '/';
+    }
+    if (!concatSeparator) {
+      concatSeparator = '-';
+    }
+    let codeArr = codes.split(splitSeparator);
+    let text = '';
+    let list = this.getProvinceList(); // 首次是省列表
+    for (let i = 0, len = codeArr.length; i < len; i++) {
+      let code = codeArr[i];
+      text += (text ? concatSeparator : '') + list[code];
+      list = this.getList(code);
+    }
+    return text;
   }
 }

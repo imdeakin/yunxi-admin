@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {CityPickerServer} from './city-picker-server'
 import {Option} from '../select-box/option-data-type';
 @Component({
@@ -6,14 +6,19 @@ import {Option} from '../select-box/option-data-type';
   templateUrl: './city-picker.html',
   styleUrls: ['./city-picker.css']
 })
-
 export class CityPickerComponent {
+  @Input() public name: string;
+  @Output() public change: EventEmitter<any> = new EventEmitter();
+  public addr: string;
   public provinceList: Option[];
   public cityList: Option[];
   public districtList: Option[];
   public provinceCode;
   public cityCode;
   public districtCoce;
+  public initProvince;
+  public initCity;
+  public initDistrict;
 
   constructor(private cityPickerServer: CityPickerServer) {
     this.provinceList = this.parseToOptions(cityPickerServer.getProvinceList());
@@ -25,24 +30,39 @@ export class CityPickerComponent {
       this.districtList = [];
       this.provinceCode = provinceCode;
       this.cityList = this.parseToOptions(this.cityPickerServer.getList(provinceCode));
+      if (this.initCity) {
+        this.initCity.init(this.cityList);
+        this.change.emit();
+      }
+      this.updateAddress();
+      this.change.emit(this.addr);
     }
   }
 
   public setDistrictList(cityCode): void {
-    this.cityCode = cityCode;
-    this.districtList = this.parseToOptions(this.cityPickerServer.getList(cityCode));
+    if (this.cityCode != cityCode) {
+      this.cityCode = cityCode;
+      this.districtList = this.parseToOptions(this.cityPickerServer.getList(cityCode));
+      if (this.initDistrict) {
+        this.initDistrict.init(this.districtList);
+      }
+      this.updateAddress();
+      this.change.emit(this.addr);
+    }
+  }
+
+  public updateAddress(): void {
+    this.addr = this.provinceCode + '/' + this.cityCode;
   }
 
   public parseToOptions(cityData): Option[] {
     let options: Option[] = [];
-    console.log(cityData);
     for (let key in cityData) {
       options.push({
         value: key,
         text: cityData[key]
       });
     }
-    console.log(options);
     return options;
   }
 }

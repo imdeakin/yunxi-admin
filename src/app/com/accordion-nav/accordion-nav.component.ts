@@ -75,24 +75,19 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '会员列表',
-          items: [
-            {
-              title: '会员详情',
-              link: '/weizhang'
-            }
-          ]
+          link: '/user-list'
         },
         {
           title: '会员升级记录表',
-          link: '/weizhang'
+          link: '/user-list'
         },
         {
           title: '会员升级订单表',
-          link: '/weizhang'
+          link: '/user-list'
         },
         {
           title: '推介关系',
-          link: '/weizhang'
+          link: '/user-list'
         }
       ]
     },

@@ -29,7 +29,9 @@ import {
   YoukaTaocanComponent,
   YoukaBindComponent,
   YoukaOrderComponent,
-  YoukaRecordComponent
+  YoukaRecordComponent,
+
+  UserListComponent
 } from './page';
 
 // Providers
@@ -57,13 +59,22 @@ import '../styles/main.css';
     DatePickerComponent,
     SelectBoxComponent,
     CityPickerComponent,
+
+    // 工作台
     BarGraphPageComponent,
     WorkbenchPageComponent,
+
+    // 违章管理
     WeizhangPageComponent,
+
+    // 油卡管理
     YoukaTaocanComponent,
     YoukaBindComponent,
     YoukaOrderComponent,
-    YoukaRecordComponent
+    YoukaRecordComponent,
+
+    // 会员管理
+    UserListComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

@@ -115,4 +115,19 @@ export class ApiCall {
       failure: failure
     });
   }
+
+  public getUserList(mobile, level, regionId, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getUserList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        mobile: mobile,
+        level: level,
+        regionId: regionId,
+      },
+      success: success,
+      failure: failure
+    });
+  }
 }
