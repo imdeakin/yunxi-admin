@@ -19,7 +19,8 @@ import {
   YoukaRecordComponent,
 
   // 会员管理
-  UserListComponent
+  UserListComponent,
+  UserRecordComponent
 } from './page';
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
 
   // 会员管理
   {path: 'user-list', component: UserListComponent},
+  {path: 'user-record', component: UserRecordComponent},
   // { path: 'detail/:id', component: HeroDetailComponent },
   // { path: 'heroes',     component: HeroesComponent }
 ];

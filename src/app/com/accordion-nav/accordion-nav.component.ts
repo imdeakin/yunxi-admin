@@ -79,7 +79,7 @@ export class AccordionNavComponent implements OnInit {
         },
         {
           title: '会员升级记录表',
-          link: '/user-list'
+          link: '/user-record'
         },
         {
           title: '会员升级订单表',

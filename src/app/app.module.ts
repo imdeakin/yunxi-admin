@@ -31,7 +31,8 @@ import {
   YoukaOrderComponent,
   YoukaRecordComponent,
 
-  UserListComponent
+  UserListComponent,
+  UserRecordComponent
 } from './page';
 
 // Providers
@@ -74,7 +75,8 @@ import '../styles/main.css';
     YoukaRecordComponent,
 
     // 会员管理
-    UserListComponent
+    UserListComponent,
+    UserRecordComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
