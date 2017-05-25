@@ -5,18 +5,18 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getLevelRecordList(1)">
+        <form class="clearfix" (ngSubmit)="getLevelOrderList(1)">
           <div class="input-group">
             <label>会员账号</label>
             <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
           </div>
           <div class="input-group">
             <label>会员等级</label>
-            <select-box [options]="levelOptions" [name]="level" (optionSelect)="filterData.level = $event"></select-box>
+            <select-box [options]="usersFunction.userLevelOptions" [name]="level" (optionSelect)="filterData.level = $event"></select-box>
           </div>
           <div class="input-group">
-            <label>城市</label>
-            <city-picker [name]="regionId" (change)="filterData.regionId = $event"></city-picker>
+            <label>状态</label>
+            <select-box [name]="status" [options]="usersFunction.uplevelOrderStatusOptions" (optionSelect)="filterData.status = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
@@ -25,12 +25,12 @@
         <table>
           <thead>
           <tr>
-            <th>订单号</th>
+            <th>订单流水号</th>
             <th>升级前会员等级</th>
             <th>升级后会员等级</th>
             <th>付款金额</th>
-            <th>用户账号</th>
             <th>手机号</th>
+            <th>状态</th>
             <th>所属城市</th>
             <th>创建时间</th>
           </tr>
@@ -43,13 +43,13 @@
             <td>{{usersFunction.getUserLevelText(item.before_member_name)}}</td>
             <td>{{item.price}}</td>
             <td>{{item.mobile}}</td>
-            <td>{{item.user_mobile}}</td>
+            <td>{{usersFunction.getUpLevelOrderStatusText(item.status)}}</td>
             <td>{{cityPickerServer.codeToText(item.region_name)}}</td>
             <td>{{item.create_time}}</td>
           </tr>
           </tbody>
         </table>
-        <pagination-controls  (pageChange)="getLevelRecordList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls  (pageChange)="getLevelOrderList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>

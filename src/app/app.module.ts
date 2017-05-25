@@ -21,18 +21,31 @@ import {
   CityPickerServer
 } from './com';
 import {
+  // 工作台
   WorkbenchPageComponent,
   BarGraphPageComponent,
 
+  // 违章管理
   WeizhangPageComponent,
 
+  // 油卡管理
   YoukaTaocanComponent,
   YoukaBindComponent,
   YoukaOrderComponent,
   YoukaRecordComponent,
 
+  // 会员管理
   UserListComponent,
-  UserRecordComponent
+  UserRecordComponent,
+  UplevelOrderComponent,
+  RelationListComponent,
+
+  // 合伙人管理
+  PartnerListComponent,
+  PartnerApplyListComponent,
+
+  // 商城管理
+  GoodsListComponent
 } from './page';
 
 // Providers
@@ -76,7 +89,16 @@ import '../styles/main.css';
 
     // 会员管理
     UserListComponent,
-    UserRecordComponent
+    UserRecordComponent,
+    UplevelOrderComponent,
+    RelationListComponent,
+
+    // 合伙人管理
+    PartnerListComponent,
+    PartnerApplyListComponent,
+
+    // 商城管理
+    GoodsListComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

@@ -5,3 +5,5 @@ export * from './weizhang';
 export * from './workbench';
 export * from './youka'
 export * from './users'
+export * from './partner'
+export * from './store'

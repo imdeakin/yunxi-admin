@@ -83,11 +83,11 @@ export class AccordionNavComponent implements OnInit {
         },
         {
           title: '会员升级订单表',
-          link: '/user-list'
+          link: '/uplevel-order'
         },
         {
           title: '推介关系',
-          link: '/user-list'
+          link: '/relation-list'
         }
       ]
     },
@@ -96,25 +96,11 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '合伙人管理',
-          items: [
-            {
-              title: '编辑',
-              link: '/weizhang'
-            }
-          ]
+          link: '/partner-list'
         },
         {
           title: '合伙人申请表',
-          items: [
-            {
-              title: '合伙人审批',
-              link: '/weizhang'
-            },
-            {
-              title: '合伙人复核',
-              link: '/weizhang'
-            }
-          ]
+          link: '/partner-apply-list'
         }
       ]
     },
@@ -123,19 +109,19 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '订单管理',
-          link: '/weizhang'
+          link: '/goods-list'
         },
         {
           title: '优惠促销',
-          link: '/weizhang'
+          link: '/goods-list'
         },
         {
           title: '优惠券',
-          link: '/weizhang'
+          link: '/goods-list'
         },
         {
           title: '评论管理',
-          link: '/weizhang'
+          link: '/goods-list'
         }
       ]
     },

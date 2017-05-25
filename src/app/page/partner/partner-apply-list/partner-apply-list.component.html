@@ -1,0 +1,80 @@
+<div class="manager-page">
+  <div class="header">
+    <h3>{{title}}<s></s></h3>
+  </div>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="content-wrapper">
+      <div class="filter-bar">
+        <form class="clearfix" (ngSubmit)="getPartnerApplyList(1)">
+          <div class="input-group">
+            <label>会员账号</label>
+            <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
+          </div>
+          <div class="input-group">
+            <label>申请时间</label>
+            <input type='text' name="createTime" value={{selDate}} (change)="setInputDate($event)"/>
+            <date-picker
+              [value]="value"
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              [disableDays]="disableDays"
+              [toContainPrevMonth]="toContainPrevMonth"
+              [toContainNextMonth]="toContainNextMonth"
+              (selectedDate)='setDate($event)'></date-picker>
+          </div>
+          <div class="input-group">
+            <label>合伙人级别</label>
+            <select-box [name]="partnerLevelId" [options]="partnerFunction.partnerLevelOptions" (optionSelect)="filterData.partnerLevelId = $event"></select-box>
+          </div>
+          <div class="input-group">
+            <label>城市</label>
+            <city-picker [name]="regionId" (change)="filterData.regionId = $event"></city-picker>
+          </div>
+          <div class="input-group">
+            <label>状态</label>
+            <select-box [name]="status" [options]="partnerFunction.partnerApplyStatusOptions" (optionSelect)="filterData.status = $event"></select-box>
+          </div>
+          <button class="text-btn text-sub" type="submit">搜索</button>
+        </form>
+      </div>
+      <div class="manager-table">
+        <table>
+          <thead>
+          <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>手机号</th>
+            <th>代理区域</th>
+            <th>合伙人级别</th>
+            <th>申请时间</th>
+            <th>经办人</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{item.agreement_code}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.mobile}}</td>
+            <td>{{cityPickerServer.codeToText(item.region_name)}}</td>
+            <td>{{partnerFunction.getPartnerLevelText(item.partner_level)}}</td>
+            <td>{{item.create_time}}</td>
+            <td>{{item.handler}}</td>
+            <td>{{partnerFunction.getPartnerApplyStatusText(item.status)}}</td>
+            <td>
+              <div class="table-btns">
+                <a class="table-btn" href="#">查看</a>
+                <a class="table-btn" href="#">复核</a>
+                <a class="table-btn" href="#">删除</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <pagination-controls  (pageChange)="getPartnerApplyList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

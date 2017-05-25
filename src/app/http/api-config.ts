@@ -18,6 +18,12 @@ export class ApiConfig {
     getYoukaRecordList: this.root + '/oiling/oilAccountList', // 获取油卡到账记录列表
     // 会员管理
     getUserList: this.root + '/members/memberInfoList', // 获取会员列表
+    getLevelRecordList: this.root + '/members/memberUpgradeList', // 获取会员升级记录列表
+    getLevelOrderList: this.root + '/members/memberUpgradeOrder', // 获取会员升级订单列表
+    getRelationList: this.root + '/members/getRelationInfo', // 获取推介关系列表
+    // 合伙人管理
+    getPartnerList: this.root + '/copartner/selectPartnerList', // 获取合伙人列表
+    getPartnerApplyList: this.root + '/copartner/applyPartnerList', // 获取合伙人申请列表
   };
 
   public getImgFullPath(imgPath: string): string {

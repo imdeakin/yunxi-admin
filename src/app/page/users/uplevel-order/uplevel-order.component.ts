@@ -5,16 +5,16 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
-import {UplevelRecord} from '../data-type/uplevel-record';
+import {UplevelRecord} from '../data-type/uplevel-order';
 import {UsersFunction} from '../data-type/users-function';
 
 @Component({
-  selector: 'user-record',
-  templateUrl: './user-record.component.html',
-  styleUrls: ['./user-record.component.css']
+  selector: 'uplevel-order',
+  templateUrl: './uplevel-order.component.html',
+  styleUrls: ['./uplevel-order.component.css']
 })
-export class UserRecordComponent implements OnInit {
-  public title = '会员升级记录表';
+export class UplevelOrderComponent implements OnInit {
+  public title = '会员升级订单表';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
@@ -27,8 +27,8 @@ export class UserRecordComponent implements OnInit {
       price: 100,
       create_time: '2017-12-20 12:50:55',
       mobile: '18174668888',
-      user_mobile: '18174668888',
       region_name: '440000/440100',
+      status: 1,
     },
     {
       sn: '45asd123123sad',
@@ -37,8 +37,8 @@ export class UserRecordComponent implements OnInit {
       price: 100,
       create_time: '2017-12-20 12:50:55',
       mobile: '18174668888',
-      user_mobile: '18174668888',
       region_name: '440000/440100',
+      status: 1,
     },
     {
       sn: '45asd123123sad',
@@ -47,8 +47,8 @@ export class UserRecordComponent implements OnInit {
       price: 100,
       create_time: '2017-12-20 12:50:55',
       mobile: '18174668888',
-      user_mobile: '18174668888',
       region_name: '440000/440100',
+      status: 1,
     },
     {
       sn: '45asd123123sad',
@@ -57,8 +57,8 @@ export class UserRecordComponent implements OnInit {
       price: 100,
       create_time: '2017-12-20 12:50:55',
       mobile: '18174668888',
-      user_mobile: '18174668888',
       region_name: '440000/440100',
+      status: 1,
     },
     {
       sn: '45asd123123sad',
@@ -67,8 +67,8 @@ export class UserRecordComponent implements OnInit {
       price: 100,
       create_time: '2017-12-20 12:50:55',
       mobile: '18174668888',
-      user_mobile: '18174668888',
       region_name: '440000/440100',
+      status: 1,
     },
     {
       sn: '45asd123123sad',
@@ -77,33 +77,25 @@ export class UserRecordComponent implements OnInit {
       price: 100,
       create_time: '2017-12-20 12:50:55',
       mobile: '18174668888',
-      user_mobile: '18174668888',
       region_name: '440000/440100',
+      status: 1,
+    },
+    {
+      sn: '45asd123123sad',
+      current_member_name: '2',
+      before_member_name: '1',
+      price: 100,
+      create_time: '2017-12-20 12:50:55',
+      mobile: '18174668888',
+      region_name: '440000/440100',
+      status: 1,
     }
   ];
   public filterData = {
     mobile: '',
     level: '',
-    regionId: ''
+    status: ''
   };
-  public levelOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
-    {
-      value: '1',
-      text: '普通会员'
-    },
-    {
-      value: '2',
-      text: 'VIP会员'
-    },
-    {
-      value: '3',
-      text: '钻石会员'
-    }
-  ];
   public usersFunction = UsersFunction;
 
   constructor(private elRef: ElementRef,
@@ -114,7 +106,7 @@ export class UserRecordComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getLevelRecordList();
+    this.getLevelOrderList();
   }
 
   public computeOnResize() {
@@ -126,11 +118,11 @@ export class UserRecordComponent implements OnInit {
     });
   }
 
-  public getLevelRecordList(curPageIndex?): void {
+  public getLevelOrderList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getLevelRecordList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getLevelOrderList(this.filterData.mobile, this.filterData.level, this.filterData.status, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
     });

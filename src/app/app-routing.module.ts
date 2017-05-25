@@ -20,7 +20,16 @@ import {
 
   // 会员管理
   UserListComponent,
-  UserRecordComponent
+  UserRecordComponent,
+  UplevelOrderComponent,
+  RelationListComponent,
+
+  // 合伙人管理
+  PartnerListComponent,
+  PartnerApplyListComponent,
+
+  // 商城管理
+  GoodsListComponent
 } from './page';
 
 const routes: Routes = [
@@ -41,6 +50,15 @@ const routes: Routes = [
   // 会员管理
   {path: 'user-list', component: UserListComponent},
   {path: 'user-record', component: UserRecordComponent},
+  {path: 'uplevel-order', component: UplevelOrderComponent},
+  {path: 'relation-list', component: RelationListComponent},
+
+  // 合伙人管理
+  {path: 'partner-list', component: PartnerListComponent},
+  {path: 'partner-apply-list', component: PartnerApplyListComponent},
+
+  // 商城管理
+  {path: 'goods-list', component: GoodsListComponent},
   // { path: 'detail/:id', component: HeroDetailComponent },
   // { path: 'heroes',     component: HeroesComponent }
 ];

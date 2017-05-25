@@ -5,6 +5,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
+import {User} from '../data-type/user';
 
 @Component({
   selector: 'user-list',
@@ -17,7 +18,7 @@ export class UserListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 0;
-  public tableList = [
+  public tableList: User[] = [
     {
       member_id: '45asd123123sad',
       member_mobile: '18174668888',

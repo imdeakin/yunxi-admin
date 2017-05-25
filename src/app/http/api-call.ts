@@ -130,4 +130,131 @@ export class ApiCall {
       failure: failure
     });
   }
+
+  /**
+   * 获取会员升级记录列表
+   * @param mobile 会员号(用户的手机号)
+   * @param memberLevelId 会员等级ID
+   * @param regionId 地区id
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getLevelRecordList(mobile, memberLevelId, regionId, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getLevelRecordList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        mobile: mobile,
+        memberLevelId: memberLevelId,
+        regionId: regionId,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取会员升级订单列表
+   * @param mobile 会员号(用户的手机号)
+   * @param memberLevelId 会员等级ID
+   * @param status 状态：0、待支付，1、成功，-1、失败 ，-2、取消升级
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getLevelOrderList(mobile, memberLevelId, status, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getLevelOrderList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        mobile: mobile,
+        memberLevelId: memberLevelId,
+        status: status,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 推荐关系列表
+   * @param mobile 会员账号（用户表手机）
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getRelationList(mobile, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getRelationList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        mobile: mobile,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取合伙人列表
+   * @param sn 合伙人编号
+   * @param partnerLevelId 合伙人等级
+   * @param regionId 地区ID
+   * @param effectTime 生效日期
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getPartnerList(sn, partnerLevelId, regionId, effectTime, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPartnerList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        sn: sn,
+        partnerLevelId: partnerLevelId,
+        regionId: regionId,
+        effectTime: effectTime,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取合伙人申请列表
+   * @param mobile 手机号
+   * @param createTime 申请时间
+   * @param partnerLevelId 合伙人级别ID
+   * @param regionId 地区id
+   * @param status 0待审核,1通过
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getPartnerApplyList(mobile, createTime, partnerLevelId, regionId, status, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPartnerApplyList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        mobile: mobile,
+        createTime: createTime,
+        partnerLevelId: partnerLevelId,
+        regionId: regionId,
+        status: status,
+      },
+      success: success,
+      failure: failure
+    });
+  }
 }

@@ -1,0 +1,51 @@
+<div class="manager-page">
+  <div class="header">
+    <h3>{{title}}<s></s></h3>
+  </div>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="content-wrapper">
+      <div class="filter-bar">
+        <form class="clearfix" (ngSubmit)="getRelationList(1)">
+          <div class="input-group">
+            <label>会员账号</label>
+            <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
+          </div>
+          <button class="text-btn text-sub" type="submit">搜索</button>
+        </form>
+      </div>
+      <div class="manager-table">
+        <table>
+          <thead>
+          <tr>
+            <th>会员账号</th>
+            <th>注册时间</th>
+            <th>上级会员</th>
+            <th>一级市场</th>
+            <th>二级市场</th>
+            <th>三级市场</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{item.mobile}}</td>
+            <td>{{item.create_time}}</td>
+            <td>{{item.parent_member_account}}</td>
+            <td>{{usersFunction.getUserLevelText(item.member_level_name)}}</td>
+            <td>{{item.level}}</td>
+            <td>{{item.level2}}</td>
+            <td>{{item.level3}}</td>
+            <td>
+              <div class="table-btns">
+                <a class="table-btn" href="#">查看</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <pagination-controls  (pageChange)="getRelationList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
