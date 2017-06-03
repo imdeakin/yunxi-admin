@@ -41,7 +41,7 @@
   line-height: 36px;
 }
 
-.ac-container .ac-sub-item-title > a {
+.ac-container .ac-item-title > a {
   padding: 0;
   color: #787878;
   line-height: 36px;
@@ -51,7 +51,7 @@
   background: transparent;
 }
 
-.ac-sub-item .badge {
+.ac-item > .badge {
   position: absolute;
   display: none;
   top: 50%;
@@ -67,7 +67,7 @@
   background: #2facec;
 }
 
-.ac-sub-item.active .badge, .ac-sub-item:hover > .badge {
+.ac-item.active > .badge, .ac-item:hover > .badge {
   display: block;
 }
 

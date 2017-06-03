@@ -108,20 +108,20 @@ export class AccordionNavComponent implements OnInit {
       title: '商城管理',
       items: [
         {
+          title: '商品管理',
+          link: '/goods-list'
+        },
+        {
+          title: '类型管理',
+          link: '/goods-type-list'
+        },
+        {
+          title: '品牌管理',
+          link: '/brand-list'
+        },
+        {
           title: '订单管理',
-          link: '/goods-list'
-        },
-        {
-          title: '优惠促销',
-          link: '/goods-list'
-        },
-        {
-          title: '优惠券',
-          link: '/goods-list'
-        },
-        {
-          title: '评论管理',
-          link: '/goods-list'
+          link: '/order-list'
         }
       ]
     },
@@ -129,35 +129,26 @@ export class AccordionNavComponent implements OnInit {
       title: '门店管理',
       items: [
         {
-          title: '订单管理',
-          link: '/weizhang'
+          title: '门店申请',
+          link: '/shop-apply-list'
         },
         {
-          title: '优惠促销',
-          link: '/weizhang'
+          title: '门店列表',
+          link: '/shop-list'
         },
         {
-          title: '优惠券',
-          link: '/weizhang'
+          title: '门店服务',
+          link: '/shop-server-list'
         },
         {
-          title: '评论管理',
-          link: '/weizhang'
-        },
-        {
-          title: '门户信息',
-          link: '/weizhang'
+          title: '门店订单',
+          link: '/shop-order-list'
         }
       ]
     },
     {
       title: '广告',
-      items: [
-        {
-          title: '广告编辑',
-          link: '/weizhang'
-        }
-      ]
+      link: '/ad-list'
     },
     {
       title: '财务管理',
@@ -206,25 +197,11 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '消息管理',
-          items: [
-            {
-              title: '添加消息',
-              link: '/weizhang'
-            },
-            {
-              title: '修改消息',
-              link: '/weizhang'
-            }
-          ]
+          link: '/msg-list'
         },
         {
           title: '意见反馈',
-          items: [
-            {
-              title: '意见反馈回复',
-              link: '/weizhang'
-            }
-          ]
+          link: '/feedback-list'
         }
       ]
     },
@@ -233,27 +210,27 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '管理员',
-          link: '/weizhang'
+          link: '/admin-list'
         },
         {
           title: '角色管理',
-          link: '/weizhang'
+          link: '/admin-list'
         },
         {
           title: '服务分类',
-          link: '/weizhang'
+          link: '/admin-list'
         },
         {
           title: '商品分类',
-          link: '/weizhang'
+          link: '/admin-list'
         },
         {
           title: '文案分类',
-          link: '/weizhang'
+          link: '/article-list'
         },
         {
           title: '操作日志',
-          link: '/weizhang'
+          link: '/admin-list'
         }
       ]
     }

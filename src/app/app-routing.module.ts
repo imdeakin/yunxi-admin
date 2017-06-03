@@ -3,7 +3,6 @@
  */
 import {NgModule}             from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {DashboardComponent}   from './dashboard.component';
 
 import {
   // 工作台
@@ -29,7 +28,27 @@ import {
   PartnerApplyListComponent,
 
   // 商城管理
-  GoodsListComponent
+  GoodsListComponent,
+  GoodsTypeListComponent,
+  BrandListComponent,
+  OrderListComponent,
+
+  // 门店管理
+  ShopApplyListComponent,
+  ShopListComponent,
+  ShopServerListComponent,
+  ShopOrderListComponent,
+
+  // 消息中心
+  MsgListComponent,
+  FeedbackListComponent,
+
+  // 广告
+  AdListComponent,
+
+  // 系统管理
+  AdminListComponent,
+  ArticleListComponent
 } from './page';
 
 const routes: Routes = [
@@ -59,6 +78,24 @@ const routes: Routes = [
 
   // 商城管理
   {path: 'goods-list', component: GoodsListComponent},
+  {path: 'goods-type-list', component: GoodsTypeListComponent},
+  {path: 'brand-list', component: BrandListComponent},
+  {path: 'order-list', component: OrderListComponent},
+
+  // 门店管理
+  {path: 'shop-apply-list', component: ShopApplyListComponent},
+  {path: 'shop-list', component: ShopListComponent},
+  {path: 'shop-server-list', component: ShopServerListComponent},
+  {path: 'shop-order-list', component: ShopOrderListComponent},
+  {path: 'msg-list', component: MsgListComponent},
+  {path: 'feedback-list', component: FeedbackListComponent},
+
+  // 广告
+  {path: 'ad-list', component: AdListComponent},
+
+  // 系统管理
+  {path: 'admin-list', component: AdminListComponent},
+  {path: 'article-list', component: ArticleListComponent},
   // { path: 'detail/:id', component: HeroDetailComponent },
   // { path: 'heroes',     component: HeroesComponent }
 ];

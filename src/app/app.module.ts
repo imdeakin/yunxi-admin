@@ -8,7 +8,7 @@ import {NgModule} from '@angular/core';
  */
 import {ENV_PROVIDERS} from './environment';
 import {AppRoutingModule} from './app-routing.module';
-import {Ng2PaginationModule} from "ng2-pagination"
+import {Ng2PaginationModule} from "ng2-pagination";
 
 // App is our top level component
 import {AppComponent} from './app.component';
@@ -45,7 +45,27 @@ import {
   PartnerApplyListComponent,
 
   // 商城管理
-  GoodsListComponent
+  GoodsListComponent,
+  GoodsTypeListComponent,
+  BrandListComponent,
+  OrderListComponent,
+
+  // 门店管理
+  ShopApplyListComponent,
+  ShopListComponent,
+  ShopServerListComponent,
+  ShopOrderListComponent,
+
+  // 消息中心
+  MsgListComponent,
+  FeedbackListComponent,
+
+  // 广告
+  AdListComponent,
+
+  // 系统管理
+  AdminListComponent,
+  ArticleListComponent
 } from './page';
 
 // Providers
@@ -98,7 +118,27 @@ import '../styles/main.css';
     PartnerApplyListComponent,
 
     // 商城管理
-    GoodsListComponent
+    GoodsListComponent,
+    GoodsTypeListComponent,
+    BrandListComponent,
+    OrderListComponent,
+
+    // 门店管理
+    ShopApplyListComponent,
+    ShopListComponent,
+    ShopServerListComponent,
+    ShopOrderListComponent,
+
+    // 消息中心
+    MsgListComponent,
+    FeedbackListComponent,
+
+    // 广告
+    AdListComponent,
+
+    // 系统管理
+    AdminListComponent,
+    ArticleListComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

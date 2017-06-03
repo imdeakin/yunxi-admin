@@ -1,48 +1,49 @@
 .con {
-    width: 100%;
-    min-width: 1366px;
-    height: 100%;
-    overflow: hidden;
+  width: 100%;
+  min-width: 1366px;
+  height: 100%;
+  overflow: hidden;
 }
 
 .sidebar {
-    width: 300px;
-    background: white;
+  width: 300px;
+  background: white;
+  overflow: scroll;
 }
 
 .sidebar-title {
-    font-size: 14px;
-    color: #787878;
-    line-height: 38px;
-    border-bottom: 1px solid #e6e5e5;
-    padding: 0 20px;
+  font-size: 14px;
+  color: #787878;
+  line-height: 38px;
+  border-bottom: 1px solid #e6e5e5;
+  padding: 0 20px;
 }
 
 .input-group {
-    display: block;
-    position: relative;
-    padding: 20px;
+  display: block;
+  position: relative;
+  padding: 20px;
 }
 
 .input-group input {
-    display: block;
-    width: 100%;
-    padding-left: 30px;
-    padding-right: 20px;
-    line-height: 22px;
-    border: 1px solid #bfbfbf;
-    border-radius: 12px;
+  display: block;
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 20px;
+  line-height: 22px;
+  border: 1px solid #bfbfbf;
+  border-radius: 12px;
 }
 
 .input-group .icon-font {
-    position: absolute;
-    top: 20px;
-    left: 25px;
-    font-size: 20px;
-    line-height: 26px;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  font-size: 20px;
+  line-height: 26px;
+  cursor: pointer;
 }
 
 .main {
-    background: #f4f4f4;
+  background: #f4f4f4;
 }
