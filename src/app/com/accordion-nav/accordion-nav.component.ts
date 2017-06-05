@@ -19,20 +19,20 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '油卡套餐',
-          link: '/youka-taocan',
+          link: '/admin/youka-taocan',
           active: true
         },
         {
           title: '油卡绑定列表',
-          link: '/youka-bind'
+          link: '/admin/youka-bind'
         },
         {
           title: '油卡购买套餐的订单管理',
-          link: '/youka-order'
+          link: '/admin/youka-order'
         },
         {
           title: '到账记录',
-          link: '/youka-record'
+          link: '/admin/youka-record'
         }
       ]
     },
@@ -41,15 +41,15 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '违章管理列表',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         },
         {
           title: '办理违章',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         },
         {
           title: '线下办理订单',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         }
       ]
     },
@@ -58,15 +58,15 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '车险办理',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         },
         {
           title: '车险信息',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         },
         {
           title: '业务管理',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         }
       ]
     },
@@ -75,19 +75,19 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '会员列表',
-          link: '/user-list'
+          link: '/admin/user-list'
         },
         {
           title: '会员升级记录表',
-          link: '/user-record'
+          link: '/admin/user-record'
         },
         {
           title: '会员升级订单表',
-          link: '/uplevel-order'
+          link: '/admin/uplevel-order'
         },
         {
           title: '推介关系',
-          link: '/relation-list'
+          link: '/admin/relation-list'
         }
       ]
     },
@@ -96,11 +96,11 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '合伙人管理',
-          link: '/partner-list'
+          link: '/admin/partner-list'
         },
         {
           title: '合伙人申请表',
-          link: '/partner-apply-list'
+          link: '/admin/partner-apply-list'
         }
       ]
     },
@@ -109,19 +109,19 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '商品管理',
-          link: '/goods-list'
+          link: '/admin/goods-list'
         },
         {
           title: '类型管理',
-          link: '/goods-type-list'
+          link: '/admin/goods-type-list'
         },
         {
           title: '品牌管理',
-          link: '/brand-list'
+          link: '/admin/brand-list'
         },
         {
           title: '订单管理',
-          link: '/order-list'
+          link: '/admin/order-list'
         }
       ]
     },
@@ -130,25 +130,25 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '门店申请',
-          link: '/shop-apply-list'
+          link: '/admin/shop-apply-list'
         },
         {
           title: '门店列表',
-          link: '/shop-list'
+          link: '/admin/shop-list'
         },
         {
           title: '门店服务',
-          link: '/shop-server-list'
+          link: '/admin/shop-server-list'
         },
         {
           title: '门店订单',
-          link: '/shop-order-list'
+          link: '/admin/shop-order-list'
         }
       ]
     },
     {
       title: '广告',
-      link: '/ad-list'
+      link: '/admin/ad-list'
     },
     {
       title: '财务管理',
@@ -158,37 +158,37 @@ export class AccordionNavComponent implements OnInit {
           items: [
             {
               title: '会员奖金明细',
-              link: '/weizhang'
+              link: '/admin/weizhang'
             },
             {
               title: '合伙人奖金明细',
-              link: '/weizhang'
+              link: '/admin/weizhang'
             },
             {
               title: '奖金生成列表',
-              link: '/weizhang'
+              link: '/admin/weizhang'
             }
           ]
         },
         {
           title: '待核验订单',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         },
         {
           title: '提现列表',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         },
         {
           title: '充值列表',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         },
         {
           title: '商城收益明细',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         },
         {
           title: '门店收益明细',
-          link: '/weizhang'
+          link: '/admin/weizhang'
         }
       ]
     },
@@ -197,11 +197,11 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '消息管理',
-          link: '/msg-list'
+          link: '/admin/msg-list'
         },
         {
           title: '意见反馈',
-          link: '/feedback-list'
+          link: '/admin/feedback-list'
         }
       ]
     },
@@ -210,27 +210,23 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '管理员',
-          link: '/admin-list'
+          link: '/admin/admin-list'
         },
         {
-          title: '角色管理',
-          link: '/admin-list'
+          title: '方案管理',
+          link: '/admin/article-list'
         },
         {
-          title: '服务分类',
-          link: '/admin-list'
+          title: '车系',
+          link: '/admin/car-series-list'
         },
         {
-          title: '商品分类',
-          link: '/admin-list'
+          title: '车型',
+          link: '/admin/car-model-list'
         },
         {
-          title: '文案分类',
-          link: '/article-list'
-        },
-        {
-          title: '操作日志',
-          link: '/admin-list'
+          title: '品牌',
+          link: '/admin/car-series-list'
         }
       ]
     }

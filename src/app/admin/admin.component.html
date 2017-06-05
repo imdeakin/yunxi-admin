@@ -1,0 +1,14 @@
+<div class="con clearfix">
+  <head-bar></head-bar>
+  <div class="sidebar float-left" [style.height]="contentHeight + 'px'">
+    <div class="sidebar-title">我的工作台</div>
+    <div class="input-group">
+      <input type="text" name="keyword" value="" placeholder="请输入查询内容">
+      <i class="icon-font">&#xe724;</i>
+    </div>
+    <accordion-nav></accordion-nav>
+  </div>
+  <div class="main float-left" [style.width]="mainWidth + 'px'" [style.height]="contentHeight + 'px'">
+    <router-outlet></router-outlet>
+  </div>
+</div>
