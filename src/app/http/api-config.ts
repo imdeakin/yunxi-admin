@@ -9,6 +9,8 @@ export class ApiConfig {
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
+    login: this.root + '/adUser/login', // 登录
+
     getAdminInfo: this.root + '/system/adminInfo', // 获取管理员信息
     getSalesInfo: this.root + '/system/getSalesInfo', // 获取销售信息
     // 油卡管理

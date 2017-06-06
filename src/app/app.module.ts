@@ -12,6 +12,7 @@ import {AppRoutingModule} from './app-routing.module';
 
 // App is our top level component
 import {AppComponent} from './app.component';
+import {LoginComponent} from './login';
 
 // Providers
 import {ApiRequest, ApiConfig, ApiCall} from './http';
@@ -33,6 +34,7 @@ import '../styles/main.css';
   ],
   declarations: [
     AppComponent,
+    LoginComponent
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

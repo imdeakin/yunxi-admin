@@ -2,7 +2,7 @@
  * Created by Deakin on 2017/5/8 0008.
  */
 import {Injectable} from '@angular/core';
-import {ApiRequest, ApiConfig, ReqOpts} from '../http';
+import {ApiRequest, ApiConfig, ReqOpts} from './index';
 
 @Injectable()
 export class ApiCall {
@@ -29,6 +29,18 @@ export class ApiCall {
       }
     };
     this.apiRequest.post(opts);
+  }
+
+  public login(loginName, passWord, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.login,
+      data: {
+        loginName: loginName,
+        passWord, passWord
+      },
+      success: success,
+      failure: failure
+    });
   }
 
   public getAdminInfo(admindId, success, failure?): void {

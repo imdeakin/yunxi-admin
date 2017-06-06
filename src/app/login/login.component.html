@@ -1,0 +1,23 @@
+<div class="con clearfix">
+  <div class="login-model">
+    <div class="logo"><img src="/assets/img/logo.png"></div>
+    <h3 class="title">后台信息管理系统</h3>
+    <form class="login-form" (ngSubmit)="submit()">
+      <div class="input-group">
+        <input type="text" name="account" value="" placeholder="管理员账号" [(ngModel)]="formData.account">
+        <i class="icon-font">&#xe715;</i>
+      </div>
+      <div class="input-group">
+        <input type="text" name="password" value="" placeholder="密码" [(ngModel)]="formData.password">
+        <i class="icon-font">&#xe709;</i>
+      </div>
+      <div class="tool-bar clearfix">
+        <div class="remember float-left" (click)="remember = !remember">
+          <i class="icon-font" [class.hidden]="remember">&#xe646;</i><i class="icon-font" [class.hidden]="!remember">&#xe634;</i>记住账号
+        </div>
+        <a class="forgot float-right" href="#">忘记密码</a>
+      </div>
+      <button type="submit">登录</button>
+    </form>
+  </div>
+</div>
