@@ -5,10 +5,6 @@ export class PartnerFunction {
   // 合伙人等级选项组
   public static partnerLevelOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '1',
       text: '市级代理'
     },
@@ -24,10 +20,6 @@ export class PartnerFunction {
 
   // 合伙人申请状态选项组
   public static partnerApplyStatusOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
     {
       value: '0',
       text: '待审核'

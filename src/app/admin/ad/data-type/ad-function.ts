@@ -5,10 +5,6 @@ export class AdFunction {
   // 消息类型选项组
   public static msgTypeOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '0',
       text: '优惠促销'
     },
@@ -20,10 +16,6 @@ export class AdFunction {
 
   // 反馈状态选项组
   public static feebackStatusOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
     {
       value: '0',
       text: '待回复'

@@ -3,7 +3,7 @@
   display: inline-block;
   width: 120px;
   margin-left: 8px;
-  background: white;
+  background: transparent;
 }
 
 .select-box > input {
@@ -15,7 +15,7 @@
   padding: 0 12px;
   margin-left: 0;
   cursor: pointer;
-  background: transparent;
+  background: white;
   z-index: 2;
 }
 

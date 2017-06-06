@@ -89,6 +89,9 @@ export class RelationListComponent implements OnInit {
   };
   public usersFunction = UsersFunction;
 
+  // 模态窗
+  public modalShow: boolean = false;
+
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
               private funcServer: FuncServer,
@@ -117,5 +120,10 @@ export class RelationListComponent implements OnInit {
       this.tableList = list;
       this.total = total;
     });
+  }
+
+  // 模态窗
+  public toggleModal(): void {
+    this.modalShow = !this.modalShow;
   }
 }

@@ -12,11 +12,13 @@
           </div>
           <div class="input-group">
             <label>套餐类型</label>
-            <select-box [name]="'classify'" [options]="classifyOptions" (optionSelect)="filterData.classify = $event"></select-box>
+            <select-box [name]="'classify'" [options]="classifyOptions"
+                        (optionSelect)="filterData.classify = $event"></select-box>
           </div>
           <div class="input-group">
             <label>交易方式</label>
-            <select-box [name]="'tradeMode'" [options]="tradeModeOptions" (optionSelect)="filterData.tradeMode = $event"></select-box>
+            <select-box [name]="'tradeMode'" [options]="tradeModeOptions"
+                        (optionSelect)="filterData.tradeMode = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
@@ -59,7 +61,7 @@
             <td>{{getTaocanOrderStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="#">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">查看</a>
               </div>
             </td>
           </tr>
@@ -69,6 +71,67 @@
         <pagination-controls *ngIf="tableList?.length" (pageChange)="getYoukaOrderList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper" [class.hidden]="!modalShow">
+  <div class="modal-con">
+    <h3 class="modal-title">添加套餐</h3>
+    <form class="modal-form">
+      <div class="modal-input-group">
+        <label>订单流水号</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>加油卡号</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>用户账号</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>分期数</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>已到账期数</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>每期金额</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>付款金额</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>套餐类型</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>业务项</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>充值日期</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>最近到账时间</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-input-group">
+        <label>状态</label>
+        <div class="text">0</div>
+      </div>
+      <div class="modal-btn-group">
+        <button (click)="toggleModal()">关闭</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
 </div>

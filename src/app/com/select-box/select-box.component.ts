@@ -15,6 +15,10 @@ export class SelectBoxComponent implements OnInit {
   @Input() public name: string = '';
   @Input() public placeholder: string = '';
   @Input() public options: Option[];
+  @Input() public first = {
+    value: '',
+    text: '不限'
+  };
   @Input() public index: number;
   public active: boolean = false;
   public curOption: Option;
@@ -25,8 +29,13 @@ export class SelectBoxComponent implements OnInit {
   }
 
   public init(options): void {
-    console.log('init: ', options);
+
     if (options && options.length) {
+      if (this.first) {
+        options = [this.first].concat(options);
+        this.options = options;
+      }
+
       if (typeof this.index === 'number' && this.index < options.length) { // 设置的index 必须是数字 且 不超出最大索引值
         if (this.index >= 0) { // 此时按设置的显示
           this.curOption = options[this.index];

@@ -5,10 +5,6 @@ export class SystemFunction {
   // 角色选项组
   public static roleOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '0',
       text: '客服'
     },
@@ -24,10 +20,6 @@ export class SystemFunction {
 
   // 方案类型选项组
   public static articleTypeOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
     {
       value: '0',
       text: '合同'

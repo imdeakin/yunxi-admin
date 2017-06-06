@@ -12,7 +12,8 @@
           </div>
           <div class="input-group">
             <label>状态</label>
-            <select-box [options]="shopFunction.shopStatusOptions" [name]="level" (optionSelect)="filterData.status = $event"></select-box>
+            <select-box [options]="shopFunction.shopStatusOptions" [name]="level"
+                        (optionSelect)="filterData.status = $event"></select-box>
           </div>
           <div class="input-group">
             <label>城市</label>
@@ -51,16 +52,126 @@
             <td>{{shopFunction.getShopStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="#">查看</a>
-                <a class="table-btn" href="#">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal()">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal()">编辑</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls  (pageChange)="getYoukaUserList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls (pageChange)="getYoukaUserList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper edit-modal" [class.hidden]="!editModalShow">
+  <div class="modal-con">
+    <h3 class="modal-title">编辑</h3>
+    <form class="modal-form">
+      <div class="modal-input-group">
+        <label>门店编号</label>
+        <div class="text">65456453135</div>
+      </div>
+      <div class="modal-input-group">
+        <label>用户账号</label>
+        <input type="text" name="price" value="">
+      </div>
+      <div class="modal-input-group">
+        <label>负责人</label>
+        <input type="text" name="price" value="">
+      </div>
+      <div class="modal-input-group">
+        <label>身份证</label>
+        <input type="text" name="price" value="">
+      </div>
+      <div class="modal-input-group">
+        <label>所属城市</label>
+        <input type="text" name="price" value="">
+      </div>
+      <div class="modal-input-group">
+        <label>联系电话</label>
+        <input type="text" name="price" value="">
+      </div>
+      <div class="modal-input-group">
+        <label>门店名称</label>
+        <input type="text" name="price" value="">
+      </div>
+      <div class="modal-input-group">
+        <label>经营范围</label>
+        <input type="text" name="price" value="">
+      </div>
+      <div class="modal-input-group">
+        <label>状态</label>
+        <select-box [options]="shopFunction.shopStatusOptions" [first]="{value:'',text:'请选择'}"></select-box>
+      </div>
+      <div class="modal-input-group">
+        <label>详细地址</label>
+        <input type="text" name="price" value="">
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit" (click)="toggleEditModal()">保存</button>
+        <button type="submit" (click)="toggleEditModal()">关闭</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggleEditModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper read-modal" [class.hidden]="!readModalShow">
+  <div class="modal-con">
+    <h3 class="modal-title">订单详情</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+        <div class="modal-detail-item">
+          <label>门店编号</label>
+          <div class="value">65456453135</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>用户账号</label>
+          <div class="value">广州</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>负责人</label>
+          <div class="value">张三</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>身份证</label>
+          <div class="value">44046846846519684</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>所属城市</label>
+          <div class="value">广州</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>联系电话</label>
+          <div class="value">1563059580</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>门店名称</label>
+          <div class="value">哇哈哈</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>经营范围</label>
+          <div class="value">饮料</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>状态</label>
+          <div class="value">正常</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>详细地址</label>
+          <div class="value">广东 广州 科韵路 606</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-btn-group">
+      <button (click)="toggleReadModal()">关闭</button>
+    </div>
+    <div class="modal-close" (click)="toggleReadModal()">
+      <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
 </div>

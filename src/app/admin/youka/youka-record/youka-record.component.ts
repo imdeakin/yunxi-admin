@@ -20,6 +20,10 @@ export class YoukaRecordComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: YoukaRecord[];
   public search_oilCard: string = '';
+  public youkaFunction = YoukaFunction;
+
+  // 模态窗
+  public modalShow: boolean = false;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
@@ -57,5 +61,10 @@ export class YoukaRecordComponent implements OnInit {
 
   public getYoukaTypeText(type: number): string {
     return YoukaFunction.getYoukaTypeText(type);
+  }
+
+  // 模态窗
+  public toggleModal(): void {
+    this.modalShow = !this.modalShow;
   }
 }

@@ -5,10 +5,6 @@ export class ShopFunction {
   // 门店申请状态选项组
   public static shopApplyStatusOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '-1',
       text: '不通过'
     },
@@ -25,10 +21,6 @@ export class ShopFunction {
   // 门店状态选项组
   public static shopStatusOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '-1',
       text: '禁用'
     },
@@ -41,10 +33,6 @@ export class ShopFunction {
   // 门店服务状态选项组
   public static shopServerStatusOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '-1',
       text: '禁用'
     },
@@ -56,10 +44,6 @@ export class ShopFunction {
 
   // 订单状态选项组
   public static orderStatusOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
     {
       value: '-2',
       text: '取消'
@@ -80,10 +64,6 @@ export class ShopFunction {
 
   // 支付方式选项组
   public static payTypeOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
     {
       value: '0',
       text: '支付宝'

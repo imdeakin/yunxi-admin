@@ -24,52 +24,28 @@ export class YoukaOrderComponent implements OnInit {
     classify: '',
     tradeMode: ''
   };
+  public youkaFunction = YoukaFunction;
 
   public classifyOptions = [
     {
       value: '',
       text: '所有'
-    },
-    {
-      value: 1,
-      text: '默认套餐'
-    },
-    {
-      value: 2,
-      text: '优惠活动'
-    },
-    {
-      value: 3,
-      text: '会员专享'
     }
-  ];
+  ].concat(this.youkaFunction.youcaTaocanClassOptions);
 
   public tradeModeOptions = [
     {
       value: '',
       text: '所有'
-    },
-    {
-      value: 1,
-      text: '支付宝'
-    },
-    {
-      value: 2,
-      text: '微信'
-    },
-    {
-      value: 3,
-      text: '云付通'
-    },
-    {
-      value: 4,
-      text: '余额'
     }
-  ];
+  ].concat(this.youkaFunction.youcaTradeModeOptions);
 
   public select_active = {
     classify: true
   };
+
+  // 模态窗
+  public modalShow: boolean = false;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
@@ -111,5 +87,10 @@ export class YoukaOrderComponent implements OnInit {
 
   public filterSubmit(): void {
     this.getYoukaOrderList(0);
+  }
+
+  // 模态窗
+  public toggleModal(): void {
+    this.modalShow = !this.modalShow;
   }
 }

@@ -19,6 +19,10 @@ export class YoukaTaocanComponent implements OnInit {
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList: YoukaTaocan[];
+  public youkaFunction = YoukaFunction;
+
+  // 模态窗
+  public modalShow: boolean = false;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
@@ -56,5 +60,10 @@ export class YoukaTaocanComponent implements OnInit {
 
   public getTaocanTypeText(type: number): string {
     return YoukaFunction.getYoukaTaocanPayTypeText(type);
+  }
+
+  // 模态窗
+  public toggleModal(): void {
+    this.modalShow = !this.modalShow;
   }
 }

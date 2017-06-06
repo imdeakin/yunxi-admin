@@ -6,6 +6,7 @@ import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
 import {User} from '../data-type/user';
+import {UsersFunction} from '../data-type/users-function';
 
 @Component({
   selector: 'user-list',
@@ -75,24 +76,10 @@ export class UserListComponent implements OnInit {
     level: '',
     regionId: ''
   };
-  public levelOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
-    {
-      value: '1',
-      text: '普通会员'
-    },
-    {
-      value: '2',
-      text: 'VIP会员'
-    },
-    {
-      value: '3',
-      text: '钻石会员'
-    }
-  ];
+  public usersFunction = UsersFunction;
+
+  // 模态窗
+  public modalShow: boolean = false;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
@@ -119,5 +106,10 @@ export class UserListComponent implements OnInit {
       this.tableList = list;
       this.total = total;
     });
+  }
+
+  // 模态窗
+  public toggleModal(): void {
+    this.modalShow = !this.modalShow;
   }
 }

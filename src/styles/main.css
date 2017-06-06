@@ -180,3 +180,178 @@ html, body {
 .manager-page .ng2-pagination .pagination-previous, .manager-page .ng2-pagination .pagination-next {
   border-color: transparent;
 }
+
+/*模态窗*/
+.modal-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.modal-con {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 20px 48px;
+  border-radius: 14px;
+  box-shadow: 0 0 20px #acacac;
+  background: white;
+}
+
+.modal-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  font-size: 0;
+  border-radius: 50%;
+  box-shadow: 0 3px 20px #ccc;
+  cursor: pointer;
+}
+
+.modal-close .icon-font {
+  font-size: 22px;
+  color: #8c8c8c;
+}
+
+.modal-close:hover .icon-font {
+  color: red;
+}
+
+.modal-title {
+  font-size: 18px;
+  color: #4d4d4d;
+  line-height: 34px;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-form {
+  padding: 15px 0;
+}
+
+.modal-input-group {
+  position: relative;
+  color: #818181;
+  font-size: 16px;
+  padding-bottom: 20px;
+}
+
+.modal-input-group label {
+  line-height: 26px;
+  vertical-align: top;
+}
+
+.modal-input-group input {
+  float: right;
+  width: 148px;
+  line-height: 24px;
+  padding: 0 12px;
+  border: 1px solid #b6b6b6;
+  border-radius: 13px;
+}
+
+.modal-input-group .text {
+  float: right;
+  width: 148px;
+  line-height: 26px;
+}
+
+.modal-input-group .select-box {
+  float: right;
+  width: 148px !important;
+}
+
+.modal-input-group .select-box > input {
+  line-height: 24px !important;
+  border: 1px solid #b6b6b6 !important;
+  border-radius: 13px !important;
+}
+
+.modal-input-group .select-box .select-option-list {
+  left: 0;
+  top: 26px;
+}
+
+.modal-input-group textarea {
+  width: 100%;
+  height: 96px;
+  resize: none;
+  border: 1px solid #b6b6b6;
+  border-radius: 13px;
+  margin-top: 10px;
+  padding: 10px 5px;
+}
+
+.modal-btn-group {
+  text-align: center;
+  font-size: 0;
+}
+
+.modal-btn-group button {
+  color: #656565;
+  font-size: 20px;
+  line-height: 22px;
+  border: 1px solid #959595;
+  background: white;
+  border-radius: 10px;
+  padding: 0 16px;
+  margin-left: 12px;
+}
+
+.modal-btn-group button:first-child {
+  margin-left: 0;
+}
+
+.modal-user-img {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  margin-right: 12px;
+  overflow: hidden;
+}
+
+.modal-user-name {
+  line-height: 66px;
+  font-size: 16px;
+  color: #727272;
+}
+
+.modal-detail-content {
+  font-size: 0;
+  padding-bottom: 20px;
+}
+
+.modal-half {
+  display: inline-block;
+  width: 48%;
+  margin: 16px 0;
+  vertical-align: top;
+}
+
+.modal-half-left {
+  padding-right: 2%
+}
+
+.modal-half-right {
+  padding-left: 2%
+}
+
+.modal-detail-item label, .modal-detail-item .value {
+  display: inline-block;
+  width: 50%;
+  font-size: 16px;
+  color: #727272;
+  padding: 10px 0;
+}
+
+.modal-detail-item .value {
+  text-align: right;
+}

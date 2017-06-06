@@ -88,10 +88,6 @@ export class UserRecordComponent implements OnInit {
   };
   public levelOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '1',
       text: '普通会员'
     },

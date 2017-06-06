@@ -36,7 +36,7 @@ export class ApiCall {
       url: this.apiConfig.paths.login,
       data: {
         loginName: loginName,
-        passWord, passWord
+        passWord: passWord
       },
       success: success,
       failure: failure

@@ -5,10 +5,6 @@ export class StoreFunction {
   // 商品状态选项组
   public static goodsStatusOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '1',
       text: '市级代理'
     },
@@ -25,10 +21,6 @@ export class StoreFunction {
   // 商品类型选项组
   public static goodsTypeOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '1',
       text: '市级代理'
     },
@@ -44,10 +36,6 @@ export class StoreFunction {
 
   // 订单状态选项组
   public static orderStatusOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
     {
       value: '-2',
       text: '取消'
@@ -68,10 +56,6 @@ export class StoreFunction {
 
   // 支付方式选项组
   public static payTypeOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
     {
       value: '0',
       text: '支付宝'

@@ -71,6 +71,9 @@ export class PartnerApplyListComponent implements OnInit {
   private toContainNextMonth: boolean = false;
   private value: string = '';
 
+  // 模态窗
+  public modalShow: boolean = true;
+
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
               private funcServer: FuncServer,
@@ -114,5 +117,10 @@ export class PartnerApplyListComponent implements OnInit {
 
   public setDate(date) {
     this.selDate = date;
+  }
+
+  // 模态窗
+  public toggleModal(): void {
+    this.modalShow = !this.modalShow;
   }
 }

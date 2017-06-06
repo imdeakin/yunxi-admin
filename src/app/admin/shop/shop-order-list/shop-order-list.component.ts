@@ -84,6 +84,9 @@ export class ShopOrderListComponent implements OnInit {
 
   public shopFunction = ShopFunction;
 
+  // 模态窗
+  public modalShow: boolean = false;
+
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
 
@@ -109,5 +112,10 @@ export class ShopOrderListComponent implements OnInit {
     //   this.tableList = list;
     //   this.total = total;
     // });
+  }
+
+  // 模态窗
+  public toggleModal(): void {
+    this.modalShow = !this.modalShow;
   }
 }

@@ -2,10 +2,65 @@
  * Created by Deakin on 2017/5/16 0016.
  */
 export class YoukaFunction {
+  // 油卡套餐的优惠类型选项组
+  public static youcaTaocanClassOptions = [
+    {
+      value: '1',
+      text: '默认套餐'
+    },
+    {
+      value: '2',
+      text: '优惠活动'
+    },
+    {
+      value: '3',
+      text: '会员专享'
+    }
+  ];
+
+  // 油卡类型选项组
+  public static youcaTaocanTypeOptions = [
+    {
+      value: '0',
+      text: '通用'
+    },
+    {
+      value: '1',
+      text: '中国石油'
+    },
+    {
+      value: '2',
+      text: '中国石化'
+    }
+  ];
+
+  // 油卡交易方式选项组
+  public static youcaTradeModeOptions = [
+    {
+      value: '0',
+      text: '支付宝'
+    },
+    {
+      value: '1',
+      text: '微信'
+    },
+    {
+      value: '2',
+      text: '云付通'
+    },
+    {
+      value: '3',
+      text: '余额'
+    }
+  ];
+
   // 油卡套餐的优惠类型：1、默认套餐，2、优惠活动，3、会员专享
   public static getYoucaTaocanClassText(classify: number): string {
     let text: string;
     switch (classify) {
+      case 1:
+        text = '默认套餐';
+        break;
       case 2:
         text = '优惠活动';
         break;
@@ -13,7 +68,7 @@ export class YoukaFunction {
         text = '会员专享';
         break;
       default:
-        text = '默认套餐'
+        text = '未知'
     }
     return text;
   }
@@ -22,11 +77,14 @@ export class YoukaFunction {
   public static getYoukaTaocanPayTypeText(type: number): string {
     let text: string;
     switch (type) {
+      case 1:
+        text = '分期到账';
+        break;
       case 2:
         text = '即时到账充值';
         break;
       default:
-        text = '分期到账'
+        text = '未知'
     }
     return text;
   }
@@ -35,11 +93,17 @@ export class YoukaFunction {
   public static getYoukaTypeText(type: number): string {
     let text: string;
     switch (type) {
+      case 0:
+        text = '通用';
+        break;
+      case 1:
+        text = '中国石油';
+        break;
       case 2:
         text = '中国石化';
         break;
       default:
-        text = '中国石油'
+        text = '未知'
     }
     return text;
   }

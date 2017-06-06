@@ -5,10 +5,6 @@ export class UsersFunction {
   // 会员等级选项组
   public static userLevelOptions = [
     {
-      value: '',
-      text: '不限'
-    },
-    {
       value: '1',
       text: '普通会员'
     },
@@ -24,10 +20,6 @@ export class UsersFunction {
 
   // 会员升级订单状态选项组
   public static uplevelOrderStatusOptions = [
-    {
-      value: '',
-      text: '不限'
-    },
     {
       value: '-2',
       text: '取消升级'
@@ -83,6 +75,4 @@ export class UsersFunction {
     }
     return text;
   }
-
-
 }
