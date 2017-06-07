@@ -17,6 +17,9 @@ import {
   YoukaOrderComponent,
   YoukaRecordComponent,
 
+  // 车险管理
+  InsuranceOrderListPageComponent,
+
   // 会员管理
   UserListComponent,
   UserRecordComponent,
@@ -71,6 +74,9 @@ const AdminRoutes: Routes = [
       {path: 'youka-bind', component: YoukaBindComponent},
       {path: 'youka-order', component: YoukaOrderComponent},
       {path: 'youka-record', component: YoukaRecordComponent},
+
+      // 车险管理
+      {path: 'insurance-order-list', component: InsuranceOrderListPageComponent},
 
       // 会员管理
       {path: 'user-list', component: UserListComponent},

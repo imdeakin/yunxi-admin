@@ -31,6 +31,9 @@ import {
   YoukaOrderComponent,
   YoukaRecordComponent,
 
+  // 车险管理
+  InsuranceOrderListPageComponent,
+
   // 会员管理
   UserListComponent,
   UserRecordComponent,
@@ -96,6 +99,9 @@ import {
     YoukaBindComponent,
     YoukaOrderComponent,
     YoukaRecordComponent,
+
+    // 车险管理
+    InsuranceOrderListPageComponent,
 
     // 会员管理
     UserListComponent,

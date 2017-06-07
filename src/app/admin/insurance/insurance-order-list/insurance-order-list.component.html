@@ -1,0 +1,71 @@
+<div class="manager-page">
+  <div class="header">
+    <h3>{{title}}<s></s></h3>
+  </div>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="content-wrapper">
+      <div class="filter-bar">
+        <form class="clearfix">
+          <div class="input-group">
+            <select-box [options]="insuranceFunction.insuranceOrderFilterTypeOptions" [first]="false"></select-box>
+            <input type="text" name="account" value="" [(ngModel)]="filterData.searchName">
+          </div>
+          <div class="input-group">
+            <label>支付时间</label>
+            <input type='text' value={{selDate}} (change)="setInputDate($event)"/>
+            <date-picker
+              [value]="value"
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              [disableDays]="disableDays"
+              [toContainPrevMonth]="toContainPrevMonth"
+              [toContainNextMonth]="toContainNextMonth"
+              (selectedDate)='setDate($event)'></date-picker>
+          </div>
+          <div class="input-group">
+            <label>投保城市</label>
+            <city-picker></city-picker>
+          </div>
+          <button class="text-btn text-sub" (click)="getInsuranceOrderList(0)">搜索</button>
+        </form>
+      </div>
+      <div class="manager-table">
+        <table>
+          <thead>
+          <tr>
+            <th>流水号</th>
+            <th>智通引擎业务号</th>
+            <th>用户</th>
+            <th>车主姓名</th>
+            <th>车主身份证</th>
+            <th>车主手机号码</th>
+            <th>金额</th>
+            <th>地址</th>
+            <th>交易流水号</th>
+            <th>投保城市</th>
+            <th>支付时间</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex }; let i = index">
+            <td>{{item.sn}}</td>
+            <td>{{item.biz_id}}</td>
+            <td></td>
+            <td>{{item.name}}</td>
+            <td></td>
+            <td>{{item.mobile}}</td>
+            <td></td>
+            <td></td>
+            <td>{{item.trade_code}}</td>
+            <td>{{item.city_name}}</td>
+            <td>{{item.pay_time}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="getInsuranceOrderList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

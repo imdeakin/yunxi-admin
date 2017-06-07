@@ -72,7 +72,7 @@ export class PartnerApplyListComponent implements OnInit {
   private value: string = '';
 
   // 模态窗
-  public modalShow: boolean = true;
+  public modalShow: boolean = false;
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,

@@ -57,16 +57,8 @@ export class AccordionNavComponent implements OnInit {
       title: '车险管理',
       items: [
         {
-          title: '车险办理',
-          link: '/admin/weizhang'
-        },
-        {
-          title: '车险信息',
-          link: '/admin/weizhang'
-        },
-        {
-          title: '业务管理',
-          link: '/admin/weizhang'
+          title: '车险订单',
+          link: '/admin/insurance-order-list'
         }
       ]
     },
@@ -226,7 +218,7 @@ export class AccordionNavComponent implements OnInit {
         },
         {
           title: '品牌',
-          link: '/admin/car-series-list'
+          link: '/admin/car-brand-list'
         }
       ]
     }
