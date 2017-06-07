@@ -26,6 +26,9 @@ export class ApiConfig {
     // 合伙人管理
     getPartnerList: this.root + '/copartner/selectPartnerList', // 获取合伙人列表
     getPartnerApplyList: this.root + '/copartner/applyPartnerList', // 获取合伙人申请列表
+    // 商城管理
+    getStoreGoodsList: this.root + '/marketManage/mallGoodsList', // 获取商品列表
+    
   };
 
   public getImgFullPath(imgPath: string): string {
