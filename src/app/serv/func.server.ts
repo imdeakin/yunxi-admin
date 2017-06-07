@@ -5,6 +5,7 @@ import {Injectable, ElementRef} from '@angular/core'
 
 Injectable()
 export class FuncServer {
+
   /**
    * 计算更新内容高度
    */

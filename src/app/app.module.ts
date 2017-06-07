@@ -17,6 +17,7 @@ import {LoginComponent} from './login';
 // Providers
 import {ApiRequest, ApiConfig, ApiCall} from './http';
 import {FuncServer} from './serv/func.server';
+import {Rc4Server} from './serv/rc4.server';
 
 // stylesheet
 import '../styles/main.css';
@@ -41,7 +42,8 @@ import '../styles/main.css';
     ApiRequest,
     ApiConfig,
     ApiCall,
-    FuncServer
+    FuncServer,
+    Rc4Server
   ],
   bootstrap: [AppComponent]
 })
