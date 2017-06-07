@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   public rc4Key = 'YQH_2017^123456';
   public remember: boolean = false;
 
-  public formData = {
+  public formData: any = {
     account: '',
     password: ''
   };
