@@ -2,6 +2,7 @@
  * Created by Administrator on 2017/6/5.
  */
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router'
 
 import {ApiCall} from '../http/api-call'
 import {Rc4Server} from '../serv/rc4.server'
@@ -14,7 +15,6 @@ import Cookies from 'cookies-js'
 export class LoginComponent implements OnInit {
   public loginInfoKey = 'login';
   public adminInfoKey = 'admin';
-  public rc4Key = 'YQH_2017^123456';
   public remember: boolean = false;
 
   public formData: any = {
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     password: ''
   };
 
-  constructor(private apiCall: ApiCall, private rc4Server: Rc4Server) {
+  constructor(private apiCall: ApiCall, private rc4Server: Rc4Server, private router: Router) {
   }
 
   public ngOnInit(): void {
@@ -34,14 +34,13 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    this.saveLoginInfo();
-
     let account = this.formData.account;
     // let psw = this.rc4Server.encrypt(this.formData.password);
     let psw = this.formData.password;
     this.apiCall.login(account, psw, (data) => {
       this.saveLoginInfo();
       this.saveAdminInfo(data);
+      this.router.navigateByUrl('/admin/workbench');
     });
   }
 
@@ -49,7 +48,6 @@ export class LoginComponent implements OnInit {
     if (this.remember) {
       let loginInfo = this.rc4Server.encrypt(this.formData);
       Cookies.set(this.loginInfoKey, loginInfo);
-
     } else {
       Cookies.set(this.loginInfoKey, '', {expires: -1});
     }
@@ -71,6 +69,5 @@ export class LoginComponent implements OnInit {
 
   public saveAdminInfo(adminInfo): void {
     Cookies.set(this.adminInfoKey, this.rc4Server.encrypt(adminInfo));
-    console.log(this.rc4Server.decrypt(Cookies.get(this.adminInfoKey), true));
   }
 }
