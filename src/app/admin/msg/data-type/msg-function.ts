@@ -5,12 +5,24 @@ export class MsgFunction {
   // 消息类型选项组
   public static msgTypeOptions = [
     {
-      value: '0',
+      value: '1',
+      text: '客户服务'
+    },
+    {
+      value: '2',
+      text: '物流通知'
+    },
+    {
+      value: '3',
+      text: '订单提醒'
+    },
+    {
+      value: '4',
       text: '优惠促销'
     },
     {
-      value: '1',
-      text: '公告'
+      value: '5',
+      text: '系统消息'
     }
   ];
 
@@ -30,11 +42,20 @@ export class MsgFunction {
   public static getMsgTypeText(code: number): string {
     let text: string;
     switch (code) {
-      case 0:
+      case 1:
+        text = '客户服务';
+        break;
+      case 2:
+        text = '物流通知';
+        break;
+      case 3:
+        text = '订单提醒';
+        break;
+      case 4:
         text = '优惠促销';
         break;
-      case 1:
-        text = '公告';
+      case 5:
+        text = '系统消息';
         break;
       default:
         text = '未知'

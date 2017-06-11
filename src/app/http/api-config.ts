@@ -37,6 +37,12 @@ export class ApiConfig {
     updateStoreGoodsBrandList: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 更新商品品牌列表
     updateStoreGoodsBrandInfo: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 更新商品品牌信息
 
+    // 消息管理
+    getMsgList: this.root + '/sysMsg/sysMsgList', // 获取消息列表
+    addMsg: this.root + '/sysMsg/addSysMsg', // 添加消息
+    updateMsg: this.root + '/sysMsg/updateSysMsg', // 修改消息
+    removeMsg: this.root + '/sysMsg/delSysMsg', // 删除消息
+
     // 车系管理
     getCarSeriesList: this.root + '/system/getCarSeriesList', // 获取车系列表
     addCarSeries: this.root + '/system/addCarSeries', // 添加车系信息
@@ -61,6 +67,11 @@ export class ApiConfig {
     updateAdmin: this.root + '/system/user/updateAdmin', // 修改管理员
     removeAdmin: this.root + '/system/user/delAdmin', // 删除管理员
 
+    // 角色
+    getRoleList: this.root + '/system/user/getRoleList', // 获取角色列表
+    addRole: this.root + '/system/user/addRole', // 添加角色
+    updateRole: this.root + '/system/user/updateRole', // 修改角色
+    removeRole: this.root + '/system/user/delRole', // 删除角色
   };
 
   public getImgFullPath(imgPath: string): string {

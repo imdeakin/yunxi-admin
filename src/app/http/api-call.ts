@@ -294,6 +294,63 @@ export class ApiCall {
     });
   }
 
+  public getMsgList(regionId: string, title: string, msgType: string, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getMsgList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        regionId: regionId,
+        title: title,
+        msgType: msgType
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public addMsg(regionId, title, msgType, fileId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addMsg,
+      data: {
+        regionId: regionId,
+        title: title,
+        msgType: msgType,
+        fileId: fileId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateMsg(regionId: string, title: string, msgType, fileId: string, userMsgId: string, content: string, remark: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateMsg,
+      data: {
+        regionId: regionId,
+        title: title,
+        msgType: msgType,
+        fileId: fileId,
+        userMsgId: userMsgId,
+        content: content,
+        remark: remark
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeMsg(userMsgId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeMsg,
+      data: {
+        userMsgId: userMsgId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   public getCarSeriesList(series: string, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getCarSeriesList,
@@ -307,7 +364,7 @@ export class ApiCall {
     });
   }
 
-  public addCarSeries(series: string, carBrandId: string,success, failure?): void {
+  public addCarSeries(series: string, carBrandId: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addCarSeries,
       data: {
@@ -319,7 +376,7 @@ export class ApiCall {
     });
   }
 
-  public updateCarSeries(carseriesId: string, series: string, carBrandId: string,success, failure?): void {
+  public updateCarSeries(carseriesId: string, series: string, carBrandId: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateCarSeries,
       data: {
@@ -367,7 +424,7 @@ export class ApiCall {
     });
   }
 
-  public updateCarBrand(carBrandId: string, brand: string,success, failure?): void {
+  public updateCarBrand(carBrandId: string, brand: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateCarBrand,
       data: {
@@ -414,7 +471,7 @@ export class ApiCall {
     });
   }
 
-  public updateCarModel(carModelId: string, model: string,success, failure?): void {
+  public updateCarModel(carModelId: string, model: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateCarModel,
       data: {
@@ -450,18 +507,20 @@ export class ApiCall {
     });
   }
 
-  public addAdmin(admin: string, success, failure?): void {
+  public addAdmin(roleId: string, adminName: string, pwd: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addAdmin,
       data: {
-        admin: admin,
+        roleId: roleId,
+        name: adminName,
+        pwd: pwd
       },
       success: success,
       failure: failure
     });
   }
 
-  public updateAdmin(adminId: string, admin: string,success, failure?): void {
+  public updateAdmin(adminId: string, admin: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateAdmin,
       data: {
@@ -478,6 +537,53 @@ export class ApiCall {
       url: this.apiConfig.paths.removeAdmin,
       data: {
         adminId: adminId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getRoleList(roleName, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getRoleList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        name: roleName
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public addRole(roleName: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addRole,
+      data: {
+        name: roleName,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateRole(roleId: string, roleName: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateRole,
+      data: {
+        roleId: roleId,
+        role: roleName
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeRole(roleId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeRole,
+      data: {
+        roleId: roleId
       },
       success: success,
       failure: failure

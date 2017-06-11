@@ -23,7 +23,7 @@ export class AdminListComponent implements OnInit {
   public filterData = {
     roleName: ''
   };
-  public carBrandOptions;
+  public roleOptions;
 
   public systemFunction = SystemFunction;
 
@@ -34,7 +34,8 @@ export class AdminListComponent implements OnInit {
     adminName: '',
     roleId: '',
     roleName: '',
-    psw: ''
+    psw: '',
+    psw1: ''
   };
 
   constructor(private elRef: ElementRef,
@@ -46,6 +47,7 @@ export class AdminListComponent implements OnInit {
   public ngOnInit(): void {
     this.computeOnResize();
     this.getAdminList();
+    this.getRoleList();
   }
 
   public computeOnResize() {
@@ -67,8 +69,8 @@ export class AdminListComponent implements OnInit {
     });
   }
 
-  public getCarBrandList(): void {
-    this.apiCall.getCarBrandList(
+  public getRoleList(): void {
+    this.apiCall.getRoleList(
       '',
       '',
       '',
@@ -76,10 +78,10 @@ export class AdminListComponent implements OnInit {
         let options = [];
         for (let i = 0, len = list.length; i < len; i++) {
           options.push({
-            value: list[i].car_brand_id,
-            text: list[i].brand
+            value: list[i].role_id,
+            text: list[i].name
           });
-          this.carBrandOptions = options;
+          this.roleOptions = options;
         }
       });
   }
@@ -89,6 +91,14 @@ export class AdminListComponent implements OnInit {
     if (item) {
       this.modalData.adminId = item.admin_id;
       this.modalData.roleName = item.role;
+      this.modalData = {
+        adminId: item.admin,
+        adminName: item.name,
+        roleId: '',
+        roleName: item.role,
+        psw: '',
+        psw1: ''
+      }
     }
     this.modalShow = !this.modalShow;
 
@@ -98,7 +108,8 @@ export class AdminListComponent implements OnInit {
         adminName: '',
         roleId: '',
         roleName: '',
-        psw: ''
+        psw: '',
+        psw1: ''
       }
     }
   }
@@ -117,8 +128,8 @@ export class AdminListComponent implements OnInit {
 
   public addAdmin(): void {
     this.apiCall.addAdmin(
-      this.modalData.adminName,
       this.modalData.roleId,
+      this.modalData.adminName,
       this.modalData.psw,
       (data) => {
         this.toggleModal();

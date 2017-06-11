@@ -19,15 +19,7 @@ export class MsgListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 0;
-  public tableList: MsgList[] = [
-    {
-      region_name: '440000/440100',
-      type: 1,
-      img: '',
-      title: '张三',
-      create_time: '2017-5-5 12:00:00'
-    }
-  ];
+  public tableList: MsgList[];
   public filterData = {
     title: '',
     type: '',
@@ -36,12 +28,25 @@ export class MsgListComponent implements OnInit {
 
   public msgFunction = MsgFunction;
 
+  // 模态窗
+  public modalData = {
+    userMsgId: '',
+    regionId: '',
+    msgType: 0,
+    fileId: '',
+    title: '',
+    content: '',
+    remark: ''
+  };
+  public readModalShow: boolean = false;
+  public editModalShow: boolean = false;
+
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getMsgList();
   }
 
   public computeOnResize() {
@@ -53,13 +58,108 @@ export class MsgListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getMsgList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getMsgList(
+      this.filterData.regionId,
+      this.filterData.type,
+      this.filterData.title,
+      this.curPageIndex,
+      this.perPageSize,
+      (list, total) => {
+        this.tableList = list;
+        this.total = total;
+      }
+    );
+  }
+
+  // 模态窗
+  public toggleReadModal(item?): void {
+    if (item) {
+      this.modalData = {
+        userMsgId: '',
+        regionId: item.region_name,
+        msgType: item.msg_type,
+        fileId: item.img,
+        title: item.title,
+        content: '',
+        remark: ''
+      };
+    }
+    this.readModalShow = !this.readModalShow;
+  }
+
+  public toggleEditModal(item?): void {
+    if (item) {
+      this.modalData = {
+        userMsgId: '',
+        regionId: item.region_name,
+        msgType: item.msg_type,
+        fileId: item.img,
+        title: item.title,
+        content: '',
+        remark: ''
+      };
+    }
+    this.editModalShow = !this.editModalShow;
+    if (!this.editModalShow) {
+      this.modalData = {
+        userMsgId: '',
+        regionId: '',
+        msgType: 0,
+        fileId: '',
+        title: '',
+        content: '',
+        remark: ''
+      };
+    }
+  }
+
+  public updateMsg(): void {
+    this.apiCall.updateMsg(
+      this.modalData.regionId,
+      this.modalData.title,
+      this.modalData.msgType,
+      this.modalData.fileId,
+      this.modalData.userMsgId,
+      this.modalData.content,
+      this.modalData.remark,
+      (data) => {
+        this.toggleEditModal();
+        this.getMsgList(0);
+      }
+    );
+  }
+
+  public addMsg(): void {
+    this.apiCall.addMsg(
+      this.modalData.regionId,
+      this.modalData.title,
+      this.modalData.msgType,
+      this.modalData.fileId,
+      (data) => {
+        this.toggleEditModal();
+        this.getMsgList(0);
+      }
+    );
+  }
+
+  public removeMsg(msgId): void {
+    this.apiCall.removeMsg(
+      msgId,
+      (data) => {
+        this.getMsgList(0);
+      }
+    );
+  }
+
+  public modalSubmit(): void {
+    if (this.modalData.userMsgId) {
+      this.updateMsg();
+    } else {
+      this.addMsg();
+    }
   }
 }
