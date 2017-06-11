@@ -19,28 +19,7 @@ export class GoodsTypeListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 0;
-  public tableList: GoodsTypeList[] = [
-    {
-      title: '4145asdasd45asd4',
-      update_time: '2017-02-02 12:00:00',
-      status: 1
-    },
-    {
-      title: '4145asdasd45asd4',
-      update_time: '2017-02-02 12:00:00',
-      status: 1
-    },
-    {
-      title: '4145asdasd45asd4',
-      update_time: '2017-02-02 12:00:00',
-      status: 1
-    },
-    {
-      title: '4145asdasd45asd4',
-      update_time: '2017-02-02 12:00:00',
-      status: 1
-    }
-  ];
+  public tableList: GoodsTypeList[];
   public filterData = {
     title: '',
     status: '',
@@ -52,6 +31,16 @@ export class GoodsTypeListComponent implements OnInit {
 
   // 模态窗
   public modalShow: boolean = false;
+  public curItem: GoodsTypeList = {
+    goods_type_id: '',
+    p_goods_type_id: '',
+    type_name: '',
+    status: 0,
+    code: '',
+    level: '',
+    curr_child_sort: 0,
+    sort: 0
+  };
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -61,7 +50,7 @@ export class GoodsTypeListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getPartnerList();
+    this.getStoreGoodsTypeList();
   }
 
   public computeOnResize() {
@@ -73,23 +62,33 @@ export class GoodsTypeListComponent implements OnInit {
     });
   }
 
-  public getPartnerList(curPageIndex?): void {
+  public getStoreGoodsTypeList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getPartnerList(this.filterData.sn,
-    //   this.filterData.partnerLevelId,
-    //   this.filterData.regionId,
-    //   this.filterData.effectTime,
-    //   this.curPageIndex,
-    //   this.perPageSize, (list, total) => {
-    //     this.tableList = list;
-    //     this.total = total;
-    //   });
+    this.apiCall.getStoreGoodsTypeList(
+      this.curPageIndex,
+      this.perPageSize, (list, total) => {
+        this.tableList = list;
+        this.total = total;
+      });
   }
 
   // 模态窗
-  public toggleModal(): void {
+  public toggleModal(item?): void {
+    if (item) {
+      this.curItem = item;
+    }
     this.modalShow = !this.modalShow;
+  }
+
+  public editSubmit(): void {
+    this.apiCall.updateStoreGoodsTypeInfo(
+      this.curItem.type_name,
+      this.curItem.status,
+      (data) => {
+        this.toggleModal();
+      }
+    );
   }
 }

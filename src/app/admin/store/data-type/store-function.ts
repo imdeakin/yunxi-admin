@@ -65,8 +65,20 @@ export class StoreFunction {
       text: '微信'
     },
     {
-      value: '1',
+      value: '2',
       text: '银联'
+    }
+  ];
+
+  // 商品状态 和 商品品牌选项组 0、禁用，1、正常
+  public static typeStatusOptions = [
+    {
+      value: '0',
+      text: '禁用'
+    },
+    {
+      value: '1',
+      text: '正常'
     }
   ];
 
@@ -142,6 +154,22 @@ export class StoreFunction {
         break;
       case 2:
         text = '银联';
+        break;
+      default:
+        text = '未知'
+    }
+    return text;
+  }
+
+  // 商品状态 和 商品品牌 0、禁用，1、正常
+  public static getTypeStatusText(code: number): string {
+    let text: string;
+    switch (code) {
+      case 0:
+        text = '禁用';
+        break;
+      case 1:
+        text = '正常';
         break;
       default:
         text = '未知'

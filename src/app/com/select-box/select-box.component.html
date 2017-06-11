@@ -5,6 +5,8 @@
          (click)="active = !active">
   <i class="icon-font">&#xe734;</i>
   <div class="select-option-list">
-    <div class="select-option-item ellipsis" *ngFor="let item of options" (click)="selectOption(item)">{{item.text}}</div>
+    <div class="select-option-item ellipsis"
+         *ngFor="let item of options"
+         (click)="selectOption(item)">{{item.text}}</div>
   </div>
 </div>

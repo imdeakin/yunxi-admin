@@ -19,50 +19,33 @@ export class AdminListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 0;
-  public tableList: AdminList[] = [
-    {
-      id: '4280172168844',
-      name: '张三',
-      role: 0,
-      last_login_time: '2017-06-03 13:41:55'
-    },
-    {
-      id: '4280172168844',
-      name: '张三',
-      role: 2,
-      last_login_time: '2017-06-03 13:41:55'
-    },
-    {
-      id: '4280172168844',
-      name: '张三',
-      role: 1,
-      last_login_time: '2017-06-03 13:41:55'
-    },
-    {
-      id: '4280172168844',
-      name: '张三',
-      role: 0,
-      last_login_time: '2017-06-03 13:41:55'
-    },
-    {
-      id: '4280172168844',
-      name: '张三',
-      role: 0,
-      last_login_time: '2017-06-03 13:41:55'
-    }
-  ];
+  public tableList: AdminList[];
   public filterData = {
-    name: ''
+    roleName: ''
   };
+  public carBrandOptions;
 
   public systemFunction = SystemFunction;
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
+  // 模态窗
+  public modalShow: boolean = false;
+  public modalData = {
+    adminId: '',
+    adminName: '',
+    roleId: '',
+    roleName: '',
+    psw: ''
+  };
+
+  constructor(private elRef: ElementRef,
+              private apiCall: ApiCall,
+              private funcServer: FuncServer,
+              public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getAdminList();
   }
 
   public computeOnResize() {
@@ -74,13 +57,90 @@ export class AdminListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getAdminList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getAdminList(this.filterData.roleName, this.curPageIndex, this.perPageSize, (list, total) => {
+      this.tableList = list;
+      this.total = total;
+    });
+  }
+
+  public getCarBrandList(): void {
+    this.apiCall.getCarBrandList(
+      '',
+      '',
+      '',
+      (list) => {
+        let options = [];
+        for (let i = 0, len = list.length; i < len; i++) {
+          options.push({
+            value: list[i].car_brand_id,
+            text: list[i].brand
+          });
+          this.carBrandOptions = options;
+        }
+      });
+  }
+
+  // 模态窗
+  public toggleModal(item?): void {
+    if (item) {
+      this.modalData.adminId = item.admin_id;
+      this.modalData.roleName = item.role;
+    }
+    this.modalShow = !this.modalShow;
+
+    if (!this.modalShow) {
+      this.modalData = {
+        adminId: '',
+        adminName: '',
+        roleId: '',
+        roleName: '',
+        psw: ''
+      }
+    }
+  }
+
+  public updateAdmin(): void {
+    this.apiCall.updateAdmin(
+      this.modalData.adminId,
+      this.modalData.roleId,
+      this.modalData.psw,
+      (data) => {
+        this.toggleModal();
+        this.getAdminList(1);
+      }
+    );
+  }
+
+  public addAdmin(): void {
+    this.apiCall.addAdmin(
+      this.modalData.adminName,
+      this.modalData.roleId,
+      this.modalData.psw,
+      (data) => {
+        this.toggleModal();
+        this.getAdminList(1);
+      }
+    );
+  }
+
+  public removeAdmin(adminId): void {
+    this.apiCall.removeAdmin(
+      adminId,
+      (data) => {
+        this.getAdminList(1);
+      }
+    );
+  }
+
+  public modalSubmit(): void {
+    if (this.modalData.adminId) {
+      this.updateAdmin();
+    } else {
+      this.addAdmin();
+    }
   }
 }

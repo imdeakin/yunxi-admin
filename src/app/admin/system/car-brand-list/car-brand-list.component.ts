@@ -19,36 +19,26 @@ export class CarBrandListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 0;
-  public tableList: CarBrandList[] = [
-    {
-      id: '4280172168844',
-      brand: '宝马'
-    },
-    {
-      id: '4280172168844',
-      brand: '宝马'
-    },
-    {
-      id: '4280172168844',
-      brand: '宝马'
-    },
-    {
-      id: '4280172168844',
-      brand: '宝马'
-    }
-  ];
+  public tableList: CarBrandList[];
   public filterData = {
-    brand: ''
+    carBrandId: '',
+    carBrand: ''
   };
 
   public systemFunction = SystemFunction;
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
+  // 模态窗
+  public modalShow: boolean = false;
+
+  constructor(private elRef: ElementRef,
+              private apiCall: ApiCall,
+              private funcServer: FuncServer,
+              public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getCarBrandList();
   }
 
   public computeOnResize() {
@@ -60,13 +50,67 @@ export class CarBrandListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getCarBrandList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getCarBrandList(this.filterData.carBrandId, this.curPageIndex, this.perPageSize, (list, total) => {
+      this.tableList = list;
+      this.total = total;
+    });
+  }
+
+  // 模态窗
+  public toggleModal(item?): void {
+    if (item) {
+      this.filterData.carBrandId = item.car_brand_id;
+      this.filterData.carBrand = item.brand;
+    }
+    this.modalShow = !this.modalShow;
+
+    if (!this.modalShow) {
+      this.filterData = {
+        carBrandId: '',
+        carBrand: ''
+      }
+    }
+  }
+
+  public updateCarBrand(): void {
+    this.apiCall.updateCarBrand(
+      this.filterData.carBrandId,
+      this.filterData.carBrand,
+      (data) => {
+        this.toggleModal();
+        this.getCarBrandList(0);
+      }
+    );
+  }
+
+  public addCarBrand(): void {
+    this.apiCall.addCarBrand(
+      this.filterData.carBrand,
+      (data) => {
+        this.toggleModal();
+        this.getCarBrandList(0);
+      }
+    );
+  }
+
+  public removeCarBrand(carBrandId): void {
+    this.apiCall.removeCarBrand(
+      carBrandId,
+      (data) => {
+        this.getCarBrandList(0);
+      }
+    );
+  }
+
+  public modalSubmit(): void {
+    if (this.filterData.carBrandId) {
+      this.updateCarBrand();
+    } else {
+      this.addCarBrand();
+    }
   }
 }

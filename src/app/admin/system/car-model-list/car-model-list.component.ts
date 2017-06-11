@@ -19,40 +19,26 @@ export class CarModelListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 0;
-  public tableList: CarModelList[] = [
-    {
-      id: '4280172168844',
-      model: 'SUV'
-    },
-    {
-      id: '4280172168844',
-      model: 'SUV'
-    },
-    {
-      id: '4280172168844',
-      model: 'SUV'
-    },
-    {
-      id: '4280172168844',
-      model: 'SUV'
-    },
-    {
-      id: '4280172168844',
-      model: 'SUV'
-    }
-  ];
+  public tableList: CarModelList[];
   public filterData = {
-    model: ''
+    carModelId: '',
+    carModel: ''
   };
 
   public systemFunction = SystemFunction;
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
+  // 模态窗
+  public modalShow: boolean = false;
+
+  constructor(private elRef: ElementRef,
+              private apiCall: ApiCall,
+              private funcServer: FuncServer,
+              public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getCarModelList();
   }
 
   public computeOnResize() {
@@ -64,13 +50,67 @@ export class CarModelListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getCarModelList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getCarModelList(this.filterData.carModelId, this.curPageIndex, this.perPageSize, (list, total) => {
+      this.tableList = list;
+      this.total = total;
+    });
+  }
+
+  // 模态窗
+  public toggleModal(item?): void {
+    if (item) {
+      this.filterData.carModelId = item.car_models_id;
+      this.filterData.carModel = item.models;
+    }
+    this.modalShow = !this.modalShow;
+
+    if (!this.modalShow) {
+      this.filterData = {
+        carModelId: '',
+        carModel: ''
+      }
+    }
+  }
+
+  public updateCarModel(): void {
+    this.apiCall.updateCarModel(
+      this.filterData.carModelId,
+      this.filterData.carModel,
+      (data) => {
+        this.toggleModal();
+        this.getCarModelList(0);
+      }
+    );
+  }
+
+  public addCarModel(): void {
+    this.apiCall.addCarModel(
+      this.filterData.carModel,
+      (data) => {
+        this.toggleModal();
+        this.getCarModelList(0);
+      }
+    );
+  }
+
+  public removeCarModel(carModelId): void {
+    this.apiCall.removeCarModel(
+      carModelId,
+      (data) => {
+        this.getCarModelList(0);
+      }
+    );
+  }
+
+  public modalSubmit(): void {
+    if (this.filterData.carModelId) {
+      this.updateCarModel();
+    } else {
+      this.addCarModel();
+    }
   }
 }

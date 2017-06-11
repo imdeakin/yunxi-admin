@@ -19,40 +19,30 @@ export class CarSeriesListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 0;
-  public tableList: CarSeriesList[] = [
-    {
-      id: '4280172168844',
-      series: 'A8',
-    },
-    {
-      id: '4280172168844',
-      series: 'A8',
-    },
-    {
-      id: '4280172168844',
-      series: 'A8',
-    },
-    {
-      id: '4280172168844',
-      series: 'A8',
-    },
-    {
-      id: '4280172168844',
-      series: 'A8',
-    }
-  ];
+  public tableList: CarSeriesList[];
   public filterData = {
-    series: ''
+    carSeriesId: '',
+    series: '',
+    carBrand: '',
+    carBrandId: ''
   };
+  public carBrandOptions;
 
   public systemFunction = SystemFunction;
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
+  // 模态窗
+  public modalShow: boolean = false;
+
+  constructor(private elRef: ElementRef,
+              private apiCall: ApiCall,
+              private funcServer: FuncServer,
+              public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getCarBrandList();
+    this.getCarSeriesList();
   }
 
   public computeOnResize() {
@@ -64,13 +54,89 @@ export class CarSeriesListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getCarSeriesList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getCarSeriesList(this.filterData.series, this.curPageIndex, this.perPageSize, (list, total) => {
+      this.tableList = list;
+      this.total = total;
+    });
+  }
+
+  public getCarBrandList(): void {
+    this.apiCall.getCarBrandList(
+      '',
+      '',
+      '',
+      (list) => {
+        let options = [];
+        for (let i = 0, len = list.length; i < len; i++) {
+          options.push({
+            value: list[i].car_brand_id,
+            text: list[i].brand
+          });
+          this.carBrandOptions = options;
+        }
+      });
+  }
+
+  // 模态窗
+  public toggleModal(item?): void {
+    if (item) {
+      this.filterData.carSeriesId = item.car_series_id;
+      this.filterData.series = item.series;
+      this.filterData.carBrand = item.brand;
+    }
+    this.modalShow = !this.modalShow;
+
+    if (!this.modalShow) {
+      this.filterData = {
+        carSeriesId: '',
+        series: '',
+        carBrand: '',
+        carBrandId: ''
+      }
+    }
+  }
+
+  public updateCarSeries(): void {
+    this.apiCall.updateCarSeries(
+      this.filterData.carSeriesId,
+      this.filterData.series,
+      this.filterData.carBrandId,
+      (data) => {
+        this.toggleModal();
+        this.getCarSeriesList(1);
+      }
+    );
+  }
+
+  public addCarSeries(): void {
+    this.apiCall.addCarSeries(
+      this.filterData.series,
+      this.filterData.carBrandId,
+      (data) => {
+        this.toggleModal();
+        this.getCarSeriesList(1);
+      }
+    );
+  }
+
+  public removeCarSeries(seriesId): void {
+    this.apiCall.removeCarSeries(
+      seriesId,
+      (data) => {
+        this.getCarSeriesList(1);
+      }
+    );
+  }
+
+  public modalSubmit(): void {
+    if (this.filterData.carSeriesId) {
+      this.updateCarSeries();
+    } else {
+      this.addCarSeries();
+    }
   }
 }

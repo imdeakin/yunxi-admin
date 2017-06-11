@@ -16,9 +16,6 @@ export class CityPickerComponent {
   public provinceCode;
   public cityCode;
   public districtCoce;
-  public initProvince;
-  public initCity;
-  public initDistrict;
 
   constructor(private cityPickerServer: CityPickerServer) {
     this.provinceList = this.parseToOptions(cityPickerServer.getProvinceList());
@@ -30,10 +27,6 @@ export class CityPickerComponent {
       this.districtList = [];
       this.provinceCode = provinceCode;
       this.cityList = this.parseToOptions(this.cityPickerServer.getList(provinceCode));
-      if (this.initCity) {
-        this.initCity.init(this.cityList);
-        this.change.emit();
-      }
       this.updateAddress();
       this.change.emit(this.addr);
     }
@@ -43,9 +36,6 @@ export class CityPickerComponent {
     if (this.cityCode != cityCode) {
       this.cityCode = cityCode;
       this.districtList = this.parseToOptions(this.cityPickerServer.getList(cityCode));
-      if (this.initDistrict) {
-        this.initDistrict.init(this.districtList);
-      }
       this.updateAddress();
       this.change.emit(this.addr);
     }

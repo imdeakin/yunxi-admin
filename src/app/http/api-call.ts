@@ -269,4 +269,218 @@ export class ApiCall {
       failure: failure
     });
   }
+
+  public getStoreGoodsTypeList(curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsTypeList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateStoreGoodsTypeInfo(typeName: string, status: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsTypeInfo,
+      data: {
+        typeName: typeName,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getCarSeriesList(series: string, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getCarSeriesList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        series: series
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public addCarSeries(series: string, carBrandId: string,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addCarSeries,
+      data: {
+        series: series,
+        carBrandId: carBrandId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateCarSeries(carseriesId: string, series: string, carBrandId: string,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateCarSeries,
+      data: {
+        carseriesId: carseriesId,
+        series: series,
+        carBrandId: carBrandId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeCarSeries(carseriesId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeCarSeries,
+      data: {
+        carseriesId: carseriesId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getCarBrandList(brand, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getCarBrandList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        brand: brand
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public addCarBrand(brand: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addCarBrand,
+      data: {
+        brand: brand,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateCarBrand(carBrandId: string, brand: string,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateCarBrand,
+      data: {
+        carBrandId: carBrandId,
+        brand: brand
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeCarBrand(carBrandId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeCarBrand,
+      data: {
+        carBrandId: carBrandId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getCarModelList(model, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getCarModelList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        models: model
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public addCarModel(model: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addCarModel,
+      data: {
+        models: model,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateCarModel(carModelId: string, model: string,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateCarModel,
+      data: {
+        carModelId: carModelId,
+        models: model
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeCarModel(carModelId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeCarModel,
+      data: {
+        carModelsId: carModelId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getAdminList(roleName, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdminList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        name: roleName
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public addAdmin(admin: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addAdmin,
+      data: {
+        admin: admin,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateAdmin(adminId: string, admin: string,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAdmin,
+      data: {
+        adminId: adminId,
+        admin: admin
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeAdmin(adminId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeAdmin,
+      data: {
+        adminId: adminId
+      },
+      success: success,
+      failure: failure
+    });
+  }
 }

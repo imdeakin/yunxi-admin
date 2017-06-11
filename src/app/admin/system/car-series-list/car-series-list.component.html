@@ -5,13 +5,13 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getYoukaUserList(1)">
+        <form class="clearfix" (ngSubmit)="getCarSeriesList(1)">
           <div class="input-group">
             <label>车系</label>
             <input type="text" name="series" value="" [(ngModel)]="filterData.series">
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
-          <a class="text-btn float-right margin-large-right" href="javascript:void(0);">添加</a>
+          <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleModal()">添加</a>
         </form>
       </div>
       <div class="manager-table">
@@ -19,6 +19,7 @@
           <thead>
           <tr>
             <th>ID</th>
+            <th>品牌</th>
             <th>车系</th>
             <th>操作</th>
           </tr>
@@ -26,20 +27,48 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.id}}</td>
+            <td>{{item.car_series_id}}</td>
+            <td>{{item.brand}}</td>
             <td>{{item.series}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);">编辑</a>
-                <a class="table-btn" href="javascript:void(0);">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="removeCarSeries(item.car_series_id)">删除</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls  (pageChange)="getYoukaUserList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls (pageChange)="getCarSeriesList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper" [class.hidden]="!modalShow">
+  <div class="modal-con">
+    <h3 class="modal-title" [class.hidden]="filterData.carSeriesId">添加</h3>
+    <h3 class="modal-title" [class.hidden]="!filterData.carSeriesId">编辑</h3>
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
+      <div class="modal-input-group">
+        <label>品牌</label>
+        <select-box
+          [options]="carBrandOptions"
+          [first]="false"
+          [text]="filterData.carBrand"
+          (optionSelect)="filterData.carBrandId = $event"></select-box>
+      </div>
+      <div class="modal-input-group">
+        <label>车系</label>
+        <input type="text" name="series" value="" [(ngModel)]="filterData.series">
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit">保存</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
 </div>
