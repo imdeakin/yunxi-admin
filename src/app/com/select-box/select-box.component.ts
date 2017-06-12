@@ -58,7 +58,7 @@ export class SelectBoxComponent implements OnInit, DoCheck {
 
     if (this.options && this.options.length) {
 
-      if (this.first && this.options[0] !== this.first) {
+      if (this.first && this.options[0].value !== this.first.value) {
         this.options.splice(0, 0, this.first);
       }
 

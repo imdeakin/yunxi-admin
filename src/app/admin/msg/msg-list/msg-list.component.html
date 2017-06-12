@@ -28,7 +28,6 @@
           <tr>
             <th>地区</th>
             <th>消息类型</th>
-            <th>图片</th>
             <th>标题</th>
             <th>发送时间</th>
             <th>操作</th>
@@ -37,9 +36,8 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{cityPickerServer.codeToText(item.region_name)}}</td>
+            <td>{{item.region_name}}</td>
             <td>{{msgFunction.getMsgTypeText(item.msg_type)}}</td>
-            <td>{{item.img}}</td>
             <td>{{item.title}}</td>
             <td>{{item.create_time}}</td>
             <td>
@@ -60,43 +58,41 @@
   </div>
 </div>
 <!--查看-->
-<div class="modal-wrapper" [class.hidden]="!readModalShow">
+<div class="modal-wrapper read-modal-wrapper" [class.hidden]="!readModalShow">
   <div class="modal-con">
     <h3 class="modal-title">详情</h3>
-    <form class="modal-form">
-      <div class="modal-input-group">
+    <div class="modal-detail-content">
+      <div class="modal-detail-item">
         <label>消息类型</label>
-        <select-box [options]="msgFunction.msgTypeOptions"
-                    [value]="modalData.msgType"
-                    (optionSelect)="modalData.msgType = $event"></select-box>
+        <div class="value"></div>
       </div>
-      <div class="modal-input-group">
+      <div class="modal-detail-item">
         <label>所属地区</label>
-        <city-picker (change)="modalData.regionId = $event"></city-picker>
+        <div class="value"></div>
       </div>
-      <div class="modal-input-group">
+      <div class="modal-detail-item">
         <label>标题</label>
-        <input type="text" name="title" value="" [(ngModel)]="modalData.title">
+        <div class="value">{{modalData.title}}</div>
       </div>
       <div class="modal-input-group">
         <label>内容</label>
-        <textarea [(ngModel)]="modalData.content"></textarea>
+        <textarea readonly>{{modalData.content}}</textarea>
       </div>
-      <div class="modal-input-group">
+      <div class="modal-detail-item">
         <label>备注</label>
-        <input type="text" name="remark" value="" [(ngModel)]="modalData.remark">
+        <div class="value">{{modalData.remark}}</div>
       </div>
       <div class="modal-btn-group">
         <button>关闭</button>
       </div>
-    </form>
-    <div class="modal-close" (click)="toggleModal()">
+    </div>
+    <div class="modal-close" (click)="toggleReadModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
 </div>
 <!--编辑-->
-<div class="modal-wrapper" [class.hidden]="!editModalShow">
+<div class="modal-wrapper edit-modal-wrapper" [class.hidden]="!editModalShow">
   <div class="modal-con">
     <h3 class="modal-title" [class.hidden]="modalData.userMsgId">添加</h3>
     <h3 class="modal-title" [class.hidden]="!modalData.userMsgId">编辑</h3>
@@ -109,7 +105,9 @@
       </div>
       <div class="modal-input-group">
         <label>所属地区</label>
-        <city-picker (change)="modalData.regionId = $event"></city-picker>
+        <div class="float-right">
+          <city-picker (change)="modalData.regionId = $event"></city-picker>
+        </div>
       </div>
       <div class="modal-input-group">
         <label>标题</label>
@@ -117,7 +115,7 @@
       </div>
       <div class="modal-input-group">
         <label>内容</label>
-        <textarea [(ngModel)]="modalData.content"></textarea>
+        <textarea></textarea>
       </div>
       <div class="modal-input-group">
         <label>备注</label>
@@ -127,7 +125,7 @@
         <button type="submit">保存</button>
       </div>
     </form>
-    <div class="modal-close" (click)="toggleModal()">
+    <div class="modal-close" (click)="toggleEditModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>

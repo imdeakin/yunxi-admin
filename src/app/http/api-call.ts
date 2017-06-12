@@ -128,6 +128,19 @@ export class ApiCall {
     });
   }
 
+  public getInsuranceOrderList(searchName, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getInsuranceOrderList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        searchName: searchName
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   public getUserList(mobile, level, regionId, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getUserList,
@@ -137,6 +150,17 @@ export class ApiCall {
         mobile: mobile,
         level: level,
         regionId: regionId,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getUserInfo(memberId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getUserInfo,
+      data: {
+        memberId: memberId
       },
       success: success,
       failure: failure
@@ -241,6 +265,17 @@ export class ApiCall {
     });
   }
 
+  public getPartnerInfo(partnerId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPartnerInfo,
+      data: {
+        partnerId: partnerId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   /**
    * 获取合伙人申请列表
    * @param mobile 手机号
@@ -270,6 +305,101 @@ export class ApiCall {
     });
   }
 
+  public getPartnerApplyInfo(partnerApplyId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPartnerApplyInfo,
+      data: {
+        partnerApplyId: partnerApplyId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /*
+   * 商城管理
+   */
+
+  public getStoreGoodsList(sn, businessName, onSale, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        sn: sn,
+        businessName: businessName,
+        onSale: onSale
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 添加商品
+   * @param goodsTypeId 商品类型ID
+   * @param goodsBrandId 品牌ID
+   * @param businessName 商品名称
+   * @param producer 产地
+   * @param described 商品描述
+   * @param freight 运费
+   * @param seeCount 浏览数量
+   * @param onSale 是否上架：0 否 1是
+   * @param skuJson skuJson
+   * @param attrJson attrJson
+   * @param picJson picJson
+   * @param success
+   * @param failure
+   */
+  public addStoreGoods(goodsTypeId, goodsBrandId, businessName, producer, described, freight, seeCount, onSale, skuJson, attrJson, picJson, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoods,
+      data: {
+        goodsTypeId: goodsTypeId,
+        goodsBrandId: goodsBrandId,
+        businessName: businessName,
+        producer: producer,
+        described: described,
+        freight: freight,
+        seeCount: seeCount,
+        onSale: onSale,
+        skuJson: skuJson,
+        attrJson: attrJson,
+        picJson: picJson,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateStoreGoods(regionId: string, title: string, msgType, fileId: string, userStoreGoodsId: string, content: string, remark: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoods,
+      data: {
+        regionId: regionId,
+        title: title,
+        msgType: msgType,
+        fileId: fileId,
+        userStoreGoodsId: userStoreGoodsId,
+        content: content,
+        remark: remark
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeStoreGoods(userStoreGoodsId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoods,
+      data: {
+        userStoreGoodsId: userStoreGoodsId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   public getStoreGoodsTypeList(curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getStoreGoodsTypeList,
@@ -282,12 +412,110 @@ export class ApiCall {
     });
   }
 
-  public updateStoreGoodsTypeInfo(typeName: string, status: number, success, failure?): void {
+  public addStoreGoodsTypeInfo(pGoodsTypeId, typeName, level, currChildSort, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsTypeInfo,
+      data: {
+        pGoodsTypeId: pGoodsTypeId,
+        typeName: typeName,
+        level: level,
+        currChildSort: currChildSort,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateStoreGoodsTypeInfo(goodsTypeId, pGoodsTypeId, typeName, level, currChildSort, sort, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateStoreGoodsTypeInfo,
       data: {
+        goodsTypeId: goodsTypeId,
+        pGoodsTypeId: pGoodsTypeId,
         typeName: typeName,
+        level: level,
+        currChildSort: currChildSort,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeStoreGoodsTypeInfo(goodsTypeId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoodsTypeInfo,
+      data: {
+        goodsTypeId: goodsTypeId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getStoreOrderList(sn, status, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreOrderList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        sn: sn,
         status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateStoreOrder(orderId, actualPrice, contact, mobile, address, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreOrder,
+      data: {
+        orderId: orderId,
+        actualPrice: actualPrice,
+        contact: contact,
+        mobile: mobile,
+        address: address
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public signStoreOrder(orderId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.signStoreOrder,
+      data: {
+        orderId: orderId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateStoreOrderExpress(orderDetailsIds, expressId, waybillNumber, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreOrderExpress,
+      data: {
+        orderDetailsIds: orderDetailsIds,
+        expressId: expressId,
+        waybillNumber: waybillNumber
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getStoreExpressList(orderDetailsIds, expressId, waybillNumber, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreExpressList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        orderDetailsIds: orderDetailsIds,
+        expressId: expressId,
+        waybillNumber: waybillNumber
       },
       success: success,
       failure: failure
@@ -475,7 +703,7 @@ export class ApiCall {
     this.apiCall({
       url: this.apiConfig.paths.updateCarModel,
       data: {
-        carModelId: carModelId,
+        carModelsId: carModelId,
         models: model
       },
       success: success,

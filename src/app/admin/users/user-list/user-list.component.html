@@ -5,7 +5,7 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getYoukaUserList(1)">
+        <form class="clearfix" (ngSubmit)="getUserList(1)">
           <div class="input-group">
             <label>会员账号</label>
             <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
@@ -45,78 +45,68 @@
             <td>{{item.create_time}}</td>
             <td>{{item.last_login_time}}</td>
             <td>{{item.last_login_ip}}</td>
-            <td>{{cityPickerServer.codeToText(item.region_name)}}</td>
+            <td>{{item.region_name}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls (pageChange)="getYoukaUserList($event)" previousLabel="上一页"
+        <pagination-controls (pageChange)="getUserList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!modalShow">
+<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
-    <h3 class="modal-title">订单详情</h3>
-    <form class="modal-form">
-      <div class="modal-input-group">
-        <label>用户账号</label>
-        <div class="text">1235465468464</div>
-      </div>
-      <div class="modal-input-group">
-        <label>手机号</label>
-        <div class="text">1235465468464</div>
-      </div>
-      <div class="modal-input-group">
-        <label>昵称</label>
-        <div class="text">张三</div>
-      </div>
-      <div class="modal-input-group">
-        <label>性别</label>
-        <div class="text">男</div>
-      </div>
-      <div class="modal-input-group">
-        <label>类型(分期)</label>
-        <div class="text">0</div>
-      </div>
-      <div class="modal-input-group">
-        <label>推介人账号</label>
-        <div class="text">15465387684</div>
-      </div>
-      <div class="modal-input-group">
-        <label>身份证</label>
-        <div class="text">44065616548946468</div>
-      </div>
-      <div class="modal-input-group">
-        <label>所属城市</label>
-        <div class="text">广州</div>
-      </div>
-      <div class="modal-input-group">
-        <label>生日</label>
-        <div class="text">2000-1-1</div>
-      </div>
-      <div class="modal-input-group">
-        <label>会员等级</label>
-        <select-box [options]="usersFunction.userLevelOptions"></select-box>
-      </div>
-      <div class="modal-input-group">
-        <label>套餐类型</label>
-        <div class="text">0</div>
-      </div>
-      <div class="modal-input-group">
-        <label>状态</label>
-        <div class="text">0</div>
+    <h3 class="modal-title">详情</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+        <div class="modal-half modal-half-left">
+          <div class="modal-detail-item">
+            <label>用户账号</label>
+            <div class="value">{{modalData.member_mobile}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>昵称</label>
+            <div class="value">{{modalData.nike_name}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>身份证</label>
+            <div class="value">{{modalData.idcard}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>生日</label>
+            <div class="value">{{modalData.birth_day}}</div>
+          </div>
+        </div>
+        <div class="modal-half modal-half-right">
+          <div class="modal-detail-item">
+            <label>手机号</label>
+            <div class="value">{{modalData.mobile}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>性别</label>
+            <div class="value">{{funcServer.getSexText(modalData.sex)}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>推介人账号</label>
+            <div class="value">{{modalData.upmember_mobile}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>所属城市</label>
+            <div class="value">{{modalData.region_name}}</div>
+          </div>
+        </div>
       </div>
       <div class="modal-btn-group">
         <button (click)="toggleModal()">关闭</button>
       </div>
-    </form>
+    </div>
     <div class="modal-close" (click)="toggleModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>

@@ -5,24 +5,20 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getPartnerList(1)">
+        <form class="clearfix" (ngSubmit)="getStoreGoodsList(1)">
           <div class="input-group">
-            <label>标题</label>
-            <input type="text" name="title" value="" [(ngModel)]="filterData.title">
+            <label>商品编辑</label>
+            <input type="text" name="title" value="" [(ngModel)]="filterData.sn">
           </div>
           <div class="input-group">
-            <label>状态</label>
-            <select-box [name]="status" [options]="storeFunction.goodsStatusOptions" (optionSelect)="filterData.status = $event"></select-box>
+            <label>商品名称</label>
+            <input type="text" name="title" value="" [(ngModel)]="filterData.goodsName">
           </div>
           <div class="input-group">
-            <label>库存</label>
-            <input type="text" name="inventory_from" value="" [(ngModel)]="filterData.inventory_from">
-            <span> 至 </span>
-            <input type="text" name="inventory_to" value="" [(ngModel)]="filterData.inventory_to">
-          </div>
-          <div class="input-group">
-            <label>类型</label>
-            <select-box [options]="storeFunction.goodsTypeOptions" [name]="type" (optionSelect)="filterData.type = $event"></select-box>
+            <label>是否上架</label>
+            <select-box [name]="status"
+                        [options]="storeFunction.goodsStatusOptions"
+                        (optionSelect)="filterData.status = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
@@ -31,13 +27,10 @@
         <table>
           <thead>
           <tr>
-            <th>标题</th>
-            <th>品牌</th>
-            <th>类型</th>
-            <th>产地</th>
+            <th>商品编号</th>
+            <th>商品名称</th>
             <th>最后更新</th>
             <th>状态</th>
-            <th>库存</th>
             <th>运费</th>
             <th>价格</th>
             <th>操作</th>
@@ -46,18 +39,15 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.title}}</td>
-            <td>{{item.brand}}</td>
-            <td>{{item.type}}</td>
-            <td>{{cityPickerServer.codeToText(item.region_name)}}</td>
+            <td>{{item.sn}}</td>
+            <td>{{item.business_name}}</td>
             <td>{{item.update_time}}</td>
-            <td>{{item.status}}</td>
-            <td>{{item.inventory}}</td>
+            <td>{{storeFunction.getGoodsStatusText(item.on_sale)}}</td>
             <td>{{item.freight}}</td>
             <td>{{item.price}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);">删除</a>
               </div>
             </td>
@@ -65,7 +55,8 @@
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls  (pageChange)="getPartnerList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls (pageChange)="getStoreGoodsList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>

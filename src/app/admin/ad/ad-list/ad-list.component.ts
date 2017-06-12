@@ -18,7 +18,7 @@ export class AdListComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
+  public curPageIndex = 1;
   public tableList: AdList[] = [
     {
       region_name: '440000/440100',

@@ -32,12 +32,12 @@
             <td>{{item.partner_name}}</td>
             <td>{{item.partner_code}}</td>
             <td>{{item.mobile}}</td>
-            <td>{{cityPickerServer.codeToText(item.region_name)}}</td>
-            <td>{{partnerFunction.getPartnerLevelText(item.partner_level)}}</td>
+            <td>{{item.region_name}}</td>
+            <td>{{item.partner_level}}</td>
             <td>{{item.effect_time}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">查看</a>
               </div>
             </td>
           </tr>
@@ -50,42 +50,42 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!modalShow">
+<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
     <h3 class="modal-title">订单详情</h3>
     <div class="modal-detail">
       <div class="modal-detail-content">
         <div class="modal-detail-item">
           <label>合伙人编号</label>
-          <div class="value">46846541654</div>
+          <div class="value">{{modalData.partner_code}}</div>
         </div>
         <div class="modal-detail-item">
           <label>地区</label>
-          <div class="value">广州</div>
+          <div class="value">{{modalData.region_name}}</div>
         </div>
         <div class="modal-detail-item">
           <label>代理级别</label>
-          <div class="value">全国代理</div>
+          <div class="value">{{modalData.partner_level}}</div>
         </div>
         <div class="modal-detail-item">
           <label>用户账号</label>
-          <div class="value">12364465468</div>
+          <div class="value">{{modalData.mobile}}</div>
         </div>
         <div class="modal-detail-item">
           <label>姓名</label>
-          <div class="value">张三</div>
+          <div class="value">{{modalData.partner_name}}</div>
         </div>
         <div class="modal-detail-item">
           <label>身份证</label>
-          <div class="value">44015646543513548643</div>
+          <div class="value">{{modalData.iDcard}}</div>
         </div>
         <div class="modal-detail-item">
           <label>联系手机</label>
-          <div class="value">156234789963</div>
+          <div class="value">{{modalData.mobile}}</div>
         </div>
         <div class="modal-detail-item">
           <label>合同编号</label>
-          <div class="value">5461346846316</div>
+          <div class="value">{{modalData.agreement_code}}</div>
         </div>
       </div>
     </div>

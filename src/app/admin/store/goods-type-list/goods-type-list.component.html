@@ -11,34 +11,31 @@
             <input type="text" name="title" value="" [(ngModel)]="filterData.title">
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
-          <a class="text-btn float-right margin-large-right" href="javascript:void(0);">添加</a>
+          <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleModal()">添加</a>
         </form>
       </div>
       <div class="manager-table">
         <table>
           <thead>
           <tr>
-            <th>类型ID</th>
-            <th>上级ID</th>
             <th>类型名称</th>
-            <th>类型编码</th>
-            <th>类型级别</th>
-            <th>状态</th>
+            <th>类型父节点</th>
+            <th>级别</th>
+            <th>排序</th>
             <th>操作</th>
           </tr>
           </thead>
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.goods_type_id}}</td>
-            <td>{{item.p_goods_type_id || '无'}}</td>
             <td>{{item.type_name}}</td>
-            <td>{{item.code}}</td>
+            <td>{{item.p_goods_type_id || '/'}}</td>
             <td>{{item.level}}</td>
-            <td>{{storeFunction.getTypeStatusText(item.status)}}</td>
+            <td>{{item.sort}}</td>
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="removeGoodsType(item.goods_type_id)">删除</a>
               </div>
             </td>
           </tr>
@@ -51,20 +48,29 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="curItem">
+<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
-    <h3 class="modal-title">编辑</h3>
+    <h3 class="modal-title" [class.hidden]="!modalData.goods_type_id">编辑</h3>
+    <h3 class="modal-title" [class.hidden]="modalData.goods_type_id">添加</h3>
     <form class="modal-form" (ngSubmit)="editSubmit()">
       <div class="modal-input-group">
-        <label>类型名</label>
-        <input type="text" name="type" value="" [(ngModel)]="curItem.type_name">
+        <label>类型名称</label>
+        <input type="text" name="name" value="" [(ngModel)]="modalData.type_name">
       </div>
       <div class="modal-input-group">
-        <label>状态</label>
-        <select-box [options]="storeFunction.typeStatusOptions"
-                    [first]="false"
-                    [index]="curItem.status"
-                    (optionSelect)="curItem.status = $event"></select-box>
+        <label>类型父节点</label>
+        <select-box [options]="goodsTypeOptions"
+                    [first]="{value:'', text:'/'}"
+                    [value]="modalData.p_goods_type_id"
+                    (optionSelect)="modalData.p_goods_type_id = $event"></select-box>
+      </div>
+      <div class="modal-input-group">
+        <label>级别</label>
+        <input type="text" name="level" value="" [(ngModel)]="modalData.level">
+      </div>
+      <div class="modal-input-group">
+        <label>排序</label>
+        <input type="text" name="sort" value="" [(ngModel)]="modalData.sort">
       </div>
       <div class="modal-btn-group">
         <button type="submit">保存</button>

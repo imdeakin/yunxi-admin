@@ -18,88 +18,13 @@ export class UserRecordComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
-  public tableList: UplevelRecord[] = [
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      user_mobile: '18174668888',
-      region_name: '440000/440100',
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      user_mobile: '18174668888',
-      region_name: '440000/440100',
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      user_mobile: '18174668888',
-      region_name: '440000/440100',
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      user_mobile: '18174668888',
-      region_name: '440000/440100',
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      user_mobile: '18174668888',
-      region_name: '440000/440100',
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      user_mobile: '18174668888',
-      region_name: '440000/440100',
-    }
-  ];
+  public curPageIndex = 1;
+  public tableList: UplevelRecord[];
   public filterData = {
     mobile: '',
     level: '',
     regionId: ''
   };
-  public levelOptions = [
-    {
-      value: '1',
-      text: '普通会员'
-    },
-    {
-      value: '2',
-      text: 'VIP会员'
-    },
-    {
-      value: '3',
-      text: '钻石会员'
-    }
-  ];
   public usersFunction = UsersFunction;
 
   constructor(private elRef: ElementRef,

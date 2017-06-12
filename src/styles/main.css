@@ -352,6 +352,10 @@ html, body {
   padding: 10px 0;
 }
 
+.modal-detail-item .select-box{
+  font-size: 16px;
+}
+
 .modal-detail-item .value {
   text-align: right;
 }

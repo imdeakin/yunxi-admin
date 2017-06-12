@@ -18,65 +18,35 @@ export class OrderListComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
-  public tableList: OrderList[] = [
-    {
-      code: '4145asdasd45asd4',
-      mobile: '18174668888',
-      create_time: '2017-02-02 12:00:00',
-      price: '250',
-      status: 1,
-      pay_type: 1,
-      sign_time: '2017-02-02 12:00:00',
-      track_num: '42990187920877'
-    },
-    {
-      code: '4145asdasd45asd4',
-      mobile: '18174668888',
-      create_time: '2017-02-02 12:00:00',
-      price: '250',
-      status: 1,
-      pay_type: 1,
-      sign_time: '2017-02-02 12:00:00',
-      track_num: '42990187920877'
-    },
-    {
-      code: '4145asdasd45asd4',
-      mobile: '18174668888',
-      create_time: '2017-02-02 12:00:00',
-      price: '250',
-      status: 1,
-      pay_type: 1,
-      sign_time: '2017-02-02 12:00:00',
-      track_num: '42990187920877'
-    },
-    {
-      code: '4145asdasd45asd4',
-      mobile: '18174668888',
-      create_time: '2017-02-02 12:00:00',
-      price: '250',
-      status: 1,
-      pay_type: 1,
-      sign_time: '2017-02-02 12:00:00',
-      track_num: '42990187920877'
-    }
-  ];
+  public curPageIndex = 1;
+  public tableList: OrderList[];
   public filterData = {
-    mobile: '',
-    createTime: '',
-    partnerLevelId: '',
-    regionId: '',
+    sn: '',
     status: ''
   };
   public storeFunction = StoreFunction;
 
-  private selDate: string = '';
-  private minDate: string = '1970/01/01';
-  private maxDate: string = '9999/12/31';
-  private disableDays: number[] = [0, 6];    //For Sunday and Saturday
-  private toContainPrevMonth: boolean = false;
-  private toContainNextMonth: boolean = false;
-  private value: string = '';
+  // 模态窗
+  public editModalShow: boolean = false;
+  public editModalData = {
+    orderId: '',
+    sn: '',
+    price: '',
+    freight: '',
+    consignee: '',
+    mobile: '',
+    address: ''
+  };
+  public readModalShow: boolean = false;
+  public readModalData = {
+    orderId: '',
+    sn: '',
+    price: '',
+    freight: '',
+    consignee: '',
+    mobile: '',
+    address: ''
+  };
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -86,7 +56,7 @@ export class OrderListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getPartnerApplyList();
+    this.getStoreOrderList();
   }
 
   public computeOnResize() {
@@ -98,28 +68,63 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  public getPartnerApplyList(curPageIndex?): void {
+  public getStoreOrderList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getPartnerApplyList(this.filterData.mobile,
-      this.filterData.createTime,
-      this.filterData.partnerLevelId,
-      this.filterData.regionId,
+    this.apiCall.getStoreOrderList(
+      this.filterData.sn,
       this.filterData.status,
       this.curPageIndex,
-      this.perPageSize, (list, total) => {
+      this.perPageSize,
+      (list, total) => {
         this.tableList = list;
         this.total = total;
-      });
+      }
+    );
   }
 
-  public setInputDate(event) {
-    this.value = event.target.value;
-    this.filterData.createTime = this.value;
+  public toggleEditModal(item?): void {
+    if (item) {
+      this.editModalData = {
+        orderId: item.order_id,
+        sn: item.sn,
+        price: item.total_price,
+        freight: item.freight,
+        consignee: item.contact,
+        mobile: item.contact_mobile,
+        address: item.address
+      }
+    }
+    this.editModalShow = !this.editModalShow;
   }
 
-  public setDate(date) {
-    this.selDate = date;
+  public editSubmit(): void {
+    this.apiCall.updateStoreOrder(
+      this.editModalData.orderId,
+      parseFloat(this.editModalData.price) + parseFloat(this.editModalData.freight),
+      this.editModalData.consignee,
+      this.editModalData.mobile,
+      this.editModalData.address,
+      (list, total) => {
+        this.tableList = list;
+        this.total = total;
+      }
+    );
+  }
+
+  public toggleReadModal(item?): void {
+    if (item) {
+      this.readModalData = {
+        orderId: item.order_id,
+        sn: item.sn,
+        price: item.total_price,
+        freight: item.freight,
+        consignee: item.contact,
+        mobile: item.contact_mobile,
+        address: item.address
+      }
+    }
+    this.readModalShow = !this.readModalShow;
   }
 }

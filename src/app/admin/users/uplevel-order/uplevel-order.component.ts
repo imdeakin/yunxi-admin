@@ -18,79 +18,8 @@ export class UplevelOrderComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
-  public tableList: UplevelRecord[] = [
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      status: 1,
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      status: 1,
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      status: 1,
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      status: 1,
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      status: 1,
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      status: 1,
-    },
-    {
-      sn: '45asd123123sad',
-      current_member_name: '2',
-      before_member_name: '1',
-      price: 100,
-      create_time: '2017-12-20 12:50:55',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      status: 1,
-    }
-  ];
+  public curPageIndex = 1;
+  public tableList: UplevelRecord[];
   public filterData = {
     mobile: '',
     level: '',

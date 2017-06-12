@@ -18,36 +18,8 @@ export class PartnerListComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
-  public tableList: PartnerList[] = [
-    {
-      partner_id: '4145asdasd45asd4',
-      partner_name: '小花',
-      partner_code: 'Asdasd465',
-      region_name: '440000/440100',
-      mobile: '18174668888',
-      partner_level: '1',
-      effect_time: '2017-02-02 12:00:00',
-    },
-    {
-      partner_id: '4145asdasd45asd4',
-      partner_name: '小花',
-      partner_code: 'Asdasd465',
-      region_name: '440000/440100',
-      mobile: '18174668888',
-      partner_level: '1',
-      effect_time: '2017-02-02 12:00:00',
-    },
-    {
-      partner_id: '4145asdasd45asd4',
-      partner_name: '小花',
-      partner_code: 'Asdasd465',
-      region_name: '440000/440100',
-      mobile: '18174668888',
-      partner_level: '1',
-      effect_time: '2017-02-02 12:00:00',
-    }
-  ];
+  public curPageIndex = 1;
+  public tableList: PartnerList[];
   public filterData = {
     sn: '',
     partnerLevelId: '',
@@ -58,6 +30,7 @@ export class PartnerListComponent implements OnInit {
 
   // 模态窗
   public modalShow: boolean = false;
+  public modalData;
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -94,8 +67,20 @@ export class PartnerListComponent implements OnInit {
       });
   }
 
+  public getPartnerInfo(partnerId): void {
+    this.apiCall.getPartnerInfo(partnerId, (data) => {
+      this.modalData = data;
+    });
+  }
+
   // 模态窗
-  public toggleModal(): void {
+  public toggleModal(item?): void {
+    if (item) {
+      this.getPartnerInfo(item.partner_id);
+    }
     this.modalShow = !this.modalShow;
+    if (!this.modalShow) {
+      this.modalData = null;
+    }
   }
 }

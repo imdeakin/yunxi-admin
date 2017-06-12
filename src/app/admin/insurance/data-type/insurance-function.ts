@@ -41,6 +41,18 @@ export class InsuranceFunction {
     }
   ];
 
+  // 订单同步返回结果类型
+  public static insuranceOrderSyncTypeOptions = [
+    {
+      value: '0',
+      text: '同步'
+    },
+    {
+      value: '1',
+      text: '异步'
+    }
+  ];
+
   public static insuranceOrderFilterTypeOptions = [
     {
       value: '0',
@@ -97,6 +109,21 @@ export class InsuranceFunction {
         break;
       case 9:
         text = '待验证';
+        break;
+      default:
+        text = '未知'
+    }
+    return text;
+  }
+
+  public static getInsuranceOrderSyncTypeText(type: number): string {
+    let text = '';
+    switch (type) {
+      case 0:
+        text = '同步';
+        break;
+      case 1:
+        text = '异步';
         break;
       default:
         text = '未知'

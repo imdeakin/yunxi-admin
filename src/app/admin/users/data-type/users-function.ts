@@ -42,6 +42,9 @@ export class UsersFunction {
   public static getUserLevelText(classify: number): string {
     let text: string;
     switch (classify) {
+      case 1:
+        text = '普通会员';
+        break;
       case 2:
         text = 'VIP会员';
         break;
@@ -49,7 +52,7 @@ export class UsersFunction {
         text = '钻石会员';
         break;
       default:
-        text = '普通会员'
+        text = '未知'
     }
     return text;
   }

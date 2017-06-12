@@ -13,7 +13,7 @@ export class WeizhangPageComponent implements OnInit {
   public title = '违章管理';
   public contentHeight = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
+  public curPageIndex = 1;
   public tableList = [
     {
       account: '18128789828', // 账号

@@ -12,7 +12,7 @@
           </div>
           <div class="input-group">
             <label>会员等级</label>
-            <select-box [options]="levelOptions" [name]="level" (optionSelect)="filterData.level = $event"></select-box>
+            <select-box [options]="usersFunction.userLevelOptions" [name]="level" (optionSelect)="filterData.level = $event"></select-box>
           </div>
           <div class="input-group">
             <label>城市</label>
@@ -39,12 +39,12 @@
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{item.sn}}</td>
-            <td>{{usersFunction.getUserLevelText(item.current_member_name)}}</td>
-            <td>{{usersFunction.getUserLevelText(item.before_member_name)}}</td>
+            <td>{{item.current_member_name}}</td>
+            <td>{{item.before_member_name}}</td>
             <td>{{item.price}}</td>
             <td>{{item.mobile}}</td>
             <td>{{item.user_mobile}}</td>
-            <td>{{cityPickerServer.codeToText(item.region_name)}}</td>
+            <td>{{item.region_name}}</td>
             <td>{{item.create_time}}</td>
           </tr>
           </tbody>

@@ -7,20 +7,9 @@
       <div class="filter-bar">
         <form class="clearfix">
           <div class="input-group">
-            <select-box [options]="insuranceFunction.insuranceOrderFilterTypeOptions" [first]="false"></select-box>
+            <!--<select-box [options]="insuranceFunction.insuranceOrderFilterTypeOptions" [first]="false"></select-box>-->
+            <label>关键词</label>
             <input type="text" name="account" value="" [(ngModel)]="filterData.searchName">
-          </div>
-          <div class="input-group">
-            <label>支付时间</label>
-            <input type='text' value={{selDate}} (change)="setInputDate($event)"/>
-            <date-picker
-              [value]="value"
-              [minDate]="minDate"
-              [maxDate]="maxDate"
-              [disableDays]="disableDays"
-              [toContainPrevMonth]="toContainPrevMonth"
-              [toContainNextMonth]="toContainNextMonth"
-              (selectedDate)='setDate($event)'></date-picker>
           </div>
           <div class="input-group">
             <label>投保城市</label>
@@ -33,33 +22,37 @@
         <table>
           <thead>
           <tr>
-            <th>流水号</th>
-            <th>智通引擎业务号</th>
-            <th>用户</th>
+            <th>订单编号</th>
+            <!--<th>智通业务号</th>-->
+            <!--<th>支付类型</th>-->
+            <!--<th>交易流水号</th>-->
+            <th>车牌号码</th>
             <th>车主姓名</th>
-            <th>车主身份证</th>
             <th>车主手机号码</th>
-            <th>金额</th>
-            <th>地址</th>
-            <th>交易流水号</th>
+            <th>保险公司</th>
             <th>投保城市</th>
             <th>支付时间</th>
+            <!--<th>返回结果</th>-->
+            <th>状态</th>
+            <th>核保失败的原因</th>
           </tr>
           </thead>
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex }; let i = index">
             <td>{{item.sn}}</td>
-            <td>{{item.biz_id}}</td>
-            <td></td>
+            <!--<td>{{item.biz_id}}</td>-->
+            <!--<td>{{funcServer.getPayTypeText(item.trade_mode)}}</td>-->
+            <!--<td>{{item.trade_code}}</td>-->
+            <td>{{item.car_number}}</td>
             <td>{{item.name}}</td>
-            <td></td>
             <td>{{item.mobile}}</td>
-            <td></td>
-            <td></td>
-            <td>{{item.trade_code}}</td>
+            <td>{{item.insurer_name}}</td>
             <td>{{item.city_name}}</td>
             <td>{{item.pay_time}}</td>
+            <!--<td>{{insuranceFunction.getInsuranceOrderSyncTypeText(item.synch_flag)}}</td>-->
+            <td>{{insuranceFunction.getInsuranceOrderStatusText(item.status)}}</td>
+            <td>{{item.msg}}</td>
           </tr>
           </tbody>
         </table>

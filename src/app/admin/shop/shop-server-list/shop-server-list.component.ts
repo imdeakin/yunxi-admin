@@ -18,7 +18,7 @@ export class ShopServerListComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
+  public curPageIndex = 1;
   public tableList: ShopServerList[] = [
     {
       code: '65456165654',

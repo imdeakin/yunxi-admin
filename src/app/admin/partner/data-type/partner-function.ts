@@ -6,7 +6,7 @@ export class PartnerFunction {
   public static partnerLevelOptions = [
     {
       value: '1',
-      text: '市级代理'
+      text: '全国代理'
     },
     {
       value: '2',
@@ -14,7 +14,7 @@ export class PartnerFunction {
     },
     {
       value: '3',
-      text: '全国代理'
+      text: '市级代理'
     }
   ];
 
@@ -39,13 +39,13 @@ export class PartnerFunction {
     let text: string;
     switch (code) {
       case 1:
-        text = '市级代理';
+        text = '全国代理';
         break;
       case 2:
         text = '省级代理';
         break;
       case 3:
-        text = '全国代理';
+        text = '市级代理';
         break;
       default:
         text = '未知'

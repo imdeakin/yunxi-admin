@@ -100,7 +100,7 @@ export class AccordionNavComponent implements OnInit {
       title: '商城管理',
       items: [
         {
-          title: '商品管理',
+          title: '商品列表',
           link: '/admin/goods-list'
         },
         {
@@ -212,10 +212,10 @@ export class AccordionNavComponent implements OnInit {
           title: '车系',
           link: '/admin/car-series-list'
         },
-        {
-          title: '车型',
-          link: '/admin/car-model-list'
-        },
+        // {
+        //   title: '车型',
+        //   link: '/admin/car-model-list'
+        // },
         {
           title: '品牌',
           link: '/admin/car-brand-list'

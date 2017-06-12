@@ -2,71 +2,103 @@
  * Created by Deakin on 2017/5/16 0016.
  */
 export class StoreFunction {
-  // 商品状态选项组
+  // 商品上架状态选项组
   public static goodsStatusOptions = [
     {
+      value: '0',
+      text: '否'
+    },
+    {
       value: '1',
-      text: '市级代理'
-    },
-    {
-      value: '2',
-      text: '省级代理'
-    },
-    {
-      value: '3',
-      text: '全国代理'
+      text: '是'
     }
   ];
 
-  // 商品类型选项组
-  public static goodsTypeOptions = [
+  // 是否含运费选项组
+  public static orderFreightStatusOptions = [
+    {
+      value: '0',
+      text: '否'
+    },
     {
       value: '1',
-      text: '市级代理'
-    },
-    {
-      value: '2',
-      text: '省级代理'
-    },
-    {
-      value: '3',
-      text: '全国代理'
+      text: '是'
     }
   ];
 
   // 订单状态选项组
   public static orderStatusOptions = [
     {
-      value: '-2',
-      text: '取消'
-    },
-    {
       value: '-1',
-      text: '失败'
-    },
-    {
-      value: '0',
-      text: '待支付'
+      text: '删除'
     },
     {
       value: '1',
-      text: '成功'
+      text: '待支付'
+    },
+    {
+      value: '2',
+      text: '已支付'
+    },
+    {
+      value: '3',
+      text: '待发货'
+    },
+    {
+      value: '4',
+      text: '待评价'
+    },
+    {
+      value: '5',
+      text: '已评价'
+    },
+    {
+      value: '6',
+      text: '已取消'
+    },
+    {
+      value: '7',
+      text: '已退单'
+    },
+    {
+      value: '8',
+      text: '待验证'
     }
   ];
 
   // 支付方式选项组
   public static payTypeOptions = [
     {
-      value: '0',
+      value: '1',
       text: '支付宝'
     },
     {
-      value: '1',
+      value: '2',
       text: '微信'
     },
     {
+      value: '3',
+      text: '云付通'
+    },
+    {
+      value: '4',
+      text: '余额'
+    }
+  ];
+
+  // 物流类型选项组
+  public static expressTypeOptions = [
+    {
+      value: '1',
+      text: '快递'
+    },
+    {
       value: '2',
-      text: '银联'
+      text: '平邮'
+    },
+    {
+      value: '3',
+      text: 'EMS'
     }
   ];
 
@@ -82,37 +114,15 @@ export class StoreFunction {
     }
   ];
 
-  // 合伙人等级
-  public static getPartnerLevelText(code: number): string {
+  // 商品上架状态 0、否，1、是
+  public static getGoodsStatusText(status: number): string {
     let text: string;
-    switch (code) {
-      case 1:
-        text = '市级代理';
-        break;
-      case 2:
-        text = '省级代理';
-        break;
-      case 3:
-        text = '全国代理';
-        break;
-      default:
-        text = '未知'
-    }
-    return text;
-  }
-
-  // 合伙人申请状态
-  public static getPartnerApplyStatusText(code: number): string {
-    let text: string;
-    switch (code) {
-      case -1:
-        text = '审核不通过';
-        break;
+    switch (status) {
       case 0:
-        text = '待审核';
+        text = '否';
         break;
       case 1:
-        text = '通过';
+        text = '是';
         break;
       default:
         text = '未知'
@@ -120,40 +130,93 @@ export class StoreFunction {
     return text;
   }
 
-  // 订单状态 0、待支付，1、成功，-1、失败 ，-2、取消
+  // 是否含运费 0、否，1、是
+  public static getOrderFreightStatusText(status: number): string {
+    let text: string;
+    switch (status) {
+      case 0:
+        text = '否';
+        break;
+      case 1:
+        text = '是';
+        break;
+      default:
+        text = '未知'
+    }
+    return text;
+  }
+
+  // 订单状态  -1 删除 1 待支付  2 已支付(待发货)  3 待收货  4 待评价 5 已评价  6 已取消  7 已退单  8 待验证
   public static getOrderStatusText(status: number): string {
     let text: string;
     switch (status) {
-      case -2:
-        text = '取消';
-        break;
       case -1:
-        text = '失败';
-        break;
-      case 0:
-        text = '待支付';
+        text = '删除';
         break;
       case 1:
-        text = '成功';
+        text = '待支付';
+        break;
+      case 2:
+        text = '已支付';
+        break;
+      case 3:
+        text = '待收货';
+        break;
+      case 4:
+        text = '待评价';
+        break;
+      case 5:
+        text = '已评价';
+        break;
+      case 6:
+        text = '已取消';
+        break;
+      case 7:
+        text = '已退单';
+        break;
+      case 8:
+        text = '待验证';
         break;
       default:
-        text = '未知状态'
+        text = '未知'
     }
     return text;
   }
 
-  // 订单状态 0、支付宝，1、微信，2、银联
+  // 订单状态 1、支付宝，2、微信，3、云付通，4、余额
   public static getPayTypeText(type: number): string {
     let text: string;
     switch (type) {
-      case 0:
+      case 1:
         text = '支付宝';
         break;
-      case 1:
+      case 2:
         text = '微信';
         break;
+      case 3:
+        text = '云付通';
+        break;
+      case 4:
+        text = '余额';
+        break;
+      default:
+        text = '未知'
+    }
+    return text;
+  }
+
+  // 物流类型 1、快递，2、平邮，3、EMS
+  public static getExpressTypeText(type: number): string {
+    let text: string;
+    switch (type) {
+      case 1:
+        text = '快递';
+        break;
       case 2:
-        text = '银联';
+        text = '平邮';
+        break;
+      case 3:
+        text = 'EMS';
         break;
       default:
         text = '未知'

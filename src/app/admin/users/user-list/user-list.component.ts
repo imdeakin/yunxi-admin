@@ -18,59 +18,8 @@ export class UserListComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
-  public tableList: User[] = [
-    {
-      member_id: '45asd123123sad',
-      member_mobile: '18174668888',
-      upmember_mobile: '18174666666',
-      member_level_name: 'vip',
-      create_time: '2017-12-20 12:50:55',
-      last_login_time: '2017-12-20 12:50:55',
-      last_login_ip: '192.168.137.6',
-      region_name: '440000/440100',
-    },
-    {
-      member_id: '45asd123123sad',
-      member_mobile: '18174668888',
-      upmember_mobile: '18174666666',
-      member_level_name: 'vip',
-      create_time: '2017-12-20 12:50:55',
-      last_login_time: '2017-12-20 12:50:55',
-      last_login_ip: '192.168.137.6',
-      region_name: '440000/440100',
-    },
-    {
-      member_id: '45asd123123sad',
-      member_mobile: '18174668888',
-      upmember_mobile: '18174666666',
-      member_level_name: 'vip',
-      create_time: '2017-12-20 12:50:55',
-      last_login_time: '2017-12-20 12:50:55',
-      last_login_ip: '192.168.137.6',
-      region_name: '440000/440100',
-    },
-    {
-      member_id: '45asd123123sad',
-      member_mobile: '18174668888',
-      upmember_mobile: '18174666666',
-      member_level_name: 'vip',
-      create_time: '2017-12-20 12:50:55',
-      last_login_time: '2017-12-20 12:50:55',
-      last_login_ip: '192.168.137.6',
-      region_name: '440000/440100',
-    },
-    {
-      member_id: '45asd123123sad',
-      member_mobile: '18174668888',
-      upmember_mobile: '18174666666',
-      member_level_name: 'vip',
-      create_time: '2017-12-20 12:50:55',
-      last_login_time: '2017-12-20 12:50:55',
-      last_login_ip: '192.168.137.6',
-      region_name: '440000/440100',
-    }
-  ];
+  public curPageIndex = 1;
+  public tableList: User[];
   public filterData = {
     mobile: '',
     level: '',
@@ -80,13 +29,14 @@ export class UserListComponent implements OnInit {
 
   // 模态窗
   public modalShow: boolean = false;
+  public modalData;
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
+  constructor(private elRef: ElementRef, private apiCall: ApiCall, public funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getUserList();
   }
 
   public computeOnResize() {
@@ -98,18 +48,31 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getUserList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getUserList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
     });
   }
 
+  public getUserInfo(memberId): void {
+    this.apiCall.getUserInfo(memberId, (data) => {
+        this.modalData = data;
+    });
+  }
+
   // 模态窗
-  public toggleModal(): void {
+  public toggleModal(item?): void {
+    if (item) {
+      this.getUserInfo(item.member_id);
+    }
     this.modalShow = !this.modalShow;
+
+    if (!this.modalShow) {
+      this.modalData = null;
+    }
   }
 }

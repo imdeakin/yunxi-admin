@@ -18,7 +18,7 @@ export class GoodsTypeListComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
+  public curPageIndex = 1;
   public tableList: GoodsTypeList[];
   public filterData = {
     title: '',
@@ -28,18 +28,19 @@ export class GoodsTypeListComponent implements OnInit {
     type: ''
   };
   public storeFunction = StoreFunction;
+  public goodsTypeOptions;
 
   // 模态窗
   public modalShow: boolean = false;
-  public curItem: GoodsTypeList = {
+  public modalData = {
     goods_type_id: '',
     p_goods_type_id: '',
     type_name: '',
-    status: 0,
+    status: '',
     code: '',
     level: '',
-    curr_child_sort: 0,
-    sort: 0
+    curr_child_sort: '',
+    sort: ''
   };
 
   constructor(private elRef: ElementRef,
@@ -74,20 +75,93 @@ export class GoodsTypeListComponent implements OnInit {
       });
   }
 
+  public updateGoodsTypeOptions(exceptGoodsTypeId?): void {
+    let goodsTypeList = this.tableList;
+    let arr = [];
+    for (let i = 0, len = goodsTypeList.length; i < len; i++) {
+      let item = goodsTypeList[i];
+      if (item.goods_type_id !== exceptGoodsTypeId) {
+        arr.push({
+          value: item.goods_type_id,
+          text: item.type_name
+        });
+      }
+    }
+    this.goodsTypeOptions = arr;
+  }
+
   // 模态窗
   public toggleModal(item?): void {
     if (item) {
-      this.curItem = item;
+      this.modalData = {
+        goods_type_id: item.goods_type_id,
+        p_goods_type_id: item.p_goods_type_id,
+        type_name: item.type_name,
+        status: item.status,
+        code: item.code,
+        level: item.level,
+        curr_child_sort: item.curr_child_sort,
+        sort: item.sort
+      };
+      this.updateGoodsTypeOptions(item.goods_type_id);
     }
     this.modalShow = !this.modalShow;
+    if (!this.modalShow) {
+      this.modalData = {
+        goods_type_id: '',
+        p_goods_type_id: '',
+        type_name: '',
+        status: '',
+        code: '',
+        level: '',
+        curr_child_sort: '',
+        sort: ''
+      };
+    }
+  }
+
+  public addGoodsType(): void {
+    this.apiCall.addStoreGoodsTypeInfo(
+      this.modalData.p_goods_type_id,
+      this.modalData.type_name,
+      this.modalData.level,
+      this.modalData.curr_child_sort,
+      this.modalData.sort,
+      (data) => {
+        this.toggleModal();
+        this.getStoreGoodsTypeList(1);
+      }
+    );
+  }
+
+  public editGoodsType(): void {
+    this.apiCall.updateStoreGoodsTypeInfo(
+      this.modalData.goods_type_id,
+      this.modalData.p_goods_type_id,
+      this.modalData.type_name,
+      this.modalData.level,
+      this.modalData.curr_child_sort,
+      this.modalData.sort,
+      (data) => {
+        this.toggleModal();
+        this.getStoreGoodsTypeList(1);
+      }
+    );
   }
 
   public editSubmit(): void {
-    this.apiCall.updateStoreGoodsTypeInfo(
-      this.curItem.type_name,
-      this.curItem.status,
+    if (this.modalData.goods_type_id) {
+      this.editGoodsType();
+    } else {
+      this.addGoodsType();
+    }
+  }
+
+  public removeGoodsType(goodsTypeId): void {
+    this.apiCall.removeStoreGoodsTypeInfo(
+      goodsTypeId,
       (data) => {
-        this.toggleModal();
+        this.getStoreGoodsTypeList(1);
       }
     );
   }

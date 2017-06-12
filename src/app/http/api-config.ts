@@ -20,20 +20,45 @@ export class ApiConfig {
     getYoukaOrderList: this.root + '/oiling/depositList', // 获取油卡购买套餐订单列表
     getYoukaRecordList: this.root + '/oiling/oilAccountList', // 获取油卡到账记录列表
 
+    // 车险管理
+    getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表
+
     // 会员管理
     getUserList: this.root + '/members/memberInfoList', // 获取会员列表
+    getUserInfo: this.root + '/members/getMemberInfo', // 获取会员详情
     getLevelRecordList: this.root + '/members/memberUpgradeList', // 获取会员升级记录列表
     getLevelOrderList: this.root + '/members/memberUpgradeOrder', // 获取会员升级订单列表
     getRelationList: this.root + '/members/getRelationInfo', // 获取推介关系列表
 
     // 合伙人管理
     getPartnerList: this.root + '/copartner/selectPartnerList', // 获取合伙人列表
+    getPartnerInfo: this.root + '/copartner/getPartnerInfo', // 获取合伙人详情
     getPartnerApplyList: this.root + '/copartner/applyPartnerList', // 获取合伙人申请列表
+    getPartnerApplyInfo: this.root + '/copartner/applyPartnerInfo', // 获取合伙人申请详情
 
-    // 商城管理
+    /*
+     * 商城管理
+     */
+
+    // 商品列表
     getStoreGoodsList: this.root + '/marketManage/mallGoodsList', // 获取商品列表
-    getStoreGoodsTypeList: this.root + '/brandGoodsTypeManage/mallGoodsTypemList', // 获取商品类型列表
-    updateStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/saveMallGoodsTypem', // 更新商品类型信息
+    addStoreGoods: this.root + '/marketManage/addMallGoods', // 添加商品
+    updateStoreGoods: this.root + '/marketManage/updateMallGoods', // 修改商品
+    removeStoreGoods: this.root + '/marketManage/delMallGoodsl', // 删除商品
+
+    // 商品类型
+    getStoreGoodsTypeList: this.root + '/brandGoodsTypeManage/mallGoodsTypeList', // 获取商品类型列表
+    addStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/addMallGoodsType', // 添加商品类型信息
+    updateStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/saveMallGoodsType', // 更新商品类型信息
+    removeStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/delMallGoodsType', // 删除商品类型信息
+
+    // 订单
+    getStoreOrderList: this.root + '/marketManage/mallOrderList', // 获取订单列表
+    updateStoreOrder: this.root + '/marketManage/updateMallOrder', // 修改订单信息
+    signStoreOrder: this.root + '/marketManage/mallOrderSign', // 签收订单
+    updateStoreOrderExpress: this.root + '/marketManage/updateOrderExpress', // 修改订单物流信息
+    getStoreExpressList: this.root + '/marketManage/getExpressList', // 获取物流列表
+
     updateStoreGoodsBrandList: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 更新商品品牌列表
     updateStoreGoodsBrandInfo: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 更新商品品牌信息
 
@@ -68,10 +93,10 @@ export class ApiConfig {
     removeAdmin: this.root + '/system/user/delAdmin', // 删除管理员
 
     // 角色
-    getRoleList: this.root + '/system/user/getRoleList', // 获取角色列表
-    addRole: this.root + '/system/user/addRole', // 添加角色
-    updateRole: this.root + '/system/user/updateRole', // 修改角色
-    removeRole: this.root + '/system/user/delRole', // 删除角色
+    getRoleList: this.root + '/system/getRoleList', // 获取角色列表
+    addRole: this.root + '/system/addRole', // 添加角色
+    updateRole: this.root + '/system/updateRole', // 修改角色
+    removeRole: this.root + '/system/delRole', // 删除角色
   };
 
   public getImgFullPath(imgPath: string): string {

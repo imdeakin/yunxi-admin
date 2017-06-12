@@ -14,52 +14,16 @@ import {StoreFunction} from '../data-type/store-function';
   styleUrls: ['./goods-list.component.css']
 })
 export class GoodsListComponent implements OnInit {
-  public title = '商品管理';
+  public title = '商品列表';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
-  public tableList: GoodsList[] = [
-    {
-      title: '4145asdasd45asd4',
-      brand: '小花',
-      type: 1,
-      region_name: '440000/440100',
-      update_time: '2017-02-02 12:00:00',
-      status: 1,
-      inventory: 123,
-      freight: 123,
-      price: 123,
-    },
-    {
-      title: '4145asdasd45asd4',
-      brand: '小花',
-      type: 1,
-      region_name: '440000/440100',
-      update_time: '2017-02-02 12:00:00',
-      status: 1,
-      inventory: 123,
-      freight: 123,
-      price: 123,
-    },
-    {
-      title: '4145asdasd45asd4',
-      brand: '小花',
-      type: 1,
-      region_name: '440000/440100',
-      update_time: '2017-02-02 12:00:00',
-      status: 1,
-      inventory: 123,
-      freight: 123,
-      price: 123,
-    }
-  ];
+  public curPageIndex = 1;
+  public tableList: GoodsList[];
   public filterData = {
-    title: '',
-    status: '',
-    inventory_from: '',
-    inventory_to: '',
-    type: ''
+    sn: '',
+    goodsName: '',
+    status: ''
   };
   public storeFunction = StoreFunction;
 
@@ -74,7 +38,7 @@ export class GoodsListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getPartnerList();
+    this.getStoreGoodsList();
   }
 
   public computeOnResize() {
@@ -86,19 +50,20 @@ export class GoodsListComponent implements OnInit {
     });
   }
 
-  public getPartnerList(curPageIndex?): void {
+  public getStoreGoodsList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getPartnerList(this.filterData.sn,
-    //   this.filterData.partnerLevelId,
-    //   this.filterData.regionId,
-    //   this.filterData.effectTime,
-    //   this.curPageIndex,
-    //   this.perPageSize, (list, total) => {
-    //     this.tableList = list;
-    //     this.total = total;
-    //   });
+    this.apiCall.getStoreGoodsList(
+      this.filterData.sn,
+      this.filterData.goodsName,
+      this.filterData.status,
+      this.curPageIndex,
+      this.perPageSize, (list, total) => {
+        this.tableList = list;
+        this.total = total;
+      }
+    );
   }
 
   // 模态窗

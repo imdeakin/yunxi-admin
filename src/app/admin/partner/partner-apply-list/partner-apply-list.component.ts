@@ -18,42 +18,8 @@ export class PartnerApplyListComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
-  public tableList: PartnerApplyList[] = [
-    {
-      partner_apply_id: '4145asdasd45asd4',
-      agreement_code: 'Asdasd465',
-      name: '小花',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      partner_level: '1',
-      create_time: '2017-02-02 12:00:00',
-      handler: '云洗经理',
-      status: 1,
-    },
-    {
-      partner_apply_id: '4145asdasd45asd4',
-      agreement_code: 'Asdasd465',
-      name: '小花',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      partner_level: '1',
-      create_time: '2017-02-02 12:00:00',
-      handler: '云洗经理',
-      status: 1,
-    },
-    {
-      partner_apply_id: '4145asdasd45asd4',
-      agreement_code: 'Asdasd465',
-      name: '小花',
-      mobile: '18174668888',
-      region_name: '440000/440100',
-      partner_level: '1',
-      create_time: '2017-02-02 12:00:00',
-      handler: '云洗经理',
-      status: 1,
-    }
-  ];
+  public curPageIndex = 1;
+  public tableList: PartnerApplyList[];
   public filterData = {
     mobile: '',
     createTime: '',
@@ -63,20 +29,13 @@ export class PartnerApplyListComponent implements OnInit {
   };
   public partnerFunction = PartnerFunction;
 
-  private selDate: string = '';
-  private minDate: string = '1970/01/01';
-  private maxDate: string = '9999/12/31';
-  private disableDays: number[] = [0, 6];    //For Sunday and Saturday
-  private toContainPrevMonth: boolean = false;
-  private toContainNextMonth: boolean = false;
-  private value: string = '';
-
   // 模态窗
-  public modalShow: boolean = false;
+  public readModalShow: boolean = false;
+  public readModalData;
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
-              private funcServer: FuncServer,
+              public funcServer: FuncServer,
               public cityPickerServer: CityPickerServer) {
   }
 
@@ -98,29 +57,32 @@ export class PartnerApplyListComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getPartnerApplyList(this.filterData.mobile,
+    this.apiCall.getPartnerApplyList(
+      this.filterData.mobile,
       this.filterData.createTime,
       this.filterData.partnerLevelId,
       this.filterData.regionId,
       this.filterData.status,
       this.curPageIndex,
-      this.perPageSize, (list, total) => {
+      this.perPageSize,
+      (list, total) => {
         this.tableList = list;
         this.total = total;
-      });
+      }
+    );
   }
 
-  public setInputDate(event) {
-    this.value = event.target.value;
-    this.filterData.createTime = this.value;
-  }
-
-  public setDate(date) {
-    this.selDate = date;
+  public getPartnerApplyInfo(partnerApplyId): void {
+    this.apiCall.getPartnerApplyInfo(partnerApplyId, (data) => {
+      this.readModalData = data;
+    });
   }
 
   // 模态窗
-  public toggleModal(): void {
-    this.modalShow = !this.modalShow;
+  public toggleModal(item?): void {
+    if (item) {
+      this.getPartnerApplyInfo(item.partner_apply_id);
+    }
+    this.readModalShow = !this.readModalShow;
   }
 }

@@ -18,72 +18,8 @@ export class RelationListComponent implements OnInit {
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
-  public curPageIndex = 0;
-  public tableList: RelationList[] = [
-    {
-      mobile: '18174668888',
-      create_time: '2017-12-20 12:50:55',
-      parent_member_account: '18174668888',
-      member_level_name: '1',
-      level: '18174668888',
-      level2: '18174668888',
-      level3: '18174668888',
-    },
-    {
-      mobile: '18174668888',
-      create_time: '2017-12-20 12:50:55',
-      parent_member_account: '18174668888',
-      member_level_name: '1',
-      level: '18174668888',
-      level2: '18174668888',
-      level3: '18174668888',
-    },
-    {
-      mobile: '18174668888',
-      create_time: '2017-12-20 12:50:55',
-      parent_member_account: '18174668888',
-      member_level_name: '1',
-      level: '18174668888',
-      level2: '18174668888',
-      level3: '18174668888',
-    },
-    {
-      mobile: '18174668888',
-      create_time: '2017-12-20 12:50:55',
-      parent_member_account: '18174668888',
-      member_level_name: '1',
-      level: '18174668888',
-      level2: '18174668888',
-      level3: '18174668888',
-    },
-    {
-      mobile: '18174668888',
-      create_time: '2017-12-20 12:50:55',
-      parent_member_account: '18174668888',
-      member_level_name: '1',
-      level: '18174668888',
-      level2: '18174668888',
-      level3: '18174668888',
-    },
-    {
-      mobile: '18174668888',
-      create_time: '2017-12-20 12:50:55',
-      parent_member_account: '18174668888',
-      member_level_name: '1',
-      level: '18174668888',
-      level2: '18174668888',
-      level3: '18174668888',
-    },
-    {
-      mobile: '18174668888',
-      create_time: '2017-12-20 12:50:55',
-      parent_member_account: '18174668888',
-      member_level_name: '1',
-      level: '18174668888',
-      level2: '18174668888',
-      level3: '18174668888',
-    }
-  ];
+  public curPageIndex = 1;
+  public tableList: RelationList[];
   public filterData = {
     mobile: ''
   };
