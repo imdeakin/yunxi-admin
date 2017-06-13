@@ -372,14 +372,13 @@ export class ApiCall {
     });
   }
 
-  public updateStoreGoods(regionId: string, title: string, msgType, fileId: string, userStoreGoodsId: string, content: string, remark: string, success, failure?): void {
+  public updateStoreGoods(regionId: string, title: string, msgType, userStoreGoodsId: string, content: string, remark: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateStoreGoods,
       data: {
         regionId: regionId,
         title: title,
         msgType: msgType,
-        fileId: fileId,
         userStoreGoodsId: userStoreGoodsId,
         content: content,
         remark: remark
@@ -537,28 +536,26 @@ export class ApiCall {
     });
   }
 
-  public addMsg(regionId, title, msgType, fileId, success, failure?): void {
+  public addMsg(regionId, title, msgType, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addMsg,
       data: {
         regionId: regionId,
         title: title,
         msgType: msgType,
-        fileId: fileId
       },
       success: success,
       failure: failure
     });
   }
 
-  public updateMsg(regionId: string, title: string, msgType, fileId: string, userMsgId: string, content: string, remark: string, success, failure?): void {
+  public updateMsg(regionId: string, title: string, msgType, userMsgId: string, content: string, remark: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateMsg,
       data: {
         regionId: regionId,
         title: title,
         msgType: msgType,
-        fileId: fileId,
         userMsgId: userMsgId,
         content: content,
         remark: remark
@@ -573,6 +570,100 @@ export class ApiCall {
       url: this.apiConfig.paths.removeMsg,
       data: {
         userMsgId: userMsgId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getFeedbackList(mobile: string, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getFeedbackList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        mobile: mobile
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getFeedbackInfo(feedbackId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getFeedbackInfo,
+      data: {
+        feedbackId: feedbackId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeFeedback(feedbackId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeFeedback,
+      data: {
+        feedbackId: feedbackId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getAdList(positionCode, businessId, title, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        positionCode: positionCode,
+        businessId: businessId,
+        title: title,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public addAd(title, fileId, businessId, isShow, positionCode, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addAd,
+      data: {
+        title: title,
+        fileId: fileId,
+        businessId: businessId,
+        isShow: isShow,
+        positionCode: positionCode,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateAd(adId, title, fileId, businessId, isShow, positionCode, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAd,
+      data: {
+        adId: adId,
+        title: title,
+        fileId: fileId,
+        businessId: businessId,
+        isShow: isShow,
+        positionCode: positionCode,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public removeAd(adId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeAd,
+      data: {
+        adId: adId
       },
       success: success,
       failure: failure

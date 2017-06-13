@@ -1,7 +1,7 @@
 /**
  * Created by Deakin on 2017/5/8 0008.
  */
-import {Component, Input, Output, DoCheck, EventEmitter, OnInit} from '@angular/core';
+import {Component, Input, Output, DoCheck, EventEmitter, OnInit, ElementRef} from '@angular/core';
 import {Option} from './option-data-type';
 
 @Component({
@@ -29,6 +29,9 @@ export class SelectBoxComponent implements OnInit, DoCheck {
   private oldOptions;
   private oldValue = this.value;
   private oldText = this.text;
+
+  constructor(private ref: ElementRef) {
+  }
 
   public ngOnInit(): void {
     this.init();
@@ -62,6 +65,8 @@ export class SelectBoxComponent implements OnInit, DoCheck {
         this.options.splice(0, 0, this.first);
       }
 
+      // this.updateListScroll();
+
       // 是否有默认值
       if (this.value) { // 默认值
         this.updateCurOptionsByValue();
@@ -75,6 +80,26 @@ export class SelectBoxComponent implements OnInit, DoCheck {
       console.error('the property of options is not allow empty');
     }
     this.onInit.emit(this);
+  }
+
+  public updateListScroll(): void {
+    let list = this.ref.nativeElement.firstChild.childNodes;
+    let target;
+    for (let i = 0, len = list.length; i < len; i++) {
+      let item = list[i];
+      if (item.className) {
+        let classList = item.className.split(' ');
+        for (let i = 0, len = classList.length; i < len; i++) {
+          if (classList[i] === "select-option-list") {
+            target = item;
+            break;
+          }
+        }
+        if (target) {
+          break;
+        }
+      }
+    }
   }
 
   public updateCurOptionsByValue(): void {

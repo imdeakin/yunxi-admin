@@ -32,8 +32,8 @@ export class MsgListComponent implements OnInit {
   public modalData = {
     userMsgId: '',
     regionId: '',
+    regionName: '',
     msgType: 0,
-    fileId: '',
     title: '',
     content: '',
     remark: ''
@@ -79,13 +79,13 @@ export class MsgListComponent implements OnInit {
   public toggleReadModal(item?): void {
     if (item) {
       this.modalData = {
-        userMsgId: '',
-        regionId: item.region_name,
+        userMsgId: item.user_msg_id,
+        regionId: item.region_id,
+        regionName: item.region_name,
         msgType: item.msg_type,
-        fileId: item.img,
         title: item.title,
-        content: '',
-        remark: ''
+        content: item.content,
+        remark: item.remark
       };
     }
     this.readModalShow = !this.readModalShow;
@@ -94,13 +94,13 @@ export class MsgListComponent implements OnInit {
   public toggleEditModal(item?): void {
     if (item) {
       this.modalData = {
-        userMsgId: '',
-        regionId: item.region_name,
+        userMsgId: item.user_msg_id,
+        regionId: item.region_id,
+        regionName: item.region_name,
         msgType: item.msg_type,
-        fileId: item.img,
         title: item.title,
-        content: '',
-        remark: ''
+        content: item.content,
+        remark: item.remark
       };
     }
     this.editModalShow = !this.editModalShow;
@@ -108,8 +108,8 @@ export class MsgListComponent implements OnInit {
       this.modalData = {
         userMsgId: '',
         regionId: '',
+        regionName: '',
         msgType: 0,
-        fileId: '',
         title: '',
         content: '',
         remark: ''
@@ -122,13 +122,12 @@ export class MsgListComponent implements OnInit {
       this.modalData.regionId,
       this.modalData.title,
       this.modalData.msgType,
-      this.modalData.fileId,
       this.modalData.userMsgId,
       this.modalData.content,
       this.modalData.remark,
       (data) => {
         this.toggleEditModal();
-        this.getMsgList(0);
+        this.getMsgList(1);
       }
     );
   }
@@ -138,10 +137,9 @@ export class MsgListComponent implements OnInit {
       this.modalData.regionId,
       this.modalData.title,
       this.modalData.msgType,
-      this.modalData.fileId,
       (data) => {
         this.toggleEditModal();
-        this.getMsgList(0);
+        this.getMsgList(1);
       }
     );
   }
@@ -150,7 +148,7 @@ export class MsgListComponent implements OnInit {
     this.apiCall.removeMsg(
       msgId,
       (data) => {
-        this.getMsgList(0);
+        this.getMsgList(1);
       }
     );
   }

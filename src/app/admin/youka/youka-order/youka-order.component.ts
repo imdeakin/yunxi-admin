@@ -86,7 +86,7 @@ export class YoukaOrderComponent implements OnInit {
   }
 
   public filterSubmit(): void {
-    this.getYoukaOrderList(0);
+    this.getYoukaOrderList(1);
   }
 
   // 模态窗

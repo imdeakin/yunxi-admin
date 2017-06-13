@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, DoCheck, Input, Output, EventEmitter} from '@angular/core';
 import {CityPickerServer} from './city-picker-server'
 import {Option} from '../select-box/option-data-type';
 @Component({
@@ -6,9 +6,10 @@ import {Option} from '../select-box/option-data-type';
   templateUrl: './city-picker.html',
   styleUrls: ['./city-picker.css']
 })
-export class CityPickerComponent {
-  @Input() public name: string;
+export class CityPickerComponent implements OnInit, DoCheck {
   @Output() public change: EventEmitter<any> = new EventEmitter();
+  @Input() public name: string;
+  @Input() public value: string;
   public addr: string;
   public provinceList: Option[];
   public cityList: Option[];
@@ -17,8 +18,23 @@ export class CityPickerComponent {
   public cityCode;
   public districtCoce;
 
+  public oldProvinceCode;
+  public oldCityCode;
+  public oldDistrictCoce;
+
   constructor(private cityPickerServer: CityPickerServer) {
     this.provinceList = this.parseToOptions(cityPickerServer.getProvinceList());
+  }
+
+  public ngOnInit(): void {
+
+  }
+
+  public ngDoCheck(): void {
+    if (this.provinceCode !== this.oldProvinceCode || this.cityCode !== this.oldCityCode || this.districtCoce !== this.oldDistrictCoce) {
+      this.updateAddress();
+      this.change.emit(this.addr);
+    }
   }
 
   public setCityList(provinceCode): void {
@@ -27,8 +43,6 @@ export class CityPickerComponent {
       this.districtList = [];
       this.provinceCode = provinceCode;
       this.cityList = this.parseToOptions(this.cityPickerServer.getList(provinceCode));
-      this.updateAddress();
-      this.change.emit(this.addr);
     }
   }
 
@@ -36,8 +50,6 @@ export class CityPickerComponent {
     if (this.cityCode != cityCode) {
       this.cityCode = cityCode;
       this.districtList = this.parseToOptions(this.cityPickerServer.getList(cityCode));
-      this.updateAddress();
-      this.change.emit(this.addr);
     }
   }
 

@@ -19,30 +19,31 @@ export class FeedbackListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: FeedbackList[] = [
-    {
-      mobile: '1856435664',
-      name: '马云',
-      content: '洗车速度太慢等了1小时还没...',
-      contact: '1856435664',
-      create_time: '2017-5-5 12:00:00',
-      status: 1
-    }
-  ];
+  public tableList: FeedbackList[];
   public filterData = {
-    mobile: '',
-    title: '',
-    status: ''
+    mobile: ''
   };
 
   public msgFunction = MsgFunction;
+
+  // 模态窗
+  public modalData = {
+    feedbackId: '',
+    userName: '',
+    mobile: '',
+    content: 0,
+    contact: '',
+    createTime: '',
+    status: ''
+  };
+  public readModalShow: boolean = false;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getFeedbackList();
   }
 
   public computeOnResize() {
@@ -54,13 +55,38 @@ export class FeedbackListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getFeedbackList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getFeedbackList(this.filterData.mobile, this.curPageIndex, this.perPageSize, (list, total) => {
+      this.tableList = list;
+      this.total = total;
+    });
+  }
+
+  // 模态窗
+  public toggleReadModal(item?): void {
+    if (item) {
+      this.modalData = {
+        feedbackId: item.feedback_id,
+        userName: item.user_name,
+        mobile: item.mobile,
+        content: item.content,
+        contact: item.contact,
+        createTime: item.create_time,
+        status: item.status
+      };
+    }
+    this.readModalShow = !this.readModalShow;
+  }
+
+  public removeFeedback(feedbackId): void {
+    this.apiCall.removeFeedback(
+      feedbackId,
+      (data) => {
+        this.getFeedbackList(1);
+      }
+    );
   }
 }

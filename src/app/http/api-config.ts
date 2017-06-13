@@ -68,6 +68,17 @@ export class ApiConfig {
     updateMsg: this.root + '/sysMsg/updateSysMsg', // 修改消息
     removeMsg: this.root + '/sysMsg/delSysMsg', // 删除消息
 
+    // 反馈管理
+    getFeedbackList: this.root + '/sysMsg/feedbackList', // 获取反馈列表
+    getFeedbackInfo: this.root + '/sysMsg/feedbackInfo', // 获取反馈详情
+    removeFeedback: this.root + '/sysMsg/delFeedback', // 删除反馈
+
+    // 广告
+    getAdList: this.root + '/system/getSlideshowList', // 获取广告列表
+    addAd: this.root + '/system/addSlideshow', // 添加广告信息
+    updateAd: this.root + '/system/updateSlideshow', // 修改广告信息
+    removeAd: this.root + '/system/delSlideshow', // 删除广告信息
+
     // 车系管理
     getCarSeriesList: this.root + '/system/getCarSeriesList', // 获取车系列表
     addCarSeries: this.root + '/system/addCarSeries', // 添加车系信息

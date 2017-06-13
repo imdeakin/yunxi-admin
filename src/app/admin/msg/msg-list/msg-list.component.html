@@ -44,7 +44,7 @@
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal(item)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="removeCarBrand(item.user_msg_id)">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="removeMsg(item.user_msg_id)">删除</a>
               </div>
             </td>
           </tr>
@@ -61,14 +61,14 @@
 <div class="modal-wrapper read-modal-wrapper" [class.hidden]="!readModalShow">
   <div class="modal-con">
     <h3 class="modal-title">详情</h3>
-    <div class="modal-detail-content">
+    <form class="modal-detail-content">
       <div class="modal-detail-item">
         <label>消息类型</label>
-        <div class="value"></div>
+        <div class="value">{{msgFunction.getMsgTypeText(modalData.msgType)}}</div>
       </div>
       <div class="modal-detail-item">
         <label>所属地区</label>
-        <div class="value"></div>
+        <div class="value">{{modalData.regionName}}</div>
       </div>
       <div class="modal-detail-item">
         <label>标题</label>
@@ -76,7 +76,7 @@
       </div>
       <div class="modal-input-group">
         <label>内容</label>
-        <textarea readonly>{{modalData.content}}</textarea>
+        <textarea name="content" [(ngModel)]="modalData.content" readonly></textarea>
       </div>
       <div class="modal-detail-item">
         <label>备注</label>
@@ -85,7 +85,7 @@
       <div class="modal-btn-group">
         <button>关闭</button>
       </div>
-    </div>
+    </form>
     <div class="modal-close" (click)="toggleReadModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
@@ -111,15 +111,15 @@
       </div>
       <div class="modal-input-group">
         <label>标题</label>
-        <input type="text" name="title" value="" [(ngModel)]="modalData.title">
+        <input type="text" name="title" [(ngModel)]="modalData.title">
       </div>
       <div class="modal-input-group">
         <label>内容</label>
-        <textarea></textarea>
+        <textarea name="content" [(ngModel)]="modalData.content"></textarea>
       </div>
       <div class="modal-input-group">
         <label>备注</label>
-        <input type="text" name="remark" value="" [(ngModel)]="modalData.remark">
+        <input type="text" name="remark" [(ngModel)]="modalData.remark">
       </div>
       <div class="modal-btn-group">
         <button type="submit">保存</button>

@@ -2,39 +2,79 @@
  * Created by Deakin on 2017/5/16 0016.
  */
 export class AdFunction {
-  // 消息类型选项组
-  public static msgTypeOptions = [
+  // 广告位置选项组
+  public static adPositionOptions = [
     {
-      value: '0',
-      text: '优惠促销'
+      value: 'index',
+      text: '首页'
     },
     {
-      value: '1',
-      text: '公告'
+      value: 'mall',
+      text: '商城'
+    },
+    {
+      value: 'store',
+      text: '商埔'
+    },
+    {
+      value: 'shoppingcart',
+      text: '购物车'
+    },
+    {
+      value: 'addGas',
+      text: '加油'
+    },
+    {
+      value: 'illegal',
+      text: '违章'
     }
   ];
 
-  // 反馈状态选项组
-  public static feebackStatusOptions = [
-    {
-      value: '0',
-      text: '待回复'
-    },
+  // 广告业务选项组
+  public static adBusinessOptions = [
     {
       value: '1',
-      text: '已处理'
+      text: '门店'
+    },
+    {
+      value: '2',
+      text: '商城'
     }
   ];
 
-  // 消息类型
-  public static getMsgTypeText(code: number): string {
+  // 广告可见状态选项组
+  public static adVisibleStatusOptions = [
+    {
+      value: '0',
+      text: '不可见'
+    },
+    {
+      value: '1',
+      text: '可见'
+    }
+  ];
+
+  // 广告位置
+  public static getAdPositionText(code: string): string {
     let text: string;
     switch (code) {
-      case 0:
-        text = '优惠促销';
+      case 'index':
+        text = '首页';
         break;
-      case 1:
-        text = '公告';
+      case 'mall':
+        text = '商城';
+        break;
+      case 'store':
+        text = '商埔';
+        break;
+      case 'shoppingcart':
+        text = '购物车';
+        break;
+      case 'addGas':
+        text = '加油';
+        break;
+      case 'illegal':
+        text = '违章';
         break;
       default:
         text = '未知'
@@ -42,15 +82,31 @@ export class AdFunction {
     return text;
   }
 
-  // 反馈状态
-  public static getFeebackStatusText(code: number): string {
+  //  广告业务
+  public static getAdBusinessText(code: number): string {
+    let text: string;
+    switch (code) {
+      case 1:
+        text = '门店';
+        break;
+      case 2:
+        text = '商城';
+        break;
+      default:
+        text = '未知'
+    }
+    return text;
+  }
+
+  // 广告可见状态
+  public static getAdVisibleStatusText(code: number): string {
     let text: string;
     switch (code) {
       case 0:
-        text = '待回复';
+        text = '不可见';
         break;
       case 1:
-        text = '已处理';
+        text = '可见';
         break;
       default:
         text = '未知'

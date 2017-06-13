@@ -29,12 +29,16 @@ export class MsgFunction {
   // 反馈状态选项组
   public static feebackStatusOptions = [
     {
-      value: '0',
+      value: '1',
+      text: '正常'
+    },
+    {
+      value: '2',
       text: '待回复'
     },
     {
-      value: '1',
-      text: '已处理'
+      value: '3',
+      text: '已回复'
     }
   ];
 
@@ -67,11 +71,17 @@ export class MsgFunction {
   public static getFeebackStatusText(code: number): string {
     let text: string;
     switch (code) {
-      case 0:
-        text = '待回复';
+      case -1:
+        text = '删除';
         break;
       case 1:
-        text = '已处理';
+        text = '正常';
+        break;
+      case 2:
+        text = '待回复';
+        break;
+      case 3:
+        text = '已回复';
         break;
       default:
         text = '未知'

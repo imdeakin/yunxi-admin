@@ -82,7 +82,7 @@ export class CarModelListComponent implements OnInit {
       this.filterData.carModel,
       (data) => {
         this.toggleModal();
-        this.getCarModelList(0);
+        this.getCarModelList(1);
       }
     );
   }
@@ -92,7 +92,7 @@ export class CarModelListComponent implements OnInit {
       this.filterData.carModel,
       (data) => {
         this.toggleModal();
-        this.getCarModelList(0);
+        this.getCarModelList(1);
       }
     );
   }
@@ -101,7 +101,7 @@ export class CarModelListComponent implements OnInit {
     this.apiCall.removeCarModel(
       carModelId,
       (data) => {
-        this.getCarModelList(0);
+        this.getCarModelList(1);
       }
     );
   }

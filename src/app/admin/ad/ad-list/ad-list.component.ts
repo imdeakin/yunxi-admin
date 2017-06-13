@@ -19,29 +19,35 @@ export class AdListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: AdList[] = [
-    {
-      region_name: '440000/440100',
-      type: 1,
-      img: '',
-      title: '张三',
-      create_time: '2017-5-5 12:00:00'
-    }
-  ];
+  public tableList: AdList[];
   public filterData = {
-    title: '',
-    type: '',
-    regionId: ''
+    positionCode: '',
+    businessId: '',
+    title: ''
   };
 
-  public msgFunction = AdFunction;
+  public adFunction = AdFunction;
+
+  // 模态窗
+  public editModalData = {
+    adId: '',
+    fileId: '',
+    url: '',
+    title: '',
+    createTime: '',
+    positionCode: '',
+    businessId: '',
+    isShow: '',
+    sort: ''
+  };
+  public editModalShow: boolean = false;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getAdList();
   }
 
   public computeOnResize() {
@@ -53,13 +59,100 @@ export class AdListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getAdList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getAdList(
+      this.filterData.positionCode,
+      this.filterData.businessId,
+      this.filterData.title,
+      this.curPageIndex,
+      this.perPageSize,
+      (list, total) => {
+        this.tableList = list;
+        this.total = total;
+      }
+    );
+  }
+
+  // 模态窗
+
+  public toggleEditModal(item?): void {
+    if (item) {
+      this.editModalData = {
+        adId: item.ad_id,
+        fileId: item.file_id,
+        url: item.url,
+        title: item.title,
+        createTime: item.create_time,
+        positionCode: item.position_code,
+        businessId: item.business_id,
+        isShow: item.is_show,
+        sort: item.sort
+      };
+    }
+    this.editModalShow = !this.editModalShow;
+    if (!this.editModalShow) {
+      this.editModalData = {
+        adId: '',
+        fileId: '',
+        url: '',
+        title: '',
+        createTime: '',
+        positionCode: '',
+        businessId: '',
+        isShow: '',
+        sort: ''
+      };
+    }
+  }
+
+  public updateAd(): void {
+    this.apiCall.updateAd(
+      this.editModalData.adId,
+      this.editModalData.title,
+      this.editModalData.fileId,
+      this.editModalData.businessId,
+      this.editModalData.isShow,
+      this.editModalData.positionCode,
+      this.editModalData.sort,
+      (data) => {
+        this.toggleEditModal();
+        this.getAdList(1);
+      }
+    );
+  }
+
+  public addAd(): void {
+    this.apiCall.addAd(
+      this.editModalData.title,
+      this.editModalData.fileId,
+      this.editModalData.businessId,
+      this.editModalData.isShow,
+      this.editModalData.positionCode,
+      this.editModalData.sort,
+      (data) => {
+        this.toggleEditModal();
+        this.getAdList(1);
+      }
+    );
+  }
+
+  public removeAd(adId): void {
+    this.apiCall.removeAd(
+      adId,
+      (data) => {
+        this.getAdList(1);
+      }
+    );
+  }
+
+  public modalSubmit(): void {
+    if (this.editModalData.adId) {
+      this.updateAd();
+    } else {
+      this.addAd();
+    }
   }
 }

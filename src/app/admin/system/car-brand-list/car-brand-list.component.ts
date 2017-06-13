@@ -82,7 +82,7 @@ export class CarBrandListComponent implements OnInit {
       this.filterData.carBrand,
       (data) => {
         this.toggleModal();
-        this.getCarBrandList(0);
+        this.getCarBrandList(1);
       }
     );
   }
@@ -92,7 +92,7 @@ export class CarBrandListComponent implements OnInit {
       this.filterData.carBrand,
       (data) => {
         this.toggleModal();
-        this.getCarBrandList(0);
+        this.getCarBrandList(1);
       }
     );
   }
@@ -101,7 +101,7 @@ export class CarBrandListComponent implements OnInit {
     this.apiCall.removeCarBrand(
       carBrandId,
       (data) => {
-        this.getCarBrandList(0);
+        this.getCarBrandList(1);
       }
     );
   }
