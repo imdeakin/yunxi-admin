@@ -42,6 +42,9 @@ import {
   ShopServerListComponent,
   ShopOrderListComponent,
 
+  // 财务管理
+  CloudpayVerificationComponent,
+
   // 消息中心
   MsgListComponent,
   FeedbackListComponent,
@@ -101,6 +104,9 @@ const AdminRoutes: Routes = [
       {path: 'shop-order-list', component: ShopOrderListComponent},
       {path: 'msg-list', component: MsgListComponent},
       {path: 'feedback-list', component: FeedbackListComponent},
+
+      // 财务管理
+      {path: 'cloudpay-verification-list', component: CloudpayVerificationComponent},
 
       // 广告
       {path: 'ad-list', component: AdListComponent},

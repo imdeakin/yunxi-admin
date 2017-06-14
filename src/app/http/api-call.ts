@@ -14,7 +14,7 @@ export class ApiCall {
     let data = options.data;
     let success = options.success;
     let failure = options.failure;
-    let opts: ReqOpts = {
+    let opts: ReqOpts = <ReqOpts>{
       url: url,
       data: data,
       success: (data, total) => {
@@ -515,6 +515,34 @@ export class ApiCall {
         orderDetailsIds: orderDetailsIds,
         expressId: expressId,
         waybillNumber: waybillNumber
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getCloudpayVerificationList(type, sn, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getCloudpayVerificationList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        type: type,
+        sn: sn
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updatecloudpayVerification(adminId, sn, type, status, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getCloudpayVerificationList,
+      data: {
+        adminId: adminId,
+        sn: sn,
+        type: type,
+        status: status
       },
       success: success,
       failure: failure

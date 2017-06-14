@@ -62,6 +62,11 @@ export class ApiConfig {
     updateStoreGoodsBrandList: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 更新商品品牌列表
     updateStoreGoodsBrandInfo: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 更新商品品牌信息
 
+    // 财务管理
+    getCloudpayVerificationList: this.root + '/finance/yftOrderVerificationList', // 获取云付通核验列表
+    updateCloudpayVerification: this.root + '/finance/yftVerification', // 云付通核验
+
+
     // 消息管理
     getMsgList: this.root + '/sysMsg/sysMsgList', // 获取消息列表
     addMsg: this.root + '/sysMsg/addSysMsg', // 添加消息
