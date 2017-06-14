@@ -29,6 +29,10 @@ export class CarBrandListComponent implements OnInit {
 
   // 模态窗
   public modalShow: boolean = false;
+  public modalData = {
+    carBrandId: '',
+    carBrand: ''
+  };
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -63,13 +67,15 @@ export class CarBrandListComponent implements OnInit {
   // 模态窗
   public toggleModal(item?): void {
     if (item) {
-      this.filterData.carBrandId = item.car_brand_id;
-      this.filterData.carBrand = item.brand;
+      this.modalData = {
+        carBrandId: item.car_brand_id,
+        carBrand: item.brand
+      }
     }
     this.modalShow = !this.modalShow;
 
     if (!this.modalShow) {
-      this.filterData = {
+      this.modalData = {
         carBrandId: '',
         carBrand: ''
       }
@@ -78,8 +84,8 @@ export class CarBrandListComponent implements OnInit {
 
   public updateCarBrand(): void {
     this.apiCall.updateCarBrand(
-      this.filterData.carBrandId,
-      this.filterData.carBrand,
+      this.modalData.carBrandId,
+      this.modalData.carBrand,
       (data) => {
         this.toggleModal();
         this.getCarBrandList(1);
@@ -89,7 +95,7 @@ export class CarBrandListComponent implements OnInit {
 
   public addCarBrand(): void {
     this.apiCall.addCarBrand(
-      this.filterData.carBrand,
+      this.modalData.carBrand,
       (data) => {
         this.toggleModal();
         this.getCarBrandList(1);
@@ -107,7 +113,7 @@ export class CarBrandListComponent implements OnInit {
   }
 
   public modalSubmit(): void {
-    if (this.filterData.carBrandId) {
+    if (this.modalData.carBrandId) {
       this.updateCarBrand();
     } else {
       this.addCarBrand();

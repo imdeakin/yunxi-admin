@@ -45,12 +45,12 @@
 </div>
 <div class="modal-wrapper" [class.hidden]="!modalShow">
   <div class="modal-con">
-    <h3 class="modal-title" [class.hidden]="filterData.carBrandId">添加</h3>
-    <h3 class="modal-title" [class.hidden]="!filterData.carBrandId">编辑</h3>
+    <h3 class="modal-title" [class.hidden]="modalData.carBrandId">添加</h3>
+    <h3 class="modal-title" [class.hidden]="!modalData.carBrandId">编辑</h3>
     <form class="modal-form" (ngSubmit)="modalSubmit()">
       <div class="modal-input-group">
         <label>品牌</label>
-        <input type="text" name="brand" value="" [(ngModel)]="filterData.carBrand">
+        <input type="text" name="brand" value="" [(ngModel)]="modalData.carBrand">
       </div>
       <div class="modal-btn-group">
         <button type="submit">保存</button>
