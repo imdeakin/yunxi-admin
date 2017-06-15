@@ -56,6 +56,9 @@ import {
   ShopServerListComponent,
   ShopOrderListComponent,
 
+  // 财务管理
+  CloudpayVerificationComponent,
+
   // 消息中心
   MsgListComponent,
   FeedbackListComponent,
@@ -124,6 +127,9 @@ import {
     ShopListComponent,
     ShopServerListComponent,
     ShopOrderListComponent,
+
+    // 财务管理
+    CloudpayVerificationComponent,
 
     // 消息中心
     MsgListComponent,

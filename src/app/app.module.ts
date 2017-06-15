@@ -21,6 +21,7 @@ import {Rc4Server} from './serv/rc4.server';
 
 // stylesheet
 import '../styles/main.css';
+import 'angular2-layer/css/dialog.css'
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process

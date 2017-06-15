@@ -146,41 +146,8 @@ export class AccordionNavComponent implements OnInit {
       title: '财务管理',
       items: [
         {
-          title: '奖金明细',
-          items: [
-            {
-              title: '会员奖金明细',
-              link: '/admin/weizhang'
-            },
-            {
-              title: '合伙人奖金明细',
-              link: '/admin/weizhang'
-            },
-            {
-              title: '奖金生成列表',
-              link: '/admin/weizhang'
-            }
-          ]
-        },
-        {
-          title: '待核验订单',
-          link: '/admin/weizhang'
-        },
-        {
-          title: '提现列表',
-          link: '/admin/weizhang'
-        },
-        {
-          title: '充值列表',
-          link: '/admin/weizhang'
-        },
-        {
-          title: '商城收益明细',
-          link: '/admin/weizhang'
-        },
-        {
-          title: '门店收益明细',
-          link: '/admin/weizhang'
+          title: '云付通核验',
+          link: '/admin/cloudpay-verification-list'
         }
       ]
     },
