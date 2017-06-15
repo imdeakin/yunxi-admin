@@ -21,8 +21,16 @@ export class YoukaTaocanComponent implements OnInit {
   public tableList: YoukaTaocan[];
   public youkaFunction = YoukaFunction;
 
+
   // 模态窗
   public modalShow: boolean = false;
+  public eachs = 0;
+  public youkaType = 0;
+  public described = '';
+  public need_points = 0;
+  public type = 0;
+  public amount = 0;
+  public oil_card_type = 0;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
@@ -62,8 +70,35 @@ export class YoukaTaocanComponent implements OnInit {
     return YoukaFunction.getYoukaTaocanPayTypeText(type);
   }
 
-  // 模态窗
-  public toggleModal(): void {
-    this.modalShow = !this.modalShow;
+   public getTaocanOilCardTypeText(type: number): string {
+    return YoukaFunction.getYoukaTypeText(type);
   }
+
+  /**
+   * 编辑油卡套餐
+   */
+  
+  public updateYoukaTaocanList():void{
+      
+  }
+
+  // 模态窗
+  public toggleModal(data?): void {
+    this.modalShow = !this.modalShow;
+    if(data){
+        this.eachs = data.eachs;
+        this.amount = data.amount;
+        this.described = data.described;
+        this.need_points = data.need_points;
+        this.type = data.type;
+        this.oil_card_type = data.oil_card_type;
+        console.log(data);
+        console.log(this.type);
+    }
+  }
+
+  public test(data):void{
+    console.log(data);
+  } 
+
 }

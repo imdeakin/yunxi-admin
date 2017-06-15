@@ -76,6 +76,27 @@ export class ApiCall {
       failure: failure
     });
   }
+  
+  //编辑油卡套餐
+  public updateYoukaTaocanList(oilPackageId: string, classify: string,payMoney:number,amount:number,eachs:number,type:number,oilCardType:number,needPoints:number,described:string ,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getYoukaTaocanList,
+      data: {
+        oilPackageId: oilPackageId,
+        classify: classify,
+        payMoney:payMoney,
+        amount:amount,
+        eachs:eachs,
+        type:type,
+        oilCardType:oilCardType,
+        needPoints:needPoints,
+        described:described
+
+      },
+      success: success,
+      failure: failure
+    });
+  }
 
   public getYoukaBindList(oilCard: string, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({

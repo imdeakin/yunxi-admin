@@ -47,12 +47,14 @@ export class SelectBoxComponent implements OnInit, DoCheck {
     if (this.value !== this.oldValue) {
       this.updateCurOptionsByValue();
       this.oldValue = this.value;
+      console.log(this.value);
       console.log('The value had changed.');
     }
 
     if (this.text !== this.oldText) {
       this.updateCurOptionsByText();
       this.oldText = this.text;
+      console.log(this.text);
       console.log('The text had changed.');
     }
   }

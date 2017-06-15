@@ -14,11 +14,12 @@
           <thead>
           <tr>
             <th>序号</th>
+            <th>套餐类型</th>
             <th>每月返还</th>
             <th>返还时间</th>
-            <th>套餐类型</th>
             <th>创建时间</th>
-            <th>套餐分类</th>
+            <th>优惠类型</th>
+            <th>油卡类型</th>
             <th>套餐参加所需要积分</th>
             <th>操作</th>
           </tr>
@@ -27,15 +28,16 @@
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{i+1}}</td>
+            <td>{{youkaFunction.getYoukaTaocanPayTypeText(item.classify)}}</td>
             <td>{{item.amount}}</td>
             <td>{{item.eachs}}个月</td>
-            <td>{{youkaFunction.getYoukaTaocanPayTypeText(item.type)}}</td>
             <td>{{item.create_time}}</td>
-            <td>{{youkaFunction.getYoucaTaocanClassText(item.classify)}}</td>
+            <td>{{youkaFunction.getYoucaTaocanClassText(item.type)}}</td>
+            <td>{{youkaFunction.getYoukaTypeText(item.oil_card_type)}}</td>
             <td>{{item.need_points}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);">删除</a>
               </div>
             </td>
@@ -54,20 +56,20 @@
     <h3 class="modal-title">添加套餐</h3>
     <form class="modal-form">
       <div class="modal-input-group">
-        <label>套餐类型</label>
-        <select-box [options]="youkaFunction.youcaTaocanClassOptions" [first]="{value:'',text:'请选择'}"></select-box>
+        <label>优惠类型</label>
+        <select-box [options]="youkaFunction.youcaTaocanClassOptions" [first]="{value:'',text:'请选择'}" [text]="getTaocanClassText(type)"></select-box>
       </div>
       <div class="modal-input-group">
         <label>油卡类型</label>
-        <select-box [options]="youkaFunction.youcaTaocanTypeOptions" [first]="{value:'',text:'请选择'}"></select-box>
+        <select-box [options]="youkaFunction.youcaTaocanTypeOptions" [first]="{value:'',text:'请选择'}" [text]="getTaocanOilCardTypeText(oil_card_type)" (optionSelect)="$event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>每期套餐金额</label>
-        <input type="text" name="price" value="">
+        <input type="text" name="price" [value]="amount">
       </div>
       <div class="modal-input-group">
         <label>类型（分期数）</label>
-        <input type="text" name="type" value="">
+        <input type="text" name="type" [value]="eachs">
       </div>
       <div class="modal-input-group">
         <label>到账总额</label>
@@ -75,14 +77,14 @@
       </div>
       <div class="modal-input-group">
         <label>购买套餐所需要积分</label>
-        <input type="text" name="type" value="">
+        <input type="text" name="type" [value]="need_points">
       </div>
       <div class="modal-input-group">
         <label>套餐描述</label>
-        <textarea name="describe" placeholder="1~120字"></textarea>
+        <textarea name="describe" placeholder="1~120字" [value]="described"></textarea>
       </div>
       <div class="modal-btn-group">
-        <button type="submit">确定</button>
+        <button type="submit" (click)="updateYoukaTaocanList()">确定</button>
       </div>
     </form>
     <div class="modal-close" (click)="toggleModal()">

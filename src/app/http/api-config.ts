@@ -17,8 +17,9 @@ export class ApiConfig {
     // 油卡管理
     getYoukaTaocanList: this.root + '/oiling/packageInfoList', // 获取油卡套餐列表
     getYoukaBindList: this.root + '/oiling/oilBoundList', // 获取油卡套餐列表
-    getYoukaOrderList: this.root + '/oiling/depositList', // 获取油卡购买套餐订单列表
-    getYoukaRecordList: this.root + '/oiling/oilAccountList', // 获取油卡到账记录列表
+    getYoukaOrderList: this.root + '/oiling/chargeOrderdList', // 获取油卡购买套餐订单列表
+    getYoukaRecordList: this.root + '/oiling/cardOrderReturnList', // 获取油卡到账记录列表
+    updateYoukaTaocanList:this.root +'oiling/updatePackgageInfo',//编辑油卡套餐
 
     // 车险管理
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表
