@@ -10,6 +10,7 @@ export class ApiCall {
   }
 
   public apiCall(options): void {
+    console.log(options);
     let url = options.url;
     let data = options.data;
     let success = options.success;
@@ -75,6 +76,58 @@ export class ApiCall {
       success: success,
       failure: failure
     });
+  }
+  
+  //编辑油卡套餐
+  public updateYoukaTaocanList(oilPackageId: string, classify: string, payMoney:number, amount: number, eachs: number, type: number,oilCardType:number,needPoints:number,described:string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateYoukaTaocanList,
+      data: {
+        oilPackageId:oilPackageId,
+        classify:classify,
+        payMoney:payMoney,
+        amount:amount,
+        eachs:eachs,
+        type:type,
+        oilCardType:oilCardType,
+        needPoints:needPoints,
+        described:described
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //增加油卡套餐
+  public addYoukaTaocanList(classify: string,payMoney:number,amount:number,eachs:number,type:number,oilCardType:number,needPoints:number,described:string, success, failure?):void{
+     this.apiCall({
+        url:this.apiConfig.paths.addYoukaTaocanList,
+        data:{
+          classify:classify,
+          payMoney:payMoney,
+          amount:amount,
+          eachs:eachs,
+          type:type,
+          oilCardType:oilCardType,
+          needPoints:needPoints,
+          described:described
+        },
+        success:success,
+        failure:failure
+     });
+  }
+
+  //删除油卡套餐
+   public deleteYoukaTaocanList(oilPackageId:string, success, failure?):void{
+     console.log(oilPackageId)
+     this.apiCall({
+        url:this.apiConfig.paths.removeYoukaTaocanList,
+        data:{
+          oilPackageId:oilPackageId
+        },
+        success:success,
+        failure:failure
+     });
   }
 
   public getYoukaBindList(oilCard: string, curPageIndex: number, pageSize: number, success, failure?): void {
@@ -161,6 +214,26 @@ export class ApiCall {
       url: this.apiConfig.paths.getUserInfo,
       data: {
         memberId: memberId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+  /** 
+   *获取可办理违章列表和不可办理违章了列表
+   * @param searchName (姓名/手机号/订单编号)
+   * @param type 类型1可办理2不可办理
+   * @param index 当前页
+   * @param pageSize 每页显示多少条 
+  */
+
+   public getCanWeiZhangList(type:string,index:number,pageSize:number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getCanWeizhangList,
+      data: {
+        type:type,
+        index:index,
+        pageSize:pageSize
       },
       success: success,
       failure: failure

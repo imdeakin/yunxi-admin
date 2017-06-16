@@ -40,16 +40,16 @@ export class AccordionNavComponent implements OnInit {
       title: '违章管理',
       items: [
         {
-          title: '违章管理列表',
-          link: '/admin/weizhang'
+          title: '可办理违章',
+          link: '/admin/canweizhang'
         },
         {
-          title: '办理违章',
-          link: '/admin/weizhang'
+          title: '不可办理违章',
+          link: '/admin/canweizhang'
         },
         {
-          title: '线下办理订单',
-          link: '/admin/weizhang'
+          title: '详情',
+          link: '/admin/cantWeizhang'
         }
       ]
     },

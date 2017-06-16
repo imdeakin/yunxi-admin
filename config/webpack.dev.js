@@ -19,7 +19,11 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
+<<<<<<< HEAD
+const HOST = process.env.HOST || '127.0.0.1';
+=======
 const HOST = process.env.HOST || 'localhost';
+>>>>>>> d2e63f53e69ca661a009150df309f02ac8ee510a
 const PORT = process.env.PORT || 3000;
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {

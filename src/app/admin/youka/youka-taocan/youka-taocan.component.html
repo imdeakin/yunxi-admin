@@ -14,12 +14,13 @@
           <thead>
           <tr>
             <th>序号</th>
+            <th>套餐类型</th>
             <th>每月返还</th>
             <th>返还时间</th>
-            <th>套餐类型</th>
             <th>创建时间</th>
-            <th>套餐分类</th>
-            <th>套餐参加所需要积分</th>
+            <th>优惠类型</th>
+            <th>油卡类型</th>
+            <th>所需积分</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -27,16 +28,17 @@
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{i+1}}</td>
+            <td>{{youkaFunction.getYoukaTaocanPayTypeText(item.classify)}}</td>
             <td>{{item.amount}}</td>
             <td>{{item.eachs}}个月</td>
-            <td>{{youkaFunction.getYoukaTaocanPayTypeText(item.type)}}</td>
             <td>{{item.create_time}}</td>
-            <td>{{youkaFunction.getYoucaTaocanClassText(item.classify)}}</td>
+            <td>{{youkaFunction.getYoucaTaocanClassText(item.type)}}</td>
+            <td>{{youkaFunction.getYoukaTypeText(item.oil_card_type)}}</td>
             <td>{{item.need_points}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">编辑</a>
-                <a class="table-btn" href="javascript:void(0);">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="removeYoukaTancanList(item.oil_package_id)">删除</a>
               </div>
             </td>
           </tr>
@@ -49,43 +51,48 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!modalShow">
+<div class="modal-wrapper" [class.hidden]="!editModalShow">
   <div class="modal-con">
-    <h3 class="modal-title">添加套餐</h3>
-    <form class="modal-form">
+    <h3 class="modal-title" [class.hidden]="modalData.oilPackageId">添加套餐</h3>
+     <h3 class="modal-title" [class.hidden]="!modalData.oilPackageId">编辑套餐</h3>
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
       <div class="modal-input-group">
         <label>套餐类型</label>
-        <select-box [options]="youkaFunction.youcaTaocanClassOptions" [first]="{value:'',text:'请选择'}"></select-box>
+        <select-box [options]="youkaFunction.youkaTaocanClassifyOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.classify" (optionSelect)="modalData.classify = $event"></select-box>
+      </div>
+      <div class="modal-input-group">
+        <label>优惠类型</label>
+        <select-box [options]="youkaFunction.youcaTaocanClassOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.type" (optionSelect)="modalData.type = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>油卡类型</label>
-        <select-box [options]="youkaFunction.youcaTaocanTypeOptions" [first]="{value:'',text:'请选择'}"></select-box>
+        <select-box [options]="youkaFunction.youcaTaocanTypeOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.oilCardType"  (optionSelect)="modalData.oilCardType = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>每期套餐金额</label>
-        <input type="text" name="price" value="">
+        <input type="text" name="price" [(ngModel)]="modalData.amount">
       </div>
       <div class="modal-input-group">
         <label>类型（分期数）</label>
-        <input type="text" name="type" value="">
+        <input type="text" name="eachs" [(ngModel)]="modalData.eachs">
       </div>
       <div class="modal-input-group">
         <label>到账总额</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.amount * modalData.eachs}}</div>
       </div>
       <div class="modal-input-group">
-        <label>购买套餐所需要积分</label>
-        <input type="text" name="type" value="">
+        <label>所需积分</label>
+        <input type="text" name="type" [(ngModel)]="modalData.needPoints">
       </div>
       <div class="modal-input-group">
         <label>套餐描述</label>
-        <textarea name="describe" placeholder="1~120字"></textarea>
+        <textarea name="describe" placeholder="1~120字" [(ngModel)]="modalData.described"></textarea>
       </div>
       <div class="modal-btn-group">
         <button type="submit">确定</button>
       </div>
     </form>
-    <div class="modal-close" (click)="toggleModal()">
+    <div class="modal-close" (click)="toggleEditModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>

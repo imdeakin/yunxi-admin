@@ -24,6 +24,8 @@ import {
 
   // 违章管理
   WeizhangPageComponent,
+  cantWeizhangComponent,
+  canWeizhangComponent,
 
   // 油卡管理
   YoukaTaocanComponent,
@@ -99,6 +101,8 @@ import {
 
     // 违章管理
     WeizhangPageComponent,
+    cantWeizhangComponent,
+    canWeizhangComponent,
 
     // 油卡管理
     YoukaTaocanComponent,

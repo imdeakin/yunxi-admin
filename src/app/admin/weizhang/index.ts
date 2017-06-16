@@ -1,4 +1,6 @@
 /**
- * Created by Deakin on 2017/5/8 0008.
+ * Created by Kun on 2017/6/16 0022.
  */
-export * from './weizhang.component';
+export * from './canweizhang';
+export * from './cantweizhang';
+export * from './weizhangList';

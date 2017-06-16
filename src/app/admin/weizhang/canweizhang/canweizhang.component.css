@@ -1,0 +1,30 @@
+.modal-con {
+  width: 760px;
+  height: 720px;
+  margin-left: -430px;
+  margin-top: -360px;
+  overflow-y:scroll;
+}
+.modal-title{
+  font-size:20px;
+  margin:16px 0 10px 0;
+}
+.modal-form{
+  margin:0 auto;
+  width:400px;
+}
+
+.modal-form .modal-input-group{
+    width:320px;
+}
+
+.modal-form .table-btn{
+    font-weight: block;
+}
+
+.modal-form .table-btn:hover{
+    color:#009be8;
+}
+.modal-need{
+  color:red;
+}
