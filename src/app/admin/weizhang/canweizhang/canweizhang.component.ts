@@ -2,15 +2,18 @@
  * Created by Deakin on 2017/5/8 0008.
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
-import {FuncServer} from '../../serv/func.server';
+import {FuncServer} from '../../../serv/func.server';
+import {ApiCall} from '../../../http/api-call';
 
 @Component({
-  selector: 'weizhang-page',
-  templateUrl: './weizhang.component.html',
-  styleUrls: ['./weizhang.component.css']
+  selector: 'canweizhang',
+  templateUrl: './canweizhang.component.html',
+  styleUrls: ['./canweizhang.component.css']
 })
-export class WeizhangPageComponent implements OnInit {
-  public title = '违章管理';
+export class canWeizhangComponent implements OnInit {
+  public title = '可办理违章';
+  public cantype = '1';//可办理类型
+  public total = 0;
   public contentHeight = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
@@ -54,12 +57,16 @@ export class WeizhangPageComponent implements OnInit {
   private toContainPrevMonth: boolean = false;
   private toContainNextMonth: boolean = false;
   private value: string = '';
-
-  constructor(private elRef: ElementRef, private funcServer: FuncServer) {
+  private detailPages:boolean = false;
+  private modalData ={
+      carUrl:''
+  }
+  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
+    this.getCanWeiZhangList();
   }
 
   public computeOnResize() {
@@ -71,11 +78,28 @@ export class WeizhangPageComponent implements OnInit {
     });
   }
 
-  public setInputDate(event) {
-    this.value = event.target.value;
+   /**
+   * 获取可办理违章列表
+   */
+  
+  public getCanWeiZhangList(curPageIndex?): void {
+    if (curPageIndex) {
+      this.curPageIndex = curPageIndex;
+    }
+    this.apiCall.getCanWeiZhangList(this.cantype,this.curPageIndex, this.perPageSize, (list, total) => {
+      console.log(list)
+      this.tableList = list;
+      this.total = total;
+    });
   }
 
-  public setDate(date) {
-    this.selDate = date;
+  public toggleEditModal(item):void {
+    this.detailPages = !this.detailPages;
+    console.log(this.modalData.carUrl)
+  }
+
+  public modalSubmit():void{  
+    
   }
 }
+

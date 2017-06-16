@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://39.108.61.60'; // http://www.gzyueyun.com
+  public server: string = 'http://yx.51meets.com/'; // http://www.gzyueyun.com 本地192.168.3.5:8082
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
@@ -19,7 +19,12 @@ export class ApiConfig {
     getYoukaBindList: this.root + '/oiling/oilBoundList', // 获取油卡套餐列表
     getYoukaOrderList: this.root + '/oiling/chargeOrderdList', // 获取油卡购买套餐订单列表
     getYoukaRecordList: this.root + '/oiling/cardOrderReturnList', // 获取油卡到账记录列表
-    updateYoukaTaocanList:this.root +'oiling/updatePackgageInfo',//编辑油卡套餐
+    updateYoukaTaocanList:this.root +'/oiling/updatePackageInfo',//编辑油卡套餐
+    addYoukaTaocanList:this.root + '/oiling/addPackageInfo',//增加油卡套餐
+    removeYoukaTaocanList:this.root + '/oiling/delPackageInfo',//删除油卡列表
+
+    //违章管理
+    getCanWeizhangList:this.root + 'peccancyManage/peccancyOrderList',//获取可办理违章
 
     // 车险管理
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表

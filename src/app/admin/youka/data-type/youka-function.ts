@@ -2,6 +2,17 @@
  * Created by Deakin on 2017/5/16 0016.
  */
 export class YoukaFunction {
+  //油卡套餐类型
+  public static youkaTaocanClassifyOptions = [
+    {
+      value:'1',
+      text:'套餐充值'
+    },
+    {
+      value:'2',
+      text:'即时到账'
+    }
+  ]
   // 油卡套餐的优惠类型选项组
   public static youcaTaocanClassOptions = [
     {
@@ -22,7 +33,7 @@ export class YoukaFunction {
   public static youcaTaocanTypeOptions = [
     {
       value: '0',
-      text: '通用'
+      text: ''
     },
     {
       value: '1',
@@ -94,7 +105,7 @@ export class YoukaFunction {
     let text: string;
     switch (type) {
       case 0:
-        text = '通用';
+        text = '';
         break;
       case 1:
         text = '中国石油';
@@ -103,7 +114,7 @@ export class YoukaFunction {
         text = '中国石化';
         break;
       default:
-        text = '未知'
+        text = ''
     }
     return text;
   }

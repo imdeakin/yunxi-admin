@@ -73,6 +73,7 @@ export class YoukaOrderComponent implements OnInit {
     }
     this.apiCall.getYoukaOrderList(this.filterData.oilCard, this.filterData.tradeMode, this.filterData.classify, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
+       console.log(list);
       this.total = total;
     });
   }

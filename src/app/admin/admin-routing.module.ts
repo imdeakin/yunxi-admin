@@ -10,6 +10,8 @@ import {
 
   // 违章管理
   WeizhangPageComponent,
+  canWeizhangComponent,
+  cantWeizhangComponent,
 
   // 油卡管理
   YoukaTaocanComponent,
@@ -70,7 +72,10 @@ const AdminRoutes: Routes = [
       {path: 'workbench', component: WorkbenchPageComponent},
 
       // 违章管理
-      {path: 'weizhang', component: WeizhangPageComponent},
+      {path: 'weizhangList', component: WeizhangPageComponent},
+      {path:'canweizhang',component:canWeizhangComponent},
+      {path:'cantWeizhang',component:cantWeizhangComponent},
+
 
       // 油卡管理
       {path: 'youka-taocan', component: YoukaTaocanComponent},

@@ -24,14 +24,19 @@ export class YoukaTaocanComponent implements OnInit {
 
   // 模态窗
   public modalShow: boolean = false;
-  public eachs = 0;
-  public youkaType = 0;
-  public described = '';
-  public need_points = 0;
-  public type = 0;
-  public amount = 0;
-  public oil_card_type = 0;
+  public editModalShow: boolean = false;
 
+  public modalData = {
+    oilPackageId:'',
+    classify:'',
+    payMoney:0,
+    amount: 0,
+    needPoints: 0,
+    type: 0,
+    eachs: 0,
+    oilCardType:0,
+    described: ''
+  };
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
 
@@ -74,31 +79,118 @@ export class YoukaTaocanComponent implements OnInit {
     return YoukaFunction.getYoukaTypeText(type);
   }
 
-  /**
-   * 编辑油卡套餐
-   */
-  
-  public updateYoukaTaocanList():void{
-      
-  }
-
   // 模态窗
   public toggleModal(data?): void {
-    this.modalShow = !this.modalShow;
+    this.editModalShow = !this.editModalShow;
+    console.log(data);
     if(data){
-        this.eachs = data.eachs;
-        this.amount = data.amount;
-        this.described = data.described;
-        this.need_points = data.need_points;
-        this.type = data.type;
-        this.oil_card_type = data.oil_card_type;
-        console.log(data);
-        console.log(this.type);
+        this.modalData = {
+          oilPackageId:data.oil_package_id,
+          classify:data.classify,
+          payMoney:data.pay_money,
+          eachs: data.eachs,
+          needPoints: data.need_points,
+          type: data.type,
+          amount: data.amount,
+          oilCardType:data.oil_card_type,
+          described: data.described
+      };
     }
   }
 
-  public test(data):void{
+   /**
+   * 编辑油卡套餐
+   */
+  
+  public toggleEditModal(data?):void{
     console.log(data);
-  } 
+    this.editModalShow = !this.editModalShow
+       if(data){
+        this.modalData = {
+          oilPackageId:data.oil_package_id,
+          classify:data.classify,
+          payMoney:data.pay_money,
+          eachs: data.eachs,
+          needPoints: data.need_points,
+          type: data.type,
+          amount: data.amount,
+          oilCardType:data.oil_card_type,
+          described: data.described
+      };
+    }if(!this.editModalShow){
+      this.modalData = {
+        oilPackageId:'',
+        classify:'',
+        payMoney:0,
+        amount: 0,
+        needPoints: 0,
+        type: 0,
+        eachs: 0,
+        oilCardType:0,
+        described: ''
+      }
+    } 
+  }
 
+  public updateYoukaTaocanList(oilPackageId?): void {
+  console.log(this.modalData.eachs)
+   this.apiCall.updateYoukaTaocanList(
+        this.modalData.oilPackageId,
+        this.modalData.classify,
+        this.modalData.amount*this.modalData.eachs,
+        this.modalData.amount,
+        this.modalData.eachs,
+        this.modalData.type,
+        this.modalData.oilCardType,
+        this.modalData.needPoints,
+        this.modalData.described,
+        (data) =>{
+          this.toggleEditModal();
+          this.getYoukaTaocanList(1);
+        }
+    ); 
+  }
+
+   /**
+   * 增加油卡套餐列表
+   */
+  public addYoukaTancanlist(): void {
+    this.apiCall.addYoukaTaocanList(
+      this.modalData.classify,
+      this.modalData.payMoney,
+      this.modalData.amount,
+      this.modalData.eachs,
+      this.modalData.type,
+      this.modalData.oilCardType,
+      this.modalData.needPoints,
+      this.modalData.described,
+      (data) => {
+        this.toggleEditModal();
+        this.getYoukaTaocanList(1);
+      }
+    );
+  }
+
+  public removeYoukaTancanList(oilPackageId): void {
+    console.log(typeof(oilPackageId))
+    this.apiCall.deleteYoukaTaocanList(
+      oilPackageId,
+      (data) => {
+        this.getYoukaTaocanList(1);
+      }
+    );
+  }
+
+  public modalSubmit(): void {
+    if (this.modalData.oilPackageId) {
+      this.updateYoukaTaocanList(this.modalData.oilPackageId);
+    } else {
+      console.log(123);
+      this.addYoukaTancanlist();
+    }
+  }
 }
+
+
+
+  
