@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/6/7.
  */
 import {Injectable} from '@angular/core'
-import CryptoJS from 'crypto-js';
+import {Rc4Util} from './Rc4Util';
 
 Injectable()
 export class Rc4Server {
@@ -16,15 +16,14 @@ export class Rc4Server {
     if (typeof plaintext !== 'string' || plaintext === '') {
       return '';
     }
-
-    return CryptoJS.RC4.encrypt(plaintext, this.key);
+    return Rc4Util.encry_RC4_string(plaintext, this.key);
   }
 
   public decrypt(ciphertext: string, toJSON?: boolean) {
     if (typeof ciphertext !== 'string' || ciphertext === '') {
       return '';
     }
-    let plaintext = CryptoJS.RC4.decrypt(ciphertext, this.key).toString(CryptoJS.enc.Utf8);
+    let plaintext = Rc4Util.decry_RC4(ciphertext, this.key);
     if (toJSON && plaintext) {
       plaintext = JSON.parse(plaintext);
     }

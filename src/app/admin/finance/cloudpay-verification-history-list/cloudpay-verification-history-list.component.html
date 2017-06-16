@@ -1,0 +1,103 @@
+<div class="manager-page">
+  <div class="header">
+    <h3>{{title}}<s></s></h3>
+  </div>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="content-wrapper">
+      <div class="filter-bar">
+        <form class="clearfix" (ngSubmit)="getCloudpayVerificationList(1)">
+          <div class="input-group">
+            <label>订单类型</label>
+            <select-box [options]="financeFunction.cloudpayOrderTypeOptions" [name]="level"
+                        [first]="false"
+                        (optionSelect)="filterData.type = $event"></select-box>
+          </div>
+          <div class="input-group">
+            <label>流水号</label>
+            <input type="text" name="mobile" value="" [(ngModel)]="filterData.sn">
+          </div>
+          <button class="text-btn text-sub" type="submit">搜索</button>
+        </form>
+      </div>
+      <div class="manager-table">
+        <table>
+          <thead>
+          <tr>
+            <th>订单类型</th>
+            <th>订单流水号</th>
+            <th>用户账号</th>
+            <th>云付款通账号</th>
+            <th>下单时间</th>
+            <th>金额</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{curOrderTypeText}}</td>
+            <td>{{item.sn}}</td>
+            <td>{{item.mobile}}</td>
+            <td>{{item.yft_account}}</td>
+            <td>{{item.create_time}}</td>
+            <td>{{item.money}}</td>
+            <td>{{financeFunction.getCloudpayOrderStatusText(item.status)}}</td>
+            <td>
+              <div class="table-btns">
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal(item)">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item)">核验</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
+        <pagination-controls (pageChange)="getCloudpayVerificationList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<!--查看-->
+<div class="modal-wrapper read-modal-wrapper" [class.hidden]="!readModalShow">
+  <div class="modal-con">
+    <h3 class="modal-title">详情</h3>
+    <form class="modal-detail-content">
+      <div class="modal-detail-item">
+        <label>订单类型</label>
+        <div class="value">{{curOrderTypeText}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>订单流水号</label>
+        <div class="value">{{modalData.sn}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>用户账号</label>
+        <div class="value">{{modalData.mobile}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>云付通账号</label>
+        <div class="value">{{modalData.yft_account}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>下单时间</label>
+        <div class="value">{{modalData.create_time}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>付款金额</label>
+        <div class="value">{{modalData.money}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>状态</label>
+        <div class="value">{{financeFunction.getCloudpayOrderStatusText(modalData.status)}}</div>
+      </div>
+      <div class="modal-btn-group">
+        <button>关闭</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggleReadModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>

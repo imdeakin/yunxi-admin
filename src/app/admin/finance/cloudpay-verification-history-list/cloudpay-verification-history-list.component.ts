@@ -10,12 +10,12 @@ import {CloudpayVerificationList} from '../data-type/cloudpay-verification-list'
 declare let layer: any;
 
 @Component({
-  selector: 'cloudpay-verification-list',
-  templateUrl: './cloudpay-verification-list.component.html',
-  styleUrls: ['./cloudpay-verification-list.component.css']
+  selector: 'cloudpay-verification-history-list',
+  templateUrl: './cloudpay-verification-history-list.component.html',
+  styleUrls: ['./cloudpay-verification-history-list.component.css']
 })
-export class CloudpayVerificationComponent implements OnInit {
-  public title = '云付通核验';
+export class CloudpayVerificationHistoryComponent implements OnInit {
+  public title = '云付通核验历史';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;

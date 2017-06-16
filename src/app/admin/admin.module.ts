@@ -60,6 +60,8 @@ import {
 
   // 财务管理
   CloudpayVerificationComponent,
+  CloudpayVerificationHistoryComponent,
+  RechargeListComponent,
 
   // 消息中心
   MsgListComponent,
@@ -134,6 +136,8 @@ import {
 
     // 财务管理
     CloudpayVerificationComponent,
+    CloudpayVerificationHistoryComponent,
+    RechargeListComponent,
 
     // 消息中心
     MsgListComponent,

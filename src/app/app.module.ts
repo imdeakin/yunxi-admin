@@ -44,7 +44,7 @@ import 'angular2-layer/css/dialog.css'
     ApiConfig,
     ApiCall,
     FuncServer,
-    Rc4Server
+    Rc4Server,
   ],
   bootstrap: [AppComponent]
 })
