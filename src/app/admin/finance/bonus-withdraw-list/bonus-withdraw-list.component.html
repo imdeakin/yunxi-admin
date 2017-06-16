@@ -5,19 +5,27 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getRechargeOrderList(1)">
+        <form class="clearfix" (ngSubmit)="getBonusWithdrawList(1)">
           <div class="input-group">
-            <label>订单号</label>
+            <label>流水号</label>
             <input type="text" name="orderId" value="" [(ngModel)]="filterData.sn">
-          </div>
-          <div class="input-group">
-            <label>姓名</label>
-            <input type="text" name="name" value="" [(ngModel)]="filterData.name">
           </div>
           <div class="input-group">
             <label>账号</label>
             <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
           </div>
+          <div class="input-group">
+            <label>支付账号</label>
+            <input type="text" name="name" value="" [(ngModel)]="filterData.cardNumber">
+          </div>
+          <div class="input-group">
+            <label>支付类型</label>
+            <input type="text" name="name" value="" [(ngModel)]="filterData.cardNumber">
+          </div>
+          <!--<div class="input-group">-->
+            <!--<label>状态</label>-->
+            <!--<input type="text" name="name" value="" [(ngModel)]="filterData.status">-->
+          <!--</div>-->
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
@@ -25,16 +33,14 @@
         <table>
           <thead>
           <tr>
-            <th>订单流水号</th>
+            <th>流水号</th>
             <th>用户账号</th>
-            <th>姓名</th>
-            <th>付款方式</th>
+            <th>银行卡号</th>
+            <th>支付类型</th>
+            <th>会员类型</th>
             <th>金额</th>
-            <th>充值时间</th>
-            <th>经手人</th>
-            <th>经手时间</th>
-            <th>到账金额</th>
-            <th>状态</th>
+            <th>提现时间</th>
+            <th>提现状态</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -43,14 +49,12 @@
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{item.sn}}</td>
             <td>{{item.mobile}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.trade_mode}}</td>
+            <td>{{item.card_number}}</td>
+            <td>{{financeFunction.getBounsCardTypeText(item.card_type)}}</td>
+            <td>{{financeFunction.getBounsUserTypeText(item.type)}}</td>
             <td>{{item.money}}</td>
             <td>{{item.create_time}}</td>
-            <td>{{item.handler}}</td>
-            <td>{{item.handle_time}}</td>
-            <td>{{item.handle_money}}</td>
-            <td>{{financeFunction.getRechageOrderStatusText(item.status)}}</td>
+            <td>{{financeFunction.getBounsStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal(item)">查看</a>
@@ -60,7 +64,7 @@
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls (pageChange)="getRechargeOrderList($event)" previousLabel="上一页"
+        <pagination-controls (pageChange)="getBonusWithdrawList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>

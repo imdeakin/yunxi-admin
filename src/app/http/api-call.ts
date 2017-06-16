@@ -549,6 +549,38 @@ export class ApiCall {
     });
   }
 
+  public getRechargeOrderList(sn, mobile, name, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getRechargeOrderList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        sn: sn,
+        mobile: mobile,
+        name: name
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getBonusWithdrawList(sn, mobile, cardNumber, cardType, status, curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getBonusWithdrawList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        sn: sn,
+        mobile: mobile,
+        cardNumber: cardNumber,
+        cardType: cardType,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   public getMsgList(regionId: string, title: string, msgType: string, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getMsgList,

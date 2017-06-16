@@ -156,6 +156,10 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '充值列表',
           link: '/admin/recharge-list'
+        },
+        {
+          title: '奖金提现管理',
+          link: '/admin/bonus-withdraw-list'
         }
       ]
     },

@@ -4,3 +4,4 @@
 export * from './cloudpay-verification-list';
 export * from './cloudpay-verification-history-list';
 export * from './recharge-list';
+export * from './bonus-withdraw-list';
