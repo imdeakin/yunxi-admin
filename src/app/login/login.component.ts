@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
 
   public login(): void {
     let account = this.formData.account;
-    // let psw = this.rc4Server.encrypt(this.formData.password);
-    let psw = this.formData.password;
+    let psw = this.rc4Server.encrypt(this.formData.password);
+    // let psw = this.formData.password;
     this.apiCall.login(account, psw, (data) => {
       this.saveLoginInfo();
       this.saveAdminInfo(data);

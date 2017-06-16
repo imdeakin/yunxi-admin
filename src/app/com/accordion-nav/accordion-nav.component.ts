@@ -148,6 +148,14 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '云付通核验',
           link: '/admin/cloudpay-verification-list'
+        },
+        {
+          title: '云付通核验历史',
+          link: '/admin/cloudpay-verification-history-list'
+        },
+        {
+          title: '充值列表',
+          link: '/admin/recharge-list'
         }
       ]
     },

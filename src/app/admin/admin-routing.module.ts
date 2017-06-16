@@ -44,6 +44,8 @@ import {
 
   // 财务管理
   CloudpayVerificationComponent,
+  CloudpayVerificationHistoryComponent,
+  RechargeListComponent,
 
   // 消息中心
   MsgListComponent,
@@ -107,6 +109,8 @@ const AdminRoutes: Routes = [
 
       // 财务管理
       {path: 'cloudpay-verification-list', component: CloudpayVerificationComponent},
+      {path: 'cloudpay-verification-history-list', component: CloudpayVerificationHistoryComponent},
+      {path: 'recharge-list', component: RechargeListComponent},
 
       // 广告
       {path: 'ad-list', component: AdListComponent},

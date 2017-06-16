@@ -537,7 +537,7 @@ export class ApiCall {
 
   public updatecloudpayVerification(adminId, sn, type, status, success, failure?): void {
     this.apiCall({
-      url: this.apiConfig.paths.getCloudpayVerificationList,
+      url: this.apiConfig.paths.updateCloudpayVerification,
       data: {
         adminId: adminId,
         sn: sn,
