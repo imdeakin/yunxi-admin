@@ -63,6 +63,7 @@ import {
   CloudpayVerificationComponent,
   CloudpayVerificationHistoryComponent,
   RechargeListComponent,
+  bonusWithdrawListComponent,
 
   // 消息中心
   MsgListComponent,
@@ -140,6 +141,7 @@ import {
     CloudpayVerificationComponent,
     CloudpayVerificationHistoryComponent,
     RechargeListComponent,
+    bonusWithdrawListComponent,
 
     // 消息中心
     MsgListComponent,

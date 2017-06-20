@@ -79,6 +79,8 @@ export class ApiConfig {
     // 财务管理
     getCloudpayVerificationList: this.root + '/finance/yftOrderVerificationList', // 获取云付通核验列表
     updateCloudpayVerification: this.root + '/finance/yftVerification', // 云付通核验
+    getRechargeOrderList: this.root + '/finance/accountTransferOrderList', // 获取充值订单列表
+    getBonusWithdrawList: this.root + '/finance/accountWithdrawList', // 获取奖金提现列表
 
 
     // 消息管理

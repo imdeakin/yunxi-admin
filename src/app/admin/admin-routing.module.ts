@@ -49,6 +49,7 @@ import {
   CloudpayVerificationComponent,
   CloudpayVerificationHistoryComponent,
   RechargeListComponent,
+  bonusWithdrawListComponent,
 
   // 消息中心
   MsgListComponent,
@@ -118,6 +119,7 @@ const AdminRoutes: Routes = [
       {path: 'cloudpay-verification-list', component: CloudpayVerificationComponent},
       {path: 'cloudpay-verification-history-list', component: CloudpayVerificationHistoryComponent},
       {path: 'recharge-list', component: RechargeListComponent},
+      {path: 'bonus-withdraw-list', component: bonusWithdrawListComponent},
 
       // 广告
       {path: 'ad-list', component: AdListComponent},
