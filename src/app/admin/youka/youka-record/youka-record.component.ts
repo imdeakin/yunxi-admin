@@ -25,11 +25,17 @@ export class YoukaRecordComponent implements OnInit {
   public modalData ={
       oilCard:'',
       sn:'',
+      tradeCode:'',
+      name:'',
+      totalPeriods:'',
+      usedPeriods:'',
+      payTime:'',
       createTime:'',
+      payMoney:'',
       price:'',
       described:'',
-      totalPeriods:'',
-      usedPeriods:''
+      type:'',
+      status:''
   }
 
   // 模态窗
@@ -74,27 +80,48 @@ export class YoukaRecordComponent implements OnInit {
     return YoukaFunction.getYoukaTypeText(type);
   }
 
-  public getCardOrderReturn(item:string):string{
+  public getCardOrderReturn(item:string){
     var thisData = '';
       this.apiCall.getCardOrderReturn(item,(data)=>{
-          thisData = data;
+        this.modalData ={
+          oilCard:data.oil_card,
+          sn:data.sn,
+          tradeCode:data.trade_code,
+          name:data.name,
+          totalPeriods:data.total_periods,
+          usedPeriods:data.used_periods,
+          payTime:data.pay_time,
+          createTime:data.create_time,
+          payMoney:data.pay_money,
+          price:data.price,
+          described:data.described,
+          type:data.type,
+          status:data.status
+        }
       })
       return thisData;
   }
+
   // 模态窗
   public toggleModal(item?): void {
     this.modalShow = !this.modalShow;
     if(item){
-      item = this.getCardOrderReturn(item)
-      console.log(item);
+      this.getCardOrderReturn(item)
+    }else{
       this.modalData ={
-          oilCard:item.oil_card,
-          sn:item.sn,
-          createTime:item.create_time,
-          price:item.price,
-          described:item.described,
-          totalPeriods:item.total_periods,
-          usedPeriods:item.used_periods
+          oilCard:'',
+          sn:'',
+          tradeCode:'',
+          name:'',
+          totalPeriods:'',
+          usedPeriods:'',
+          payTime:'',
+          createTime:'',
+          payMoney:'',
+          price:'',
+          described:'',
+          type:'',
+          status:''
       }
     }
   }

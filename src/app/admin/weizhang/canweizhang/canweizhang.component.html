@@ -7,24 +7,8 @@
       <div class="filter-bar">
         <form class="clearfix">
           <div class="input-group">
-            <label>云洗账号</label>
+            <label>姓名/手机/订单编号</label>
             <input type="text" name="account" value="">
-          </div>
-          <div class="input-group">
-            <label>时间段</label>
-            <input type='text' value={{selDate}} (change)="setInputDate($event)"/>
-            <date-picker
-              [value]="value"
-              [minDate]="minDate"
-              [maxDate]="maxDate"
-              [disableDays]="disableDays"
-              [toContainPrevMonth]="toContainPrevMonth"
-              [toContainNextMonth]="toContainNextMonth"
-              (selectedDate)='setDate($event)'></date-picker>
-          </div>
-          <div class="input-group">
-            <label>城市</label>
-            <city-picker></city-picker>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
@@ -62,15 +46,15 @@
             <td>{{item.punish_money}}</td>
             <td>{{item.punish_points}}</td>
             <td>{{item.service_fee}}</td>
-            <td>{{item.status}}</td>
-            <td>{{item.handle_status}}</td>
+            <td>{{getWeiZhangfilterText(item.status)}}</td>
+            <td>{{getweiZhanghandleStatusText(item.handle_status)}}</td>
             <td>{{item.cxy_pay_status}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)" [class.hidden]='item.status!=1'>办理</a>
-              </div>
-               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status==1'>不可办理</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=0'></a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1' (click)="toggleEditModal(item)">办理</a>
+                <a class="table-btn" href="javascript:void(0);" [hidden]="item.cxy_pay_status !=='' || item.handle_status !==0 "  (click)="comfirmCxyPayOrder(item.order_id)">确认支付</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3'>确认</a>
               </div>
             </td>
           </tr>
@@ -126,32 +110,32 @@
             </div>
             <div class="modal-input-group">
               <label>车辆登记证书URL：</label>
-              <input type="file" name="carUrl"  id="carUrl">
+              <input type="file" name="carUrl"  id="carUrl" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label>驾驶证条形二维码URL：</label>
-              <input type="file" name="twoCodeUrl" id="twoCodeUrl">
+              <input type="file" name="twoCodeUrl" id="twoCodeUrl" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label>行驶证URL：</label>
-              <input type="file" name="carDriveUrl" id="carDriveUrl">
+              <input type="file" name="carDriveUrl" id="carDriveUrl" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label>行驶证副页URL</label>
-              <input type="file" name="carDriveUrlBreak" id="carDriveUrlBreak">
+              <input type="file" name="carDriveUrlBreak" id="carDriveUrlBreak" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label>驾驶证URL</label>
-              <input type="file" name="driveUrl" id="driveUrl">
+              <input type="file" name="driveUrl" id="driveUrl" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label>驾驶证副页URL</label>
-              <input type="file" name="driveUrlBreak" id="driveUrlBreak">
+              <input type="file" name="driveUrlBreak" id="driveUrlBreak" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label class="modal-msg">车主收到的短信验证码</label>
               <input type="text" name="VerifyCode" style="display:inline-block;"  [(ngModel)]="modalData.VerifyCode">
-              <div class="table-btns" style="display:inline-block;">
+              <div class="table-btns" style="display:inline-block;" class="sendMsg">
                 <a class="table-btn" href="javascript:void(0);" (click)="sendMsg(ModalData.carNumber)">发送短信验证码</a>
               </div>
             </div>

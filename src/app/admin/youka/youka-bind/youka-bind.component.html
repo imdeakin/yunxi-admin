@@ -7,8 +7,12 @@
       <div class="filter-bar">
         <form class="clearfix">
           <div class="input-group">
-            <input type="text" name="oilCard" value="" placeholder="请输入加油卡号" [(ngModel)]="search_oilCard">
-            <button class="text-btn text-sub" (click)="getYoukaBindList(1);">搜索</button>
+            <label>选择查询</label>
+              <select-box [options]="youkaFunction.youkaSelectOptions" [first]="{value:'',text:'请选择'}" (optionSelect)="filterData.nowData = $event"></select-box>
+             <input type="text" name="oilCard" value="" placeholder="请输入" [(ngModel)]="filterData.searchData">
+          </div>
+          <div class="input-group">
+            <button class="text-btn text-sub" (click)="selectValue()">搜索</button>
           </div>
         </form>
       </div>

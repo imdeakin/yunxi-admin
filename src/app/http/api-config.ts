@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://192.168.3.5:8082/'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
+  public server: string = 'http://192.168.3.5:8082'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
@@ -31,7 +31,10 @@ export class ApiConfig {
     getCanWeizhangData:this.root + '/peccancyManage/getHandleOrderNeeds',//获取可办理违章资料
     postPeccancyMsg:this.root + '/peccancyManage/sendVcode',//发送短信验证码接口
     postPeccancyManage:this.root + '/peccancyManage/saveOrder',//管理
-    
+    comfirmCxyPayOrder:this.root + '/peccancyManage/comfirmCxyPayOrder',//确认可支付接口
+    setOrderMoneyAndServiceFee:this.root + '/peccancyManage/setOrderMoneyAndServiceFee',//设置不可办理订单的办理违章所需价格和云洗利润服务费
+    comfirmOrderOfDoing:this.root + '/peccancyManage/comfirmOrderOfDoing',//办理不可支付订单
+    comfirmOrderOfFinish:this.root + '/peccancyManage/comfirmOrderOfFinish',//确认不可支付订单
 
     // 车险管理
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表

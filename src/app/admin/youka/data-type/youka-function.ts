@@ -2,6 +2,23 @@
  * Created by Deakin on 2017/5/16 0016.
  */
 export class YoukaFunction {
+  //油卡搜索类型
+
+  public static youkaSelectOptions = [
+    {
+      value:'oilCard',
+      text:'油卡账号'
+    },
+    {
+      value:'mobile',
+      text:'手机账号'
+    },
+    {
+      value:'userName',
+      text:'用户名'
+    },
+  ]
+
   //油卡套餐类型
   public static youkaTaocanClassifyOptions = [
     {
@@ -182,4 +199,5 @@ export class YoukaFunction {
     }
     return text;
   }
+  
 }

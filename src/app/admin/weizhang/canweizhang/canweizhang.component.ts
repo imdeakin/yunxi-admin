@@ -4,6 +4,7 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
+import { weiZhangFunction } from '../date-type/weizhang-function';
 
 @Component({
   selector: 'canweizhang',
@@ -109,6 +110,28 @@ public orderConfig={
     });
   }
 
+  public makeSurePay(handleStatus :number,cxyPayStatus :number){
+    var ifData = false;
+    if(handleStatus !== 0 && !cxyPayStatus){
+        ifData = true;
+    }
+    console.log(ifData);
+    return ifData;
+  }
+
+  public getWeiZhangfilterText(status:number):string{
+    return weiZhangFunction.getweiZhangListText(status);
+  }
+
+  public getweiZhanghandleStatusText(status:number):string{
+    return weiZhangFunction.getweiZhanghandleStatusText(status);
+  }
+
+  public getweiZhangCxyPayStatusText(status:number):string{
+    return weiZhangFunction.getweiZhangCxyPayStatusText(status);
+  }
+
+
    /**
    * 获取可办理违章列表
    */
@@ -132,6 +155,7 @@ public orderConfig={
   } 
 
   public fromModal(data){
+    console.log(data);
     let car_info = data.car_info;
     let need_data = data.need_data;
     if(data){
@@ -183,7 +207,6 @@ public orderConfig={
     var carDriveUrlBreak =(document.getElementById('carDriveUrlBreak') as HTMLInputElement).value || '';
     var driveUrl =(document.getElementById('driveUrl') as HTMLInputElement).value || '';
     var driveUrlBreak =(document.getElementById('driveUrlBreak') as HTMLInputElement).value || '';
-    
     this.orderConfig = {
       Name:this.modalData.username, 
       Phone:this.modalData.mobile,
@@ -206,6 +229,14 @@ public orderConfig={
         this.toggleEditModal();
         this.getCanWeiZhangList();
     })
+  }
+
+  //确认支付接口
+  public comfirmCxyPayOrder(orderId:string):void{
+      this.apiCall.comfirmCxyPayOrder(orderId,(data)=>{
+        console.log(data);
+        this.getCanWeiZhangList();
+      })
   }
 }
 

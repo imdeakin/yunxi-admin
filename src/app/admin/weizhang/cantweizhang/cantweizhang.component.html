@@ -7,24 +7,8 @@
       <div class="filter-bar">
         <form class="clearfix">
           <div class="input-group">
-            <label>云洗账号</label>
-            <input type="text" name="account" value="">
-          </div>
-          <div class="input-group">
-            <label>时间段</label>
-            <input type='text' value={{selDate}} (change)="setInputDate($event)"/>
-            <date-picker
-              [value]="value"
-              [minDate]="minDate"
-              [maxDate]="maxDate"
-              [disableDays]="disableDays"
-              [toContainPrevMonth]="toContainPrevMonth"
-              [toContainNextMonth]="toContainNextMonth"
-              (selectedDate)='setDate($event)'></date-picker>
-          </div>
-          <div class="input-group">
-            <label>城市</label>
-            <city-picker></city-picker>
+            <label>姓名/手机/订单编号</label>
+            <input type="text" name="account" [(ngModel)]="selectValue">
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
@@ -33,34 +17,41 @@
         <table>
           <thead>
           <tr>
-            <th>序号</th>
-            <th>会员账号</th>
+            <th>编号</th>
+            <th>订单编号</th>
             <th>车牌号</th>
-            <th>罚款金额</th>
-            <th>云洗服务费</th>
-            <th>佣金</th>
-            <th>支付总额</th>
-            <th>订单时间</th>
-            <th>所属城市</th>
+            <th>姓名</th>
+            <th>手机号</th>
+            <th>违章笔数</th>
+            <th>订单总额</th>
+            <th>扣分</th>
+            <th>处罚金额(含手续费)</th>
+            <th>云洗利润</th>
+            <th>状态</th>
             <th>操作</th>
           </tr>
           </thead>
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex }; let i = index">
-            <td>{{i+1}}</td>
-            <td>{{item.account}}</td>
-            <td>{{item.car_num}}</td>
-            <td>{{item.fine}}</td>
-            <td>{{item.charge}}</td>
-            <td>{{item.commission}}</td>
-            <td>{{item.amount}}</td>
-            <td>{{item.order_time}}</td>
-            <td>{{item.position}}</td>
+              <td>{{i+1}}</td>
+              <td>{{item.sn}}</td>
+              <td>{{item.car_number}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.mobile}}</td>
+              <td>{{item.p_count}}</td>
+              <td>{{item.money}}</td>
+              <td>{{item.punish_points}}</td>
+              <td>{{item.punish_money}}</td>
+              <td>{{item.service_fee}}</td>
+              <td>{{getWeiZhangfilterText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);">查看明细</a>
-                <a class="table-btn" href="javascript:void(0);">新增</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=-2' (click)="toggleEditModal(item)">受理</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=0'></a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1' (click)="comfirmOrderOfDoing(item.order_id)">办理</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3' (click)="bink(item.order_id)">确认</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=4' (click)="comfirmOrderOfFinish(item.order_id)">完成</a>
               </div>
             </td>
           </tr>
@@ -70,5 +61,29 @@
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>
+  </div>
+</div>
+ <div class="modal-wrapper" [class.hidden]='!toogleModal'>
+  <div class="content" [style.height]="contentHeight + 'px'" >
+       <div class="modal-con">
+        <h3 class="modal-title">确认价格</h3>
+        <form class="modal-form" (ngSubmit)="modalSubmit()">
+          <div class="modal-input-group">
+              <label>违章办理所需价格：</label>
+              <input type="text" name="punishMoney" [(ngModel)]="modalData.punishMoney">
+          </div>
+          <div class="modal-input-group">
+              <label>云洗利润服务费：</label>
+              <input type="text" name="CardNo" [(ngModel)]="modalData.serviceFee">
+          </div>
+          <div class="modal-btn-group">
+            <button type="submit">确定</button>
+            <button type="button" (click)="toggleEditModal()">关闭</button>
+          </div>
+        </form>
+        <div class="modal-close" (click)="toggleEditModal()">
+          <i class="icon-font">&#xe6e9;</i>
+        </div>
+        </div>
   </div>
 </div>

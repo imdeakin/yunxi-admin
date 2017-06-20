@@ -130,13 +130,15 @@ export class ApiCall {
      });
   }
 
-  public getYoukaBindList(oilCard: string, curPageIndex: number, pageSize: number, success, failure?): void {
+  public getYoukaBindList(oilCard: string, mobile:string,userName:string,curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getYoukaBindList,
       data: {
+        oilCard: oilCard,
+        mobile:mobile,
+        userName:userName,
         index: curPageIndex,
         pageSize: pageSize,
-        oilCard: oilCard
       },
       success: success,
       failure: failure
@@ -180,7 +182,6 @@ export class ApiCall {
   }
 
   //油卡返还
-
   public YouCardOrderReturn(chargeOrderId:string,success,failure?):void{
       this.apiCall({
         url:this.apiConfig.paths.YouCardOrderReturn,
@@ -300,7 +301,7 @@ export class ApiCall {
 
   //保存订单信息
   public postPeccancyManage(orderId:string,orderConfig,success,failure?):void{
-    console.log(orderConfig)
+    // console.log(orderConfig)
       this.apiCall({
         url:this.apiConfig.paths.postPeccancyManage,
         data:{
@@ -310,6 +311,53 @@ export class ApiCall {
         success:success,
         failure:failure
       })
+  }
+
+  public comfirmCxyPayOrder(orderId:string,success,failure?):void{
+      this.apiCall({
+        url:this.apiConfig.paths.comfirmCxyPayOrder,
+        data:{
+          orderId:orderId
+        },
+        success:success,
+        failure:failure
+      })
+  }
+
+  public setOrderMoneyAndServiceFee(orderId:string,punishMoney:number,serviceFee:number,success,failure?):void{
+    console.log(orderId,punishMoney,serviceFee)
+    this.apiCall({
+      url:this.apiConfig.paths.setOrderMoneyAndServiceFee,
+      data:{
+        orderId:orderId,
+        punishMoney:punishMoney,
+        serviceFee:serviceFee
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  public comfirmOrderOfDoing(orderId:string,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.comfirmOrderOfDoing,
+      data:{
+        orderId:orderId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  public comfirmOrderOfFinish(orderId:string,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.comfirmOrderOfFinish,
+      data:{
+        orderId:orderId
+      },
+      success:success,
+      failure:failure
+    })
   }
 
   /**

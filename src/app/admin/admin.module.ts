@@ -23,7 +23,6 @@ import {
   BarGraphPageComponent,
 
   // 违章管理
-  WeizhangPageComponent,
   cantWeizhangComponent,
   canWeizhangComponent,
 
@@ -101,7 +100,6 @@ import {
     WorkbenchPageComponent,
 
     // 违章管理
-    WeizhangPageComponent,
     cantWeizhangComponent,
     canWeizhangComponent,
 

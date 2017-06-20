@@ -49,11 +49,7 @@ export class AccordionNavComponent implements OnInit {
         },
         {
           title: '不可办理违章',
-          link: '/admin/canweizhang'
-        },
-        {
-          title: '详情',
-          link: '/admin/cantWeizhang'
+          link: '/admin/cantweizhang'
         }
       ]
     },

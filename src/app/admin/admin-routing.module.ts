@@ -9,7 +9,6 @@ import {
   WorkbenchPageComponent,
 
   // 违章管理
-  WeizhangPageComponent,
   canWeizhangComponent,
   cantWeizhangComponent,
 
@@ -76,9 +75,8 @@ const AdminRoutes: Routes = [
       {path: 'workbench', component: WorkbenchPageComponent},
 
       // 违章管理
-      {path: 'weizhangList', component: WeizhangPageComponent},
       {path:'canweizhang',component:canWeizhangComponent},
-      {path:'cantWeizhang',component:cantWeizhangComponent},
+      {path:'cantweizhang',component:cantWeizhangComponent},
 
 
       // 油卡管理

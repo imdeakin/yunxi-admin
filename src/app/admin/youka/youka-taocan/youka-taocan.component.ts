@@ -37,6 +37,7 @@ export class YoukaTaocanComponent implements OnInit {
     oilCardType:0,
     described: ''
   };
+
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
 

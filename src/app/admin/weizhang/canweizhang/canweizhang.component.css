@@ -11,15 +11,22 @@
 }
 .modal-form{
   margin:0 auto;
-  width:400px;
+  width:460px;
 }
 
 .modal-form .modal-input-group{
-    width:320px;
+    width:440px;
 }
 
 .modal-form .table-btn{
     font-weight: block;
+}
+
+.modal-form .sendMsg{
+    border:1px solid #009be8;
+    border-radius: 8px;
+    padding:10px;
+    margin-top:10px;
 }
 
 .modal-form .table-btn:hover{
@@ -27,4 +34,9 @@
 }
 .modal-need{
   color:red;
+}
+
+.modal-form .modal-file{
+  width:240px;
+  border:none;
 }

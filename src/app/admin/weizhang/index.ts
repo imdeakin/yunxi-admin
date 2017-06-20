@@ -3,4 +3,3 @@
  */
 export * from './canweizhang';
 export * from './cantweizhang';
-export * from './weizhangList';

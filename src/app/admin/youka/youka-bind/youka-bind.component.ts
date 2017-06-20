@@ -20,6 +20,15 @@ export class YoukaBindComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: YoukaBind[];
   public search_oilCard: string = '';
+  public youkaFunction = YoukaFunction;
+
+  public filterData = {
+    nowData:'',
+    oilCard:'',
+    mobile:'',
+    userName:'',
+    searchData:''
+  }
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
@@ -45,7 +54,7 @@ export class YoukaBindComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getYoukaBindList(this.search_oilCard, this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getYoukaBindList(this.filterData.oilCard,this.filterData.mobile,this.filterData.userName, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
     });
@@ -58,4 +67,33 @@ export class YoukaBindComponent implements OnInit {
   public getYoukaTypeText(type: number): string {
     return YoukaFunction.getYoukaTypeText(type);
   }
+
+  selectValue(){
+      this.getYoukaSelectOptions();
+      this.getYoukaBindList(1);
+      this.filterData = {
+        nowData:'',
+        oilCard:'',
+        mobile:'',
+        userName:'',
+        searchData:''
+      }
+  }
+
+   //匹配油卡搜索查询
+  public getYoukaSelectOptions():void{
+    console.log(this.filterData);
+      switch(this.filterData.nowData){
+        case 'oilCard':
+          this.filterData.oilCard = this.filterData.searchData;
+          break;
+        case 'mobile':
+          this.filterData.mobile = this.filterData.searchData;
+          break;
+        case 'userName':
+          this.filterData.userName = this.filterData.searchData;
+          break;
+      }
+  }
+
 }
