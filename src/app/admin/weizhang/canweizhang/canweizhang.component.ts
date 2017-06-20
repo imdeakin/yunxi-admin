@@ -18,36 +18,36 @@ export class canWeizhangComponent implements OnInit {
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList = [
-    {
-      account: '18128789828', // 账号
-      car_num: '粤A88828', // 车牌号
-      fine: '200', // 罚款
-      charge: '25', // 服务费
-      commission: '20', // 佣金
-      amount: '245', // 支付总额
-      order_time: '2017-03-03', // 订单时间
-      position: '广州' // 所属城市
-    },
-    {
-      account: '18128789828', // 账号
-      car_num: '粤A88828', // 车牌号
-      fine: '200', // 罚款
-      charge: '25', // 服务费
-      commission: '20', // 佣金
-      amount: '245', // 支付总额
-      order_time: '2017-03-03', // 订单时间
-      position: '广州' // 所属城市
-    },
-    {
-      account: '18128789828', // 账号
-      car_num: '粤A88828', // 车牌号
-      fine: '200', // 罚款
-      charge: '25', // 服务费
-      commission: '20', // 佣金
-      amount: '245', // 支付总额
-      order_time: '2017-03-03', // 订单时间
-      position: '广州' // 所属城市
-    }
+    // {
+    //   account: '18128789828', // 账号
+    //   car_num: '粤A88828', // 车牌号
+    //   fine: '200', // 罚款
+    //   charge: '25', // 服务费
+    //   commission: '20', // 佣金
+    //   amount: '245', // 支付总额
+    //   order_time: '2017-03-03', // 订单时间
+    //   position: '广州' // 所属城市
+    // },
+    // {
+    //   account: '18128789828', // 账号
+    //   car_num: '粤A88828', // 车牌号
+    //   fine: '200', // 罚款
+    //   charge: '25', // 服务费
+    //   commission: '20', // 佣金
+    //   amount: '245', // 支付总额
+    //   order_time: '2017-03-03', // 订单时间
+    //   position: '广州' // 所属城市
+    // },
+    // {
+    //   account: '18128789828', // 账号
+    //   car_num: '粤A88828', // 车牌号
+    //   fine: '200', // 罚款
+    //   charge: '25', // 服务费
+    //   commission: '20', // 佣金
+    //   amount: '245', // 支付总额
+    //   order_time: '2017-03-03', // 订单时间
+    //   position: '广州' // 所属城市
+    // }
   ];
 
   private selDate: string = '';
@@ -58,8 +58,39 @@ export class canWeizhangComponent implements OnInit {
   private toContainNextMonth: boolean = false;
   private value: string = '';
   private detailPages:boolean = false;
-  private modalData ={
-      carUrl:''
+  public modalData ={
+      orderId:'',
+      carNumber:'',
+      engineNumber:'',
+      frameNumber:'',
+      username:'',
+      CardNo:'',
+      mobile:'',
+      pCount:'',
+      serviceFee:0,
+      carPhone:'',
+      address:'',
+      status:0,
+      VerifyCode:''      
+  }
+
+public orderConfig={
+      Name:'', 
+      Phone:'',
+      Address:'', 
+      CardNo:'',
+      CarCode:'',
+      CarDrive:'',
+      FileNumber:"",
+      FilePhone:"",
+      CheliangZhengShu:"",
+      QRCode:"", 
+      XingShiZhengHao:"",
+      DrivingUrl:"",
+      DrivingSecondUrl:"L",
+      DriverUrl:"",
+      DriverSecondUrl:"",
+      VerifyCode:""
   }
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
@@ -93,13 +124,88 @@ export class canWeizhangComponent implements OnInit {
     });
   }
 
-  public toggleEditModal(item):void {
-    this.detailPages = !this.detailPages;
-    console.log(this.modalData.carUrl)
+
+  public getCanWeizhangData(item):void{
+    this.apiCall.getCanWeiZhangData(item.order_id,(data)=>{
+        this.fromModal(data)
+    })
+  } 
+
+  public fromModal(data){
+    let car_info = data.car_info;
+    let need_data = data.need_data;
+    if(data){
+      this.modalData ={
+          orderId:data.order_id,
+          carNumber:car_info.car_number,
+          engineNumber:car_info.engine_number,
+          frameNumber:car_info.frame_number,
+          username:car_info.name,
+          mobile:car_info.mobile,
+          pCount:car_info.license_number,
+          carPhone:'',
+          serviceFee:0,
+          address:'',
+          status:0,
+          CardNo:'',
+          VerifyCode:''          
+      }
+    }else{
+        this.modalData ={
+          orderId:'',
+          carNumber:'',
+          engineNumber:'',
+          frameNumber:'',
+          username:'',
+          mobile:'',
+          pCount:'',
+          carPhone:'',
+          serviceFee:0,
+          address:'',
+          status:0,
+          CardNo:'',
+          VerifyCode:''          
+      }
+    }
   }
 
-  public modalSubmit():void{  
+  public toggleEditModal(item?):void {
+    this.detailPages = !this.detailPages;
+    if(item){
+      this.getCanWeizhangData(item)
+    }
+  }
+
+  public submitModal():void{ 
+    var carUrl = (document.getElementById('carUrl') as HTMLInputElement).value || '';
+    var twoCodeUrl = (document.getElementById('twoCodeUrl') as HTMLInputElement).value || '';
+    var carDriveUrl = (document.getElementById('carDriveUrl') as HTMLInputElement).value || '';
+    var carDriveUrlBreak =(document.getElementById('carDriveUrlBreak') as HTMLInputElement).value || '';
+    var driveUrl =(document.getElementById('driveUrl') as HTMLInputElement).value || '';
+    var driveUrlBreak =(document.getElementById('driveUrlBreak') as HTMLInputElement).value || '';
     
+    this.orderConfig = {
+      Name:this.modalData.username, 
+      Phone:this.modalData.mobile,
+      Address:this.modalData.address, 
+      CardNo:this.modalData.CardNo,
+      CarCode:this.modalData.carNumber,
+      CarDrive:this.modalData.frameNumber,
+      FileNumber:this.modalData.frameNumber,
+      FilePhone:this.modalData.carPhone,
+      CheliangZhengShu:carUrl,
+      QRCode:twoCodeUrl, 
+      XingShiZhengHao:this.modalData.pCount,
+      DrivingUrl:carDriveUrl,
+      DrivingSecondUrl:carDriveUrlBreak ,
+      DriverUrl:driveUrl,
+      DriverSecondUrl:driveUrlBreak,
+      VerifyCode:this.modalData.VerifyCode
+    };
+    this.apiCall.postPeccancyManage(this.modalData.orderId,JSON.stringify(this.orderConfig),(data)=>{
+        this.toggleEditModal();
+        this.getCanWeiZhangList();
+    })
   }
 }
 

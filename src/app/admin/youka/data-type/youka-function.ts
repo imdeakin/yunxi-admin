@@ -162,4 +162,24 @@ export class YoukaFunction {
     }
     return text;
   }
+
+  //交易方式
+    public static getYoukaPayStyle(is_payStyle: number): string {
+    let text: string;
+     switch(is_payStyle){
+      case 1:
+        text = '支付宝';
+        break;
+      case 2:
+        text = '微信';
+        break;
+      case 3:
+        text = '云付通';
+        break;
+      case 4:
+        text = '余额';
+        break;
+    }
+    return text;
+  }
 }

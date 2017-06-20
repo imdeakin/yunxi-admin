@@ -3,23 +3,26 @@
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {ApiCall} from '../../../http/api-call';
-import {YoukaOrder} from '../data-type/youka-order';
+import {YoukaRecord} from '../data-type/youka-record';
 import {YoukaFunction} from '../data-type/youka-function';
 import {FuncServer} from '../../../serv/func.server';
+import { ModalWindowComponent } from '../../../../../../yunxi-admin - 副本/src/app/com/modal-window/modal-window.component';
 
 @Component({
-  selector: 'youka-order',
-  templateUrl: './youka-order.component.html',
-  styleUrls: ['./youka-order.component.css']
+  selector: 'youka-recordManage',
+  templateUrl: './youka-recordManage.component.html',
+  styleUrls: ['./youka-recordManage.component.css']
 })
-export class YoukaOrderComponent implements OnInit {
-  public title = '油卡套餐订单';
+export class YoukaRecordManageComponent implements OnInit {
+  public title = '油卡套餐到账管理';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: YoukaOrder[];
-  public filterData = {
+  public tableList: YoukaRecord[];
+  public youkaFunction = YoukaFunction;
+
+  public filterData ={
     oilPackageId:0,
     sn:'',
     oilCard: '',
@@ -35,36 +38,19 @@ export class YoukaOrderComponent implements OnInit {
     tradeMode: '',
     modifyTime:'',
     oilCardId:'',
-  };
-  public youkaFunction = YoukaFunction;
-
-  public classifyOptions = [
-    {
-      value: '',
-      text: '所有'
-    }
-  ].concat(this.youkaFunction.youcaTaocanClassOptions);
-
-  public tradeModeOptions = [
-    {
-      value: '',
-      text: '所有'
-    }
-  ].concat(this.youkaFunction.youcaTradeModeOptions);
-
-  public select_active = {
-    classify: true
-  };
+    chargeOrderId:''
+  }
 
   // 模态窗
   public modalShow: boolean = false;
+  public submitShow:boolean = false;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaOrderList();
+    this.getYoukaRecordList();
   }
 
   public computeOnResize() {
@@ -79,13 +65,13 @@ export class YoukaOrderComponent implements OnInit {
   /**
    * 获取油卡绑定列表
    */
-  public getYoukaOrderList(curPageIndex?): void {
+  public getYoukaRecordList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
     this.apiCall.getYoukaOrderList(this.filterData.sn,this.filterData.oilCard, this.filterData.tradeMode, this.filterData.oilPackageId, this.filterData.status,this.curPageIndex, this.perPageSize, (list, total) => {
+      console.log(list);
       this.tableList = list;
-       console.log(list);
       this.total = total;
     });
   }
@@ -100,10 +86,6 @@ export class YoukaOrderComponent implements OnInit {
 
   public getYoukaPayStyle(payStyle: number ): string{
     return YoukaFunction.getYoukaPayStyle(payStyle);
-  }
-
-  public filterSubmit(): void {
-    this.getYoukaOrderList(1);
   }
 
   // 模态窗
@@ -125,8 +107,47 @@ export class YoukaOrderComponent implements OnInit {
           status:data.status,
           tradeMode: data.trade_mode,
           modifyTime:data.modify_time,
-          oilCardId:data.oil_card_id
+          oilCardId:data.oil_card_id,
+          chargeOrderId:data.charge_order_id
       };
+    }else{
+        this.filterData ={
+          oilPackageId:0,
+          sn:'',
+          oilCard: '',
+          price:'',
+          mobile:'',
+          totalPeriods:'',
+          usedPeriods:'',
+          payTime:'',
+          amount:0,
+          classify: 0,
+          described:'',
+          status:0,
+          tradeMode: '',
+          modifyTime:'',
+          oilCardId:'',
+          chargeOrderId:''
+        }
     }
+  }
+
+  public submitModal(chargeOrderId?){
+    this.submitShow = !this.submitShow;
+     console.log(chargeOrderId)
+    if(chargeOrderId){
+      this.filterData.chargeOrderId = chargeOrderId;
+    }else{
+      this.filterData.chargeOrderId = '';
+    }
+  }
+
+  public modalSubmit(chargeOrderId?){
+      if(chargeOrderId){
+        this.apiCall.YouCardOrderReturn(chargeOrderId,(data)=>{
+            this.submitModal()
+            this.getYoukaRecordList()
+        })
+      }
   }
 }

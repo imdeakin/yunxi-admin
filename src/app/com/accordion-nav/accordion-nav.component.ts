@@ -27,11 +27,15 @@ export class AccordionNavComponent implements OnInit {
           link: '/admin/youka-bind'
         },
         {
-          title: '油卡购买套餐的订单管理',
+          title: '油卡套餐订单',
           link: '/admin/youka-order'
         },
         {
-          title: '到账记录',
+          title: '油卡套餐到账管理',
+          link: '/admin/youka-recordManage'
+        },
+        {
+          title: '油卡套餐到账记录',
           link: '/admin/youka-record'
         }
       ]

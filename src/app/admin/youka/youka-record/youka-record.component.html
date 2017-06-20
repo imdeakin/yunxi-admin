@@ -22,14 +22,14 @@
             <th>到账金额</th>
             <th>套餐描述</th>
             <th>总期数</th>
-            <th>到账期数</th>
+            <th>到账期数</th>          
             <th>操作</th>
           </tr>
           </thead>
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total}; let i = index">
-            <td>{{item.charge_order_id}}</td>
+            <td>{{item.sn}}</td>
             <td>{{item.oil_card}}</td>
             <td>{{item.create_time}}</td>
             <td>{{item.price}}</td>
@@ -38,7 +38,7 @@
             <td>{{item.used_periods}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item.oil_card_order_return_id)">查看</a>
               </div>
             </td>
           </tr>
@@ -57,51 +57,51 @@
     <form class="modal-form">
       <div class="modal-input-group">
         <label>加油卡号</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>订单流水号</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.sn}}</div>
       </div>
       <div class="modal-input-group">
         <label>交易流水号</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>用户</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>类型(分期)</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>已到账期数</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>充值日期</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>最近到账时间</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>金额</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>每期金额</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>套餐类型</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>状态</label>
-        <div class="text">0</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-btn-group">
         <button (click)="toggleModal()">关闭</button>

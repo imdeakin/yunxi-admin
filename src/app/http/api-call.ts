@@ -145,42 +145,76 @@ export class ApiCall {
 
   /**
    * 获取油卡购买套餐订单列表
+   * @param sn 订单流水号
    * @param oilCard 油卡号码
    * @param tradeMode 交易方式：1、支付宝，2、微信，3、云付通，4，余额
-   * @param classify 分类：1、默认套餐，2、优惠活动，3、会员专享
+   * @param oilPackageId 套餐id
+   * @param status 
    * @param curPageIndex
    * @param pageSize
    * @param success
    * @param failure
    */
-  public getYoukaOrderList(oilCard, tradeMode, classify, curPageIndex: number, pageSize: number, success, failure?): void {
+  public getYoukaOrderList(sn,oilCard, tradeMode, oilPackageId, status,curPageIndex: number, perPageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getYoukaOrderList,
       data: {
         index: curPageIndex,
-        pageSize: pageSize,
-        oilCard: oilCard,
-        tradeMode: tradeMode,
-        classify: classify
+        pageSize: perPageSize
       },
       success: success,
       failure: failure
     });
   }
 
-  public getYoukaRecordList(oilCard, curPageIndex: number, pageSize: number, success, failure?): void {
+  public getYoukaRecordList(oilCard, sn,curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
-      url: this.apiConfig.paths.getYoukaRecordList,
+      url: this.apiConfig.paths.getYoukaRecordManageList,
       data: {
         index: curPageIndex,
         pageSize: pageSize,
-        oilCard: oilCard
       },
       success: success,
       failure: failure
     });
   }
 
+  //油卡返还
+
+  public YouCardOrderReturn(chargeOrderId:string,success,failure?):void{
+      this.apiCall({
+        url:this.apiConfig.paths.YouCardOrderReturn,
+        data:{
+          chargeOrderId:chargeOrderId,
+        },
+        success: success,
+        failure: failure
+      })
+  }
+
+   public getYoucardOrderReturnList(oilCard:string, sn:string,curPageIndex: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getYoucardOrderReturnList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //油卡订单详情
+  public getCardOrderReturn(orderReturnId:string,success,failure?){
+      this.apiCall({
+        url:this.apiConfig.paths.getCardOrderReturn,
+        data:{
+          orderReturnId:orderReturnId
+        },  
+        success: success,
+        failure: failure
+      })
+  }
   public getInsuranceOrderList(searchName, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getInsuranceOrderList,
@@ -238,6 +272,44 @@ export class ApiCall {
       success: success,
       failure: failure
     });
+  }
+
+  public getCanWeiZhangData(orderId:string,success,failure?):void{
+    console.log(orderId);
+    this.apiCall({
+      url:this.apiConfig.paths.getCanWeizhangData,
+      data:{
+        orderId:orderId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //发送短信验证码
+  public postPeccancyMsg(carNumber:number,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.postPeccancyMsg,
+      data:{
+        carNumber:carNumber
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //保存订单信息
+  public postPeccancyManage(orderId:string,orderConfig,success,failure?):void{
+    console.log(orderConfig)
+      this.apiCall({
+        url:this.apiConfig.paths.postPeccancyManage,
+        data:{
+          orderId:orderId,
+          orderConfig:orderConfig
+        },
+        success:success,
+        failure:failure
+      })
   }
 
   /**

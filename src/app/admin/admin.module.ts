@@ -31,6 +31,7 @@ import {
   YoukaTaocanComponent,
   YoukaBindComponent,
   YoukaOrderComponent,
+  YoukaRecordManageComponent,
   YoukaRecordComponent,
 
   // 车险管理
@@ -107,6 +108,7 @@ import {
     YoukaTaocanComponent,
     YoukaBindComponent,
     YoukaOrderComponent,
+    YoukaRecordManageComponent,
     YoukaRecordComponent,
 
     // 车险管理

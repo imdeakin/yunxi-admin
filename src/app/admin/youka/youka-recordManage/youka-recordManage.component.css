@@ -1,0 +1,27 @@
+.modal-con{
+  width: 460px;
+  height: 680px;
+  margin-left: -230px;
+  margin-top: -340px;
+}
+
+.submit-con {
+  width: 400px;
+  height: 230px;
+  margin-left: -200px;
+  margin-top: -115px;
+}
+
+.submit-con .btn{
+  display: inline-block;
+  margin:0 auto;
+  text-align: center;
+  margin-top:30px;
+}
+
+.submit-con .btn:nth-child(1){
+    margin-right: 40px;
+    margin-left: 56px;
+    
+}
+

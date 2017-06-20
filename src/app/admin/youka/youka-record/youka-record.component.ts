@@ -6,6 +6,7 @@ import {ApiCall} from '../../../http/api-call';
 import {YoukaRecord} from '../data-type/youka-record';
 import {YoukaFunction} from '../data-type/youka-function';
 import {FuncServer} from '../../../serv/func.server';
+import { ModalWindowComponent } from '../../../../../../yunxi-admin - 副本/src/app/com/modal-window/modal-window.component';
 
 @Component({
   selector: 'youka-record',
@@ -19,8 +20,17 @@ export class YoukaRecordComponent implements OnInit {
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList: YoukaRecord[];
-  public search_oilCard: string = '';
   public youkaFunction = YoukaFunction;
+
+  public modalData ={
+      oilCard:'',
+      sn:'',
+      createTime:'',
+      price:'',
+      described:'',
+      totalPeriods:'',
+      usedPeriods:''
+  }
 
   // 模态窗
   public modalShow: boolean = false;
@@ -49,7 +59,8 @@ export class YoukaRecordComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getYoukaRecordList(this.search_oilCard, this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getYoucardOrderReturnList(this.modalData.oilCard,this.modalData.sn,this.curPageIndex, this.perPageSize, (list, total) => {
+      console.log(list);
       this.tableList = list;
       this.total = total;
     });
@@ -63,8 +74,28 @@ export class YoukaRecordComponent implements OnInit {
     return YoukaFunction.getYoukaTypeText(type);
   }
 
+  public getCardOrderReturn(item:string):string{
+    var thisData = '';
+      this.apiCall.getCardOrderReturn(item,(data)=>{
+          thisData = data;
+      })
+      return thisData;
+  }
   // 模态窗
-  public toggleModal(): void {
+  public toggleModal(item?): void {
     this.modalShow = !this.modalShow;
+    if(item){
+      item = this.getCardOrderReturn(item)
+      console.log(item);
+      this.modalData ={
+          oilCard:item.oil_card,
+          sn:item.sn,
+          createTime:item.create_time,
+          price:item.price,
+          described:item.described,
+          totalPeriods:item.total_periods,
+          usedPeriods:item.used_periods
+      }
+    }
   }
 }

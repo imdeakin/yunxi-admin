@@ -17,6 +17,7 @@ import {
   YoukaTaocanComponent,
   YoukaBindComponent,
   YoukaOrderComponent,
+  YoukaRecordManageComponent,
   YoukaRecordComponent,
 
   // 车险管理
@@ -83,6 +84,7 @@ const AdminRoutes: Routes = [
       {path: 'youka-taocan', component: YoukaTaocanComponent},
       {path: 'youka-bind', component: YoukaBindComponent},
       {path: 'youka-order', component: YoukaOrderComponent},
+      {path:'youka-recordManage',component:YoukaRecordManageComponent},
       {path: 'youka-record', component: YoukaRecordComponent},
 
       // 车险管理
