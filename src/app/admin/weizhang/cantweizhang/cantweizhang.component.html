@@ -8,9 +8,9 @@
         <form class="clearfix">
           <div class="input-group">
             <label>姓名/手机/订单编号</label>
-            <input type="text" name="account" [(ngModel)]="selectValue">
+            <input type="text" name="account" [(ngModel)]="modalData.searchName">
           </div>
-          <button class="text-btn text-sub" type="submit">搜索</button>
+          <button class="text-btn text-sub" type="submit" (click)="getCanWeiZhangList(1)">搜索</button>
         </form>
       </div>
       <div class="manager-table">

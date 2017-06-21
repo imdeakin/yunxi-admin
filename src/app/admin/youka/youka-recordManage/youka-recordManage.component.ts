@@ -22,7 +22,7 @@ export class YoukaRecordManageComponent implements OnInit {
   public tableList: YoukaRecord[];
   public youkaFunction = YoukaFunction;
 
-  public filterData ={
+  public modalData ={
     oilPackageId:0,
     sn:'',
     oilCard: '',
@@ -38,7 +38,9 @@ export class YoukaRecordManageComponent implements OnInit {
     tradeMode: '',
     modifyTime:'',
     oilCardId:'',
-    chargeOrderId:''
+    chargeOrderId:'',
+    nowData:'',
+    searchData:''
   }
 
   // 模态窗
@@ -62,6 +64,26 @@ export class YoukaRecordManageComponent implements OnInit {
     });
   }
 
+  public selectValue():void{
+      this.getYoukaSelectOptions();
+      this.getYoukaRecordList(1);
+      this.modalData.oilCard = '';
+      this.modalData.sn = '';
+  }
+
+   //匹配油卡搜索查询
+  public getYoukaSelectOptions():void{
+    console.log(this.modalData);
+      switch(this.modalData.nowData){
+        case 'oilCard':
+          this.modalData.oilCard = this.modalData.searchData;
+          break;
+        case 'sn':
+          this.modalData.sn = this.modalData.searchData;
+          break;
+      }
+  }
+
   /**
    * 获取油卡绑定列表
    */
@@ -69,7 +91,7 @@ export class YoukaRecordManageComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getYoukaOrderList(this.filterData.sn,this.filterData.oilCard, this.filterData.tradeMode, this.filterData.oilPackageId, this.filterData.status,this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getYoukaOrderList(this.modalData.sn,this.modalData.oilCard, this.modalData.tradeMode, this.modalData.oilPackageId, this.modalData.status,this.curPageIndex, this.perPageSize, (list, total) => {
       console.log(list);
       this.tableList = list;
       this.total = total;
@@ -92,7 +114,7 @@ export class YoukaRecordManageComponent implements OnInit {
   public toggleModal(data?): void {
     this.modalShow = !this.modalShow;
      if(data){
-       this.filterData = {
+       this.modalData = {
           oilPackageId:data.oil_package_id,
           sn:data.sn,
           price:data.price,
@@ -108,10 +130,12 @@ export class YoukaRecordManageComponent implements OnInit {
           tradeMode: data.trade_mode,
           modifyTime:data.modify_time,
           oilCardId:data.oil_card_id,
-          chargeOrderId:data.charge_order_id
+          chargeOrderId:data.charge_order_id,
+          nowData:'',
+          searchData:''
       };
     }else{
-        this.filterData ={
+        this.modalData ={
           oilPackageId:0,
           sn:'',
           oilCard: '',
@@ -127,7 +151,9 @@ export class YoukaRecordManageComponent implements OnInit {
           tradeMode: '',
           modifyTime:'',
           oilCardId:'',
-          chargeOrderId:''
+          chargeOrderId:'',
+          nowData:'',
+          searchData:''
         }
     }
   }
@@ -136,9 +162,9 @@ export class YoukaRecordManageComponent implements OnInit {
     this.submitShow = !this.submitShow;
      console.log(chargeOrderId)
     if(chargeOrderId){
-      this.filterData.chargeOrderId = chargeOrderId;
+      this.modalData.chargeOrderId = chargeOrderId;
     }else{
-      this.filterData.chargeOrderId = '';
+      this.modalData.chargeOrderId = '';
     }
   }
 

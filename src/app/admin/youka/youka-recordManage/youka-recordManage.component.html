@@ -7,8 +7,12 @@
       <div class="filter-bar">
         <form class="clearfix">
           <div class="input-group">
-            <input type="text" name="oilCard" value="" placeholder="请输入加油卡号" [(ngModel)]="search_oilCard">
-            <button class="text-btn text-sub" (click)="getYoukaRecordList(1);">搜索</button>
+            <label>选择查询</label>
+              <select-box [options]="youkaFunction.youkaSelectOptions2" [first]="{value:'',text:'请选择'}" (optionSelect)="modalData.nowData = $event"></select-box>
+             <input type="text" name="oilCard" value="" placeholder="请输入" [(ngModel)]="modalData.searchData">
+          </div>
+          <div class="input-group">
+            <button class="text-btn text-sub" (click)="selectValue()">搜索</button>
           </div>
         </form>
       </div>
@@ -70,51 +74,51 @@
     <form class="modal-form">
       <div class="modal-input-group">
         <label>订单流水号</label>
-        <div class="text">{{filterData.sn}}</div>
+        <div class="text">{{modalData.sn}}</div>
       </div>
       <div class="modal-input-group">
         <label>加油卡号</label>
-        <div class="text">{{filterData.oilCard}}</div>
+        <div class="text">{{modalData.oilCard}}</div>
       </div>
       <div class="modal-input-group">
         <label>用户账号</label>
-        <div class="text">{{filterData.mobile}}</div>
+        <div class="text">{{modalData.mobile}}</div>
       </div>
       <div class="modal-input-group">
         <label>分期数</label>
-        <div class="text">{{filterData.totalPeriods}}</div>
+        <div class="text">{{modalData.totalPeriods}}</div>
       </div>
       <div class="modal-input-group">
         <label>已到账期数</label>
-        <div class="text">{{filterData.usedPeriods}}</div>
+        <div class="text">{{modalData.usedPeriods}}</div>
       </div>
       <div class="modal-input-group">
         <label>每期金额</label>
-        <div class="text">{{filterData.price}}</div>
+        <div class="text">{{modalData.price}}</div>
       </div>
       <div class="modal-input-group">
         <label>付款金额</label>
-        <div class="text">{{filterData.amount}}</div>
+        <div class="text">{{modalData.amount}}</div>
       </div>
       <div class="modal-input-group">
         <label>套餐类型</label>
-        <div class="text">{{getTaocanClassText(filterData.classify)}}</div>
+        <div class="text">{{getTaocanClassText(modalData.classify)}}</div>
       </div>
       <div class="modal-input-group">
         <label>业务项</label>
-        <div class="text">{{filterData.described}}</div>
+        <div class="text">{{modalData.described}}</div>
       </div>
       <div class="modal-input-group">
         <label>充值日期</label>
-        <div class="text">{{filterData.payTime}}</div>
+        <div class="text">{{modalData.payTime}}</div>
       </div>
       <div class="modal-input-group">
         <label>最近到账时间</label>
-        <div class="text">{{filterData.modifyTime}}</div>
+        <div class="text">{{modalData.modifyTime}}</div>
       </div>
       <div class="modal-input-group">
         <label>状态</label>
-        <div class="text">{{getTaocanOrderStatusText(filterData.status)}}</div>
+        <div class="text">{{getTaocanOrderStatusText(modalData.status)}}</div>
       </div>
       <div class="modal-btn-group">
         <button (click)="toggleModal()">关闭</button>
@@ -128,7 +132,7 @@
 <div class="modal-wrapper" [class.hidden]="!submitShow">
   <div class="modal-con submit-con">
     <h3 class="modal-title">订单详情</h3>
-    <form class="modal-form" (ngSubmit)="modalSubmit(filterData.chargeOrderId)"> 
+    <form class="modal-form" (ngSubmit)="modalSubmit(modalData.chargeOrderId)"> 
       <div class="modal-btn-group btn">
          <button type="submit">确定</button>
       </div>

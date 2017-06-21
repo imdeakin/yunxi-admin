@@ -19,6 +19,19 @@ export class YoukaFunction {
     },
   ]
 
+    //油卡搜索类型2
+  public static youkaSelectOptions2 = [
+    {
+      value:'oilCard',
+      text:'油卡账号'
+    },
+    {
+      value:'sn',
+      text:'订单号'
+    }
+  ]
+
+
   //油卡套餐类型
   public static youkaTaocanClassifyOptions = [
     {

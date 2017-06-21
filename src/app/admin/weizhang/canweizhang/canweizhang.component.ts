@@ -18,6 +18,7 @@ export class canWeizhangComponent implements OnInit {
   public contentHeight = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
+  public youkaFunction = weiZhangFunction;
   public tableList = [
     // {
     //   account: '18128789828', // 账号
@@ -72,7 +73,8 @@ export class canWeizhangComponent implements OnInit {
       carPhone:'',
       address:'',
       status:0,
-      VerifyCode:''      
+      VerifyCode:'', 
+      searchName:''     
   }
 
 public orderConfig={
@@ -93,7 +95,9 @@ public orderConfig={
       DriverSecondUrl:"",
       VerifyCode:""
   }
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
+
+public imgData:string = '';
+constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
 
   public ngOnInit(): void {
@@ -140,7 +144,7 @@ public orderConfig={
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getCanWeiZhangList(this.cantype,this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getCanWeiZhangList(this.modalData.searchName,this.cantype,this.curPageIndex, this.perPageSize, (list, total) => {
       console.log(list)
       this.tableList = list;
       this.total = total;
@@ -162,8 +166,8 @@ public orderConfig={
       this.modalData ={
           orderId:data.order_id,
           carNumber:car_info.car_number,
-          engineNumber:car_info.engine_number,
-          frameNumber:car_info.frame_number,
+          engineNumber:car_info.engine_number.slice(-need_data.CarDriveLen),
+          frameNumber:car_info.frame_number.slice(-need_data.CarCodeLen),
           username:car_info.name,
           mobile:car_info.mobile,
           pCount:car_info.license_number,
@@ -172,7 +176,8 @@ public orderConfig={
           address:'',
           status:0,
           CardNo:'',
-          VerifyCode:''          
+          VerifyCode:'',
+          searchName:''          
       }
     }else{
         this.modalData ={
@@ -188,7 +193,8 @@ public orderConfig={
           address:'',
           status:0,
           CardNo:'',
-          VerifyCode:''          
+          VerifyCode:'',
+          searchName:''          
       }
     }
   }
@@ -225,10 +231,11 @@ public orderConfig={
       DriverSecondUrl:driveUrlBreak,
       VerifyCode:this.modalData.VerifyCode
     };
-    this.apiCall.postPeccancyManage(this.modalData.orderId,JSON.stringify(this.orderConfig),(data)=>{
-        this.toggleEditModal();
-        this.getCanWeiZhangList();
-    })
+    console.log(this.imgData);
+    // this.apiCall.postPeccancyManage(this.modalData.orderId,JSON.stringify(this.orderConfig),(data)=>{
+    //     this.toggleEditModal();
+    //     this.getCanWeiZhangList();
+    // })
   }
 
   //确认支付接口
@@ -237,6 +244,13 @@ public orderConfig={
         console.log(data);
         this.getCanWeiZhangList();
       })
+  }
+
+  //发送短信
+  public sendMsg(carNumber){
+    this.apiCall.postPeccancyMsg(carNumber,(data)=>{
+        console.log(data);
+    })
   }
 }
 

@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://192.168.3.5:8082'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
+  public server: string = 'http://yx.51meets.com'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
@@ -132,6 +132,9 @@ export class ApiConfig {
     addRole: this.root + '/system/addRole', // 添加角色
     updateRole: this.root + '/system/updateRole', // 修改角色
     removeRole: this.root + '/system/delRole', // 删除角色
+
+    //上传文件
+    postUpload:this.root +'/adfile/upload'
   };
 
   public getImgFullPath(imgPath: string): string {

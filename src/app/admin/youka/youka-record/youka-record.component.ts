@@ -35,7 +35,9 @@ export class YoukaRecordComponent implements OnInit {
       price:'',
       described:'',
       type:'',
-      status:''
+      status:'',
+      nowData:'',
+      searchData:''
   }
 
   // 模态窗
@@ -56,6 +58,26 @@ export class YoukaRecordComponent implements OnInit {
       this.contentHeight = this.funcServer.getContentHeight(this.elRef);
       this.perPageSize = this.funcServer.getPerPageSize(this.contentHeight);
     });
+  }
+
+  public selectValue():void{
+      this.getYoukaSelectOptions();
+      this.getYoukaRecordList(1);
+      this.modalData.oilCard = '';
+      this.modalData.sn = '';
+  }
+
+   //匹配油卡搜索查询
+  public getYoukaSelectOptions():void{
+    console.log(this.modalData);
+      switch(this.modalData.nowData){
+        case 'oilCard':
+          this.modalData.oilCard = this.modalData.searchData;
+          break;
+        case 'sn':
+          this.modalData.sn = this.modalData.searchData;
+          break;
+      }
   }
 
   /**
@@ -96,7 +118,9 @@ export class YoukaRecordComponent implements OnInit {
           price:data.price,
           described:data.described,
           type:data.type,
-          status:data.status
+          status:data.status,
+          nowData:'',
+          searchData:''
         }
       })
       return thisData;
@@ -121,7 +145,9 @@ export class YoukaRecordComponent implements OnInit {
           price:'',
           described:'',
           type:'',
-          status:''
+          status:'',
+          nowData:'',
+          searchData:''
       }
     }
   }

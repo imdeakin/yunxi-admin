@@ -32,7 +32,7 @@ export class YoukaTaocanComponent implements OnInit {
     payMoney:0,
     amount: 0,
     needPoints: 0,
-    type: 0,
+    type: 0, 
     eachs: 0,
     oilCardType:0,
     described: ''

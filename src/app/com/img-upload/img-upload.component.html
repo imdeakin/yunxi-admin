@@ -1,0 +1,12 @@
+<div class="img-upload">
+    <ul id="imgList">
+        <li><img src="" alt=""></li>
+        <li><img src="" alt=""></li>
+    </ul>
+    <div  class="btn-upload">
+        +
+        <form id="imgForm" (ngSubmit)="modalSubmit()">
+            <input type="file" name="" id="imgFile" accept="image/png,image/jpeg" (change)="submitModal()">
+        </form>
+    </div>
+</div>

@@ -68,16 +68,12 @@ export class YoukaBindComponent implements OnInit {
     return YoukaFunction.getYoukaTypeText(type);
   }
 
-  selectValue(){
+  public selectValue():void{
       this.getYoukaSelectOptions();
       this.getYoukaBindList(1);
-      this.filterData = {
-        nowData:'',
-        oilCard:'',
-        mobile:'',
-        userName:'',
-        searchData:''
-      }
+      this.filterData.oilCard = '';
+      this.filterData.mobile = '';
+      this.filterData.userName = '';
   }
 
    //匹配油卡搜索查询

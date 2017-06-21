@@ -161,6 +161,8 @@ export class ApiCall {
     this.apiCall({
       url: this.apiConfig.paths.getYoukaOrderList,
       data: {
+        sn:sn,
+        oilCard:oilCard,
         index: curPageIndex,
         pageSize: perPageSize
       },
@@ -197,6 +199,8 @@ export class ApiCall {
     this.apiCall({
       url: this.apiConfig.paths.getYoucardOrderReturnList,
       data: {
+        oilCard:oilCard,
+        sn:sn,
         index: curPageIndex,
         pageSize: pageSize,
       },
@@ -262,10 +266,11 @@ export class ApiCall {
    * @param pageSize 每页显示多少条 
   */
 
-   public getCanWeiZhangList(type:string,index:number,pageSize:number, success, failure?): void {
+   public getCanWeiZhangList(searchName:string,type:string,index:number,pageSize:number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getCanWeizhangList,
       data: {
+        searchName:searchName,
         type:type,
         index:index,
         pageSize:pageSize
@@ -1156,6 +1161,25 @@ export class ApiCall {
       url: this.apiConfig.paths.removeRole,
       data: {
         roleId: roleId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //上传文件
+  /**
+   * @param adminId 管理员ID
+   * @param file 文件data
+   * @param type 
+   */
+  public postUpload(adminId:string,file,type:string,success,failure?){
+     this.apiCall({
+      url: this.apiConfig.paths.postUpload,
+      data: {
+        adminId:adminId,
+        file:file,
+        type:type
       },
       success: success,
       failure: failure

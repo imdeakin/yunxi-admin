@@ -6,9 +6,13 @@
     <div class="content-wrapper">
       <div class="filter-bar">
         <form class="clearfix">
+           <div class="input-group">
+            <label>选择查询</label>
+              <select-box [options]="youkaFunction.youkaSelectOptions2" [first]="{value:'',text:'请选择'}" (optionSelect)="modalData.nowData = $event"></select-box>
+             <input type="text" name="oilCard" value="" placeholder="请输入" [(ngModel)]="modalData.searchData">
+          </div>
           <div class="input-group">
-            <input type="text" name="oilCard" value="" placeholder="请输入加油卡号" [(ngModel)]="search_oilCard">
-            <button class="text-btn text-sub" (click)="getYoukaRecordList(1);">搜索</button>
+            <button class="text-btn text-sub" (click)="selectValue();">搜索</button>
           </div>
         </form>
       </div>

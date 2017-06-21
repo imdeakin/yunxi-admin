@@ -5,7 +5,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {weiZhangFunction } from '../date-type/weizhang-function';
-import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
+import {Router,Route, NavigationEnd, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'cantweizhang',
@@ -26,7 +26,8 @@ export class cantWeizhangComponent implements OnInit {
   public modalData = {
       orderId:'',
       punishMoney:0,
-      serviceFee:0
+      serviceFee:0,
+      searchName:''
   }
   
   private selDate: string = '';
@@ -66,7 +67,7 @@ export class cantWeizhangComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getCanWeiZhangList(this.cantType,this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getCanWeiZhangList(this.modalData.searchName,this.cantType,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
     });
@@ -101,13 +102,15 @@ export class cantWeizhangComponent implements OnInit {
           this.modalData ={
             orderId:item.order_id,
             punishMoney:this.modalData.punishMoney,
-            serviceFee:this.modalData.serviceFee
+            serviceFee:this.modalData.serviceFee,
+            searchName:''
           }
       }else{
          this.modalData ={
             orderId:'',
             punishMoney:0,
-            serviceFee:0
+            serviceFee:0,
+            searchName:''
           }
       } 
   }
@@ -131,6 +134,6 @@ export class cantWeizhangComponent implements OnInit {
   }
 
   public bink(orderId:string){
-    this.router.navigate(['/admin/cloudpay-verification-list'])
+    this.router.navigateByUrl('/admin/cloudpay-verification-list/123456/abc/cas')
   }
 }

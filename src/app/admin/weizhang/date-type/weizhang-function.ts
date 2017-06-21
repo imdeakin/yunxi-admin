@@ -3,6 +3,7 @@
  */
 
 export class weiZhangFunction{
+    
     //违章状态
     public static weizhangStaticOptions =[
         {

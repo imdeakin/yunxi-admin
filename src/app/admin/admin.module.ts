@@ -13,7 +13,8 @@ import {
   DatePickerComponent,
   SelectBoxComponent,
   CityPickerComponent,
-  CityPickerServer
+  CityPickerServer,
+  ImgUploadComponent
 } from '../com';
 
 
@@ -94,6 +95,7 @@ import {
     DatePickerComponent,
     SelectBoxComponent,
     CityPickerComponent,
+    ImgUploadComponent,
 
     // 工作台
     BarGraphPageComponent,
