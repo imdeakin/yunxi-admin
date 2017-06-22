@@ -5,7 +5,8 @@ import {Component, Input, Output, DoCheck, EventEmitter, OnInit, ElementRef} fro
 import {DomSanitizer} from '@angular/platform-browser';
 import { ApiCall } from '../../http/api-call';
 import { FuncServer } from '../../../../../yunxi-admin/src/app/serv/func.server';
-
+import { AdminInfo } from '../../serv/get.admin';
+import { Rc4Server } from '../../../../../yunxi-admin/src/app/serv/rc4.server';
 
 @Component({
     selector:'img-upload',
@@ -18,12 +19,16 @@ export class ImgUploadComponent implements OnInit, DoCheck {
     @Output() public resultUrl: EventEmitter<any> = new EventEmitter();  
     @Input() public src: string = '';
     @Input() public file_id:string = '';
+    public adminInfo = AdminInfo;
     public path: string ='';
     public showForm:boolean = false;
+    public type = '';
     constructor(private ref: ElementRef,
     private sanitizer:DomSanitizer,
     private apiCall:ApiCall,
-    private funcServer:FuncServer) {
+    private funcServer:FuncServer,
+    private rc4server:Rc4Server
+      ) {
     }
 
   public ngOnInit(): void {
@@ -38,10 +43,21 @@ export class ImgUploadComponent implements OnInit, DoCheck {
 
   } 
 
-  public submitModal():void{
-    this.showForm = ! this.showForm;
-    var imgForm = document.querySelector('#imgForm')[0];
-    var formData = new FormData(imgForm)
-    // this.resultUrl.emit(filePath);
+  public changeImg():void{
+    setTimeout(()=>{
+        (document.querySelector('#btn') as HTMLButtonElement).click()
+      },5000)
+
+  }
+
+  public modalSubmit():void{
+    let adminIn = this.adminInfo.getAdminInfo(this.rc4server);
+    let adminId = JSON.parse(adminIn).admin_id;
+    var form = document.forms.namedItem("fileInfo")
+    var formData = new FormData(form);
+    console.log(formData);
+    this.apiCall.postUpload(adminId,formData,this.type,(data)=>{
+        console.log(data);
+    })
   }
 } 

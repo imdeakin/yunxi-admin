@@ -131,6 +131,7 @@ export class CloudpayVerificationComponent implements OnInit {
   // 核验弹窗
   public verificationConfirm(item): void {
     let adminId = this.funcServer.getAdminId();
+    console.log(adminId);
     let index = layer.confirm(
       '请选择核验结果',
       {

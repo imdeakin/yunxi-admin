@@ -5,8 +5,9 @@
     </ul>
     <div  class="btn-upload">
         +
-        <form id="imgForm" (ngSubmit)="modalSubmit()">
-            <input type="file" name="" id="imgFile" accept="image/png,image/jpeg" (change)="submitModal()">
+        <form id="imgForm" method="post" enctype="multipart/form-data" name="fileInfo" (ngSubmit)="modalSubmit()">
+            <input type="file" name="file" id="imgFile" (change)="changeImg()">
+            <button type="submit" [class.hidden]="true" id="btn"></button>
         </form>
     </div>
 </div>

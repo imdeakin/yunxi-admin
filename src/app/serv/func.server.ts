@@ -2,9 +2,15 @@
  * Created by Deakin on 2017/5/19 0019.
  */
 import {Injectable, ElementRef} from '@angular/core'
+import Cookies from 'cookies-js';
+import { Rc4Server } from '../../../../yunxi-admin/src/app/serv/rc4.server';
+
 
 Injectable()
 export class FuncServer {
+  public adminInfoKey = 'admin';
+  public rc4server = Rc4Server;
+
 
   /**
    * 计算更新内容高度
@@ -32,10 +38,14 @@ export class FuncServer {
   }
 
   public getAdminInfo(): object {
-    return {};
+    let adminInfo = Cookies.get(this.adminInfoKey);
+    adminInfo  = this.rc4server.decrypt(adminInfo);
+    console.log(adminInfo)
+    return adminInfo;
   }
 
   public getAdminId(): string {
+
     return '';
   }
 
@@ -151,3 +161,5 @@ export class FuncServer {
     return text;
   }
 }
+
+
