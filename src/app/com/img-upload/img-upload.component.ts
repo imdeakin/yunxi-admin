@@ -44,10 +44,7 @@ export class ImgUploadComponent implements OnInit, DoCheck {
   } 
 
   public changeImg():void{
-    setTimeout(()=>{
-        (document.querySelector('#btn') as HTMLButtonElement).click()
-      },5000)
-
+    (document.querySelector("#btn") as HTMLInputElement).click()
   }
 
   public modalSubmit():void{

@@ -21,6 +21,7 @@ import {
 
   // 车险管理
   InsuranceOrderListPageComponent,
+  CarProtectComponent,
 
   // 会员管理
   UserListComponent,
@@ -62,7 +63,7 @@ import {
   ArticleListComponent,
   CarSeriesListComponent,
   CarModelListComponent,
-  CarBrandListComponent
+  CarBrandListComponent,
 } from './pages';
 
 const AdminRoutes: Routes = [
@@ -88,7 +89,7 @@ const AdminRoutes: Routes = [
 
       // 车险管理
       {path: 'insurance-order-list', component: InsuranceOrderListPageComponent},
-
+       {path:'car-protect-list',component:CarProtectComponent},
       // 会员管理
       {path: 'user-list', component: UserListComponent},
       {path: 'user-record', component: UserRecordComponent},
@@ -127,7 +128,7 @@ const AdminRoutes: Routes = [
       {path: 'article-list', component: ArticleListComponent},
       {path: 'car-series-list', component: CarSeriesListComponent},
       {path: 'car-model-list', component: CarModelListComponent},
-      {path: 'car-brand-list', component: CarBrandListComponent},
+      {path: 'car-brand-list', component: CarBrandListComponent}
     ]
   },
 ];

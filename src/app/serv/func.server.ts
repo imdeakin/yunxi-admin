@@ -37,11 +37,8 @@ export class FuncServer {
     return size;
   }
 
-  public getAdminInfo(): object {
-    let adminInfo = Cookies.get(this.adminInfoKey);
-    adminInfo  = this.rc4server.decrypt(adminInfo);
-    console.log(adminInfo)
-    return adminInfo;
+  public getAdminInfo(): {} {
+    return '';
   }
 
   public getAdminId(): string {

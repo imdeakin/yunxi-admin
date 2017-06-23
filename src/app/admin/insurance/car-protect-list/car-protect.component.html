@@ -1,0 +1,88 @@
+<div class="manager-page">
+  <div class="header">
+    <h3>{{title}}<s></s></h3>
+  </div>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="content-wrapper">
+      <div class="filter-bar">
+        <form class="clearfix" (ngSubmit)="getCarSeriesList(1)">
+          <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleAddModal()">添加</a>
+        </form>
+      </div>
+      <div class="manager-table">
+        <table>
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>省份名称</th>            
+            <th>推荐车险名称</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.insurer_name}}</td>
+            <td>
+              <div class="table-btns">
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="removeRegionSupportInsurance(item.recommend_insurer_id)">删除</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
+        <pagination-controls (pageChange)="getCarSeriesList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<!--编辑窗-->
+<div class="modal-wrapper" [class.hidden]="!modalShow">
+  <div class="modal-con">
+    <h3 class="modal-title" [class.hidden]="filterData.carSeriesId">编辑</h3>
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
+      <div class="modal-input-group">
+          <label>省份名称</label>
+         <div class="text">{{filterData.name}}</div>
+      </div>
+      <div class="modal-input-group">
+        <label>推荐车险</label>
+        <insurer-picker (change)="filterData.insurerId = $event"></insurer-picker>
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit">保存</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+
+<!--增加窗-->
+<div class="modal-wrapper" [class.hidden]="!modalAddShow">
+  <div class="modal-con">
+    <h3 class="modal-title">添加</h3>
+    <form class="modal-form" (ngSubmit)="modaladdSubmit()">
+      <div class="modal-input-group">
+          <label>省份名称</label>
+          <province-picker (change)="addData.shortnameId = $event"></province-picker>
+      </div>
+      <div class="modal-input-group">
+        <label>保险公司</label>
+         <insurer-picker (change)="addData.insurerId = $event"></insurer-picker>
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit">保存</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggleAddModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>

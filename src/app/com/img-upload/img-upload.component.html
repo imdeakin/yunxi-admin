@@ -3,11 +3,11 @@
         <li><img src="" alt=""></li>
         <li><img src="" alt=""></li>
     </ul>
-    <div  class="btn-upload">
+    <div  class="btn-upload" (click)="changeImg()">
         +
         <form id="imgForm" method="post" enctype="multipart/form-data" name="fileInfo" (ngSubmit)="modalSubmit()">
-            <input type="file" name="file" id="imgFile" (change)="changeImg()">
-            <button type="submit" [class.hidden]="true" id="btn"></button>
+            <button type="submit" name="btn" id="imgFile"></button>
+            <input type="file" ="true" id="btn" [class.hidden]="true">
         </form>
     </div>
 </div>

@@ -1,0 +1,6 @@
+<div class="insurer-picker-con">
+  <input [name]="name" value="{{InsurerName}}" hidden>
+  <div class="insurer-picker-select insurer-picker-province">
+    <select-box [options]="insurerList"  [first]="{value:'',text:'请选择'}" [index]="-1" (optionSelect)="setInsurerList($event)"></select-box>
+  </div>
+</div>

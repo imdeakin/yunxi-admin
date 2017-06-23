@@ -4,3 +4,8 @@
   margin-left: -430px;
   margin-top: -200px;
 }
+.modal-half-right{
+  position:absolute;
+  top:52px;
+  right:50px;
+}
