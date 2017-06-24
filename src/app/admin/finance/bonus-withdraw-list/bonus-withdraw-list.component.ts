@@ -54,7 +54,8 @@ export class bonusWithdrawListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getBonusWithdrawList();
+    this.getBonusWithdrawList()
+    ;
   }
 
   public computeOnResize() {
