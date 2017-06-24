@@ -39,8 +39,6 @@ export class ApiConfig {
     // 车险管理
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表
 
-<<<<<<< HEAD
-=======
     //推荐车险管理
     getregionRecommendInsurerList:this.root+'/system/regionRecommendInsurerList',//推荐车险管理列表
     provinceShortname:this.root+'/system/provinceShortname',//获取省份缩写
@@ -48,8 +46,6 @@ export class ApiConfig {
     delRegionSupportInsurance:this.root + '/system/delRegionSupportInsurance',//删除地区推荐的保险公司
     addRegionSupportlnsurance:this.root + '/system/addRegionSupportInsurance',//添加地区推荐的保险公司
     updateRegionSupportInsurance:this.root + '/system/updateRegionSupportInsurance',//修改地区推荐的保险公司
-    
->>>>>>> e4f57c7b4bf7cac1c7116f2c0301ae86e09abc9f
 
     // 会员管理
     getUserList: this.root + '/members/memberInfoList', // 获取会员列表

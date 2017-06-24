@@ -25,7 +25,6 @@ export class ImgUploadComponent {
 
   public formId = "fileUploadFrom";
 
-<<<<<<< HEAD
   constructor(private apiCall: ApiCall,
               private funcServer: FuncServer,
               private adminFunc: AdminFunc) {
@@ -34,16 +33,12 @@ export class ImgUploadComponent {
   public changeImg(file): void {
     let btn = file.nextSibling.nextSibling;
     btn.click();
-=======
-  } 
-
-  public changeImg():void{
-    (document.querySelector("#btn") as HTMLInputElement).click()
->>>>>>> e4f57c7b4bf7cac1c7116f2c0301ae86e09abc9f
   }
+
 
   public modalSubmit(): void {
     let adminId = this.adminFunc.getAdminId();
+    let formData = new FormData();
     this.apiCall.uploadFile(adminId, formData, this.type, (data) => {
       console.log(data);
     })
