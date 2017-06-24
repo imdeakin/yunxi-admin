@@ -38,7 +38,7 @@ export class ApiConfig {
 
     // 车险管理
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表
-    
+
 
     // 会员管理
     getUserList: this.root + '/members/memberInfoList', // 获取会员列表
@@ -134,7 +134,7 @@ export class ApiConfig {
     removeRole: this.root + '/system/delRole', // 删除角色
 
     //上传文件
-    postUpload:this.root +'/adfile/upload'
+    uploadFile:this.root +'/adfile/upload'
   };
 
   public getImgFullPath(imgPath: string): string {

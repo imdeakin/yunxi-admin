@@ -18,7 +18,7 @@ import {LoginComponent} from './login';
 import {ApiRequest, ApiConfig, ApiCall} from './http';
 import {FuncServer} from './serv/func.server';
 import {Rc4Server} from './serv/rc4.server';
-import {AdminInfo} from './serv/get.admin';
+import {AdminFunc} from './serv/admin.server';
 
 // stylesheet
 import '../styles/main.css';
@@ -45,8 +45,8 @@ import 'angular2-layer/css/dialog.css'
     ApiConfig,
     ApiCall,
     FuncServer,
-    Rc4Server,
-    AdminInfo
+    AdminFunc,
+    Rc4Server
   ],
   bootstrap: [AppComponent]
 })

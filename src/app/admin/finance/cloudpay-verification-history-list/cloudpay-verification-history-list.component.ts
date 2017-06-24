@@ -21,7 +21,6 @@ export class CloudpayVerificationHistoryComponent implements OnInit {
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList: CloudpayVerificationList[];
-
   public financeFunction = FinanceFunction;
 
   // 当前列表的订单类型
@@ -117,7 +116,7 @@ export class CloudpayVerificationHistoryComponent implements OnInit {
 
   // 核验弹窗
   public verificationConfirm(item): void {
-    let adminId = this.funcServer.getAdminId();
+    let adminId = '';
     let index = layer.confirm(
       '请选择核验结果',
       {

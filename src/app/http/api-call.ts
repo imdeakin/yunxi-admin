@@ -10,7 +10,6 @@ export class ApiCall {
   }
 
   public apiCall(options): void {
-    console.log(options);
     let url = options.url;
     let data = options.data;
     let success = options.success;
@@ -77,7 +76,7 @@ export class ApiCall {
       failure: failure
     });
   }
-  
+
   //编辑油卡套餐
   public updateYoukaTaocanList(oilPackageId: string, classify: string, payMoney:number, amount: number, eachs: number, type: number,oilCardType:number,needPoints:number,described:string, success, failure?): void {
     this.apiCall({
@@ -151,7 +150,7 @@ export class ApiCall {
    * @param oilCard 油卡号码
    * @param tradeMode 交易方式：1、支付宝，2、微信，3、云付通，4，余额
    * @param oilPackageId 套餐id
-   * @param status 
+   * @param status
    * @param curPageIndex
    * @param pageSize
    * @param success
@@ -215,7 +214,7 @@ export class ApiCall {
         url:this.apiConfig.paths.getCardOrderReturn,
         data:{
           orderReturnId:orderReturnId
-        },  
+        },
         success: success,
         failure: failure
       })
@@ -258,12 +257,12 @@ export class ApiCall {
       failure: failure
     });
   }
-  /** 
+  /**
    *获取可办理违章列表和不可办理违章了列表
    * @param searchName (姓名/手机号/订单编号)
    * @param type 类型1可办理2不可办理
    * @param index 当前页
-   * @param pageSize 每页显示多少条 
+   * @param pageSize 每页显示多少条
   */
 
    public getCanWeiZhangList(searchName:string,type:string,index:number,pageSize:number, success, failure?): void {
@@ -281,7 +280,6 @@ export class ApiCall {
   }
 
   public getCanWeiZhangData(orderId:string,success,failure?):void{
-    console.log(orderId);
     this.apiCall({
       url:this.apiConfig.paths.getCanWeizhangData,
       data:{
@@ -1171,11 +1169,11 @@ export class ApiCall {
   /**
    * @param adminId 管理员ID
    * @param file 文件data
-   * @param type 
+   * @param type
    */
-  public postUpload(adminId:string,file,type:string,success,failure?){
+  public uploadFile(adminId:string,file,type:string,success,failure?){
      this.apiCall({
-      url: this.apiConfig.paths.postUpload,
+      url: this.apiConfig.paths.uploadFile,
       data: {
         adminId:adminId,
         file:file,

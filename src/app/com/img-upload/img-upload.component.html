@@ -1,13 +1,15 @@
 <div class="img-upload">
-    <ul id="imgList">
-        <li><img src="" alt=""></li>
-        <li><img src="" alt=""></li>
-    </ul>
-    <div  class="btn-upload">
-        +
-        <form id="imgForm" method="post" enctype="multipart/form-data" name="fileInfo" (ngSubmit)="modalSubmit()">
-            <input type="file" name="file" id="imgFile" (change)="changeImg()">
-            <button type="submit" [class.hidden]="true" id="btn"></button>
-        </form>
-    </div>
+  <ul id="imgList">
+    <li><img src="" alt=""></li>
+    <li><img src="" alt=""></li>
+  </ul>
+  <div class="btn-upload">
+    +
+    <form id="{{formId}}" method="post" enctype="multipart/form-data" name="fileInfo" #fileForm="ngForm"
+          (ngSubmit)="modalSubmit(fileForm.value)">
+      <input type="text" name="adminName" value="Deakin" ngModel>
+      <input type="file" name="file" #file (change)="changeImg(file)" ngModel>
+      <button type="submit">上传</button>
+    </form>
+  </div>
 </div>

@@ -73,21 +73,21 @@ export class canWeizhangComponent implements OnInit {
       carPhone:'',
       address:'',
       status:0,
-      VerifyCode:'', 
-      searchName:''     
+      VerifyCode:'',
+      searchName:''
   }
 
 public orderConfig={
-      Name:'', 
+      Name:'',
       Phone:'',
-      Address:'', 
+      Address:'',
       CardNo:'',
       CarCode:'',
       CarDrive:'',
       FileNumber:"",
       FilePhone:"",
       CheliangZhengShu:"",
-      QRCode:"", 
+      QRCode:"",
       XingShiZhengHao:"",
       DrivingUrl:"",
       DrivingSecondUrl:"L",
@@ -139,13 +139,12 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
    /**
    * 获取可办理违章列表
    */
-  
+
   public getCanWeiZhangList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
     this.apiCall.getCanWeiZhangList(this.modalData.searchName,this.cantype,this.curPageIndex, this.perPageSize, (list, total) => {
-      console.log(list)
       this.tableList = list;
       this.total = total;
     });
@@ -156,10 +155,9 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
     this.apiCall.getCanWeiZhangData(item.order_id,(data)=>{
         this.fromModal(data)
     })
-  } 
+  }
 
   public fromModal(data){
-    console.log(data);
     let car_info = data.car_info;
     let need_data = data.need_data;
     if(data){
@@ -177,7 +175,7 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
           status:0,
           CardNo:'',
           VerifyCode:'',
-          searchName:''          
+          searchName:''
       }
     }else{
         this.modalData ={
@@ -194,7 +192,7 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
           status:0,
           CardNo:'',
           VerifyCode:'',
-          searchName:''          
+          searchName:''
       }
     }
   }
@@ -206,24 +204,24 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
     }
   }
 
-  public submitModal():void{ 
-    var carUrl = (document.getElementById('carUrl') as HTMLInputElement).value || '';
-    var twoCodeUrl = (document.getElementById('twoCodeUrl') as HTMLInputElement).value || '';
-    var carDriveUrl = (document.getElementById('carDriveUrl') as HTMLInputElement).value || '';
-    var carDriveUrlBreak =(document.getElementById('carDriveUrlBreak') as HTMLInputElement).value || '';
-    var driveUrl =(document.getElementById('driveUrl') as HTMLInputElement).value || '';
-    var driveUrlBreak =(document.getElementById('driveUrlBreak') as HTMLInputElement).value || '';
+  public submitModal():void{
+    let carUrl = (document.getElementById('carUrl') as HTMLInputElement).value || '';
+    let twoCodeUrl = (document.getElementById('twoCodeUrl') as HTMLInputElement).value || '';
+    let carDriveUrl = (document.getElementById('carDriveUrl') as HTMLInputElement).value || '';
+    let carDriveUrlBreak =(document.getElementById('carDriveUrlBreak') as HTMLInputElement).value || '';
+    let driveUrl =(document.getElementById('driveUrl') as HTMLInputElement).value || '';
+    let driveUrlBreak =(document.getElementById('driveUrlBreak') as HTMLInputElement).value || '';
     this.orderConfig = {
-      Name:this.modalData.username, 
+      Name:this.modalData.username,
       Phone:this.modalData.mobile,
-      Address:this.modalData.address, 
+      Address:this.modalData.address,
       CardNo:this.modalData.CardNo,
       CarCode:this.modalData.carNumber,
       CarDrive:this.modalData.frameNumber,
       FileNumber:this.modalData.frameNumber,
       FilePhone:this.modalData.carPhone,
       CheliangZhengShu:carUrl,
-      QRCode:twoCodeUrl, 
+      QRCode:twoCodeUrl,
       XingShiZhengHao:this.modalData.pCount,
       DrivingUrl:carDriveUrl,
       DrivingSecondUrl:carDriveUrlBreak ,
