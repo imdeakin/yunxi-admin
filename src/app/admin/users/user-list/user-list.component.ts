@@ -61,6 +61,7 @@ export class UserListComponent implements OnInit {
   public getUserInfo(memberId): void {
     this.apiCall.getUserInfo(memberId, (data) => {
         this.modalData = data;
+        console.log(data);
     });
   }
 
@@ -73,6 +74,12 @@ export class UserListComponent implements OnInit {
 
     if (!this.modalShow) {
       this.modalData = null;
+    }
+  }
+
+  public modalSubmit(): void{
+    if(this.modalData){
+      
     }
   }
 }

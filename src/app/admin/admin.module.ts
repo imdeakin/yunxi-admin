@@ -4,8 +4,7 @@ import {FormsModule}    from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AdminRoutingModule} from './admin-routing.module';
 import {Ng2PaginationModule} from "ng2-pagination";
-
-import {AdminComponent} from './admin.component'
+import {AdminComponent} from './admin.component';
 
 import {
   HeadBarComponent,
@@ -14,7 +13,9 @@ import {
   SelectBoxComponent,
   CityPickerComponent,
   CityPickerServer,
-  ImgUploadComponent
+  ImgUploadComponent,
+  ProvinceComponent,
+  InsurerComponent
 } from '../com';
 
 
@@ -36,6 +37,7 @@ import {
 
   // 车险管理
   InsuranceOrderListPageComponent,
+  CarProtectComponent,
 
   // 会员管理
   UserListComponent,
@@ -77,7 +79,7 @@ import {
   ArticleListComponent,
   CarSeriesListComponent,
   CarModelListComponent,
-  CarBrandListComponent
+  CarBrandListComponent,
 } from './pages';
 
 @NgModule({
@@ -96,7 +98,8 @@ import {
     SelectBoxComponent,
     CityPickerComponent,
     ImgUploadComponent,
-
+    ProvinceComponent,
+    InsurerComponent,
     // 工作台
     BarGraphPageComponent,
     WorkbenchPageComponent,
@@ -114,6 +117,7 @@ import {
 
     // 车险管理
     InsuranceOrderListPageComponent,
+    CarProtectComponent,
 
     // 会员管理
     UserListComponent,
@@ -155,7 +159,7 @@ import {
     ArticleListComponent,
     CarSeriesListComponent,
     CarModelListComponent,
-    CarBrandListComponent
+    CarBrandListComponent,
   ],
   providers: [CityPickerServer]
 })

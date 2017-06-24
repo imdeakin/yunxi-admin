@@ -63,6 +63,7 @@
 </div>
 <div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
     <h3 class="modal-title">详情</h3>
     <div class="modal-detail">
       <div class="modal-detail-content">
@@ -82,6 +83,10 @@
           <div class="modal-detail-item">
             <label>生日</label>
             <div class="value">{{modalData.birth_day}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>会员等级</label>
+            <select-box [options]="usersFunction.userLevelOptions" [first]="{value:'',text:'请选择'}"></select-box>
           </div>
         </div>
         <div class="modal-half modal-half-right">
@@ -104,9 +109,11 @@
         </div>
       </div>
       <div class="modal-btn-group">
+        <button type="submit">保存</button>
         <button (click)="toggleModal()">关闭</button>
       </div>
     </div>
+      </form>
     <div class="modal-close" (click)="toggleModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>

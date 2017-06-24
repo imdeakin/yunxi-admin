@@ -31,6 +31,18 @@ export class FuncServer {
     return size;
   }
 
+<<<<<<< HEAD
+=======
+  public getAdminInfo(): {} {
+    return '';
+  }
+
+  public getAdminId(): string {
+
+    return '';
+  }
+
+>>>>>>> e4f57c7b4bf7cac1c7116f2c0301ae86e09abc9f
   // 支付方式选项组
   public payTypeOptions = [
     {

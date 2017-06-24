@@ -1,4 +1,5 @@
 <div class="img-upload">
+<<<<<<< HEAD
   <ul id="imgList">
     <li><img src="" alt=""></li>
     <li><img src="" alt=""></li>
@@ -13,3 +14,17 @@
     </form>
   </div>
 </div>
+=======
+    <ul id="imgList">
+        <li><img src="" alt=""></li>
+        <li><img src="" alt=""></li>
+    </ul>
+    <div  class="btn-upload" (click)="changeImg()">
+        +
+        <form id="imgForm" method="post" enctype="multipart/form-data" name="fileInfo" (ngSubmit)="modalSubmit()">
+            <button type="submit" name="btn" id="imgFile"></button>
+            <input type="file" ="true" id="btn" [class.hidden]="true">
+        </form>
+    </div>
+</div>
+>>>>>>> e4f57c7b4bf7cac1c7116f2c0301ae86e09abc9f

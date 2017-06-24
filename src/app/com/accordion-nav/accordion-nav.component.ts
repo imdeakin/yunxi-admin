@@ -59,6 +59,10 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '车险订单',
           link: '/admin/insurance-order-list'
+        },
+        {
+          title:'推荐的保险公司',
+          link:'/admin/car-protect-list'
         }
       ]
     },
@@ -198,7 +202,7 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '品牌',
           link: '/admin/car-brand-list'
-        }
+        },
       ]
     }
   ];

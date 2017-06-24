@@ -39,6 +39,17 @@ export class ApiConfig {
     // 车险管理
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表
 
+<<<<<<< HEAD
+=======
+    //推荐车险管理
+    getregionRecommendInsurerList:this.root+'/system/regionRecommendInsurerList',//推荐车险管理列表
+    provinceShortname:this.root+'/system/provinceShortname',//获取省份缩写
+    getinsuranceList:this.root+'/system/insuranceList',//获取所有保险公司
+    delRegionSupportInsurance:this.root + '/system/delRegionSupportInsurance',//删除地区推荐的保险公司
+    addRegionSupportlnsurance:this.root + '/system/addRegionSupportInsurance',//添加地区推荐的保险公司
+    updateRegionSupportInsurance:this.root + '/system/updateRegionSupportInsurance',//修改地区推荐的保险公司
+    
+>>>>>>> e4f57c7b4bf7cac1c7116f2c0301ae86e09abc9f
 
     // 会员管理
     getUserList: this.root + '/members/memberInfoList', // 获取会员列表
@@ -46,6 +57,7 @@ export class ApiConfig {
     getLevelRecordList: this.root + '/members/memberUpgradeList', // 获取会员升级记录列表
     getLevelOrderList: this.root + '/members/memberUpgradeOrder', // 获取会员升级订单列表
     getRelationList: this.root + '/members/getRelationInfo', // 获取推介关系列表
+    updateMemberInfo:this.root + '/members/updateMemberInfo',//修改会员等级信息
 
     // 合伙人管理
     getPartnerList: this.root + '/copartner/selectPartnerList', // 获取合伙人列表
@@ -132,6 +144,7 @@ export class ApiConfig {
     addRole: this.root + '/system/addRole', // 添加角色
     updateRole: this.root + '/system/updateRole', // 修改角色
     removeRole: this.root + '/system/delRole', // 删除角色
+
 
     //上传文件
     uploadFile:this.root +'/adfile/upload'

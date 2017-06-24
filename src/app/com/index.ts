@@ -7,3 +7,5 @@ export * from './head-bar';
 export * from './select-box';
 export * from './city-picker';
 export * from './img-upload';
+export * from './province-picker';
+export * from './insurer-picker';

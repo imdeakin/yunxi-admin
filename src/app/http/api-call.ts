@@ -434,6 +434,19 @@ export class ApiCall {
     });
   }
 
+  //修改会员等级列表
+  public updateMemberInfo(memberId:string,memberLevelId:string,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.updateMemberInfo,
+      data:{
+        memberId:memberId,
+        memberLevelId:memberLevelId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
   /**
    * 获取合伙人列表
    * @param sn 合伙人编号
@@ -1163,6 +1176,82 @@ export class ApiCall {
       success: success,
       failure: failure
     });
+  }
+  //推荐车险管理公司列表
+  /**
+   * @param searchName 
+   * @param index
+   * @param pageSize
+   */
+
+  public getRegionRecommendInsurerList(searchName:string,index:number,pageSize:number,success,failure?){
+      this.apiCall({
+        url:this.apiConfig.paths.getregionRecommendInsurerList,
+        data:{
+          searchName:searchName,
+          index:index,
+          pageSize:pageSize
+        },
+        success:success,
+        failure:failure
+      })
+  } 
+
+  public getProvinceShortname(success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.provinceShortname,
+      data:{
+
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  public getInsurerList(success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.getinsuranceList,
+      data:{
+
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  public postRegionSupportInsurance(shortnameId:string,insurerId:string,success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.addRegionSupportlnsurance,
+      data:{
+        shortnameId:shortnameId,
+        insurerId:insurerId,
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  public updateRegionSupportInsurance(recommendInsurerId:string,insurerId:string,success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.updateRegionSupportInsurance,
+      data:{
+        recommendInsurerId:recommendInsurerId,
+        insurerId:insurerId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  public removeRegionSupportInsurance(recommendInsurerId:string,success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.delRegionSupportInsurance,
+      data:{
+        recommendInsurerId:recommendInsurerId,
+      },
+      success:success,
+      failure:failure
+    })
   }
 
   //上传文件
