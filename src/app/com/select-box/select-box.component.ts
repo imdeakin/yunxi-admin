@@ -3,6 +3,11 @@
  */
 import {Component, Input, Output, DoCheck, EventEmitter, OnInit, ElementRef} from '@angular/core';
 import {Option} from './option-data-type';
+import {ScrollbarServer} from '../../serv/scrollbar-server'
+
+declare let $: any;
+require("jquery-mousewheel")($);
+require('malihu-custom-scrollbar-plugin')($);
 
 @Component({
   selector: 'select-box',
@@ -30,11 +35,13 @@ export class SelectBoxComponent implements OnInit, DoCheck {
   private oldValue = this.value;
   private oldText = this.text;
 
-  constructor(private ref: ElementRef) {
+  constructor(private ref: ElementRef, private scrollbarServer: ScrollbarServer) {
+
   }
 
   public ngOnInit(): void {
     this.init();
+    this.scrollbar();
   }
 
   public ngDoCheck(): void {
@@ -55,6 +62,12 @@ export class SelectBoxComponent implements OnInit, DoCheck {
       this.oldText = this.text;
       console.log('The text had changed.');
     }
+  }
+
+  // 滚动条美化
+  public scrollbar(): void {
+    let list = this.ref.nativeElement.firstChild.lastChild.previousSibling;
+    this.scrollbarServer.init(list);
   }
 
   public init(): void {

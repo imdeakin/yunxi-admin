@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';  /* project id 293343 */
-  src: url('//at.alicdn.com/t/font_l8b0p8v2t7ec23xr.eot');
-  src: url('//at.alicdn.com/t/font_l8b0p8v2t7ec23xr.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_l8b0p8v2t7ec23xr.woff') format('woff'),
-  url('//at.alicdn.com/t/font_l8b0p8v2t7ec23xr.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_l8b0p8v2t7ec23xr.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_17hrv33u8a1yvi.eot');
+  src: url('//at.alicdn.com/t/font_17hrv33u8a1yvi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_17hrv33u8a1yvi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_17hrv33u8a1yvi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_17hrv33u8a1yvi.svg#iconfont') format('svg');
 }
 
 .icon-font {
@@ -240,22 +240,30 @@ html, body {
 .modal-input-group {
   position: relative;
   color: #818181;
-  font-size: 16px;
+  font-size: 0;
   padding-bottom: 20px;
 }
 
 .modal-input-group label {
+  display: inline-block;
+  width: 30%;
+  font-size: 16px;
   line-height: 26px;
   vertical-align: top;
 }
 
 .modal-input-group input {
   float: right;
-  width: 148px;
+  width: 70%;
+  font-size: 16px;
   line-height: 24px;
   padding: 0 12px;
   border: 1px solid #b6b6b6;
   border-radius: 13px;
+}
+
+.modal-input-group input.sort {
+  width: 50%;
 }
 
 .modal-input-group .text {
@@ -267,6 +275,7 @@ html, body {
 .modal-input-group .select-box {
   float: right;
   width: 148px !important;
+  font-size: 16px;
 }
 
 .modal-input-group .select-box > input {
@@ -288,6 +297,16 @@ html, body {
   border-radius: 13px;
   margin-top: 10px;
   padding: 10px 5px;
+}
+
+.modal-input-group .text-btn {
+  display: inline-block;
+  color: #00aaee;
+  font-size: 16px;
+}
+
+.modal-input-group .text-btn:hover {
+  text-decoration: underline;
 }
 
 .modal-btn-group {
@@ -352,10 +371,65 @@ html, body {
   padding: 10px 0;
 }
 
-.modal-detail-item .select-box{
+.modal-detail-item .select-box {
   font-size: 16px;
 }
 
 .modal-detail-item .value {
   text-align: right;
 }
+
+.modal-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  line-height: 80px;
+  text-align: center;
+  font-size: 0;
+  animation: round 2s ease-out infinite;
+}
+
+.modal-loading .icon-font {
+  font-size: 36px;
+}
+
+@keyframes round {
+  form {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.modal-table {
+  width: 100%;
+  line-height: 30px;
+  border-color: #e6e6e6;
+}
+
+.modal-table thead th {
+  color: #00aaee;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.modal-table td {
+  text-align: center;
+  font-size: 16px;
+}
+
+.modal-table .ctrl-btn {
+  color: #00aaee;
+}
+
+.modal-table .ctrl-btn:hover {
+  text-decoration: underline;
+}
+
+
+

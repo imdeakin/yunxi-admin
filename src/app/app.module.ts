@@ -19,10 +19,10 @@ import {ApiRequest, ApiConfig, ApiCall} from './http';
 import {FuncServer} from './serv/func.server';
 import {Rc4Server} from './serv/rc4.server';
 import {AdminFunc} from './serv/admin.server';
+import {ScrollbarServer} from './serv/scrollbar-server';
 
 // stylesheet
 import '../styles/main.css';
-import 'angular2-layer/css/dialog.css'
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -46,7 +46,8 @@ import 'angular2-layer/css/dialog.css'
     ApiCall,
     FuncServer,
     AdminFunc,
-    Rc4Server
+    Rc4Server,
+    ScrollbarServer
   ],
   bootstrap: [AppComponent]
 })

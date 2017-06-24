@@ -39,7 +39,6 @@
   margin-top: 1px;
   overflow: hidden;
   z-index: 999;
-  overflow-y: scroll;
 }
 
 .select-box.select-active .select-option-list {

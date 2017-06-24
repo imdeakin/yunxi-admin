@@ -6,11 +6,11 @@ export class StoreFunction {
   public static goodsStatusOptions = [
     {
       value: '0',
-      text: '否'
+      text: '上架'
     },
     {
       value: '1',
-      text: '是'
+      text: '下架'
     }
   ];
 

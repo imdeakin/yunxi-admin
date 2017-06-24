@@ -126,7 +126,12 @@ module.exports = function (options) {
           use: ['style-loader', 'css-loader', 'sass-loader'],
           include: [helpers.root('src', 'styles')]
         },
-
+        /*
+         * 滚动条美化
+         */
+        {test: require.resolve("some-module"), use: "imports-loader?this=>window"},
+        {test: /jquery-mousewheel/, use: "imports-loader?define=>false&this=>window"},
+        {test: /malihu-custom-scrollbar-plugin/, use: "imports-loader?define=>false&this=>window"}
       ]
 
     },

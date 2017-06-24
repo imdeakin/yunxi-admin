@@ -78,19 +78,19 @@ export class ApiCall {
   }
 
   //编辑油卡套餐
-  public updateYoukaTaocanList(oilPackageId: string, classify: string, payMoney:number, amount: number, eachs: number, type: number,oilCardType:number,needPoints:number,described:string, success, failure?): void {
+  public updateYoukaTaocanList(oilPackageId: string, classify: string, payMoney: number, amount: number, eachs: number, type: number, oilCardType: number, needPoints: number, described: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateYoukaTaocanList,
       data: {
-        oilPackageId:oilPackageId,
-        classify:classify,
-        payMoney:payMoney,
-        amount:amount,
-        eachs:eachs,
-        type:type,
-        oilCardType:oilCardType,
-        needPoints:needPoints,
-        described:described
+        oilPackageId: oilPackageId,
+        classify: classify,
+        payMoney: payMoney,
+        amount: amount,
+        eachs: eachs,
+        type: type,
+        oilCardType: oilCardType,
+        needPoints: needPoints,
+        described: described
       },
       success: success,
       failure: failure
@@ -98,44 +98,44 @@ export class ApiCall {
   }
 
   //增加油卡套餐
-  public addYoukaTaocanList(classify: string,payMoney:number,amount:number,eachs:number,type:number,oilCardType:number,needPoints:number,described:string, success, failure?):void{
-     this.apiCall({
-        url:this.apiConfig.paths.addYoukaTaocanList,
-        data:{
-          classify:classify,
-          payMoney:payMoney,
-          amount:amount,
-          eachs:eachs,
-          type:type,
-          oilCardType:oilCardType,
-          needPoints:needPoints,
-          described:described
-        },
-        success:success,
-        failure:failure
-     });
+  public addYoukaTaocanList(classify: string, payMoney: number, amount: number, eachs: number, type: number, oilCardType: number, needPoints: number, described: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addYoukaTaocanList,
+      data: {
+        classify: classify,
+        payMoney: payMoney,
+        amount: amount,
+        eachs: eachs,
+        type: type,
+        oilCardType: oilCardType,
+        needPoints: needPoints,
+        described: described
+      },
+      success: success,
+      failure: failure
+    });
   }
 
   //删除油卡套餐
-   public deleteYoukaTaocanList(oilPackageId:string, success, failure?):void{
-     console.log(oilPackageId)
-     this.apiCall({
-        url:this.apiConfig.paths.removeYoukaTaocanList,
-        data:{
-          oilPackageId:oilPackageId
-        },
-        success:success,
-        failure:failure
-     });
+  public deleteYoukaTaocanList(oilPackageId: string, success, failure?): void {
+    console.log(oilPackageId)
+    this.apiCall({
+      url: this.apiConfig.paths.removeYoukaTaocanList,
+      data: {
+        oilPackageId: oilPackageId
+      },
+      success: success,
+      failure: failure
+    });
   }
 
-  public getYoukaBindList(oilCard: string, mobile:string,userName:string,curPageIndex: number, pageSize: number, success, failure?): void {
+  public getYoukaBindList(oilCard: string, mobile: string, userName: string, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getYoukaBindList,
       data: {
         oilCard: oilCard,
-        mobile:mobile,
-        userName:userName,
+        mobile: mobile,
+        userName: userName,
         index: curPageIndex,
         pageSize: pageSize,
       },
@@ -156,12 +156,12 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public getYoukaOrderList(sn,oilCard, tradeMode, oilPackageId, status,curPageIndex: number, perPageSize: number, success, failure?): void {
+  public getYoukaOrderList(sn, oilCard, tradeMode, oilPackageId, status, curPageIndex: number, perPageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getYoukaOrderList,
       data: {
-        sn:sn,
-        oilCard:oilCard,
+        sn: sn,
+        oilCard: oilCard,
         index: curPageIndex,
         pageSize: perPageSize
       },
@@ -170,7 +170,7 @@ export class ApiCall {
     });
   }
 
-  public getYoukaRecordList(oilCard, sn,curPageIndex: number, pageSize: number, success, failure?): void {
+  public getYoukaRecordList(oilCard, sn, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getYoukaRecordManageList,
       data: {
@@ -183,23 +183,23 @@ export class ApiCall {
   }
 
   //油卡返还
-  public YouCardOrderReturn(chargeOrderId:string,success,failure?):void{
-      this.apiCall({
-        url:this.apiConfig.paths.YouCardOrderReturn,
-        data:{
-          chargeOrderId:chargeOrderId,
-        },
-        success: success,
-        failure: failure
-      })
+  public YouCardOrderReturn(chargeOrderId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.YouCardOrderReturn,
+      data: {
+        chargeOrderId: chargeOrderId,
+      },
+      success: success,
+      failure: failure
+    })
   }
 
-   public getYoucardOrderReturnList(oilCard:string, sn:string,curPageIndex: number, pageSize: number, success, failure?): void {
+  public getYoucardOrderReturnList(oilCard: string, sn: string, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getYoucardOrderReturnList,
       data: {
-        oilCard:oilCard,
-        sn:sn,
+        oilCard: oilCard,
+        sn: sn,
         index: curPageIndex,
         pageSize: pageSize,
       },
@@ -209,16 +209,17 @@ export class ApiCall {
   }
 
   //油卡订单详情
-  public getCardOrderReturn(orderReturnId:string,success,failure?){
-      this.apiCall({
-        url:this.apiConfig.paths.getCardOrderReturn,
-        data:{
-          orderReturnId:orderReturnId
-        },
-        success: success,
-        failure: failure
-      })
+  public getCardOrderReturn(orderReturnId: string, success, failure?) {
+    this.apiCall({
+      url: this.apiConfig.paths.getCardOrderReturn,
+      data: {
+        orderReturnId: orderReturnId
+      },
+      success: success,
+      failure: failure
+    })
   }
+
   public getInsuranceOrderList(searchName, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getInsuranceOrderList,
@@ -257,109 +258,110 @@ export class ApiCall {
       failure: failure
     });
   }
+
   /**
    *获取可办理违章列表和不可办理违章了列表
    * @param searchName (姓名/手机号/订单编号)
    * @param type 类型1可办理2不可办理
    * @param index 当前页
    * @param pageSize 每页显示多少条
-  */
+   */
 
-   public getCanWeiZhangList(searchName:string,type:string,index:number,pageSize:number, success, failure?): void {
+  public getCanWeiZhangList(searchName: string, type: string, index: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getCanWeizhangList,
       data: {
-        searchName:searchName,
-        type:type,
-        index:index,
-        pageSize:pageSize
+        searchName: searchName,
+        type: type,
+        index: index,
+        pageSize: pageSize
       },
       success: success,
       failure: failure
     });
   }
 
-  public getCanWeiZhangData(orderId:string,success,failure?):void{
+  public getCanWeiZhangData(orderId: string, success, failure?): void {
     this.apiCall({
-      url:this.apiConfig.paths.getCanWeizhangData,
-      data:{
-        orderId:orderId
+      url: this.apiConfig.paths.getCanWeizhangData,
+      data: {
+        orderId: orderId
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
   }
 
   //发送短信验证码
-  public postPeccancyMsg(carNumber:number,success,failure?):void{
+  public postPeccancyMsg(carNumber: number, success, failure?): void {
     this.apiCall({
-      url:this.apiConfig.paths.postPeccancyMsg,
-      data:{
-        carNumber:carNumber
+      url: this.apiConfig.paths.postPeccancyMsg,
+      data: {
+        carNumber: carNumber
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
   }
 
   //保存订单信息
-  public postPeccancyManage(orderId:string,orderConfig,success,failure?):void{
+  public postPeccancyManage(orderId: string, orderConfig, success, failure?): void {
     // console.log(orderConfig)
-      this.apiCall({
-        url:this.apiConfig.paths.postPeccancyManage,
-        data:{
-          orderId:orderId,
-          orderConfig:orderConfig
-        },
-        success:success,
-        failure:failure
-      })
-  }
-
-  public comfirmCxyPayOrder(orderId:string,success,failure?):void{
-      this.apiCall({
-        url:this.apiConfig.paths.comfirmCxyPayOrder,
-        data:{
-          orderId:orderId
-        },
-        success:success,
-        failure:failure
-      })
-  }
-
-  public setOrderMoneyAndServiceFee(orderId:string,punishMoney:number,serviceFee:number,success,failure?):void{
-    console.log(orderId,punishMoney,serviceFee)
     this.apiCall({
-      url:this.apiConfig.paths.setOrderMoneyAndServiceFee,
-      data:{
-        orderId:orderId,
-        punishMoney:punishMoney,
-        serviceFee:serviceFee
+      url: this.apiConfig.paths.postPeccancyManage,
+      data: {
+        orderId: orderId,
+        orderConfig: orderConfig
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
   }
 
-  public comfirmOrderOfDoing(orderId:string,success,failure?):void{
+  public comfirmCxyPayOrder(orderId: string, success, failure?): void {
     this.apiCall({
-      url:this.apiConfig.paths.comfirmOrderOfDoing,
-      data:{
-        orderId:orderId
+      url: this.apiConfig.paths.comfirmCxyPayOrder,
+      data: {
+        orderId: orderId
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
   }
 
-  public comfirmOrderOfFinish(orderId:string,success,failure?):void{
+  public setOrderMoneyAndServiceFee(orderId: string, punishMoney: number, serviceFee: number, success, failure?): void {
+    console.log(orderId, punishMoney, serviceFee)
     this.apiCall({
-      url:this.apiConfig.paths.comfirmOrderOfFinish,
-      data:{
-        orderId:orderId
+      url: this.apiConfig.paths.setOrderMoneyAndServiceFee,
+      data: {
+        orderId: orderId,
+        punishMoney: punishMoney,
+        serviceFee: serviceFee
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
+    })
+  }
+
+  public comfirmOrderOfDoing(orderId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.comfirmOrderOfDoing,
+      data: {
+        orderId: orderId
+      },
+      success: success,
+      failure: failure
+    })
+  }
+
+  public comfirmOrderOfFinish(orderId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.comfirmOrderOfFinish,
+      data: {
+        orderId: orderId
+      },
+      success: success,
+      failure: failure
     })
   }
 
@@ -435,15 +437,15 @@ export class ApiCall {
   }
 
   //修改会员等级列表
-  public updateMemberInfo(memberId:string,memberLevelId:string,success,failure?):void{
+  public updateMemberInfo(memberId: string, memberLevelId: string, success, failure?): void {
     this.apiCall({
-      url:this.apiConfig.paths.updateMemberInfo,
-      data:{
-        memberId:memberId,
-        memberLevelId:memberLevelId
+      url: this.apiConfig.paths.updateMemberInfo,
+      data: {
+        memberId: memberId,
+        memberLevelId: memberLevelId
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
   }
 
@@ -608,7 +610,31 @@ export class ApiCall {
     });
   }
 
-  public getStoreGoodsTypeList(curPageIndex: number, pageSize: number, success, failure?): void {
+  /**
+   * 获取商品信息
+   * @param sn 商品编号
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsInfo(sn, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsInfo,
+      data: {
+        sn: sn
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取商品类型列表
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsTypeList(curPageIndex, pageSize, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getStoreGoodsTypeList,
       data: {
@@ -620,6 +646,16 @@ export class ApiCall {
     });
   }
 
+  /**
+   * 添加商品类型
+   * @param pGoodsTypeId 商品分类父节点（null为顶级分类）
+   * @param typeName 商品类型名称
+   * @param level 级别
+   * @param currChildSort 子节点当前的排序号（无子节点为null）
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
   public addStoreGoodsTypeInfo(pGoodsTypeId, typeName, level, currChildSort, sort, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addStoreGoodsTypeInfo,
@@ -635,6 +671,17 @@ export class ApiCall {
     });
   }
 
+  /**
+   * 修改商品类型
+   * @param goodsTypeId 商品类型ID
+   * @param pGoodsTypeId 商品分类父节点（null为顶级分类）
+   * @param typeName 商品类型名称
+   * @param level 级别
+   * @param currChildSort 子节点当前的排序号（无子节点为null）
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
   public updateStoreGoodsTypeInfo(goodsTypeId, pGoodsTypeId, typeName, level, currChildSort, sort, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateStoreGoodsTypeInfo,
@@ -651,11 +698,213 @@ export class ApiCall {
     });
   }
 
+  /**
+   * 删除商品类型
+   * @param goodsTypeId 商品类型ID
+   * @param success
+   * @param failure
+   */
   public removeStoreGoodsTypeInfo(goodsTypeId: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.removeStoreGoodsTypeInfo,
       data: {
         goodsTypeId: goodsTypeId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取商品品牌列表
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsBrandList(goodsTypeId, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsBrandList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        goodsTypeId: goodsTypeId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 添加商品品牌
+   * @param goodsTypeId 商品类型ID
+   * @param brandName 品牌名
+   * @param enName 品牌英文名
+   * @param fileId 品牌logo图片ID
+   * @param url 品牌官方URL
+   * @param story 品牌故事（简介）
+   * @param described 描述
+   * @param success
+   * @param failure
+   */
+  public addStoreGoodsBrandInfo(goodsTypeId, brandName, enName, fileId, url, story, described, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsBrandInfo,
+      data: {
+        goodsTypeId: goodsTypeId,
+        name: brandName,
+        eName: enName,
+        fileId: fileId,
+        url: url,
+        story: story,
+        described: described
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品品牌
+   * @param goodsBrandId 商品品牌ID
+   * @param goodsTypeId 商品类型ID
+   * @param brandName 品牌名
+   * @param enName 品牌英文名
+   * @param fileId 品牌logo图片ID
+   * @param url 品牌官方URL
+   * @param story 品牌故事（简介）
+   * @param described 描述
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsBrandInfo(goodsBrandId, goodsTypeId, brandName, enName, fileId, url, story, described, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsBrandInfo,
+      data: {
+        goodsBrandId: goodsBrandId,
+        goodsTypeId: goodsTypeId,
+        name: brandName,
+        eName: enName,
+        fileId: fileId,
+        url: url,
+        story: story,
+        described: described
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 删除商品品牌
+   * @param goodsBrandId 商品品牌ID
+   * @param success
+   * @param failure
+   */
+  public removeStoreGoodsBrandInfo(goodsBrandId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoodsBrandInfo,
+      data: {
+        goodsBrandId: goodsBrandId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取商品基本参数列表
+   * @param goodsId 商品ID
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsAttrList(goodsId, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsAttrList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        goodsId: goodsId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取商品基本参数信息
+   * @param sn 商品编号
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsAttrInfo(sn, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsAttrInfo,
+      data: {
+        sn: sn
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 添加商品基本参数
+   * @param goodsId 商品ID
+   * @param paramId 商品类型参数表ID
+   * @param valueId 商品类型参数值表ID
+   * @param success
+   * @param failure
+   */
+  public addStoreGoodsAttrInfo(goodsId, paramId, valueId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsAttrInfo,
+      data: {
+        goodsId: goodsId,
+        paramId: paramId,
+        valueId: valueId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品基本参数
+   * @param attrId 基础参数ID
+   * @param goodsId 商品ID
+   * @param paramId 商品类型参数表ID
+   * @param valueId 商品类型参数值表ID
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsAttrInfo(attrId, goodsId, paramId, valueId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsAttrInfo,
+      data: {
+        attrId: attrId,
+        goodsId: goodsId,
+        paramId: paramId,
+        valueId: valueId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 删除商品基本参数
+   * @param goodsAttrId 商品基本参数ID
+   * @param success
+   * @param failure
+   */
+  public removeStoreGoodsAttrInfo(attrId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoodsAttrInfo,
+      data: {
+        attrId: attrId
       },
       success: success,
       failure: failure
@@ -1177,80 +1426,77 @@ export class ApiCall {
       failure: failure
     });
   }
+
   //推荐车险管理公司列表
   /**
-   * @param searchName 
+   * @param searchName
    * @param index
    * @param pageSize
    */
 
-  public getRegionRecommendInsurerList(searchName:string,index:number,pageSize:number,success,failure?){
-      this.apiCall({
-        url:this.apiConfig.paths.getregionRecommendInsurerList,
-        data:{
-          searchName:searchName,
-          index:index,
-          pageSize:pageSize
-        },
-        success:success,
-        failure:failure
-      })
-  } 
-
-  public getProvinceShortname(success,failure?){
+  public getRegionRecommendInsurerList(searchName: string, index: number, pageSize: number, success, failure?) {
     this.apiCall({
-      url:this.apiConfig.paths.provinceShortname,
-      data:{
-
+      url: this.apiConfig.paths.getregionRecommendInsurerList,
+      data: {
+        searchName: searchName,
+        index: index,
+        pageSize: pageSize
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
   }
 
-  public getInsurerList(success,failure?){
+  public getProvinceShortname(success, failure?) {
     this.apiCall({
-      url:this.apiConfig.paths.getinsuranceList,
-      data:{
-
-      },
-      success:success,
-      failure:failure
+      url: this.apiConfig.paths.provinceShortname,
+      data: {},
+      success: success,
+      failure: failure
     })
   }
 
-  public postRegionSupportInsurance(shortnameId:string,insurerId:string,success,failure?){
+  public getInsurerList(success, failure?) {
     this.apiCall({
-      url:this.apiConfig.paths.addRegionSupportlnsurance,
-      data:{
-        shortnameId:shortnameId,
-        insurerId:insurerId,
-      },
-      success:success,
-      failure:failure
+      url: this.apiConfig.paths.getinsuranceList,
+      data: {},
+      success: success,
+      failure: failure
     })
   }
 
-  public updateRegionSupportInsurance(recommendInsurerId:string,insurerId:string,success,failure?){
+  public postRegionSupportInsurance(shortnameId: string, insurerId: string, success, failure?) {
     this.apiCall({
-      url:this.apiConfig.paths.updateRegionSupportInsurance,
-      data:{
-        recommendInsurerId:recommendInsurerId,
-        insurerId:insurerId
+      url: this.apiConfig.paths.addRegionSupportlnsurance,
+      data: {
+        shortnameId: shortnameId,
+        insurerId: insurerId,
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
   }
 
-  public removeRegionSupportInsurance(recommendInsurerId:string,success,failure?){
+  public updateRegionSupportInsurance(recommendInsurerId: string, insurerId: string, success, failure?) {
     this.apiCall({
-      url:this.apiConfig.paths.delRegionSupportInsurance,
-      data:{
-        recommendInsurerId:recommendInsurerId,
+      url: this.apiConfig.paths.updateRegionSupportInsurance,
+      data: {
+        recommendInsurerId: recommendInsurerId,
+        insurerId: insurerId
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
+    })
+  }
+
+  public removeRegionSupportInsurance(recommendInsurerId: string, success, failure?) {
+    this.apiCall({
+      url: this.apiConfig.paths.delRegionSupportInsurance,
+      data: {
+        recommendInsurerId: recommendInsurerId,
+      },
+      success: success,
+      failure: failure
     })
   }
 
@@ -1260,13 +1506,13 @@ export class ApiCall {
    * @param file 文件data
    * @param type
    */
-  public uploadFile(adminId:string,file,type:string,success,failure?){
-     this.apiCall({
+  public uploadFile(adminId: string, file, type: string, success, failure?) {
+    this.apiCall({
       url: this.apiConfig.paths.uploadFile,
       data: {
-        adminId:adminId,
-        file:file,
-        type:type
+        adminId: adminId,
+        file: file,
+        type: type
       },
       success: success,
       failure: failure

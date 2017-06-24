@@ -179,7 +179,7 @@ module.exports = function (options) {
           exclude: [helpers.root('src/index.html')]
         },
 
-        /* 
+        /*
          * File loader for supporting images, for example, in CSS files.
          */
         {
@@ -189,10 +189,17 @@ module.exports = function (options) {
 
         /* File loader for supporting fonts, for example, in CSS files.
         */
-        { 
+        {
           test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
           use: 'file-loader'
-        }
+        },
+
+        /*
+         * 滚动条美化插件
+         */
+        {test: require.resolve("some-module"), use: "imports-loader?this=>window"},
+        { test: /jquery-mousewheel/, use: "imports-loader?define=>false&this=>window" },
+        { test: /malihu-custom-scrollbar-plugin/, use: "imports-loader?define=>false&this=>window" }
 
       ],
 

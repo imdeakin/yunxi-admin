@@ -71,11 +71,28 @@ export class ApiConfig {
     updateStoreGoods: this.root + '/marketManage/updateMallGoods', // 修改商品
     removeStoreGoods: this.root + '/marketManage/delMallGoodsl', // 删除商品
 
+    // 商品信息
+    getStoreGoodsInfo: this.root + '/marketManage/getMallGoods', // 获取商品信息
+    updateStoreGoodsInfo: this.root + '/marketManage/saveMallGoods', // 修改商品信息
+
     // 商品类型
     getStoreGoodsTypeList: this.root + '/brandGoodsTypeManage/mallGoodsTypeList', // 获取商品类型列表
-    addStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/addMallGoodsType', // 添加商品类型信息
+    addStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/saveMallGoodsType', // 添加商品类型信息
     updateStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/saveMallGoodsType', // 更新商品类型信息
     removeStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/delMallGoodsType', // 删除商品类型信息
+
+    // 商品品牌
+    getStoreGoodsBrandList: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 获取商品品牌列表
+    addStoreGoodsBrandInfo: this.root + '/brandGoodsTypeManage/saveMllGoodsBrand', // 添加商品品牌信息
+    updateStoreGoodsBrandInfo: this.root + '/brandGoodsTypeManage/saveMallGoodsBrand', // 更新商品品牌信息
+    removeStoreGoodsBrandInfo: this.root + '/brandGoodsTypeManage/delMallGoodsBrand', // 删除商品品牌信息
+
+    // 商品基础参数
+    getStoreGoodsAttrList: this.root + '/marketManage/mallGoodsAttrList', // 获取商品基础参数列表
+    getStoreGoodsAttrInfo: this.root + '/marketManage/getMallGoodsAttr', // 获取商品基础参数
+    addStoreGoodsAttrInfo: this.root + '/marketManage/saveMallGoodsAttr', // 添加商品基础参数
+    updateStoreGoodsAttrInfo: this.root + '/marketManage/saveMallGoodsAttr', // 更新商品基础参数
+    removeStoreGoodsAttrInfo: this.root + '/marketManage/delMallGoodsAttr', // 删除商品基础参数
 
     // 订单
     getStoreOrderList: this.root + '/marketManage/mallOrderList', // 获取订单列表
@@ -83,9 +100,6 @@ export class ApiConfig {
     signStoreOrder: this.root + '/marketManage/mallOrderSign', // 签收订单
     updateStoreOrderExpress: this.root + '/marketManage/updateOrderExpress', // 修改订单物流信息
     getStoreExpressList: this.root + '/marketManage/getExpressList', // 获取物流列表
-
-    updateStoreGoodsBrandList: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 更新商品品牌列表
-    updateStoreGoodsBrandInfo: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 更新商品品牌信息
 
     // 财务管理
     getCloudpayVerificationList: this.root + '/finance/yftOrderVerificationList', // 获取云付通核验列表

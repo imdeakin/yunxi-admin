@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   public saveLoginInfo(): void {
     if (this.remember) {
       let loginInfo = this.rc4Server.encrypt(this.formData);
-      Cookies.set(this.loginInfoKey, loginInfo);
+      Cookies.set(this.loginInfoKey, loginInfo, {expires: 7});
     } else {
       Cookies.set(this.loginInfoKey, '', {expires: -1});
     }
