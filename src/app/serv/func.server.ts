@@ -31,6 +31,37 @@ export class FuncServer {
     return size;
   }
 
+  // 对象深度复制
+  public deepCopy(obj) {
+    let result, oClass = this.isClass(obj);
+    //确定result的类型
+    if (oClass === "Object") {
+      result = {};
+    } else if (oClass === "Array") {
+      result = [];
+    } else {
+      return obj;
+    }
+    for (let key in obj) {
+      let copy = obj[key];
+      if (this.isClass(copy) == "Object") {
+        result[key] = arguments.callee(copy);//递归调用
+      } else if (this.isClass(copy) == "Array") {
+        result[key] = arguments.callee(copy);
+      } else {
+        result[key] = obj[key];
+      }
+    }
+    return result;
+  }
+
+  //返回传递给他的任意对象的类
+  public isClass(o) {
+    if (o === null) return "Null";
+    if (o === undefined) return "Undefined";
+    return Object.prototype.toString.call(o).slice(8, -1);
+  }
+
   // 支付方式选项组
   public payTypeOptions = [
     {

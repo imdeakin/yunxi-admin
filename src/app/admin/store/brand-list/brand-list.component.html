@@ -5,41 +5,39 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getPartnerList(1)">
-          <div class="input-group">
-            <label>标题</label>
-            <input type="text" name="title" value="" [(ngModel)]="filterData.title">
-          </div>
-          <button class="text-btn text-sub" type="submit">搜索</button>
-          <a class="text-btn float-right margin-large-right" href="javascript:void(0);">添加</a>
-        </form>
+        <a class="text-btn float-right margin-large-right" href="javascript:void(0);">添加</a>
       </div>
       <div class="manager-table">
         <table>
           <thead>
           <tr>
             <th>类型</th>
-            <th>最后更新</th>
-            <th>状态</th>
+            <th>品牌名称</th>
+            <th>英文名</th>
+            <th>品牌Logo</th>
+            <th>品牌官网</th>
             <th>操作</th>
           </tr>
           </thead>
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.title}}</td>
-            <td>{{item.update_time}}</td>
-            <td>{{item.status}}</td>
+            <td>{{item.typeName}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.eName}}</td>
+            <td><img src="{{item.path}}"></td>
+            <td>{{item.url}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls  (pageChange)="getPartnerList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls (pageChange)="getStoreGoodsBrandList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>
@@ -49,12 +47,28 @@
     <h3 class="modal-title">编辑</h3>
     <form class="modal-form">
       <div class="modal-input-group">
-        <label>品牌名</label>
-        <input type="text" name="type" value="">
+        <label>类型</label>
+        <div class="text">{{modalData.typeName}}</div>
       </div>
       <div class="modal-input-group">
-        <label>状态</label>
-        <select-box [options]="storeFunction.goodsStatusOptions"></select-box>
+        <label>品牌名称</label>
+        <input type="text" name="name" [(ngModel)]="modalData.name">
+      </div>
+      <div class="modal-input-group">
+        <label>英文名</label>
+        <input type="text" name="eName" [(ngModel)]="modalData.eName">
+      </div>
+      <div class="modal-input-group">
+        <label>品牌官网</label>
+        <input type="text" name="url" [(ngModel)]="modalData.url">
+      </div>
+      <div class="modal-input-group">
+        <label>品牌简介</label>
+        <textarea name="story" [(ngModel)]="modalData.story"></textarea>
+      </div>
+      <div class="modal-input-group">
+        <label>品牌描述</label>
+        <textarea name="described" [(ngModel)]="modalData.described"></textarea>
       </div>
       <div class="modal-btn-group">
         <button (click)="toggleModal()">关闭</button>

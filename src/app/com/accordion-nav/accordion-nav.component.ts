@@ -61,8 +61,8 @@ export class AccordionNavComponent implements OnInit {
           link: '/admin/insurance-order-list'
         },
         {
-          title:'推荐的保险公司',
-          link:'/admin/car-protect-list'
+          title: '推荐的保险公司',
+          link: '/admin/car-protect-list'
         }
       ]
     },
@@ -110,10 +110,6 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '类型管理',
           link: '/admin/goods-type-list'
-        },
-        {
-          title: '品牌管理',
-          link: '/admin/brand-list'
         },
         {
           title: '订单管理',
@@ -235,7 +231,7 @@ export class AccordionNavComponent implements OnInit {
       let item = items[i];
       let link = item['link'];
       if (!curLevleActive) {
-        if (link === curLink || (item['items'] && this.resetNavStatus(item, curLink))) {
+        if (link && curLink.search(link) >= 0 || (item['items'] && this.resetNavStatus(item, curLink))) {
           item.active = true;
           curLevleActive = true;
         } else {

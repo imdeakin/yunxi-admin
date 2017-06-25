@@ -34,7 +34,9 @@
             <td>{{item.sort}}</td>
             <td>
               <div class="table-btns">
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑类型参数</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
+                <a class="table-btn" [routerLink]="'/admin/goods-type-list/' + item.goods_type_id">品牌</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="removeGoodsType(item.goods_type_id)">删除</a>
               </div>
             </td>
