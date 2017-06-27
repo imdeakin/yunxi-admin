@@ -11,6 +11,8 @@ import {StoreFunction} from '../data-type/store-function';
 
 import 'rxjs/add/operator/switchMap';
 
+declare let layer: any;
+
 @Component({
   selector: 'brand-list',
   templateUrl: './brand-list.component.html',
@@ -29,7 +31,17 @@ export class BrandListComponent implements OnInit, DoCheck {
 
   // 模态窗
   public modalShow: boolean = false;
-  public modalData;
+  public modalData = {
+    goods_brand_id: '',
+    goods_type_id: '',
+    type_name: '',
+    name: '',
+    e_name: '',
+    file_id: '',
+    url: '',
+    story: '',
+    described: ''
+  };
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -81,7 +93,71 @@ export class BrandListComponent implements OnInit, DoCheck {
 
   // 模态窗
   public toggleModal(item?): void {
-    this.modalData = this.funcServer.deepCopy(item);
+    if (item) {
+      this.modalData = this.funcServer.deepCopy(item);
+    }
+
     this.modalShow = !this.modalShow;
+
+    if (!this.modalShow) {
+      this.modalData = {
+        goods_brand_id: '',
+        goods_type_id: '',
+        type_name: '',
+        name: '',
+        e_name: '',
+        file_id: '',
+        url: '',
+        story: '',
+        described: ''
+      }
+    }
+  }
+
+  public addStoreGoodsBrandInfo(): void {
+    this.apiCall.addStoreGoodsBrandInfo(
+      this.modalData.goods_type_id,
+      this.modalData.name,
+      this.modalData.e_name,
+      this.modalData.file_id,
+      this.modalData.url,
+      this.modalData.story,
+      this.modalData.described,
+      () => {
+        layer.msg("添加成功");
+        this.toggleModal();
+      },
+      () => {
+        layer.msg("添加失败");
+      }
+    )
+  }
+
+  public updateStoreGoodsBrandInfo(): void {
+    this.apiCall.updateStoreGoodsBrandInfo(
+      this.modalData.goods_brand_id,
+      this.modalData.goods_type_id,
+      this.modalData.name,
+      this.modalData.e_name,
+      this.modalData.file_id,
+      this.modalData.url,
+      this.modalData.story,
+      this.modalData.described,
+      () => {
+        layer.msg("编辑成功");
+        this.toggleModal();
+      },
+      () => {
+        layer.msg("编辑失败");
+      }
+    )
+  }
+
+  public modalSubmit(formData): void {
+    if (this.modalData.goods_brand_id) { // 添加
+      this.addStoreGoodsBrandInfo();
+    } else { // 编辑
+      this.updateStoreGoodsBrandInfo();
+    }
   }
 }

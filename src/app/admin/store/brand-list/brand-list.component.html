@@ -5,7 +5,7 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <a class="text-btn float-right margin-large-right" href="javascript:void(0);">添加</a>
+        <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleModal()">添加</a>
       </div>
       <div class="manager-table">
         <table>
@@ -44,11 +44,12 @@
 </div>
 <div class="modal-wrapper" [class.hidden]="!modalShow">
   <div class="modal-con">
-    <h3 class="modal-title">编辑</h3>
-    <form class="modal-form">
+    <h3 class="modal-title" [class.hidden]="!modalData.goods_brand_id">编辑</h3>
+    <h3 class="modal-title" [class.hidden]="modalData.goods_brand_id">添加</h3>
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
       <div class="modal-input-group">
         <label>类型</label>
-        <div class="text">{{modalData.typeName}}</div>
+        <div class="text">{{modalData.type_name}}</div>
       </div>
       <div class="modal-input-group">
         <label>品牌名称</label>
@@ -56,7 +57,7 @@
       </div>
       <div class="modal-input-group">
         <label>英文名</label>
-        <input type="text" name="eName" [(ngModel)]="modalData.eName">
+        <input type="text" name="eName" [(ngModel)]="modalData.e_name">
       </div>
       <div class="modal-input-group">
         <label>品牌官网</label>
@@ -71,7 +72,7 @@
         <textarea name="described" [(ngModel)]="modalData.described"></textarea>
       </div>
       <div class="modal-btn-group">
-        <button (click)="toggleModal()">关闭</button>
+        <button type="submit">保存</button>
       </div>
     </form>
     <div class="modal-close" (click)="toggleModal()">
