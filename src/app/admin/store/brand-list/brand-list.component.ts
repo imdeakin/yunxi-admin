@@ -11,6 +11,8 @@ import {StoreFunction} from '../data-type/store-function';
 
 import 'rxjs/add/operator/switchMap';
 
+declare let layer: any;
+
 @Component({
   selector: 'brand-list',
   templateUrl: './brand-list.component.html',
@@ -24,12 +26,22 @@ export class BrandListComponent implements OnInit, DoCheck {
   public curPageIndex = 1;
   public tableList: BrandList[];
   public storeFunction = StoreFunction;
-  public goodsBrandId;
-  public goodsBrandIdOld;
+  public goodsTypeId;
+  public goodsTypeIdOld;
 
   // 模态窗
   public modalShow: boolean = false;
-  public modalData;
+  public modalData = {
+    goods_brand_id: '',
+    goods_type_id: '',
+    type_name: '',
+    name: '',
+    e_name: '',
+    file_id: '',
+    url: '',
+    story: '',
+    described: ''
+  };
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -40,8 +52,8 @@ export class BrandListComponent implements OnInit, DoCheck {
   }
 
   public ngDoCheck(): void {
-    if (this.goodsBrandId !== this.goodsBrandIdOld) {
-      this.goodsBrandIdOld = this.goodsBrandId;
+    if (this.goodsTypeId !== this.goodsTypeIdOld) {
+      this.goodsTypeIdOld = this.goodsTypeId;
       this.getStoreGoodsBrandList(1);
     }
   }
@@ -49,8 +61,8 @@ export class BrandListComponent implements OnInit, DoCheck {
   public ngOnInit(): void {
     // 获取路由参数
     this.activatedRoute.params
-      .switchMap((params: Params) => params['goodsBrandId'])
-      .subscribe((goodsBrandId: string) => this.goodsBrandId = goodsBrandId);
+      .switchMap((params: Params) => params['goodsTypeId'])
+      .subscribe((goodsTypeId: string) => this.goodsTypeId = goodsTypeId);
 
     this.computeOnResize();
   }
@@ -69,7 +81,7 @@ export class BrandListComponent implements OnInit, DoCheck {
       this.curPageIndex = curPageIndex;
     }
     this.apiCall.getStoreGoodsBrandList(
-      this.goodsBrandId,
+      this.goodsTypeId,
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {
@@ -81,7 +93,73 @@ export class BrandListComponent implements OnInit, DoCheck {
 
   // 模态窗
   public toggleModal(item?): void {
-    this.modalData = this.funcServer.deepCopy(item);
+    if (item) {
+      this.modalData = this.funcServer.deepCopy(item);
+    }
+
     this.modalShow = !this.modalShow;
+
+    if (!this.modalShow) {
+      this.modalData = {
+        goods_brand_id: '',
+        goods_type_id: '',
+        type_name: '',
+        name: '',
+        e_name: '',
+        file_id: '',
+        url: '',
+        story: '',
+        described: ''
+      }
+    }
+  }
+
+  public addStoreGoodsBrandInfo(): void {
+    this.apiCall.addStoreGoodsBrandInfo(
+      this.goodsTypeId,
+      this.modalData.name,
+      this.modalData.e_name,
+      this.modalData.file_id,
+      this.modalData.url,
+      this.modalData.story,
+      this.modalData.described,
+      () => {
+        layer.msg("添加成功");
+        this.getStoreGoodsBrandList(1);
+        this.toggleModal();
+      },
+      () => {
+        layer.msg("添加失败");
+      }
+    )
+  }
+
+  public updateStoreGoodsBrandInfo(): void {
+    this.apiCall.updateStoreGoodsBrandInfo(
+      this.modalData.goods_brand_id,
+      this.goodsTypeId,
+      this.modalData.name,
+      this.modalData.e_name,
+      this.modalData.file_id,
+      this.modalData.url,
+      this.modalData.story,
+      this.modalData.described,
+      () => {
+        layer.msg("编辑成功");
+        this.getStoreGoodsBrandList(1);
+        this.toggleModal();
+      },
+      () => {
+        layer.msg("编辑失败");
+      }
+    )
+  }
+
+  public modalSubmit(): void {
+    if (this.modalData.goods_brand_id) { // 编辑
+      this.updateStoreGoodsBrandInfo();
+    } else { // 添加
+      this.addStoreGoodsBrandInfo();
+    }
   }
 }

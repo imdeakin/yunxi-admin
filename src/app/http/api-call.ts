@@ -817,6 +817,173 @@ export class ApiCall {
   }
 
   /**
+   * 获取商品类型参数列表
+   * @param goodsTypeId 类型Id
+   * @param isSku 是否销售 0 否 1 是
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsTypeAttrList(goodsTypeId, isSku, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsTypeAttrList,
+      data: {
+        goodsTypeId: goodsTypeId,
+        isSku: isSku
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 添加商品类型参数
+   * @param goodsTypeId 类型Id
+   * @param name 参数名称
+   * @param isSku 是否销售  0 否 1 是
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
+  public addStoreGoodsTypeAttr(goodsTypeId, name, isSku, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsTypeAttr,
+      data: {
+        goodsTypeId: goodsTypeId,
+        name: name,
+        isSku: isSku,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品类型参数
+   * @param paramId 参数Id
+   * @param goodsTypeId 类型Id
+   * @param name 参数名称
+   * @param isSku 是否销售  0 否 1 是
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsTypeAttr(paramId, goodsTypeId, name, isSku, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsTypeAttr,
+      data: {
+        paramId: paramId,
+        goodsTypeId: goodsTypeId,
+        name: name,
+        isSku: isSku,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 删除商品类型参数
+   * @param paramId 商品类型参数ID
+   * @param success
+   * @param failure
+   */
+  public removeStoreGoodsTypeAttr(paramId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoodsTypeAttr,
+      data: {
+        paramId: paramId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取商品类型参数值列表
+   * @param goodsTypeId 类型Id
+   * @param isSku 是否销售 0 否 1 是
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsTypeAttrValList(paramId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsTypeAttrValList,
+      data: {
+        paramId: paramId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 添加商品类型参数值
+   * @param paramId 参数Id
+   * @param goodsTypeId 类型Id
+   * @param value 值内容
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
+  public addStoreGoodsTypeAttrVal(paramId, goodsTypeId, value, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsTypeAttrVal,
+      data: {
+        paramId: paramId,
+        goodsTypeId: goodsTypeId,
+        value: value,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品类型参数值
+   * @param valueId 参数值Id
+   * @param paramId 参数Id
+   * @param goodsTypeId 类型Id
+   * @param value 值内容
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsTypeAttrVal(valueId, paramId, goodsTypeId, value, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsTypeAttrVal,
+      data: {
+        valueId: valueId,
+        paramId: paramId,
+        goodsTypeId: goodsTypeId,
+        value: value,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 删除商品类型参数值
+   * @param valueId 商品类型参数值ID
+   * @param success
+   * @param failure
+   */
+  public removeStoreGoodsTypeAttrVal(valueId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoodsTypeAttrVal,
+      data: {
+        valueId: valueId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
    * 获取商品品牌列表
    * @param curPageIndex
    * @param pageSize
@@ -1074,6 +1241,185 @@ export class ApiCall {
         orderDetailsIds: orderDetailsIds,
         expressId: expressId,
         waybillNumber: waybillNumber
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-获取门店列表
+   * @param mobile 用户账号
+   * @param status 状态：1 待审核 2 不通过  3 通过
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getAdminShopList(mobile, status, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdminShopList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        mobile: mobile,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-获取门店详情
+   * @param shopId 门店ID
+   * @param success
+   * @param failure
+   */
+  public getAdminShopInfo(shopId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdminShopInfo,
+      data: {
+        shopId: shopId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-修改门店状态
+   * @param shopId 门店ID
+   * @param status 门店状态 1 待审核 2 不通过  3 通过
+   * @param success
+   * @param failure
+   */
+  public updateAdminShopStatus(shopId, status, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAdminShopStatus,
+      data: {
+        shopId: shopId,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-获取门店服务列表
+   * @param shopId 门店ID
+   * @param onSale 是否上架：0 否 1是
+   * @param success
+   * @param failure
+   */
+  public getAdminShopService(shopId, onSale, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdminShopService,
+      data: {
+        shopId: shopId,
+        onSale: onSale
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-修改门店服务
+   * @param shopServiceTypeId 门店服务类型id
+   * @param shopId 门店申请id
+   * @param serviceName 服务名称
+   * @param yxPrice 云洗价格
+   * @param marketPrice 市场价格
+   * @param serviceDetails 服务详情
+   * @param onSale 是否上架：0 否 1是
+   * @param fileId 服务图片Id
+   * @param success
+   * @param failure
+   */
+  public addAdminShopService(shopServiceTypeId, shopId, serviceName, yxPrice, marketPrice, serviceDetails, onSale, fileId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAdminShopService,
+      data: {
+        shopServiceTypeId: shopServiceTypeId,
+        shopId: shopId,
+        serviceName: serviceName,
+        yxPrice: yxPrice,
+        marketPrice: marketPrice,
+        serviceDetails: serviceDetails,
+        onSale: onSale,
+        fileId: fileId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-修改门店服务
+   * @param shopServiceId 门店服务id（not null 修改null添加）
+   * @param shopServiceTypeId 门店服务类型id
+   * @param shopId 门店申请id
+   * @param serviceName 服务名称
+   * @param yxPrice 云洗价格
+   * @param marketPrice 市场价格
+   * @param serviceDetails 服务详情
+   * @param onSale 是否上架：0 否 1是
+   * @param fileId 服务图片Id
+   * @param success
+   * @param failure
+   */
+  public updateAdminShopService(shopServiceId, shopServiceTypeId, shopId, serviceName, yxPrice, marketPrice, serviceDetails, onSale, fileId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAdminShopService,
+      data: {
+        shopServiceId: shopServiceId,
+        shopServiceTypeId: shopServiceTypeId,
+        shopId: shopId,
+        serviceName: serviceName,
+        yxPrice: yxPrice,
+        marketPrice: marketPrice,
+        serviceDetails: serviceDetails,
+        onSale: onSale,
+        fileId: fileId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-修改门店服务上架状态
+   * @param shopServiceId
+   * @param onSale
+   * @param success
+   * @param failure
+   */
+  public updateAdminShopServiceStatus(shopServiceId, onSale, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAdminShopServiceStatus,
+      data: {
+        shopServiceId: shopServiceId,
+        onSale: onSale
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-删除门店服务
+   * @param shopServiceId
+   * @param onSale
+   * @param success
+   * @param failure
+   */
+  public removeAdminShopService(shopServiceId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeAdminShopService,
+      data: {
+        shopServiceId: shopServiceId
       },
       success: success,
       failure: failure

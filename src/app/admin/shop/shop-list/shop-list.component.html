@@ -5,19 +5,15 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getYoukaUserList(1)">
+        <form class="clearfix" (ngSubmit)="getAdminShopList(1)">
           <div class="input-group">
-            <label>门店编号</label>
-            <input type="text" name="mobile" value="" [(ngModel)]="filterData.code">
+            <label>申请账号</label>
+            <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
           </div>
           <div class="input-group">
             <label>状态</label>
             <select-box [options]="shopFunction.shopStatusOptions" [name]="level"
                         (optionSelect)="filterData.status = $event"></select-box>
-          </div>
-          <div class="input-group">
-            <label>城市</label>
-            <city-picker [name]="regionId" (change)="filterData.regionId = $event"></city-picker>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
@@ -26,14 +22,15 @@
         <table>
           <thead>
           <tr>
-            <th>门店编号</th>
-            <th>用户账号</th>
-            <th>店主姓名</th>
-            <th>所属城市</th>
+            <th>申请账号</th>
+            <th>申请人</th>
+            <th>所在地区</th>
             <th>门店名称</th>
             <th>经营范围</th>
+            <th>负责人</th>
             <th>联系电话</th>
-            <th>余额</th>
+            <th>门店余额</th>
+            <th>申请时间</th>
             <th>状态</th>
             <th>操作</th>
           </tr>
@@ -41,26 +38,29 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.code}}</td>
-            <td>{{item.mobile}}</td>
-            <td>{{item.name}}</td>
+            <td>{{item.user_mobile}}</td>
+            <td>{{item.user_name}}</td>
             <td>{{item.region_name}}</td>
             <td>{{item.shop_name}}</td>
             <td>{{item.business_scope}}</td>
-            <td>{{item.legal_person_mobile}}</td>
-            <td>{{item.money}}</td>
+            <td>{{item.spokes_man}}</td>
+            <td>{{item.mobile}}</td>
+            <td>{{'缺字段'}}</td>
+            <td>{{item.create_time}}</td>
             <td>{{shopFunction.getShopStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal()">查看</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal()">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="checkShop(item.shop_id)" *ngIf="item.status === 1">核验</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal()" *ngIf="item.status === 3">收益</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal()">服务</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls (pageChange)="getYoukaUserList($event)" previousLabel="上一页"
+        <pagination-controls (pageChange)="getAdminShopList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>
@@ -120,58 +120,142 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper read-modal" [class.hidden]="!readModalShow">
+<!--门店详情-基本信息-->
+<div class="modal-wrapper read-modal" [class.hidden]="!readShopDetailModalShow || readShopBankModalShow || readShopIdCardModalShow">
   <div class="modal-con">
-    <h3 class="modal-title">订单详情</h3>
-    <div class="modal-detail">
-      <div class="modal-detail-content">
-        <div class="modal-detail-item">
-          <label>门店编号</label>
-          <div class="value">65456453135</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>用户账号</label>
-          <div class="value">广州</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>负责人</label>
-          <div class="value">张三</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>身份证</label>
-          <div class="value">44046846846519684</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>所属城市</label>
-          <div class="value">广州</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>联系电话</label>
-          <div class="value">1563059580</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>门店名称</label>
-          <div class="value">哇哈哈</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>经营范围</label>
-          <div class="value">饮料</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>状态</label>
-          <div class="value">正常</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>详细地址</label>
-          <div class="value">广东 广州 科韵路 606</div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-btn-group">
-      <button (click)="toggleReadModal()">关闭</button>
-    </div>
-    <div class="modal-close" (click)="toggleReadModal()">
+    <div class="modal-close" (click)="toggleReadDetailModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
+    <div class="modal-loading" *ngIf="!shopDetail">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <template [ngIf]="shopDetail">
+      <h3 class="modal-title">门店详情</h3>
+      <div class="modal-detail">
+        <div class="modal-detail-content">
+          <div class="modal-detail-item">
+            <label>申请账号</label>
+            <div class="value">65456453135</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>申请人</label>
+            <div class="value">广州</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>所属地区</label>
+            <div class="value">广州</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>负责人</label>
+            <div class="value">张三</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>联系电话</label>
+            <div class="value">1563059580</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>门店名称</label>
+            <div class="value">哇哈哈</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>经营范围</label>
+            <div class="value">饮料</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>申请时间</label>
+            <div class="value">正常</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>状态</label>
+            <div class="value">正常</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>详细地址</label>
+            <div class="value">广东 广州 科韵路 606</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>营业执照</label>
+            <div class="value"></div>
+          </div>
+          <div class="modal-btn-group">
+            <button (click)="toggleReadShopBankModal()">查看银行卡信息</button>
+            <button (click)="toggleReadShopIdCardModal()">查看身份证信息</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-btn-group">
+        <button (click)="toggleReadDetailModal()">关闭</button>
+      </div>
+    </template>
+  </div>
+</div>
+<!--门店-银行卡信息-->
+<div class="modal-wrapper read-modal" [class.hidden]="!readShopBankModalShow">
+  <div class="modal-con">
+    <div class="modal-close" (click)="toggleReadShopBankModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+    <div class="modal-loading" *ngIf="!shopDetail">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <template [ngIf]="shopDetail">
+      <h3 class="modal-title">银行卡信息</h3>
+      <div class="modal-detail">
+        <div class="modal-detail-content">
+          <div class="modal-detail-item">
+            <label>银行卡号</label>
+            <div class="value">65456453135</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>卡类型/发卡行</label>
+            <div class="value">广州</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>预留号码</label>
+            <div class="value">广州</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-btn-group">
+        <button (click)="toggleReadShopBankModal()">关闭</button>
+      </div>
+    </template>
+  </div>
+</div>
+<!--门店-身份证信息-->
+<div class="modal-wrapper read-modal" [class.hidden]="!readShopIdCardModalShow">
+  <div class="modal-con">
+    <div class="modal-close" (click)="toggleReadShopIdCardModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+    <div class="modal-loading" *ngIf="!shopDetail">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <template [ngIf]="shopDetail">
+      <h3 class="modal-title">身份证信息</h3>
+      <div class="modal-detail">
+        <div class="modal-detail-content">
+          <div class="modal-detail-item">
+            <label>身份证号</label>
+            <div class="value"></div>
+          </div>
+          <div class="modal-detail-item">
+            <label>正面</label>
+            <div class="value"></div>
+          </div>
+          <div class="modal-detail-item">
+            <label>背面</label>
+            <div class="value"></div>
+          </div>
+          <div class="modal-detail-item">
+            <label>手持</label>
+            <div class="value"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-btn-group">
+        <button (click)="toggleReadShopIdCardModal()">关闭</button>
+      </div>
+    </template>
   </div>
 </div>

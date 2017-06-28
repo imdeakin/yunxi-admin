@@ -83,6 +83,18 @@ export class ApiConfig {
     updateStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/saveMallGoodsType', // 更新商品类型信息
     removeStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/delMallGoodsType', // 删除商品类型信息
 
+    // 商品类型参数
+    getStoreGoodsTypeAttrList: this.root + '/brandGoodsTypeManage/mllGoodsParamList', // 获取商品类型参数列表
+    addStoreGoodsTypeAttr: this.root + '/brandGoodsTypeManage/saveMllGoodsParam', // 添加商品类型参数
+    updateStoreGoodsTypeAttr: this.root + '/brandGoodsTypeManage/saveMllGoodsParam', // 更新商品类型参数
+    removeStoreGoodsTypeAttr: this.root + '/brandGoodsTypeManage/delMllGoodsParam', // 删除商品类型参数
+
+    // 商品类型参数值
+    getStoreGoodsTypeAttrValList: this.root + '/brandGoodsTypeManage/mllGoodsParamValueList', // 获取商品类型参数列表
+    addStoreGoodsTypeAttrVal: this.root + '/brandGoodsTypeManage/saveMllGoodsParamValue', // 添加商品类型参数
+    updateStoreGoodsTypeAttrVal: this.root + '/brandGoodsTypeManage/saveMllGoodsParamValue', // 更新商品类型参数
+    removeStoreGoodsTypeAttrVal: this.root + '/brandGoodsTypeManage/delMllGoodsParamValue', // 删除商品类型参数
+
     // 商品品牌
     getStoreGoodsBrandList: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 获取商品品牌列表
     addStoreGoodsBrandInfo: this.root + '/brandGoodsTypeManage/saveMllGoodsBrand', // 添加商品品牌信息
@@ -102,6 +114,22 @@ export class ApiConfig {
     signStoreOrder: this.root + '/marketManage/mallOrderSign', // 签收订单
     updateStoreOrderExpress: this.root + '/marketManage/updateOrderExpress', // 修改订单物流信息
     getStoreExpressList: this.root + '/marketManage/getExpressList', // 获取物流列表
+
+    /*
+     * 门店管理
+     */
+
+    // 管理员-门店列表
+    getAdminShopList: this.root + '/adminShop/mallShopList', // 获取门店列表
+    getAdminShopInfo: this.root + '/adminShop/getMallShop', // 获取门店详情
+    updateAdminShopStatus: this.root + '/adminShop/updateMallShopStatus', // 修改门店状态
+
+    // 管理员-门店服务
+    getAdminShopService: this.root + '/adminShop/mallShopServiceList', // 获取门店服务列表
+    addAdminShopService: this.root + '/adminShop/saveShopService', // 添加门店服务
+    updateAdminShopService: this.root + '/adminShop/saveShopService', // 修改门店服务
+    updateAdminShopServiceStatus: this.root + '/adminShop/onSaleShopService', // 修改门店服务上架状态
+    removeAdminShopService: this.root + '/adminShop/delShopService', // 删除门店服务
 
     // 财务管理
     getCloudpayVerificationList: this.root + '/finance/yftOrderVerificationList', // 获取云付通核验列表

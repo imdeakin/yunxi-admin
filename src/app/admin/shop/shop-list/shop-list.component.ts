@@ -6,7 +6,8 @@ import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
 import {ShopFunction} from '../data-type/shop-function';
-import {ShopList} from '../data-type/shop-list';
+
+declare let layer: any;
 
 @Component({
   selector: 'shop-list',
@@ -19,81 +20,27 @@ export class ShopListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: ShopList[] = [
-    {
-      code: '4280172168844',
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person_mobile: '18174666666',
-      money: 88888,
-      status: 0
-    },
-    {
-      code: '4280172168844',
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person_mobile: '18174666666',
-      money: 88888,
-      status: 0
-    },
-    {
-      code: '4280172168844',
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person_mobile: '18174666666',
-      money: 88888,
-      status: -1
-    },
-    {
-      code: '4280172168844',
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person_mobile: '18174666666',
-      money: 88888,
-      status: 0
-    },
-    {
-      code: '4280172168844',
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person_mobile: '18174666666',
-      money: 88888,
-      status: 0
-    }
-  ];
+  public tableList;
   public filterData = {
-    code: '',
-    status: '',
-    regionId: ''
+    mobile: '',
+    status: ''
   };
 
   public shopFunction = ShopFunction;
 
   // 模态窗
   public editModalShow: boolean = false;
-  public readModalShow: boolean = false;
+  public readShopDetailModalShow: boolean = false; // 门店详情的显示状态
+  public readShopBankModalShow: boolean = false; // 门店银行卡详情的显示状态
+  public readShopIdCardModalShow: boolean = false; // 门店身份证详情的显示状态
+  public shopDetail; // 门店详情数据
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getAdminShopList();
   }
 
   public computeOnResize() {
@@ -105,14 +52,51 @@ export class ShopListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getAdminShopList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getAdminShopList(
+      this.filterData.mobile,
+      this.filterData.status,
+      this.curPageIndex, this.perPageSize,
+      (list, total) => {
+        this.tableList = list;
+        this.total = total;
+      }
+    );
+  }
+
+  public updateAdminShopStatus(shopId, status): void {
+    this.apiCall.updateAdminShopStatus(
+      shopId,
+      status,
+      () => {
+        layer.msg('操作成功');
+      },
+      () => {
+        layer.msg('操作失败');
+      }
+    );
+  }
+
+  // 门店核验
+  public checkShop(shopId) {
+    let index = layer.confirm('是否通过？', ['通过', '不通过', '取消'],
+      () => {
+        // 通过
+        this.updateAdminShopStatus(shopId, 3);
+        layer.close(index);
+      },
+      () => {
+        // 不通过
+        this.updateAdminShopStatus(shopId, 2);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    );
   }
 
   // 模态窗
@@ -120,7 +104,15 @@ export class ShopListComponent implements OnInit {
     this.editModalShow = !this.editModalShow;
   }
 
-  public toggleReadModal(): void {
-    this.readModalShow = !this.readModalShow;
+  public toggleReadDetailModal(): void {
+    this.readShopDetailModalShow = !this.readShopDetailModalShow;
+  }
+
+  public toggleReadShopBankModal(): void {
+    this.readShopBankModalShow = !this.readShopBankModalShow;
+  }
+
+  public toggleReadShopIdCardModal(): void {
+    this.readShopIdCardModalShow = !this.readShopIdCardModalShow;
   }
 }

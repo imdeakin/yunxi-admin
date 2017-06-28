@@ -103,7 +103,7 @@ const AdminRoutes: Routes = [
       // 商城管理
       {path: 'goods-list', component: GoodsListComponent},
       {path: 'goods-type-list', component: GoodsTypeListComponent},
-      {path: 'goods-type-list/:goodsBrandId', component: BrandListComponent},
+      {path: 'goods-type-list/:goodsTypeId', component: BrandListComponent},
       {path: 'order-list', component: OrderListComponent},
 
       // 门店管理

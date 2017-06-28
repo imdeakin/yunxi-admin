@@ -293,10 +293,12 @@ html, body {
   width: 100%;
   height: 96px;
   resize: none;
+  font-size: 16px;
   border: 1px solid #b6b6b6;
   border-radius: 13px;
   margin-top: 10px;
   padding: 10px 5px;
+  overflow: hidden;
 }
 
 .modal-input-group .text-btn {
@@ -307,6 +309,23 @@ html, body {
 
 .modal-input-group .text-btn:hover {
   text-decoration: underline;
+}
+
+.modal-radio-group {
+  display: inline-block;
+  margin-right: 20px;
+  font-size: 0;
+}
+
+.modal-radio-group label, .modal-radio-group input {
+  float: none;
+  width: auto;
+  line-height: 26px;
+  vertical-align: middle;
+}
+
+.modal-radio-group label {
+  margin-left: 6px;
 }
 
 .modal-btn-group {

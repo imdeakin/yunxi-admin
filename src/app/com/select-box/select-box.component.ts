@@ -72,9 +72,9 @@ export class SelectBoxComponent implements OnInit, DoCheck {
 
   public init(): void {
 
-    if (this.options && this.options.length) {
+    if (this.options && this.options instanceof Array) {
 
-      if (this.first && this.options[0].value !== this.first.value) {
+      if (this.first && this.options[0] && this.options[0].value !== this.first.value) {
         this.options.splice(0, 0, this.first);
       }
 
