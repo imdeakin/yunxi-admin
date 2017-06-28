@@ -48,37 +48,32 @@
     <div class="modal-close" (click)="toggleModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
-    <div class="modal-loading" *ngIf="!(modalData && goodsTypeOptions)">
-      <i class="icon-font">&#xe64b;</i>
-    </div>
-    <template [ngIf]="modalData && goodsTypeOptions">
-      <h3 class="modal-title" [class.hidden]="!modalData.goods_type_id">编辑</h3>
-      <h3 class="modal-title" [class.hidden]="modalData.goods_type_id">添加</h3>
-      <form class="modal-form" (ngSubmit)="editSubmit()">
-        <div class="modal-input-group">
-          <label>类型名称</label>
-          <input type="text" name="name" [(ngModel)]="modalData.type_name">
-        </div>
-        <div class="modal-input-group">
-          <label>类型父节点</label>
-          <select-box [options]="goodsTypeOptions"
-                      [first]="{value:'', text:'/'}"
-                      [value]="modalData.p_goods_type_id"
-                      (optionSelect)="modalData.p_goods_type_id = $event"></select-box>
-        </div>
-        <div class="modal-input-group">
-          <label>级别</label>
-          <input type="text" name="level" [(ngModel)]="modalData.level">
-        </div>
-        <div class="modal-input-group">
-          <label>排序</label>
-          <input type="text" name="sort" [(ngModel)]="modalData.sort">
-        </div>
-        <div class="modal-btn-group">
-          <button type="submit">保存</button>
-        </div>
-      </form>
-    </template>
+    <h3 class="modal-title" [class.hidden]="!modalData.goods_type_id">编辑</h3>
+    <h3 class="modal-title" [class.hidden]="modalData.goods_type_id">添加</h3>
+    <form class="modal-form" (ngSubmit)="editSubmit()">
+      <div class="modal-input-group">
+        <label>类型名称</label>
+        <input type="text" name="name" [(ngModel)]="modalData.type_name">
+      </div>
+      <div class="modal-input-group">
+        <label>类型父节点</label>
+        <select-box [options]="goodsTypeOptions"
+                    [first]="{value:'', text:'/'}"
+                    [value]="modalData.p_goods_type_id"
+                    (optionSelect)="modalData.p_goods_type_id = $event"></select-box>
+      </div>
+      <div class="modal-input-group">
+        <label>级别</label>
+        <input type="text" name="level" [(ngModel)]="modalData.level">
+      </div>
+      <div class="modal-input-group">
+        <label>排序</label>
+        <input type="text" name="sort" [(ngModel)]="modalData.sort">
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit">保存</button>
+      </div>
+    </form>
   </div>
 </div>
 <!--商品类型参数列表-->

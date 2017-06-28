@@ -134,16 +134,7 @@ export class GoodsTypeListComponent implements OnInit {
     }
     this.editTypeModalShow = !this.editTypeModalShow;
     if (!this.editTypeModalShow) {
-      this.modalData = {
-        goods_type_id: '',
-        p_goods_type_id: '',
-        type_name: '',
-        status: '',
-        code: '',
-        level: '',
-        curr_child_sort: '',
-        sort: ''
-      };
+      this.modalData = this.funcServer.emptyObj(this.modalData);
     }
   }
 
