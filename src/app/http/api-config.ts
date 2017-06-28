@@ -113,6 +113,22 @@ export class ApiConfig {
     updateStoreOrderExpress: this.root + '/marketManage/updateOrderExpress', // 修改订单物流信息
     getStoreExpressList: this.root + '/marketManage/getExpressList', // 获取物流列表
 
+    /*
+     * 门店管理
+     */
+
+    // 管理员-门店列表
+    getAdminShopList: this.root + '/adminShop/mallShopList', // 获取门店列表
+    getAdminShopInfo: this.root + '/adminShop/getMallShop', // 获取门店详情
+    updateAdminShopStatus: this.root + '/adminShop/updateMallShopStatus', // 修改门店状态
+
+    // 管理员-门店服务
+    getAdminShopService: this.root + '/adminShop/mallShopServiceList', // 获取门店服务列表
+    addAdminShopService: this.root + '/adminShop/saveShopService', // 添加门店服务
+    updateAdminShopService: this.root + '/adminShop/saveShopService', // 修改门店服务
+    updateAdminShopServiceStatus: this.root + '/adminShop/onSaleShopService', // 修改门店服务上架状态
+    removeAdminShopService: this.root + '/adminShop/delShopService', // 删除门店服务
+
     // 财务管理
     getCloudpayVerificationList: this.root + '/finance/yftOrderVerificationList', // 获取云付通核验列表
     updateCloudpayVerification: this.root + '/finance/yftVerification', // 云付通核验

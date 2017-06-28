@@ -1146,6 +1146,185 @@ export class ApiCall {
     });
   }
 
+  /**
+   * 管理员-获取门店列表
+   * @param mobile 用户账号
+   * @param status 状态：1 待审核 2 不通过  3 通过
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getAdminShopList(mobile, status, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdminShopList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        mobile: mobile,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-获取门店详情
+   * @param shopId 门店ID
+   * @param success
+   * @param failure
+   */
+  public getAdminShopInfo(shopId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdminShopInfo,
+      data: {
+        shopId: shopId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-修改门店状态
+   * @param shopId 门店ID
+   * @param status 门店状态 1 待审核 2 不通过  3 通过
+   * @param success
+   * @param failure
+   */
+  public updateAdminShopStatus(shopId, status, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAdminShopStatus,
+      data: {
+        shopId: shopId,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-获取门店服务列表
+   * @param shopId 门店ID
+   * @param onSale 是否上架：0 否 1是
+   * @param success
+   * @param failure
+   */
+  public getAdminShopService(shopId, onSale, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdminShopService,
+      data: {
+        shopId: shopId,
+        onSale: onSale
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-修改门店服务
+   * @param shopServiceTypeId 门店服务类型id
+   * @param shopId 门店申请id
+   * @param serviceName 服务名称
+   * @param yxPrice 云洗价格
+   * @param marketPrice 市场价格
+   * @param serviceDetails 服务详情
+   * @param onSale 是否上架：0 否 1是
+   * @param fileId 服务图片Id
+   * @param success
+   * @param failure
+   */
+  public addAdminShopService(shopServiceTypeId, shopId, serviceName, yxPrice, marketPrice, serviceDetails, onSale, fileId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAdminShopService,
+      data: {
+        shopServiceTypeId: shopServiceTypeId,
+        shopId: shopId,
+        serviceName: serviceName,
+        yxPrice: yxPrice,
+        marketPrice: marketPrice,
+        serviceDetails: serviceDetails,
+        onSale: onSale,
+        fileId: fileId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-修改门店服务
+   * @param shopServiceId 门店服务id（not null 修改null添加）
+   * @param shopServiceTypeId 门店服务类型id
+   * @param shopId 门店申请id
+   * @param serviceName 服务名称
+   * @param yxPrice 云洗价格
+   * @param marketPrice 市场价格
+   * @param serviceDetails 服务详情
+   * @param onSale 是否上架：0 否 1是
+   * @param fileId 服务图片Id
+   * @param success
+   * @param failure
+   */
+  public updateAdminShopService(shopServiceId, shopServiceTypeId, shopId, serviceName, yxPrice, marketPrice, serviceDetails, onSale, fileId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAdminShopService,
+      data: {
+        shopServiceId: shopServiceId,
+        shopServiceTypeId: shopServiceTypeId,
+        shopId: shopId,
+        serviceName: serviceName,
+        yxPrice: yxPrice,
+        marketPrice: marketPrice,
+        serviceDetails: serviceDetails,
+        onSale: onSale,
+        fileId: fileId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-修改门店服务上架状态
+   * @param shopServiceId
+   * @param onSale
+   * @param success
+   * @param failure
+   */
+  public updateAdminShopServiceStatus(shopServiceId, onSale, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateAdminShopServiceStatus,
+      data: {
+        shopServiceId: shopServiceId,
+        onSale: onSale
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-删除门店服务
+   * @param shopServiceId
+   * @param onSale
+   * @param success
+   * @param failure
+   */
+  public removeAdminShopService(shopServiceId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeAdminShopService,
+      data: {
+        shopServiceId: shopServiceId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   public getCloudpayVerificationList(type, sn, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getCloudpayVerificationList,
