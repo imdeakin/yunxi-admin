@@ -2,11 +2,16 @@
  * Created by Deakin on 2017/5/8 0008.
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
 import {ShopFunction} from '../data-type/shop-function';
 import {ShopServerList} from '../data-type/shop-server-list';
+
+import 'rxjs/add/operator/map';
+
+declare let layer: any;
 
 @Component({
   selector: 'shop-server-list',
@@ -19,62 +24,33 @@ export class ShopServerListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: ShopServerList[] = [
-    {
-      code: '65456165654',
-      shop_name: '哇哈哈',
-      server: '洗车8折卡',
-      region_name: '440000/440100',
-      status: 0,
-      create_time: '2017-12-20 12:50:55'
-    },
-    {
-      code: '65456165654',
-      shop_name: '哇哈哈',
-      server: '洗车8折卡',
-      region_name: '440000/440100',
-      status: 0,
-      create_time: '2017-12-20 12:50:55'
-    },
-    {
-      code: '65456165654',
-      shop_name: '哇哈哈',
-      server: '洗车8折卡',
-      region_name: '440000/440100',
-      status: 0,
-      create_time: '2017-12-20 12:50:55'
-    },
-    {
-      code: '65456165654',
-      shop_name: '哇哈哈',
-      server: '洗车8折卡',
-      region_name: '440000/440100',
-      status: 0,
-      create_time: '2017-12-20 12:50:55'
-    },
-    {
-      code: '65456165654',
-      shop_name: '哇哈哈',
-      server: '洗车8折卡',
-      region_name: '440000/440100',
-      status: 0,
-      create_time: '2017-12-20 12:50:55'
-    }
-  ];
-  public filterData = {
-    shopId: '',
-    onSale: '',
-    regionId:''
-  };
+  public tableList: ShopServerList[];
+  public curShopId: string;
+  public curShopIdOld: string;
 
   public shopFunction = ShopFunction;
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
+  constructor(private elRef: ElementRef,
+              private activatedRoute: ActivatedRoute,
+              private apiCall: ApiCall,
+              private funcServer: FuncServer,
+              public cityPickerServer: CityPickerServer) {
+  }
+
+  public getParams(shopId) {
+    return shopId;
   }
 
   public ngOnInit(): void {
+    // 获取路由参数
+    this.activatedRoute.params
+      .map((params: Params) => this.getParams(params['shopId']))
+      .subscribe((shopId: string) => {
+        this.curShopId = shopId;
+        this.getAdminShopService(1);
+      });
+
     this.computeOnResize();
-    this.getMallShopServiceList();
   }
 
   public computeOnResize() {
@@ -86,14 +62,40 @@ export class ShopServerListComponent implements OnInit {
     });
   }
 
-  public getMallShopServiceList(curPageIndex?): void {
+  public getAdminShopService(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getMallShopServiceList(this.filterData.shopId, this.filterData.onSale,this.curPageIndex, this.perPageSize, (list, total) => {
-      this.tableList = list;
-      console.log(this.tableList);
-      this.total = total;
-    });
+    this.apiCall.getAdminShopService(
+      this.curShopId,
+      this.curPageIndex,
+      this.perPageSize,
+      (list, total) => {
+        this.tableList = list;
+        console.log(this.tableList);
+        this.total = total;
+      });
+  }
+
+  public updateAdminShopServiceStatus(curSaleStatus): void {
+    let status = curSaleStatus == 0 ? 1 : 0;
+    let tips = status == 0 ? '是否下架？' : '是否上架';
+    let index = layer(tips, {btn: ['确定', '取消']},
+      () => {
+        this.apiCall.updateAdminShopServiceStatus(
+          this.curShopId,
+          status,
+          () => {
+            layer.msg('操作成功');
+            layer.close(index);
+            this.getAdminShopService(1);
+          },
+          () => {
+            layer.msg('操作失败');
+            layer.close(index);
+          }
+        );
+      }
+    );
   }
 }

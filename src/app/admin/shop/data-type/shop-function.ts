@@ -54,6 +54,18 @@ export class ShopFunction {
     }
   ];
 
+  // 银行卡类型选项组
+  public static bounsCardTypeOptions = [
+    {
+      value: '1',
+      text: '储蓄卡'
+    },
+    {
+      value: '2',
+      text: '信用卡'
+    }
+  ];
+
   // 门店状态
   public static getShopStatusText(code: number): string {
     let text: string;
@@ -107,6 +119,22 @@ export class ShopFunction {
         break;
       default:
         text = '未知状态'
+    }
+    return text;
+  }
+
+  // 银行卡类型
+  public static getBankCardTypeText(code: number): string {
+    let text: string;
+    switch (code) {
+      case 1:
+        text = '储蓄卡';
+        break;
+      case 2:
+        text = '信用卡';
+        break;
+      default:
+        text = '未知'
     }
     return text;
   }

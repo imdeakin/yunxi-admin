@@ -67,12 +67,22 @@ export class ShopListComponent implements OnInit {
     );
   }
 
+  public getAdminShopInfo(shopId): void {
+    this.apiCall.getAdminShopInfo(
+      shopId,
+      (data) => {
+        this.shopDetail = data;
+      }
+    );
+  }
+
   public updateAdminShopStatus(shopId, status): void {
     this.apiCall.updateAdminShopStatus(
       shopId,
       status,
       () => {
         layer.msg('操作成功');
+        this.getAdminShopList(1);
       },
       () => {
         layer.msg('操作失败');
@@ -82,7 +92,9 @@ export class ShopListComponent implements OnInit {
 
   // 门店核验
   public checkShop(shopId) {
-    let index = layer.confirm('是否通过？', ['通过', '不通过', '取消'],
+    let index = layer.confirm('是否通过？', {
+        btn: ['通过', '不通过', '取消']
+      },
       () => {
         // 通过
         this.updateAdminShopStatus(shopId, 3);
@@ -104,7 +116,10 @@ export class ShopListComponent implements OnInit {
     this.editModalShow = !this.editModalShow;
   }
 
-  public toggleReadDetailModal(): void {
+  public toggleReadDetailModal(shopId?): void {
+    if (shopId) {
+      this.getAdminShopInfo(shopId);
+    }
     this.readShopDetailModalShow = !this.readShopDetailModalShow;
   }
 

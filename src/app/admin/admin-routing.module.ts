@@ -109,7 +109,7 @@ const AdminRoutes: Routes = [
       // 门店管理
       {path: 'shop-apply-list', component: ShopApplyListComponent},
       {path: 'shop-list', component: ShopListComponent},
-      {path: 'shop-server-list', component: ShopServerListComponent},
+      {path: 'shop-list/:shopId', component: ShopServerListComponent},
       {path: 'shop-order-list', component: ShopOrderListComponent},
       {path: 'msg-list', component: MsgListComponent},
       {path: 'feedback-list', component: FeedbackListComponent},

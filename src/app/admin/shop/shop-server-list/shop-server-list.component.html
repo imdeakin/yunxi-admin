@@ -5,7 +5,7 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getYoukaUserList(1)">
+        <form class="clearfix" (ngSubmit)="getAdminShopService(1)">
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
@@ -29,15 +29,16 @@
             <td>{{item.create_time}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);">查看</a>
-                <a class="table-btn" href="javascript:void(0);">编辑</a>
+                <a class="table-btn" href="javascript:void(0);"
+                   (click)="updateAdminShopServiceStatus(item.on_sale)">{{item.on_sale == 0 ? '上架' : '下架'}}</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls  (pageChange)="getMallShopServiceList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls (pageChange)="getAdminShopService($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>

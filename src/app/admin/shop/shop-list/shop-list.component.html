@@ -50,10 +50,10 @@
             <td>{{shopFunction.getShopStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleReadDetailModal(item)">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleReadDetailModal(item.shop_id)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="checkShop(item.shop_id)" *ngIf="item.status === 1">核验</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal()" *ngIf="item.status === 3">收益</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal()">服务</a>
+                <a class="table-btn" href="javascript:void(0);" *ngIf="item.status === 3">收益</a>
+                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/shop-list/' + item.shop_id">服务</a>
               </div>
             </td>
           </tr>
@@ -122,7 +122,7 @@
 </div>
 <!--门店详情-基本信息-->
 <div class="modal-wrapper read-modal" [class.hidden]="!readShopDetailModalShow || readShopBankModalShow || readShopIdCardModalShow">
-  <div class="modal-con">
+  <div class="modal-con read-shop-detail-modal">
     <div class="modal-close" (click)="toggleReadDetailModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
@@ -135,63 +135,63 @@
         <div class="modal-detail-content">
           <div class="modal-detail-item">
             <label>申请账号</label>
-            <div class="value">65456453135</div>
+            <div class="value">{{shopDetail.user_mobile}}</div>
           </div>
           <div class="modal-detail-item">
             <label>申请人</label>
-            <div class="value">广州</div>
+            <div class="value">{{shopDetail.user_name}}</div>
           </div>
           <div class="modal-detail-item">
             <label>所属地区</label>
-            <div class="value">广州</div>
+            <div class="value">{{shopDetail.region_name}}</div>
           </div>
           <div class="modal-detail-item">
             <label>负责人</label>
-            <div class="value">张三</div>
+            <div class="value">{{shopDetail.spokes_man}}</div>
           </div>
           <div class="modal-detail-item">
             <label>联系电话</label>
-            <div class="value">1563059580</div>
+            <div class="value">{{shopDetail.mobile}}</div>
           </div>
           <div class="modal-detail-item">
             <label>门店名称</label>
-            <div class="value">哇哈哈</div>
+            <div class="value">{{shopDetail.shop_name}}</div>
           </div>
           <div class="modal-detail-item">
             <label>经营范围</label>
-            <div class="value">饮料</div>
+            <div class="value">{{shopDetail.business_scope}}</div>
           </div>
           <div class="modal-detail-item">
             <label>申请时间</label>
-            <div class="value">正常</div>
+            <div class="value">{{shopDetail.create_time}}</div>
           </div>
           <div class="modal-detail-item">
             <label>状态</label>
-            <div class="value">正常</div>
+            <div class="value">{{shopFunction.getShopStatusText(shopDetail.status)}}</div>
           </div>
           <div class="modal-detail-item">
             <label>详细地址</label>
-            <div class="value">广东 广州 科韵路 606</div>
+            <div class="value">{{shopDetail.detailed_address}}</div>
           </div>
           <div class="modal-detail-item">
             <label>营业执照</label>
-            <div class="value"></div>
+            <div class="value"><img class="modal-show-img" src="{{shopDetail.license_photo}}"></div>
           </div>
           <div class="modal-btn-group">
             <button (click)="toggleReadShopBankModal()">查看银行卡信息</button>
             <button (click)="toggleReadShopIdCardModal()">查看身份证信息</button>
           </div>
+          <div class="modal-btn-group">
+            <button (click)="toggleReadDetailModal()">关闭</button>
+          </div>
         </div>
-      </div>
-      <div class="modal-btn-group">
-        <button (click)="toggleReadDetailModal()">关闭</button>
       </div>
     </template>
   </div>
 </div>
 <!--门店-银行卡信息-->
 <div class="modal-wrapper read-modal" [class.hidden]="!readShopBankModalShow">
-  <div class="modal-con">
+  <div class="modal-con read-shop-bank-modal">
     <div class="modal-close" (click)="toggleReadShopBankModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
@@ -204,15 +204,15 @@
         <div class="modal-detail-content">
           <div class="modal-detail-item">
             <label>银行卡号</label>
-            <div class="value">65456453135</div>
+            <div class="value">{{shopDetail.card_number}}</div>
           </div>
           <div class="modal-detail-item">
             <label>卡类型/发卡行</label>
-            <div class="value">广州</div>
+            <div class="value">{{shopFunction.getBankCardTypeText(shopDetail.card_type)}}</div>
           </div>
           <div class="modal-detail-item">
             <label>预留号码</label>
-            <div class="value">广州</div>
+            <div class="value">{{shopDetail.account_mobile}}</div>
           </div>
         </div>
       </div>
@@ -224,7 +224,7 @@
 </div>
 <!--门店-身份证信息-->
 <div class="modal-wrapper read-modal" [class.hidden]="!readShopIdCardModalShow">
-  <div class="modal-con">
+  <div class="modal-con read-shop-idcard-modal">
     <div class="modal-close" (click)="toggleReadShopIdCardModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
@@ -237,19 +237,19 @@
         <div class="modal-detail-content">
           <div class="modal-detail-item">
             <label>身份证号</label>
-            <div class="value"></div>
+            <div class="value">{{shopDetail.idcard}}</div>
           </div>
           <div class="modal-detail-item">
             <label>正面</label>
-            <div class="value"></div>
+            <div class="value"><img class="modal-show-img" src="{{shopDetail.idcard_photo}}"></div>
           </div>
           <div class="modal-detail-item">
             <label>背面</label>
-            <div class="value"></div>
+            <div class="value"><img class="modal-show-img" src="{{shopDetail.idcard_photo2}}"></div>
           </div>
           <div class="modal-detail-item">
             <label>手持</label>
-            <div class="value"></div>
+            <div class="value"><img class="modal-show-img" src="{{shopDetail.idcard_photo3}}"></div>
           </div>
         </div>
       </div>

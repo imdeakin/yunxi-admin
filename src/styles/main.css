@@ -332,6 +332,7 @@ html, body {
 .modal-btn-group {
   text-align: center;
   font-size: 0;
+  padding: 10px 0;
 }
 
 .modal-btn-group button {
@@ -365,7 +366,6 @@ html, body {
 
 .modal-detail-content {
   font-size: 0;
-  padding-bottom: 20px;
 }
 
 .modal-half {
@@ -385,10 +385,18 @@ html, body {
 
 .modal-detail-item label, .modal-detail-item .value {
   display: inline-block;
-  width: 50%;
   font-size: 16px;
   color: #727272;
   padding: 10px 0;
+  vertical-align: top;
+}
+
+.modal-detail-item label {
+  width: 30%;
+}
+
+.modal-detail-item .value {
+  width: 70%;
 }
 
 .modal-detail-item .select-box {
@@ -397,6 +405,11 @@ html, body {
 
 .modal-detail-item .value {
   text-align: right;
+}
+
+.modal-show-img {
+  max-width: 120px;
+  height: auto;
 }
 
 .modal-loading {

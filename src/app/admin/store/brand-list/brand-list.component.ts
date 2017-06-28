@@ -1,7 +1,7 @@
 /**
  * Created by Deakin on 2017/5/8 0008.
  */
-import {Component, ElementRef, OnInit, DoCheck} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
@@ -18,7 +18,7 @@ declare let layer: any;
   templateUrl: './brand-list.component.html',
   styleUrls: ['./brand-list.component.css']
 })
-export class BrandListComponent implements OnInit, DoCheck {
+export class BrandListComponent implements OnInit {
   public title = '品牌管理';
   public contentHeight = 0;
   public total = 0;
@@ -51,18 +51,14 @@ export class BrandListComponent implements OnInit, DoCheck {
               public cityPickerServer: CityPickerServer) {
   }
 
-  public ngDoCheck(): void {
-    if (this.goodsTypeId !== this.goodsTypeIdOld) {
-      this.goodsTypeIdOld = this.goodsTypeId;
-      this.getStoreGoodsBrandList(1);
-    }
-  }
-
   public ngOnInit(): void {
     // 获取路由参数
     this.activatedRoute.params
-      .switchMap((params: Params) => params['goodsTypeId'])
-      .subscribe((goodsTypeId: string) => this.goodsTypeId = goodsTypeId);
+      .map((params: Params) => params['goodsTypeId'])
+      .subscribe((goodsTypeId: string) => {
+        this.goodsTypeId = goodsTypeId;
+        this.getStoreGoodsBrandList(1);
+      });
 
     this.computeOnResize();
   }
