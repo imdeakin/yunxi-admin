@@ -30,15 +30,11 @@
             <th>订单号</th>
             <th>加油卡号</th>
             <th>用户账号</th>
-            <th>分期数</th>
-            <th>到账期数</th>
-            <th>充值日期</th>
             <th>最近到账时间</th>
             <th>交易方式</th>
             <th>总金额</th>
             <th>每期金额</th>
             <th>套餐类型</th>
-            <th>业务项</th>
             <th>状态</th>            
             <th>操作</th>
           </tr>
@@ -49,15 +45,11 @@
             <td>{{item.sn}}</td>
             <td>{{item.oil_card}}</td>
             <td>{{item.mobile}}</td>
-            <td>{{item.total_periods}}</td>
-            <td>{{item.used_periods}}</td>
-            <td>{{item.pay_time}}</td>
             <td>{{item.modify_time}}</td>
             <td>{{getYoukaPayStyle(item.trade_mode)}}</td>
             <td>{{item.amount}}</td>
             <td>{{item.price}}</td>
             <td>{{getTaocanClassText(item.classify)}}</td>
-            <td>{{item.described}}</td>
             <td>{{getTaocanOrderStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
@@ -76,7 +68,7 @@
 </div>
 <div class="modal-wrapper" [class.hidden]="!modalShow">
   <div class="modal-con">
-    <h3 class="modal-title">添加套餐</h3>
+    <h3 class="modal-title">查看套餐</h3>
     <form class="modal-form">
       <div class="modal-input-group">
         <label>订单流水号</label>

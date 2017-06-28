@@ -62,9 +62,9 @@ export class ShopServerListComponent implements OnInit {
     }
   ];
   public filterData = {
-    code: '',
-    status: '',
-    regionId: ''
+    shopId: '',
+    onSale: '',
+    regionId:''
   };
 
   public shopFunction = ShopFunction;
@@ -74,7 +74,7 @@ export class ShopServerListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getMallShopServiceList();
   }
 
   public computeOnResize() {
@@ -86,13 +86,14 @@ export class ShopServerListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getMallShopServiceList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getMallShopServiceList(this.filterData.shopId, this.filterData.onSale,this.curPageIndex, this.perPageSize, (list, total) => {
+      this.tableList = list;
+      console.log(this.tableList);
+      this.total = total;
+    });
   }
 }

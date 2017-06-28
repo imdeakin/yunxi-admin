@@ -80,10 +80,6 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '会员升级订单表',
           link: '/admin/uplevel-order'
-        },
-        {
-          title: '推介关系',
-          link: '/admin/relation-list'
         }
       ]
     },
@@ -122,8 +118,12 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '门店列表',
-          link: '/admin/shop-list'
+          link: '/admin/shop-apply-list'
         },
+        // {
+        //   title: '门店列表',
+        //   link: '/admin/shop-list'
+        // },
         {
           title: '门店订单',
           link: '/admin/shop-order-list'
@@ -176,7 +176,7 @@ export class AccordionNavComponent implements OnInit {
           link: '/admin/admin-list'
         },
         {
-          title: '方案管理',
+          title: '文案管理',
           link: '/admin/article-list'
         },
         {

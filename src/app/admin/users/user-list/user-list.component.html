@@ -49,6 +49,7 @@
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleSpreadModal(item.user_id,1)">推广</a>
               </div>
             </td>
           </tr>
@@ -86,7 +87,7 @@
           </div>
           <div class="modal-detail-item">
             <label>会员等级</label>
-            <select-box [options]="usersFunction.userLevelOptions" [first]="{value:'',text:'请选择'}"></select-box>
+            <select-box [options]="usersFunction.userLevelOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.member_level_id" (optionSelect)="modalData.member_level_id = $event"></select-box>
           </div>
         </div>
         <div class="modal-half modal-half-right">
@@ -115,6 +116,61 @@
     </div>
       </form>
     <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper" [class.hidden]="!modalSpreadShow">
+  <div class="modal-con">
+    <form class="modal-form" >
+    <h3 class="modal-title">详情</h3>
+      <div class="modal-btn-group">
+        <button type="button" (click)="toggleTypeModal(userId,1)">总数</button>
+        <button type="button" (click)="YearMonthsShow = !YearMonthsShow">月份</button>
+        <button type="button" (click)="toggleTypeModal(userId,3)">今日</button>
+      </div>
+      <div class="modal-input-group yearMonths" [class.hidden]="!YearMonthsShow">
+        <label>年:</label><select-box [options]="yearOptions" [first]="{value:'',text:'请选择'}" [value]="detaData.years"  (optionSelect)="detaData.years = $event"></select-box>
+        <label>月:</label><select-box [options]="usersFunction.MonthOptions" [first]="{value:'',text:'请选择'}" [value]="detaData.months"  (optionSelect)="detaData.months = $event"></select-box>
+        <div class="modal-btn-group">
+        <button type="button" (click)="toggleTypeModal(userId,4)">确认</button>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <td>等级</td>
+            <td>普通</td>
+            <td>高级</td>
+            <td>钻石</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>一级会员</th>
+            <th>{{totalData.one_vip1}}</th>
+            <th>{{totalData.one_vip2}}</th>
+            <th>{{totalData.one_vip3}}</th>
+          </tr>
+          <tr>
+            <th>二级会员</th>
+            <th>{{totalData.two_vip1}}</th>
+            <th>{{totalData.two_vip2}}</th>
+            <th>{{totalData.two_vip3}}</th>
+          </tr>
+           <tr>
+            <th>三级会员</th>
+            <th>{{totalData.three_vip1}}</th>
+            <th>{{totalData.three_vip2}}</th>
+            <th>{{totalData.three_vip3}}</th>
+          </tr>
+        </tbody>
+      </table>
+      <div class="modal-btn-group">
+        <button (click)="toggleSpreadModal()">关闭</button>
+      </div>
+      </form>
+    <div class="modal-close" (click)="toggleSpreadModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>

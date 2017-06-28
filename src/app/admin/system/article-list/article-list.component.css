@@ -1,0 +1,21 @@
+.modal-con{
+    width:500px;
+    height:600px;
+    margin-left:-250px;
+    margin-top:-300px;
+}
+.item-content{
+    display: block; 
+    width:120px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+.modalContent{
+    width: 96%;
+    height:320px;
+    overflow-y:scroll;
+}
+.modal-detail-item .value{
+    text-align:left;
+}

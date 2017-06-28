@@ -6,18 +6,6 @@
     <div class="content-wrapper">
       <div class="filter-bar">
         <form class="clearfix" (ngSubmit)="getYoukaUserList(1)">
-          <div class="input-group">
-            <label>服务编号</label>
-            <input type="text" name="mobile" value="" [(ngModel)]="filterData.code">
-          </div>
-          <div class="input-group">
-            <label>状态</label>
-            <select-box [options]="shopFunction.shopServerStatusOptions" [name]="level" (optionSelect)="filterData.status = $event"></select-box>
-          </div>
-          <div class="input-group">
-            <label>城市</label>
-            <city-picker [name]="regionId" (change)="filterData.regionId = $event"></city-picker>
-          </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
@@ -25,11 +13,9 @@
         <table>
           <thead>
           <tr>
-            <th>服务编号</th>
-            <th>门店名称</th>
             <th>服务</th>
-            <th>所在地区</th>
-            <th>状态</th>
+            <th>价格</th>
+            <th>是否上架</th>
             <th>创建时间</th>
             <th>操作</th>
           </tr>
@@ -37,11 +23,9 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.code}}</td>
-            <td>{{item.shop_name}}</td>
-            <td>{{item.server}}</td>
-            <td>{{item.region_name}}</td>
-            <td>{{shopFunction.getShopServerStatusText(item.status)}}</td>
+            <td>{{item.service_name}}</td>
+            <td>{{item.yx_price}}</td>
+            <td>{{item.on_sale}}</td>
             <td>{{item.create_time}}</td>
             <td>
               <div class="table-btns">
@@ -53,7 +37,7 @@
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls  (pageChange)="getYoukaUserList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls  (pageChange)="getMallShopServiceList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>

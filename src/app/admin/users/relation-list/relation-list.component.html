@@ -7,24 +7,24 @@
       <div class="filter-bar">
         <form class="clearfix" (ngSubmit)="getRelationList(1)">
           <div class="input-group">
-            <label>会员账号</label>
-            <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
+            <button class="text-btn text-sub" type="submit">总数</button>
           </div>
-          <button class="text-btn text-sub" type="submit">搜索</button>
+           <div class="input-group">
+            <button class="text-btn text-sub" type="submit">本月</button>
+          </div>
+           <div class="input-group">
+            <button class="text-btn text-sub" type="submit">今日</button>
+          </div>
         </form>
       </div>
       <div class="manager-table">
         <table>
           <thead>
           <tr>
-            <th>会员账号</th>
-            <th>注册时间</th>
-            <th>上级会员</th>
-            <th>会员等级</th>
-            <th>一级市场</th>
-            <th>二级市场</th>
-            <th>三级市场</th>
-            <th>操作</th>
+            <th>等级</th>
+            <th>普通</th>
+            <th>高级</th>
+            <th>钻石</th>
           </tr>
           </thead>
           <tbody>
@@ -34,9 +34,6 @@
             <td>{{item.create_time}}</td>
             <td>{{item.parent_member_account}}</td>
             <td>{{usersFunction.getUserLevelText(item.member_level_name)}}</td>
-            <td>{{item.level}}</td>
-            <td>{{item.level2}}</td>
-            <td>{{item.level3}}</td>
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">查看</a>

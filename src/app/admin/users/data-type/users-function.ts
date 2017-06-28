@@ -18,6 +18,50 @@ export class UsersFunction {
     }
   ];
 
+  public static MonthOptions = [
+    {
+      value:'1',
+      text:'1',
+    },
+     {
+      value:'2',
+      text:'2',
+    }, {
+      value:'3',
+      text:'3',
+    }, {
+      value:'4',
+      text:'4',
+    }, {
+      value:'5',
+      text:'5',
+    }, {
+      value:'6',
+      text:'6',
+    }, {
+      value:'7',
+      text:'7',
+    }, {
+      value:'8',
+      text:'8',
+    }, {
+      value:'9',
+      text:'9',
+    },
+    {
+      value:'10',
+      text:'10',
+    },
+    {
+      value:'11',
+      text:'11',
+    },
+    {
+      value:'12',
+      text:'12',
+    }
+  ]
+
   // 会员升级订单状态选项组
   public static uplevelOrderStatusOptions = [
     {
@@ -77,5 +121,19 @@ export class UsersFunction {
         text = '未知状态'
     }
     return text;
+  }
+  public static chooseYearOptions():any{
+      let yearOptions = [];
+      let num = 30;
+      let date = new Date();
+      let year = date.getFullYear();
+      for (let i = year - num ;i<=year;i++){
+        yearOptions.unshift({
+          value:i,
+          text:i,
+        })
+      }
+      console.log(yearOptions);
+      return yearOptions
   }
 }

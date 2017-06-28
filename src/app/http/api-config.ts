@@ -54,6 +54,8 @@ export class ApiConfig {
     getLevelOrderList: this.root + '/members/memberUpgradeOrder', // 获取会员升级订单列表
     getRelationList: this.root + '/members/getRelationInfo', // 获取推介关系列表
     updateMemberInfo:this.root + '/members/updateMemberInfo',//修改会员等级信息
+    getStatisticsData:this.root + '/members/statisticsData',//推广会员统计表
+
 
     // 合伙人管理
     getPartnerList: this.root + '/copartner/selectPartnerList', // 获取合伙人列表
@@ -134,7 +136,14 @@ export class ApiConfig {
     updateCloudpayVerification: this.root + '/finance/yftVerification', // 云付通核验
     getRechargeOrderList: this.root + '/finance/accountTransferOrderList', // 获取充值订单列表
     getBonusWithdrawList: this.root + '/finance/accountWithdrawList', // 获取奖金提现列表
-
+    
+    //门店管理
+    getMallSshopList:this.root + '/adminShop/mallSshopList',//获取门店列表
+    getMallShop:this.root + '/adminShop/getMallShop',//获取门店详情
+    updateMallShopStatus:this.root + '/adminShop/updateMallShopStatus',//修改门店状态
+    getMallShopServiceList:this.root + '/adminShop/mallShopServiceList',//获取门店服务列表
+    getMallShopServiceOrderList:this.root + '/adminShop/mallShopServiceOrderList',//获取门店订单列表
+    getMallShopServiceOrder:this.root + '/adminShop/getMallShopServiceOrder',//获取门店订单详情
 
     // 消息管理
     getMsgList: this.root + '/sysMsg/sysMsgList', // 获取消息列表
@@ -183,6 +192,11 @@ export class ApiConfig {
     updateRole: this.root + '/system/updateRole', // 修改角色
     removeRole: this.root + '/system/delRole', // 删除角色
 
+    //文案管理
+    getDocumentList:this.root + '/system/getDocumentList',//查询文案列表
+    addDocumentList:this.root + '/system/addDocument',//添加文案列表
+    updateDocument:this.root + '/system/updateDocument',//编辑文案列表
+    delDocument:this.root + '/system/delDocument',//删除文案列表
 
     //上传文件
     uploadFile:this.root +'/adfile/upload'
