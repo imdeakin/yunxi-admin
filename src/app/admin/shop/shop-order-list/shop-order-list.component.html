@@ -42,7 +42,7 @@
             <td>{{item.sn}}</td>
             <td>{{item.mobile}}</td>
             <td>{{item.shop_name}}</td>
-            <td>{{shopFunction.getPayTypeText(item.trade_code)}}</td>
+            <td>{{funcServer.getPayTypeText(item.trade_code)}}</td>
             <td>{{item.total_price}}</td>
             <td>{{item.create_time}}</td>
             <td>{{item.pay_time}}</td>
@@ -92,7 +92,7 @@
         </div>
         <div class="modal-detail-item">
           <label>付款方式</label>
-          <div class="value">{{shopFunction.getPayTypeText(modalData.trade_mode)}}</div>
+          <div class="value">{{funcServer.getPayTypeText(modalData.trade_mode)}}</div>
         </div>
         <div class="modal-detail-item">
           <label>金额</label>

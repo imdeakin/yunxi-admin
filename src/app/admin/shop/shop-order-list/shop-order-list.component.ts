@@ -27,7 +27,7 @@ export class ShopOrderListComponent implements OnInit {
     userMobile: ''
   };
 
-  public modalData = { 
+  public modalData = {
 
   }
 
@@ -59,7 +59,6 @@ export class ShopOrderListComponent implements OnInit {
     }
     this.apiCall.getMallShopServiceOrderList(this.filterData.sn, this.filterData.status, this.filterData.userMobile, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-      console.log(list);
       this.total = total;
     });
   }
@@ -67,8 +66,6 @@ export class ShopOrderListComponent implements OnInit {
   public getMallShopServiceOrder(shopServiceOrderId):void{
       this.apiCall.getMallShopServiceOrder(shopServiceOrderId,(data)=>{
           this.modalData = data;
-          console.log(1)
-          console.log(this.modalData);
       })
   }
 

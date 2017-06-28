@@ -270,6 +270,7 @@ html, body {
   float: right;
   width: 148px;
   line-height: 26px;
+  font-size: 16px;
 }
 
 .modal-input-group .select-box {

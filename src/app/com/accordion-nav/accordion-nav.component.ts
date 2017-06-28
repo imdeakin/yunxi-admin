@@ -118,12 +118,8 @@ export class AccordionNavComponent implements OnInit {
       items: [
         {
           title: '门店列表',
-          link: '/admin/shop-apply-list'
+          link: '/admin/shop-list'
         },
-        // {
-        //   title: '门店列表',
-        //   link: '/admin/shop-list'
-        // },
         {
           title: '门店订单',
           link: '/admin/shop-order-list'
