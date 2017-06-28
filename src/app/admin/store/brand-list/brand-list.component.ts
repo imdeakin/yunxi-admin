@@ -26,8 +26,8 @@ export class BrandListComponent implements OnInit, DoCheck {
   public curPageIndex = 1;
   public tableList: BrandList[];
   public storeFunction = StoreFunction;
-  public goodsBrandId;
-  public goodsBrandIdOld;
+  public goodsTypeId;
+  public goodsTypeIdOld;
 
   // 模态窗
   public modalShow: boolean = false;
@@ -52,8 +52,8 @@ export class BrandListComponent implements OnInit, DoCheck {
   }
 
   public ngDoCheck(): void {
-    if (this.goodsBrandId !== this.goodsBrandIdOld) {
-      this.goodsBrandIdOld = this.goodsBrandId;
+    if (this.goodsTypeId !== this.goodsTypeIdOld) {
+      this.goodsTypeIdOld = this.goodsTypeId;
       this.getStoreGoodsBrandList(1);
     }
   }
@@ -61,8 +61,8 @@ export class BrandListComponent implements OnInit, DoCheck {
   public ngOnInit(): void {
     // 获取路由参数
     this.activatedRoute.params
-      .switchMap((params: Params) => params['goodsBrandId'])
-      .subscribe((goodsBrandId: string) => this.goodsBrandId = goodsBrandId);
+      .switchMap((params: Params) => params['goodsTypeId'])
+      .subscribe((goodsTypeId: string) => this.goodsTypeId = goodsTypeId);
 
     this.computeOnResize();
   }
@@ -81,7 +81,7 @@ export class BrandListComponent implements OnInit, DoCheck {
       this.curPageIndex = curPageIndex;
     }
     this.apiCall.getStoreGoodsBrandList(
-      this.goodsBrandId,
+      this.goodsTypeId,
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {
@@ -116,7 +116,7 @@ export class BrandListComponent implements OnInit, DoCheck {
 
   public addStoreGoodsBrandInfo(): void {
     this.apiCall.addStoreGoodsBrandInfo(
-      this.modalData.goods_type_id,
+      this.goodsTypeId,
       this.modalData.name,
       this.modalData.e_name,
       this.modalData.file_id,
@@ -125,6 +125,7 @@ export class BrandListComponent implements OnInit, DoCheck {
       this.modalData.described,
       () => {
         layer.msg("添加成功");
+        this.getStoreGoodsBrandList(1);
         this.toggleModal();
       },
       () => {
@@ -136,7 +137,7 @@ export class BrandListComponent implements OnInit, DoCheck {
   public updateStoreGoodsBrandInfo(): void {
     this.apiCall.updateStoreGoodsBrandInfo(
       this.modalData.goods_brand_id,
-      this.modalData.goods_type_id,
+      this.goodsTypeId,
       this.modalData.name,
       this.modalData.e_name,
       this.modalData.file_id,
@@ -145,6 +146,7 @@ export class BrandListComponent implements OnInit, DoCheck {
       this.modalData.described,
       () => {
         layer.msg("编辑成功");
+        this.getStoreGoodsBrandList(1);
         this.toggleModal();
       },
       () => {
@@ -153,11 +155,11 @@ export class BrandListComponent implements OnInit, DoCheck {
     )
   }
 
-  public modalSubmit(formData): void {
-    if (this.modalData.goods_brand_id) { // 添加
-      this.addStoreGoodsBrandInfo();
-    } else { // 编辑
+  public modalSubmit(): void {
+    if (this.modalData.goods_brand_id) { // 编辑
       this.updateStoreGoodsBrandInfo();
+    } else { // 添加
+      this.addStoreGoodsBrandInfo();
     }
   }
 }

@@ -311,6 +311,23 @@ html, body {
   text-decoration: underline;
 }
 
+.modal-radio-group {
+  display: inline-block;
+  margin-right: 20px;
+  font-size: 0;
+}
+
+.modal-radio-group label, .modal-radio-group input {
+  float: none;
+  width: auto;
+  line-height: 26px;
+  vertical-align: middle;
+}
+
+.modal-radio-group label {
+  margin-left: 6px;
+}
+
 .modal-btn-group {
   text-align: center;
   font-size: 0;

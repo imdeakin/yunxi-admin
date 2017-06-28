@@ -39,7 +39,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public goodsAttrList;
 
   public editAttrModalShow: boolean = false;
-  public editAttrModalData;
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,

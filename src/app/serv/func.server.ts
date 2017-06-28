@@ -45,9 +45,9 @@ export class FuncServer {
     for (let key in obj) {
       let copy = obj[key];
       if (this.isClass(copy) == "Object") {
-        result[key] = arguments.callee(copy);//递归调用
+        result[key] = this.deepCopy(copy);//递归调用
       } else if (this.isClass(copy) == "Array") {
-        result[key] = arguments.callee(copy);
+        result[key] = this.deepCopy(copy);
       } else {
         result[key] = obj[key];
       }
@@ -60,6 +60,30 @@ export class FuncServer {
     if (o === null) return "Null";
     if (o === undefined) return "Undefined";
     return Object.prototype.toString.call(o).slice(8, -1);
+  }
+
+  // 对象属性清空
+  public emptyObj(obj) {
+    let result, oClass = this.isClass(obj);
+    if (oClass === "Object") {
+      result = {};
+    } else if (oClass === "Array") {
+      result = [];
+    } else {
+      return obj;
+    }
+
+    for (let key in obj) {
+      let copy = obj[key];
+      if (this.isClass(copy) == "Object") {
+        result[key] = this.emptyObj(copy);//递归调用
+      } else if (this.isClass(copy) == "Array") {
+        result[key] = this.emptyObj(copy);
+      } else {
+        result[key] = '';
+      }
+    }
+    return result;
   }
 
   // 支付方式选项组

@@ -716,6 +716,173 @@ export class ApiCall {
   }
 
   /**
+   * 获取商品类型参数列表
+   * @param goodsTypeId 类型Id
+   * @param isSku 是否销售 0 否 1 是
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsTypeAttrList(goodsTypeId, isSku, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsTypeAttrList,
+      data: {
+        goodsTypeId: goodsTypeId,
+        isSku: isSku
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 添加商品类型参数
+   * @param goodsTypeId 类型Id
+   * @param name 参数名称
+   * @param isSku 是否销售  0 否 1 是
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
+  public addStoreGoodsTypeAttr(goodsTypeId, name, isSku, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsTypeAttr,
+      data: {
+        goodsTypeId: goodsTypeId,
+        name: name,
+        isSku: isSku,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品类型参数
+   * @param paramId 参数Id
+   * @param goodsTypeId 类型Id
+   * @param name 参数名称
+   * @param isSku 是否销售  0 否 1 是
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsTypeAttr(paramId, goodsTypeId, name, isSku, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsTypeAttr,
+      data: {
+        paramId: paramId,
+        goodsTypeId: goodsTypeId,
+        name: name,
+        isSku: isSku,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 删除商品类型参数
+   * @param paramId 商品类型参数ID
+   * @param success
+   * @param failure
+   */
+  public removeStoreGoodsTypeAttr(paramId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoodsTypeAttr,
+      data: {
+        paramId: paramId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取商品类型参数值列表
+   * @param goodsTypeId 类型Id
+   * @param isSku 是否销售 0 否 1 是
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsTypeAttrValList(paramId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsTypeAttrValList,
+      data: {
+        paramId: paramId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 添加商品类型参数值
+   * @param paramId 参数Id
+   * @param goodsTypeId 类型Id
+   * @param value 值内容
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
+  public addStoreGoodsTypeAttrVal(paramId, goodsTypeId, value, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsTypeAttrVal,
+      data: {
+        paramId: paramId,
+        goodsTypeId: goodsTypeId,
+        value: value,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品类型参数值
+   * @param valueId 参数值Id
+   * @param paramId 参数Id
+   * @param goodsTypeId 类型Id
+   * @param value 值内容
+   * @param sort 排序
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsTypeAttrVal(valueId, paramId, goodsTypeId, value, sort, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsTypeAttrVal,
+      data: {
+        valueId: valueId,
+        paramId: paramId,
+        goodsTypeId: goodsTypeId,
+        value: value,
+        sort: sort
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 删除商品类型参数值
+   * @param valueId 商品类型参数值ID
+   * @param success
+   * @param failure
+   */
+  public removeStoreGoodsTypeAttrVal(valueId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoodsTypeAttrVal,
+      data: {
+        valueId: valueId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
    * 获取商品品牌列表
    * @param curPageIndex
    * @param pageSize

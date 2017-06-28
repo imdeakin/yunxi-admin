@@ -81,6 +81,18 @@ export class ApiConfig {
     updateStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/saveMallGoodsType', // 更新商品类型信息
     removeStoreGoodsTypeInfo: this.root + '/brandGoodsTypeManage/delMallGoodsType', // 删除商品类型信息
 
+    // 商品类型参数
+    getStoreGoodsTypeAttrList: this.root + '/brandGoodsTypeManage/mllGoodsParamList', // 获取商品类型参数列表
+    addStoreGoodsTypeAttr: this.root + '/brandGoodsTypeManage/saveMllGoodsParam', // 添加商品类型参数
+    updateStoreGoodsTypeAttr: this.root + '/brandGoodsTypeManage/saveMllGoodsParam', // 更新商品类型参数
+    removeStoreGoodsTypeAttr: this.root + '/brandGoodsTypeManage/delMllGoodsParam', // 删除商品类型参数
+
+    // 商品类型参数值
+    getStoreGoodsTypeAttrValList: this.root + '/brandGoodsTypeManage/mllGoodsParamValueList', // 获取商品类型参数列表
+    addStoreGoodsTypeAttrVal: this.root + '/brandGoodsTypeManage/saveMllGoodsParamValue', // 添加商品类型参数
+    updateStoreGoodsTypeAttrVal: this.root + '/brandGoodsTypeManage/saveMllGoodsParamValue', // 更新商品类型参数
+    removeStoreGoodsTypeAttrVal: this.root + '/brandGoodsTypeManage/delMllGoodsParamValue', // 删除商品类型参数
+
     // 商品品牌
     getStoreGoodsBrandList: this.root + '/brandGoodsTypeManage/mallGoodsBrandList', // 获取商品品牌列表
     addStoreGoodsBrandInfo: this.root + '/brandGoodsTypeManage/saveMllGoodsBrand', // 添加商品品牌信息

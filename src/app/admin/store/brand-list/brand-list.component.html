@@ -22,9 +22,9 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.typeName}}</td>
+            <td>{{item.type_name}}</td>
             <td>{{item.name}}</td>
-            <td>{{item.eName}}</td>
+            <td>{{item.e_name}}</td>
             <td><img src="{{item.path}}"></td>
             <td>{{item.url}}</td>
             <td>

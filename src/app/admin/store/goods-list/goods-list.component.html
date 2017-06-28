@@ -161,13 +161,13 @@
 <!--基本参数的添加或编辑-->
 <div class="modal-wrapper" [class.hidden]="!editAttrModalShow">
   <div class="modal-con">
-    <div class="modal-loading" *ngIf="!editAttrModalData">
+    <div class="modal-loading" *ngIf="!(editInfoModalData && storeGoodsTypeOptions && storeGoodsBrandOptions)">
       <i class="icon-font">&#xe64b;</i>
     </div>
     <div class="modal-close" (click)="toggleModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
-    <template [ngIf]="editAttrModalData">
+    <template [ngIf]="editInfoModalData && storeGoodsTypeOptions && storeGoodsBrandOptions">
       <h3 class="modal-title">基本参数</h3>
       <form class="modal-form">
         <div class="modal-input-group">
