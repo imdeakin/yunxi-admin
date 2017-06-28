@@ -1,11 +1,27 @@
 .modal-con {
   width: 860px;
-  height: 400px;
+  height: 420px;
   margin-left: -430px;
-  margin-top: -200px;
+  margin-top: -210px;
 }
 .modal-half-right{
   position:absolute;
   top:52px;
   right:50px;
+}
+.modal-wrapper table{
+  width:800px;
+  margin:20px auto;
+}
+.modal-wrapper table td{
+  width:20%;
+  text-align: center;
+}
+.modal-wrapper table tr{
+  height:30px;
+  line-height: 30px;
+}
+.modal-wrapper .yearMonths{
+  width:240px;
+  margin:10px auto;
 }

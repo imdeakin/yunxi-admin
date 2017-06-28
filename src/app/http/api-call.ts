@@ -28,6 +28,7 @@ export class ApiCall {
         }
       }
     };
+    console.log(opts);
     this.apiRequest.post(opts);
   }
 
@@ -449,6 +450,23 @@ export class ApiCall {
     })
   }
 
+  //会员统计表
+  public getStatisticsData(userId:string,type:string,years:string,months:string,success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.getStatisticsData,
+      data:{
+        userId:userId,
+        type:type,
+        years:years,
+        months:months,
+      },
+      success:success,
+      failure:failure
+    })
+
+  }
+
+
   /**
    * 获取合伙人列表
    * @param sn 合伙人编号
@@ -604,6 +622,89 @@ export class ApiCall {
       url: this.apiConfig.paths.removeStoreGoods,
       data: {
         userStoreGoodsId: userStoreGoodsId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //门店列表
+  public getMallSshopList(mobile: string,status:string,curPageIndex:number,perPageSize:number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getMallSshopList,
+      data: {
+        mobile: mobile,
+        status:status,
+        index:curPageIndex,
+        pageSize:perPageSize
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //获取门店详情
+  public getMallShop(shopId:String,success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.getMallShop,
+      data:{
+        shopId:shopId
+      },
+      success: success,
+      failure: failure
+    })
+  }
+
+  //修改门店状态
+  public updateMallShopStatus(shopId: string,status:string, success, failure?): void {
+    this.apiCall({
+      url:this.apiConfig.paths.updateMallShopStatus,
+      data: {
+        shopId: shopId,
+        status:status,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //获取门店订单列表
+  public getMallShopServiceOrderList(sn:string,userMobile:string,status:string,curPageIndex:number,perPageSize:number,success,failure?){
+     this.apiCall({
+      url: this.apiConfig.paths.getMallShopServiceOrderList,
+      data: {
+        sn:sn,
+        userMobile:userMobile,
+        status:status,
+        index:curPageIndex,
+        pageSize:perPageSize
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //获取门店详情
+  public getMallShopServiceOrder(shopServiceOrderId:string,success,failure?){
+     this.apiCall({
+      url: this.apiConfig.paths.getMallShopServiceOrder,
+      data: {
+        shopServiceOrderId:shopServiceOrderId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //获取门店服务
+   public getMallShopServiceList(shopId:string,onSale:string,curPageIndex:number,perPageSize:number,success,failure?){
+     this.apiCall({
+      url: this.apiConfig.paths.getMallShopServiceList,
+      data: {
+        shopId:shopId,
+        onSale:onSale,
+        index:curPageIndex,
+        pageSize:perPageSize
       },
       success: success,
       failure: failure
@@ -1235,6 +1336,20 @@ export class ApiCall {
       success: success,
       failure: failure
     });
+  }
+
+  //文案管理
+  public getDocumentList(title:string,curPageIndex:number,perPageSize:number,success,failure?):void{
+      this.apiCall({
+        url:this.apiConfig.paths.getDocumentList,
+        data:{
+          title:title,
+          index:curPageIndex,
+          pageSize:perPageSize
+        },
+        success:success,
+        failure:failure
+      })
   }
 
   public getCarBrandList(brand, curPageIndex, pageSize, success, failure?): void {

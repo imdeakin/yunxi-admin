@@ -7,6 +7,7 @@ import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
 import {RelationList} from '../data-type/relation-list';
 import {UsersFunction} from '../data-type/users-function';
+import { AdminFunc } from '../../../serv/admin.server';
 
 @Component({
   selector: 'relation-list',
@@ -14,14 +15,17 @@ import {UsersFunction} from '../data-type/users-function';
   styleUrls: ['./relation-list.component.css']
 })
 export class RelationListComponent implements OnInit {
-  public title = '推荐关系';
+  public title = '会员推广统计';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList: RelationList[];
   public filterData = {
-    mobile: ''
+    userId:'',
+    type:'1',
+    years:'',
+    months:''
   };
   public usersFunction = UsersFunction;
 
@@ -31,7 +35,8 @@ export class RelationListComponent implements OnInit {
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
               private funcServer: FuncServer,
-              public cityPickerServer: CityPickerServer) {
+              public cityPickerServer: CityPickerServer,
+              public adminFunc:AdminFunc) {
   }
 
   public ngOnInit(): void {
@@ -52,9 +57,9 @@ export class RelationListComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getRelationList(this.filterData.mobile, this.curPageIndex, this.perPageSize, (list, total) => {
-      this.tableList = list;
-      this.total = total;
+    this.apiCall.getStatisticsData(this.filterData.userId,this.filterData.type,this.filterData.userId,this.filterData.months, (data)=> {
+      this.tableList = data;
+      console.log(data);
     });
   }
 

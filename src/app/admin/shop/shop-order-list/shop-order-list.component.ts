@@ -20,67 +20,16 @@ export class ShopOrderListComponent implements OnInit {
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList: ShopOrderList[] = [
-    {
-      code: '380117778299',
-      mobile: '18174666666',
-      server: '张三',
-      pay_type: 0,
-      price: 99,
-      region_name: '440000/440100',
-      create_time: '2017-12-20 12:50:55',
-      pay_time: '2017-12-21 12:50:55',
-      status: 1
-    },
-    {
-      code: '380117778299',
-      mobile: '18174666666',
-      server: '张三',
-      pay_type: 0,
-      price: 99,
-      region_name: '440000/440100',
-      create_time: '2017-12-20 12:50:55',
-      pay_time: '2017-12-21 12:50:55',
-      status: 1
-    },
-    {
-      code: '380117778299',
-      mobile: '18174666666',
-      server: '张三',
-      pay_type: 0,
-      price: 99,
-      region_name: '440000/440100',
-      create_time: '2017-12-20 12:50:55',
-      pay_time: '2017-12-21 12:50:55',
-      status: 2
-    },
-    {
-      code: '380117778299',
-      mobile: '18174666666',
-      server: '张三',
-      pay_type: 0,
-      price: 99,
-      region_name: '440000/440100',
-      create_time: '2017-12-20 12:50:55',
-      pay_time: '2017-12-21 12:50:55',
-      status: 1
-    },
-    {
-      code: '380117778299',
-      mobile: '18174666666',
-      server: '张三',
-      pay_type: 0,
-      price: 99,
-      region_name: '440000/440100',
-      create_time: '2017-12-20 12:50:55',
-      pay_time: '2017-12-21 12:50:55',
-      status: 1
-    }
   ];
   public filterData = {
-    code: '',
+    sn: '',
     status: '',
-    regionId: ''
+    userMobile: ''
   };
+
+  public modalData = { 
+
+  }
 
   public shopFunction = ShopFunction;
 
@@ -92,7 +41,7 @@ export class ShopOrderListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getMallShopServiceOrderList();
   }
 
   public computeOnResize() {
@@ -104,18 +53,33 @@ export class ShopOrderListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getMallShopServiceOrderList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getMallShopServiceOrderList(this.filterData.sn, this.filterData.status, this.filterData.userMobile, this.curPageIndex, this.perPageSize, (list, total) => {
+      this.tableList = list;
+      console.log(list);
+      this.total = total;
+    });
+  }
+
+  public getMallShopServiceOrder(shopServiceOrderId):void{
+      this.apiCall.getMallShopServiceOrder(shopServiceOrderId,(data)=>{
+          this.modalData = data;
+          console.log(1)
+          console.log(this.modalData);
+      })
   }
 
   // 模态窗
-  public toggleModal(): void {
+  public toggleModal(item?): void {
     this.modalShow = !this.modalShow;
+    if(item){
+        this.getMallShopServiceOrder(item.shop_service_order_id)
+    }
+    if(!this.modalShow){
+        this.modalData = {};
+    }
   }
 }

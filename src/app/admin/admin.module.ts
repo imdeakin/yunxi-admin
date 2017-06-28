@@ -6,6 +6,7 @@ import {AdminRoutingModule} from './admin-routing.module';
 import {Ng2PaginationModule} from "ng2-pagination";
 import {AdminComponent} from './admin.component';
 
+
 import {
   HeadBarComponent,
   AccordionNavComponent,
@@ -15,7 +16,8 @@ import {
   CityPickerServer,
   ImgUploadComponent,
   ProvinceComponent,
-  InsurerComponent
+  InsurerComponent,
+  WatchBoxComponent,
 } from '../com';
 
 
@@ -100,6 +102,7 @@ import {
     ImgUploadComponent,
     ProvinceComponent,
     InsurerComponent,
+    WatchBoxComponent,
     // 工作台
     BarGraphPageComponent,
     WorkbenchPageComponent,

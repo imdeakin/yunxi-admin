@@ -82,13 +82,13 @@ export class ShopFunction {
   public static getShopApplyStatusText(code: number): string {
     let text: string;
     switch (code) {
-      case -1:
-        text = '不通过';
-        break;
-      case 0:
+      case 1:
         text = '待审核';
         break;
-      case 1:
+      case 2:
+        text = '不通过';
+        break;
+      case 3:
         text = '通过';
         break;
       default:

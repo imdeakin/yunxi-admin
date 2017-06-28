@@ -60,7 +60,7 @@
           </tr>
           </tbody>
         </table>
-        <pagination-controls (pageChange)="curPageIndex = $event" previousLabel="上一页"
+        <pagination-controls *ngIf="tableList?.length" (pageChange)="getCanWeiZhangList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>
@@ -115,10 +115,6 @@
             <div class="modal-input-group">
               <label>驾驶证条形二维码URL：</label>
               <input type="file" name="twoCodeUrl" id="twoCodeUrl" class="modal-file">
-            </div>
-            <div class="modal-input-group">
-              <label>test：</label>
-              <img-upload (resultData)="imgData = $event"></img-upload>
             </div>
             <div class="modal-input-group">
               <label>行驶证URL：</label>

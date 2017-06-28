@@ -8,88 +8,38 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {ShopFunction} from '../data-type/shop-function';
 import {ShopApplyList} from '../data-type/shop-apply-list';
 
+declare let layer: any;
+
 @Component({
   selector: 'shop-apply-list',
   templateUrl: './shop-apply-list.component.html',
   styleUrls: ['./shop-apply-list.component.css']
 })
 export class ShopApplyListComponent implements OnInit {
-  public title = '门店申请';
+  public title = '门店列表';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: ShopApplyList[] = [
-    {
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person: '张三',
-      legal_person_mobile: '18174666666',
-      create_time: '2017-12-20 12:50:55',
-      status: 1
-    },
-    {
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person: '张三',
-      legal_person_mobile: '18174666666',
-      create_time: '2017-12-20 12:50:55',
-      status: 1
-    },
-    {
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person: '张三',
-      legal_person_mobile: '18174666666',
-      create_time: '2017-12-20 12:50:55',
-      status: 1
-    },
-    {
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person: '张三',
-      legal_person_mobile: '18174666666',
-      create_time: '2017-12-20 12:50:55',
-      status: 1
-    },
-    {
-      mobile: '18174666666',
-      name: '张三',
-      region_name: '440000/440100',
-      shop_name: '哇哈哈',
-      business_scope: '饮料',
-      legal_person: '张三',
-      legal_person_mobile: '18174666666',
-      create_time: '2017-12-20 12:50:55',
-      status: 1
-    }
-  ];
+  public tableList: ShopApplyList[] = [];
   public filterData = {
     mobile: '',
     status: '',
-    regionId: ''
   };
 
+  public modalData = {
+
+  }
+
   public shopFunction = ShopFunction;
+  public modalShow:boolean = false;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getMallSshopList();
   }
 
   public computeOnResize() {
@@ -101,13 +51,56 @@ export class ShopApplyListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getMallSshopList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getMallSshopList(this.filterData.mobile, this.filterData.status,this.curPageIndex, this.perPageSize, (list, total) => {
+      this.tableList = list;
+      this.total = total;
+    });
+  }
+
+  public getMallShop(shopId):void{
+    this.apiCall.getMallShop(shopId,(data)=>{
+      this.modalData = data;
+      console.log(this.modalData);
+    })
+  }
+
+  public updateMallShopStatus(shopId,status):void{
+    this.apiCall.updateMallShopStatus(shopId,status,(data)=>{
+        this.getMallSshopList(1);
+    })
+  }
+
+  public toggleModal(item?):void{
+    if(item){
+      this.getMallShop(item.shop_id);
+    }
+    this.modalShow = !this.modalShow;
+    if(!this.modalShow){
+      this.modalData = {};
+    }
+  }
+  
+  // 核验弹窗
+  public verificationConfirm(item): void {
+    if(item){
+        let index = layer.confirm(
+        '请选择核验结果',
+        {
+          title: '核验',
+          btn: ["通过", "不通过"]
+        },
+        () => {
+          this.updateMallShopStatus(item.shop_id,3);
+          layer.close(index);
+        },
+        () => {
+          // this.updateMallShopStatus(adminId, item.sn, this.curOrderType, 0);
+        }
+      )
+    }
   }
 }

@@ -43,7 +43,7 @@ export class cantWeizhangComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getCanWeiZhangList();
+    this.getCantWeiZhangList();
   }
 
   public computeOnResize() {
@@ -63,7 +63,7 @@ export class cantWeizhangComponent implements OnInit {
    * 获取不可办理违章列表
    */
   
-  public getCanWeiZhangList(curPageIndex?): void {
+  public getCantWeiZhangList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
@@ -77,14 +77,14 @@ export class cantWeizhangComponent implements OnInit {
   public setOrderMoneyAndServiceFee():void{
       this.apiCall.setOrderMoneyAndServiceFee(this.modalData.orderId,this.modalData.punishMoney,this.modalData.serviceFee,(data)=>{
           this.toggleEditModal();
-          this.getCanWeiZhangList();
+          this.getCantWeiZhangList();
       })
   }
 
   //办理不可办理
   public comfirmOrderOfDoing(orderId):void{
       this.apiCall.comfirmOrderOfDoing(orderId,(data)=>{
-           this.getCanWeiZhangList();
+           this.getCantWeiZhangList();
       })
   }
 
@@ -92,7 +92,7 @@ export class cantWeizhangComponent implements OnInit {
 
   public comfirmOrderOfFinish(orderId):void{
       this.apiCall.comfirmOrderOfFinish(orderId,(data)=>{
-           this.getCanWeiZhangList();
+           this.getCantWeiZhangList();
       })
   }
   //模拟窗
@@ -120,7 +120,7 @@ export class cantWeizhangComponent implements OnInit {
           this.setOrderMoneyAndServiceFee()
       }else{
           this.toggleEditModal();
-          this.getCanWeiZhangList();
+          this.getCantWeiZhangList();
       }
 
   }

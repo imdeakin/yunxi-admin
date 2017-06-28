@@ -30,14 +30,14 @@
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{item.title}}</td>
-            <td>{{item.content}}</td>
+            <td class="item-content">{{item.content}}</td>
             <td>{{systemFunction.getArticleTypeText(item.type)}}</td>
             <td>{{item.create_time}}</td>
             <td>{{item.author}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);">查看</a>
-                <a class="table-btn" href="javascript:void(0);">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);">删除</a>
               </div>
             </td>
@@ -47,6 +47,66 @@
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
         <pagination-controls  (pageChange)="getYoukaUserList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
       </div>
+    </div>
+  </div>
+</div>
+<!--查看-->
+<div class="modal-wrapper" [class.hidden]="!modalShow">
+  <div class="modal-con">
+    <h3 class="modal-title">订单详情</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+        <div class="modal-detail-item">
+          <label>标题</label>
+          <div class="value">{{filterData.title}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>作者</label>
+          <div class="value">{{filterData.author}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>内容</label>
+          <div class="value modalContent">{{filterData.content}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-btn-group">
+      <button (click)="toggleModal()">关闭</button>
+    </div>
+    <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<!--编辑-->
+<div class="modal-wrapper" [class.hidden]="!modalEditShow">
+  <div class="modal-con">
+    <h3 class="modal-title">订单详情</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+        <div class="modal-input-group">
+          <label>标题</label>
+          <input class="value" [(ngModel)]="filterData.title">
+        </div>
+        <div class="modal-input-group">
+          <label>作者</label>
+          <input class="value" [(ngModel)]="filterData.author">
+        </div>
+        <div class="modal-input-group">
+          <label>类型</label>
+          <input class="value" [(ngModel)]="filterData.type">
+        </div>
+        <div class="modal-input-group">
+          <label>内容</label>
+          <textarea id="editContent" [(ngModel)]="filterData.content"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-btn-group">
+      <button (click)="toggleModal()">关闭</button>
+    </div>
+    <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
 </div>

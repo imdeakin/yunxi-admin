@@ -1,6 +1,13 @@
 .modal-con {
   width: 460px;
-  height: 680px;
+  height: 600px;
   margin-left: -230px;
-  margin-top: -340px;
+  margin-top: -300px;
+}
+.modal-input-group {
+    font-size: 16px;
+    padding-bottom:10px; 
+}
+.manager-table tbody td{
+  padding:0 2px;
 }

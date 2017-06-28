@@ -32,6 +32,7 @@ export class ImgUploadComponent {
 
   public changeImg(file): void {
     let btn = file.nextSibling.nextSibling;
+    console.log(btn);
     btn.click();
   }
 

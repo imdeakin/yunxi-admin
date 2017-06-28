@@ -85,7 +85,6 @@ export class YoukaOrderComponent implements OnInit {
     }
     this.apiCall.getYoukaOrderList(this.filterData.sn,this.filterData.oilCard, this.filterData.tradeMode, this.filterData.oilPackageId, this.filterData.status,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-       console.log(list);
       this.total = total;
     });
   }
@@ -110,6 +109,7 @@ export class YoukaOrderComponent implements OnInit {
   public toggleModal(data?): void {
     this.modalShow = !this.modalShow;
      if(data){
+       console.log(data);
        this.filterData = {
           oilPackageId:data.oil_package_id,
           sn:data.sn,
@@ -127,6 +127,24 @@ export class YoukaOrderComponent implements OnInit {
           modifyTime:data.modify_time,
           oilCardId:data.oil_card_id
       };
+    }else{
+      this.filterData = {
+          oilPackageId:0,
+          sn:'',
+          oilCard: '',
+          price:'',
+          mobile:'',
+          totalPeriods:'',
+          usedPeriods:'',
+          payTime:'',
+          amount:0,
+          classify: 0,
+          described:'',
+          status:0,
+          tradeMode: '',
+          modifyTime:'',
+          oilCardId:'',
+        };
     }
   }
 }

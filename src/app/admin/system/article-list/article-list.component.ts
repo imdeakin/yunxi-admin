@@ -8,13 +8,16 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {SystemFunction} from '../data-type/system-function';
 import {ArticleList} from '../data-type/article-list';
 
+declare var tinymce: any;
+
+
 @Component({
   selector: 'article-list',
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.css']
 })
 export class ArticleListComponent implements OnInit {
-  public title = '方案管理';
+  public title = '文案管理';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
@@ -50,11 +53,16 @@ export class ArticleListComponent implements OnInit {
     }
   ];
   public filterData = {
-    title: ''
+    title: '',
+    content:'',
+    author:'',
+    type:0
   };
 
   public systemFunction = SystemFunction;
-
+  
+  public modalShow:boolean = false;
+  public modalEditShow:boolean = false;
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
 
@@ -76,9 +84,52 @@ export class ArticleListComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    // this.apiCall.getYoukaOrderList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
-    //   this.tableList = list;
-    //   this.total = total;
-    // });
+    this.apiCall.getDocumentList(this.filterData.title,this.curPageIndex, this.perPageSize, (list, total) => {
+      this.tableList = list;
+      console.log(list);
+      this.total = total;
+    });
   }
+
+  public toggleModal(item?):void{
+      this.modalShow = !this.modalShow;
+      if(item){
+        this.filterData ={
+          title:item.title,
+          content:item.content,
+          author:item.author,
+          type:item.type
+        }
+      }
+
+  }
+
+  public toggleEditModal(item?){
+      this.modalEditShow = !this.modalEditShow;
+      this.initEditor();
+       this.filterData ={
+          title:item.title,
+          content:item.content,
+          author:item.author,
+          type:item.type
+        }
+  }
+
+  initEditor() {  
+   tinymce.init({  
+     selector: '#editContent',  
+     language: 'zh_CN',  
+     plugins: [  
+       'advlist autolink lists link charmap print preview hr anchor pagebreak media',  
+       'searchreplace wordcount visualblocks visualchars code fullscreen ',  
+       'insertdatetime nonbreaking save table contextmenu directionality ',  
+       'paste textcolor colorpicker textpattern'  
+     ],  
+     toolbar1: ' fullscreen insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link ',  
+     toolbar2: 'print preview | forecolor backcolor media ',  
+     height:"480",  
+     image_advtab: true,  
+     menubar: true,  
+   });  
+ }  
 }

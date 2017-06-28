@@ -27,10 +27,9 @@
           <tr>
             <th>订单编号</th>
             <th>买家账号</th>
-            <th>服务</th>
+            <th>门店名称</th>
             <th>付款方式</th>
             <th>金额</th>
-            <th>所属地区</th>
             <th>下单时间</th>
             <th>付款时间</th>
             <th>状态</th>
@@ -40,25 +39,24 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.code}}</td>
+            <td>{{item.sn}}</td>
             <td>{{item.mobile}}</td>
-            <td>{{item.server}}</td>
-            <td>{{shopFunction.getPayTypeText(item.pay_type)}}</td>
-            <td>{{item.price}}</td>
-            <td>{{item.region_name}}</td>
+            <td>{{item.shop_name}}</td>
+            <td>{{shopFunction.getPayTypeText(item.trade_code)}}</td>
+            <td>{{item.total_price}}</td>
             <td>{{item.create_time}}</td>
             <td>{{item.pay_time}}</td>
             <td>{{shopFunction.getOrderStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal()">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">查看</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls  (pageChange)="getYoukaUserList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls  (pageChange)="getMallShopServiceOrderList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>
@@ -70,51 +68,39 @@
       <div class="modal-detail-content">
         <div class="modal-detail-item">
           <label>订单编号</label>
-          <div class="value">65456453135</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>服务编号</label>
-          <div class="value">4846465</div>
+          <div class="value">{{modalData.sn}}</div>
         </div>
         <div class="modal-detail-item">
           <label>买家账号</label>
-          <div class="value">1546335465</div>
+          <div class="value">{{modalData.mobile}}</div>
         </div>
         <div class="modal-detail-item">
-          <label>所属地区</label>
-          <div class="value">广州</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>门店名称</label>
-          <div class="value">哇哈哈</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>服务</label>
-          <div class="value">洗车8折卡</div>
+          <label>服务名称</label>
+          <div class="value">{{modalData.service_name}}</div>
         </div>
         <div class="modal-detail-item">
           <label>服务详情</label>
-          <div class="value">洗车全时间段8折卡</div>
+          <div class="value">{{modalData.service_details}}</div>
         </div>
         <div class="modal-detail-item">
           <label>下单时间</label>
-          <div class="value">2011-5-5 20：22：20</div>
+          <div class="value">{{modalData.sn}}</div>
         </div>
         <div class="modal-detail-item">
           <label>付款时间</label>
-          <div class="value">2011-5-5 20：22：20</div>
+          <div class="value">{{modalData.pay_time}}</div>
         </div>
         <div class="modal-detail-item">
           <label>付款方式</label>
-          <div class="value">支付宝</div>
+          <div class="value">{{shopFunction.getPayTypeText(modalData.trade_mode)}}</div>
         </div>
         <div class="modal-detail-item">
           <label>金额</label>
-          <div class="value">200</div>
+          <div class="value">{{modalData.actual_price}}</div>
         </div>
         <div class="modal-detail-item">
           <label>状态</label>
-          <div class="value">已付款</div>
+          <div class="value">{{shopFunction.getOrderStatusText(modalData.status)}}</div>
         </div>
       </div>
     </div>
