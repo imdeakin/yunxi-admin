@@ -50,7 +50,7 @@
             <td>{{shopFunction.getShopStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal()">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleReadDetailModal(item)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="checkShop(item.shop_id)" *ngIf="item.status === 1">核验</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal()" *ngIf="item.status === 3">收益</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal()">服务</a>

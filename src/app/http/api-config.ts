@@ -118,7 +118,7 @@ export class ApiConfig {
      */
 
     // 管理员-门店列表
-    getAdminShopList: this.root + '/adminShop/mallShopList', // 获取门店列表
+    getAdminShopList: this.root + '/adminShop/mallSshopList', // 获取门店列表
     getAdminShopInfo: this.root + '/adminShop/getMallShop', // 获取门店详情
     updateAdminShopStatus: this.root + '/adminShop/updateMallShopStatus', // 修改门店状态
 
