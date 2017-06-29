@@ -4,17 +4,26 @@ import Cookies from 'cookies-js';
 
 @Injectable()
 export class AdminFunc {
-  constructor(private rc4server: Rc4Server) {
+  public adminInfoKey = 'admin';
+
+  constructor(private rc4Server: Rc4Server) {
+  }
+
+  public saveAdminInfo(adminInfo): void {
+    Cookies.set(this.adminInfoKey, this.rc4Server.encrypt(adminInfo));
   }
 
   public getAdminInfo(): {} {
-    let cKey = 'admin';
-    let cStr = Cookies.get(cKey);
-    return this.rc4server.decrypt(cStr, true);
+    let info = Cookies.get(this.adminInfoKey);
+    return this.rc4Server.decrypt(info, true);
   }
 
   public getAdminId(): string {
     let adminInfo = this.getAdminInfo();
+<<<<<<< HEAD
     return adminInfo['admin_id']
+=======
+    return adminInfo['admin_id'];
+>>>>>>> 0fee90ab6edca0762e4cd2126cc9fa62824c3ab2
   }
 }

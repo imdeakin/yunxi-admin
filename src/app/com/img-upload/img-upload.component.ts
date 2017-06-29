@@ -52,6 +52,7 @@ export class ImgUploadComponent implements DoCheck {
     }
   }
 
+<<<<<<< HEAD
   // public changeImg(file): void {
   //   console.log(file);
   //   let btn = file.nextSibling.nextSibling;
@@ -81,6 +82,11 @@ export class ImgUploadComponent implements DoCheck {
         //     )
     let formData = new FormData($("#uploadFile")[0])
     this.upload(formData);
+=======
+  public changeImg(e): void {
+    this.file = e.target.files[0];
+    this.modalSubmit();
+>>>>>>> 0fee90ab6edca0762e4cd2126cc9fa62824c3ab2
   }
 
   public upload(formData){
@@ -132,6 +138,7 @@ export class ImgUploadComponent implements DoCheck {
 
 
   public modalSubmit(): void {
+<<<<<<< HEAD
     console.log(this.files);
     // let adminId = this.adminFunc.getAdminId();
     // console.log(adminId)
@@ -142,6 +149,17 @@ export class ImgUploadComponent implements DoCheck {
     //   adminId,
     // }
     // this.upload(adminId,formData);
+=======
+    let adminId = this.adminFunc.getAdminId();
+
+    let formData = new FormData();
+    formData.append('adminId', adminId);
+    formData.append('file', this.file);
+
+    this.apiCall.uploadFile(formData, (list) => {
+      console.log(list[0]);
+    });
+>>>>>>> 0fee90ab6edca0762e4cd2126cc9fa62824c3ab2
   }
 
   // public upload(adminId,data):Observable<any>{

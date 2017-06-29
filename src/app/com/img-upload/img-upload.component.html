@@ -1,16 +1,19 @@
 <div class="img-upload">
-<<<<<<< HEAD
   <ul id="imgList">
     <li><img src="" alt=""></li>
     <li><img src="" alt=""></li>
   </ul>
   <div class="btn-upload">
     +
+<<<<<<< HEAD
     <form id="{{formId}}" method="post" [action]="Url" enctype="multipart/form-data" name="fileInfo" #fileForm="ngForm"
           (ngSubmit)="modalSubmit(fileForm.value)">
       <input type="text" name="adminId" [(ngModel)]="adminId" hidden>
       <input type="file" name="file" (change)="changeImg($event.target.file)" >
       <button type="submit">上传</button>
     </form>
+=======
+    <input type="file" name="file" #file (change)="changeImg($event)">
+>>>>>>> 0fee90ab6edca0762e4cd2126cc9fa62824c3ab2
   </div>
 </div>

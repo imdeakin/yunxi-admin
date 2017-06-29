@@ -6,6 +6,8 @@ import {Router} from '@angular/router'
 
 import {ApiCall} from '../http/api-call'
 import {Rc4Server} from '../serv/rc4.server'
+import {AdminFunc} from '../serv/admin.server'
+
 import Cookies from 'cookies-js'
 
 @Component({
@@ -22,7 +24,10 @@ export class LoginComponent implements OnInit {
     password: ''
   };
 
-  constructor(private apiCall: ApiCall, private rc4Server: Rc4Server, private router: Router) {
+  constructor(private apiCall: ApiCall,
+              private rc4Server: Rc4Server,
+              private adminFunc: AdminFunc,
+              private router: Router) {
   }
 
   public ngOnInit(): void {
@@ -36,10 +41,9 @@ export class LoginComponent implements OnInit {
   public login(): void {
     let account = this.formData.account;
     let psw = this.rc4Server.encrypt(this.formData.password);
-    // let psw = this.formData.password;
     this.apiCall.login(account, psw, (data) => {
       this.saveLoginInfo();
-      this.saveAdminInfo(data);
+      this.adminFunc.saveAdminInfo(data);
       this.router.navigateByUrl('/admin/workbench');
     });
   }
@@ -65,9 +69,5 @@ export class LoginComponent implements OnInit {
       this.remember = true;
       this.formData = loginInfo;
     }
-  }
-
-  public saveAdminInfo(adminInfo): void {
-    Cookies.set(this.adminInfoKey, this.rc4Server.encrypt(adminInfo));
   }
 }
