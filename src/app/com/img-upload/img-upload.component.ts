@@ -46,7 +46,7 @@ export class ImgUploadComponent {
     formData.append('file', this.file);
 
     this.apiCall.uploadFile(formData, (list) => {
-      this.resultUrl = list[0].url;
+      this.resultUrl.emit(list[0].url);
       if(list){
         let img = $("<img>");
         let div = $("<div></div>").css({"display": "inline-block",
