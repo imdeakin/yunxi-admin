@@ -19,12 +19,12 @@ export class ImgUploadComponent {
   @Output() public resultUrl: EventEmitter<any> = new EventEmitter();
   @Input() public src: string = '';
   @Input() public file_id: string = '';
-  @Input() public num:number=0;
 
   public path: string = '';
   public showForm: boolean = false;
   public type = '';
   public file;
+  public num;
 
   public formId = "fileUploadFrom";
 
@@ -41,6 +41,7 @@ export class ImgUploadComponent {
 
   public modalSubmit(): void {
     let adminId = this.adminFunc.getAdminId();
+
     let formData = new FormData();
     formData.append('adminId', adminId);
     formData.append('file', this.file);
@@ -78,6 +79,5 @@ export class ImgUploadComponent {
         div.appendTo($('.imgList')[this.num])
       }
     });
-
   }
 }

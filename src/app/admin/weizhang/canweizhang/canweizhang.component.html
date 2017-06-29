@@ -110,27 +110,28 @@
             </div>
             <div class="modal-input-group">
               <label>车辆登记证书URL：</label>
-              <img-upload [num]="0"  (resultUrl)="modalData.CheliangZhengShu = $event"></img-upload>
+              <img-upload></img-upload>
+              <!--<input type="file" name="carUrl"  id="carUrl" class="modal-file">-->
             </div>
             <div class="modal-input-group">
               <label>驾驶证条形二维码URL：</label>
-              <img-upload [num]="1" (resultUrl)="modalData.QRCode = $event"></img-upload>
+              <input type="file" name="twoCodeUrl" id="twoCodeUrl" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label>行驶证URL：</label>
-              <img-upload [num]="2" (resultUrl)="modalData.DrivingUrl = $event"></img-upload>
+              <input type="file" name="carDriveUrl" id="carDriveUrl" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label>行驶证副页URL</label>
-              <img-upload [num]="3" (resultUrl)="modalData.DrivingSecondUrl = $event"></img-upload>
+              <input type="file" name="carDriveUrlBreak" id="carDriveUrlBreak" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label>驾驶证URL</label>
-              <img-upload [num]="4" (resultUrl)="modalData.DrivingUrl = $event"></img-upload>
+              <input type="file" name="driveUrl" id="driveUrl" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label>驾驶证副页URL</label>
-              <img-upload [num]="5" (resultUrl)="modalData.DrivingSecondUrl = $event"></img-upload>
+              <input type="file" name="driveUrlBreak" id="driveUrlBreak" class="modal-file">
             </div>
             <div class="modal-input-group">
               <label class="modal-msg">车主收到的短信验证码</label>

@@ -6,7 +6,6 @@ import {AdminRoutingModule} from './admin-routing.module';
 import {Ng2PaginationModule} from "ng2-pagination";
 import {AdminComponent} from './admin.component';
 
-
 import {
   HeadBarComponent,
   AccordionNavComponent,

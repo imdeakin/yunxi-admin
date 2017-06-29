@@ -68,6 +68,7 @@ export class PartnerFunction {
         break;
       case 2:
         text = "复核"
+        break;
       default:
         text = '未知'
     }

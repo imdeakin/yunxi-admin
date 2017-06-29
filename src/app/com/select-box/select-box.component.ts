@@ -72,10 +72,17 @@ export class SelectBoxComponent implements OnInit, DoCheck {
 
   public init(): void {
 
-    if (this.options && this.options instanceof Array) {
+    if (this.options instanceof Array) {
 
-      if (this.first && this.options[0] && this.options[0].value !== this.first.value) {
-        this.options.splice(0, 0, this.first);
+      if (this.first) {
+        if (this.options[0]) {
+          if (this.options[0].value !== this.first.value) {
+            this.options.splice(0, 0, this.first);
+          }
+        } else {
+          this.options[0] = this.first;
+        }
+        console.log(this.options);
       }
 
       // this.updateListScroll();
@@ -165,5 +172,9 @@ export class SelectBoxComponent implements OnInit, DoCheck {
     this.curText = item.text;
     this.active = false;
     this.optionSelect.emit(item.value);
+  }
+
+  public clickInput(): void {
+    this.active = !this.active;
   }
 }

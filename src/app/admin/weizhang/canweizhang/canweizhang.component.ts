@@ -5,6 +5,9 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import { weiZhangFunction } from '../date-type/weizhang-function';
+// import { FileUploadModule } from 'ng2-file-upload';
+// import {FileUploader} from "ng2-file-upload";
+import { ApiConfig } from '../../../http/api-config';
 
 @Component({
   selector: 'canweizhang',
@@ -20,36 +23,6 @@ export class canWeizhangComponent implements OnInit {
   public curPageIndex = 1;
   public youkaFunction = weiZhangFunction;
   public tableList = [
-    // {
-    //   account: '18128789828', // 账号
-    //   car_num: '粤A88828', // 车牌号
-    //   fine: '200', // 罚款
-    //   charge: '25', // 服务费
-    //   commission: '20', // 佣金
-    //   amount: '245', // 支付总额
-    //   order_time: '2017-03-03', // 订单时间
-    //   position: '广州' // 所属城市
-    // },
-    // {
-    //   account: '18128789828', // 账号
-    //   car_num: '粤A88828', // 车牌号
-    //   fine: '200', // 罚款
-    //   charge: '25', // 服务费
-    //   commission: '20', // 佣金
-    //   amount: '245', // 支付总额
-    //   order_time: '2017-03-03', // 订单时间
-    //   position: '广州' // 所属城市
-    // },
-    // {
-    //   account: '18128789828', // 账号
-    //   car_num: '粤A88828', // 车牌号
-    //   fine: '200', // 罚款
-    //   charge: '25', // 服务费
-    //   commission: '20', // 佣金
-    //   amount: '245', // 支付总额
-    //   order_time: '2017-03-03', // 订单时间
-    //   position: '广州' // 所属城市
-    // }
   ];
 
   private selDate: string = '';
@@ -104,8 +77,9 @@ public orderConfig={
   }
 
 public imgData:string = '';
-constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
-  }
+
+constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCall: ApiCall, private funcServer: FuncServer) {
+}
 
   public ngOnInit(): void {
     this.computeOnResize();

@@ -47,11 +47,18 @@ export class GoodsListComponent implements OnInit, DoCheck {
   }
 
   public ngDoCheck(): void {
+
+    // 监听所选中的商品类型ID，更新商品品牌列表
     if (this.editInfoModalData && this.editInfoModalData.goods_type_id !== this.modalGoodsTypeId) {
       this.modalGoodsTypeId = this.editInfoModalData.goods_type_id;
-      this.getStoreGoodsBrandList(this.editInfoModalData.goods_type_id);
+      if (this.modalGoodsTypeId !== undefined && this.modalGoodsTypeId !== '') {
+        this.getStoreGoodsBrandList(this.editInfoModalData.goods_type_id);
+      } else {
+        this.storeGoodsBrandOptions = [];
+      }
     }
 
+    // 监听所选中的商品ID，更新商品参数列表
     if (this.editInfoModalData && this.editInfoModalData.goods_id !== this.modalGoodsId) {
       this.modalGoodsId = this.editInfoModalData.goods_id;
       this.getStoreGoodsAttrList(this.modalGoodsId);
@@ -141,15 +148,24 @@ export class GoodsListComponent implements OnInit, DoCheck {
   }
 
   // 模态窗
-  public toggleModal(item?): void {
-    if (item) {
+  public toggleEditInfoModal(item?): void {
+    if (item) { // 传递数据用于编辑
+      this.editInfoModalData = null; // 先清空数据
       this.getStoreGoodsInfo(item.sn);
+    } else if (!this.modalShow) { // 将显示出来用于添加
+      this.editInfoModalData = {
+        goods_type_id: '',
+        goods_brand_id: '',
+        business_name: '',
+        producer: '',
+        on_sale: '',
+        freight: '',
+        described: ''
+      };
     }
+
     this.modalShow = !this.modalShow;
     this.curModalStep = 0;
-    if (!this.modalShow) {
-      this.editInfoModalData = null;
-    }
   }
 
   public nextModal(): void {
