@@ -30,18 +30,21 @@ export class ImgUploadComponent {
               private adminFunc: AdminFunc) {
   }
 
-  public changeImg(file): void {
-    let btn = file.nextSibling.nextSibling;
-    console.log(btn);
-    btn.click();
+  public changeImg(e): void {
+    this.file = e.target.files[0];
+    this.modalSubmit();
   }
 
 
   public modalSubmit(): void {
     let adminId = this.adminFunc.getAdminId();
+
     let formData = new FormData();
-    this.apiCall.uploadFile(adminId, formData, this.type, (data) => {
-      console.log(data);
-    })
+    formData.append('adminId', adminId);
+    formData.append('file', this.file);
+
+    this.apiCall.uploadFile(formData, (list) => {
+      console.log(list[0]);
+    });
   }
 }

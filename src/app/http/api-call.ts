@@ -10,26 +10,22 @@ export class ApiCall {
   }
 
   public apiCall(options): void {
+
     let url = options.url;
-    let data = options.data;
     let success = options.success;
     let failure = options.failure;
-    let opts: ReqOpts = <ReqOpts>{
-      url: url,
-      data: data,
-      success: (data, total) => {
-        success(data, total);
-      },
-      failure: (code, msg) => {
-        console.error('Call api error: ' + url);
-        console.error('Call api error ==> code: ' + code + ', msg: ' + msg);
-        if (failure) {
-          failure(code, msg);
-        }
+    options.success = (data, total) => {
+      success(data, total);
+    };
+    options.failure = (code, msg) => {
+      console.error('Call api error: ' + url);
+      console.error('Call api error ==> code: ' + code + ', msg: ' + msg);
+      if (failure) {
+        failure(code, msg);
       }
     };
-    console.log(opts);
-    this.apiRequest.post(opts);
+
+    this.apiRequest.post(options);
   }
 
   public login(loginName, passWord, success, failure?): void {
@@ -451,17 +447,17 @@ export class ApiCall {
   }
 
   //会员统计表
-  public getStatisticsData(userId:string,type:string,years:string,months:string,success,failure?){
+  public getStatisticsData(userId: string, type: string, years: string, months: string, success, failure?) {
     this.apiCall({
-      url:this.apiConfig.paths.getStatisticsData,
-      data:{
-        userId:userId,
-        type:type,
-        years:years,
-        months:months,
+      url: this.apiConfig.paths.getStatisticsData,
+      data: {
+        userId: userId,
+        type: type,
+        years: years,
+        months: months,
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
 
   }
@@ -629,14 +625,14 @@ export class ApiCall {
   }
 
   //门店列表
-  public getMallSshopList(mobile: string,status:string,curPageIndex:number,perPageSize:number, success, failure?): void {
+  public getMallSshopList(mobile: string, status: string, curPageIndex: number, perPageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getMallSshopList,
       data: {
         mobile: mobile,
-        status:status,
-        index:curPageIndex,
-        pageSize:perPageSize
+        status: status,
+        index: curPageIndex,
+        pageSize: perPageSize
       },
       success: success,
       failure: failure
@@ -644,11 +640,11 @@ export class ApiCall {
   }
 
   //获取门店详情
-  public getMallShop(shopId:String,success,failure?){
+  public getMallShop(shopId: String, success, failure?) {
     this.apiCall({
-      url:this.apiConfig.paths.getMallShop,
-      data:{
-        shopId:shopId
+      url: this.apiConfig.paths.getMallShop,
+      data: {
+        shopId: shopId
       },
       success: success,
       failure: failure
@@ -656,12 +652,12 @@ export class ApiCall {
   }
 
   //修改门店状态
-  public updateMallShopStatus(shopId: string,status:string, success, failure?): void {
+  public updateMallShopStatus(shopId: string, status: string, success, failure?): void {
     this.apiCall({
-      url:this.apiConfig.paths.updateMallShopStatus,
+      url: this.apiConfig.paths.updateMallShopStatus,
       data: {
         shopId: shopId,
-        status:status,
+        status: status,
       },
       success: success,
       failure: failure
@@ -669,15 +665,15 @@ export class ApiCall {
   }
 
   //获取门店订单列表
-  public getMallShopServiceOrderList(sn:string,userMobile:string,status:string,curPageIndex:number,perPageSize:number,success,failure?){
-     this.apiCall({
+  public getMallShopServiceOrderList(sn: string, userMobile: string, status: string, curPageIndex: number, perPageSize: number, success, failure?) {
+    this.apiCall({
       url: this.apiConfig.paths.getMallShopServiceOrderList,
       data: {
-        sn:sn,
-        userMobile:userMobile,
-        status:status,
-        index:curPageIndex,
-        pageSize:perPageSize
+        sn: sn,
+        userMobile: userMobile,
+        status: status,
+        index: curPageIndex,
+        pageSize: perPageSize
       },
       success: success,
       failure: failure
@@ -685,11 +681,11 @@ export class ApiCall {
   }
 
   //获取门店详情
-  public getMallShopServiceOrder(shopServiceOrderId:string,success,failure?){
-     this.apiCall({
+  public getMallShopServiceOrder(shopServiceOrderId: string, success, failure?) {
+    this.apiCall({
       url: this.apiConfig.paths.getMallShopServiceOrder,
       data: {
-        shopServiceOrderId:shopServiceOrderId
+        shopServiceOrderId: shopServiceOrderId
       },
       success: success,
       failure: failure
@@ -697,14 +693,14 @@ export class ApiCall {
   }
 
   //获取门店服务
-   public getMallShopServiceList(shopId:string,onSale:string,curPageIndex:number,perPageSize:number,success,failure?){
-     this.apiCall({
+  public getMallShopServiceList(shopId: string, onSale: string, curPageIndex: number, perPageSize: number, success, failure?) {
+    this.apiCall({
       url: this.apiConfig.paths.getMallShopServiceList,
       data: {
-        shopId:shopId,
-        onSale:onSale,
-        index:curPageIndex,
-        pageSize:perPageSize
+        shopId: shopId,
+        onSale: onSale,
+        index: curPageIndex,
+        pageSize: perPageSize
       },
       success: success,
       failure: failure
@@ -1685,17 +1681,17 @@ export class ApiCall {
   }
 
   //文案管理
-  public getDocumentList(title:string,curPageIndex:number,perPageSize:number,success,failure?):void{
-      this.apiCall({
-        url:this.apiConfig.paths.getDocumentList,
-        data:{
-          title:title,
-          index:curPageIndex,
-          pageSize:perPageSize
-        },
-        success:success,
-        failure:failure
-      })
+  public getDocumentList(title: string, curPageIndex: number, perPageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getDocumentList,
+      data: {
+        title: title,
+        index: curPageIndex,
+        pageSize: perPageSize
+      },
+      success: success,
+      failure: failure
+    })
   }
 
   public getCarBrandList(brand, curPageIndex, pageSize, success, failure?): void {
@@ -1961,22 +1957,18 @@ export class ApiCall {
     })
   }
 
-  //上传文件
-  /**
-   * @param adminId 管理员ID
-   * @param file 文件data
-   * @param type
+  /** 上传文件
+   * @param formData
+   * formData = {adminId: '管理员ID', file: 文件对象}
    */
-  public uploadFile(adminId: string, file, type: string, success, failure?) {
+  public uploadFile(formData, success, failure?) {
     this.apiCall({
       url: this.apiConfig.paths.uploadFile,
-      data: {
-        adminId: adminId,
-        file: file,
-        type: type
-      },
+      data: formData,
       success: success,
-      failure: failure
+      failure: failure,
+      processData: false,
+      contentType: false //'multipart/form-data'
     });
   }
 }
