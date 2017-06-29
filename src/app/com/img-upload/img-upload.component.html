@@ -6,11 +6,11 @@
   </ul>
   <div class="btn-upload">
     +
-    <form id="{{formId}}" method="post" enctype="multipart/form-data" name="fileInfo" #fileForm="ngForm"
+    <form id="{{formId}}" method="post" [action]="Url" enctype="multipart/form-data" name="fileInfo" #fileForm="ngForm"
           (ngSubmit)="modalSubmit(fileForm.value)">
-      <input type="text" name="adminName" value="Deakin" ngModel>
-      <input type="file" name="file" #file (change)="changeImg(file)" ngModel>
-      <button type="submit" hidden>上传</button>
+      <input type="text" name="adminId" [(ngModel)]="adminId" hidden>
+      <input type="file" name="file" (change)="changeImg($event.target.file)" >
+      <button type="submit">上传</button>
     </form>
   </div>
 </div>

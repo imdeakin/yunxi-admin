@@ -15,6 +15,6 @@ export class AdminFunc {
 
   public getAdminId(): string {
     let adminInfo = this.getAdminInfo();
-    return adminInfo['id']
+    return adminInfo['admin_id']
   }
 }
