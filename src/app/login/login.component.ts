@@ -16,7 +16,7 @@ import Cookies from 'cookies-js'
 })
 export class LoginComponent implements OnInit {
   public loginInfoKey = 'login';
-  public adminInfoKey = 'admin';
+  public adminInfoKey = 'YUNXI';
   public remember: boolean = false;
 
   public formData: any = {

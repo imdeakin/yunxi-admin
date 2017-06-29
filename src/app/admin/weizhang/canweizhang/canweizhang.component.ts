@@ -5,6 +5,9 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import { weiZhangFunction } from '../date-type/weizhang-function';
+// import { FileUploadModule } from 'ng2-file-upload';
+// import {FileUploader} from "ng2-file-upload";
+import { ApiConfig } from '../../../http/api-config';
 
 @Component({
   selector: 'canweizhang',
@@ -20,36 +23,6 @@ export class canWeizhangComponent implements OnInit {
   public curPageIndex = 1;
   public youkaFunction = weiZhangFunction;
   public tableList = [
-    // {
-    //   account: '18128789828', // 账号
-    //   car_num: '粤A88828', // 车牌号
-    //   fine: '200', // 罚款
-    //   charge: '25', // 服务费
-    //   commission: '20', // 佣金
-    //   amount: '245', // 支付总额
-    //   order_time: '2017-03-03', // 订单时间
-    //   position: '广州' // 所属城市
-    // },
-    // {
-    //   account: '18128789828', // 账号
-    //   car_num: '粤A88828', // 车牌号
-    //   fine: '200', // 罚款
-    //   charge: '25', // 服务费
-    //   commission: '20', // 佣金
-    //   amount: '245', // 支付总额
-    //   order_time: '2017-03-03', // 订单时间
-    //   position: '广州' // 所属城市
-    // },
-    // {
-    //   account: '18128789828', // 账号
-    //   car_num: '粤A88828', // 车牌号
-    //   fine: '200', // 罚款
-    //   charge: '25', // 服务费
-    //   commission: '20', // 佣金
-    //   amount: '245', // 支付总额
-    //   order_time: '2017-03-03', // 订单时间
-    //   position: '广州' // 所属城市
-    // }
   ];
 
   private selDate: string = '';
@@ -74,7 +47,14 @@ export class canWeizhangComponent implements OnInit {
       address:'',
       status:0,
       VerifyCode:'',
-      searchName:''
+      searchName:'',
+      CheliangZhengShu:'',
+      QRCode:'',
+      XingShiZhengHao:'',
+      DrivingUrl:'',
+      DrivingSecondUrl:'',
+      DriverUrl:'',
+      DriverSecondUrl:'',
   }
 
 public orderConfig={
@@ -97,8 +77,9 @@ public orderConfig={
   }
 
 public imgData:string = '';
-constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
-  }
+
+constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCall: ApiCall, private funcServer: FuncServer) {
+}
 
   public ngOnInit(): void {
     this.computeOnResize();
@@ -175,7 +156,14 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
           status:0,
           CardNo:'',
           VerifyCode:'',
-          searchName:''
+          searchName:'',
+          CheliangZhengShu:"",
+          QRCode:"",
+          XingShiZhengHao:"",
+          DrivingUrl:"",
+          DrivingSecondUrl:"L",
+          DriverUrl:"",
+          DriverSecondUrl:"",
       }
     }else{
         this.modalData ={
@@ -192,7 +180,14 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
           status:0,
           CardNo:'',
           VerifyCode:'',
-          searchName:''
+          searchName:'',
+          CheliangZhengShu:"",
+          QRCode:"",
+          XingShiZhengHao:"",
+          DrivingUrl:"",
+          DrivingSecondUrl:"L",
+          DriverUrl:"",
+          DriverSecondUrl:"",
       }
     }
   }
@@ -205,12 +200,6 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
   }
 
   public submitModal():void{
-    let carUrl = (document.getElementById('carUrl') as HTMLInputElement).value || '';
-    let twoCodeUrl = (document.getElementById('twoCodeUrl') as HTMLInputElement).value || '';
-    let carDriveUrl = (document.getElementById('carDriveUrl') as HTMLInputElement).value || '';
-    let carDriveUrlBreak =(document.getElementById('carDriveUrlBreak') as HTMLInputElement).value || '';
-    let driveUrl =(document.getElementById('driveUrl') as HTMLInputElement).value || '';
-    let driveUrlBreak =(document.getElementById('driveUrlBreak') as HTMLInputElement).value || '';
     this.orderConfig = {
       Name:this.modalData.username,
       Phone:this.modalData.mobile,
@@ -220,16 +209,16 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
       CarDrive:this.modalData.frameNumber,
       FileNumber:this.modalData.frameNumber,
       FilePhone:this.modalData.carPhone,
-      CheliangZhengShu:carUrl,
-      QRCode:twoCodeUrl,
-      XingShiZhengHao:this.modalData.pCount,
-      DrivingUrl:carDriveUrl,
-      DrivingSecondUrl:carDriveUrlBreak ,
-      DriverUrl:driveUrl,
-      DriverSecondUrl:driveUrlBreak,
+      CheliangZhengShu:this.modalData.CheliangZhengShu,
+      QRCode:this.modalData.QRCode,
+      XingShiZhengHao:this.modalData.XingShiZhengHao,
+      DrivingUrl:this.modalData.DrivingUrl,
+      DrivingSecondUrl:this.modalData.DrivingSecondUrl,
+      DriverUrl:this.modalData.DriverUrl,
+      DriverSecondUrl:this.modalData.DriverSecondUrl,
       VerifyCode:this.modalData.VerifyCode
     };
-    console.log(this.imgData);
+    console.log(this.orderConfig);
     // this.apiCall.postPeccancyManage(this.modalData.orderId,JSON.stringify(this.orderConfig),(data)=>{
     //     this.toggleEditModal();
     //     this.getCanWeiZhangList();
