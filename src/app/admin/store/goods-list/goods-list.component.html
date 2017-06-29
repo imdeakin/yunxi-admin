@@ -22,6 +22,8 @@
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
+        <a class="text-btn float-right margin-large-right" href="javascript:void(0);"
+           (click)="toggleEditInfoModal()">添加</a>
       </div>
       <div class="manager-table">
         <table>
@@ -47,7 +49,7 @@
             <td>{{item.price}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditInfoModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);">删除</a>
               </div>
             </td>
@@ -67,7 +69,7 @@
     <div class="modal-loading" *ngIf="!(storeGoodsTypeOptions && storeGoodsBrandOptions && editInfoModalData)">
       <i class="icon-font">&#xe64b;</i>
     </div>
-    <div class="modal-close" (click)="toggleModal()">
+    <div class="modal-close" (click)="toggleEditInfoModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
     <template [ngIf]="storeGoodsTypeOptions && storeGoodsBrandOptions && editInfoModalData">
@@ -77,13 +79,14 @@
         <form class="modal-form">
           <div class="modal-input-group">
             <label>类型</label>
-            <select-box [options]="storeGoodsTypeOptions" [first]="false"
+            <select-box [options]="storeGoodsTypeOptions"
+                        [first]="{value:'',text:'请选择'}"
                         [value]="editInfoModalData.goods_type_id"
                         (optionSelect)="editInfoModalData.goods_type_id = $event"></select-box>
           </div>
           <div class="modal-input-group">
             <label>品牌</label>
-            <select-box [options]="storeGoodsBrandOptions" [first]="false"
+            <select-box [options]="storeGoodsBrandOptions"
                         [value]="editInfoModalData.goods_brand_id"
                         (optionSelect)="editInfoModalData.goods_brand_id = $event"></select-box>
           </div>
@@ -97,7 +100,8 @@
           </div>
           <div class="modal-input-group">
             <label>上架状态</label>
-            <select-box [options]="storeFunction.goodsStatusOptions" [first]="false"
+            <select-box [options]="storeFunction.goodsStatusOptions"
+                        [first]="false"
                         [value]="editInfoModalData.on_sale"
                         (optionSelect)="editInfoModalData.on_sale = $event"></select-box>
           </div>
@@ -164,7 +168,7 @@
     <div class="modal-loading" *ngIf="!(editInfoModalData && storeGoodsTypeOptions && storeGoodsBrandOptions)">
       <i class="icon-font">&#xe64b;</i>
     </div>
-    <div class="modal-close" (click)="toggleModal()">
+    <div class="modal-close" (click)="toggleEditInfoModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
     <template [ngIf]="editInfoModalData && storeGoodsTypeOptions && storeGoodsBrandOptions">
