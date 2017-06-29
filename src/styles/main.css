@@ -442,18 +442,20 @@ html, body {
 .modal-table {
   width: 100%;
   line-height: 30px;
-  border-color: #e6e6e6;
+  border: 1px solid #e6e6e6;
 }
 
 .modal-table thead th {
   color: #00aaee;
   font-size: 18px;
   font-weight: normal;
+  border: 1px solid #e6e6e6;
 }
 
 .modal-table td {
   text-align: center;
   font-size: 16px;
+  border: 1px solid #e6e6e6;
 }
 
 .modal-table .ctrl-btn {

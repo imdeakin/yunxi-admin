@@ -1079,17 +1079,13 @@ export class ApiCall {
   /**
    * 获取商品基本参数列表
    * @param goodsId 商品ID
-   * @param curPageIndex
-   * @param pageSize
    * @param success
    * @param failure
    */
-  public getStoreGoodsAttrList(goodsId, curPageIndex, pageSize, success, failure?): void {
+  public getStoreGoodsAttrList(goodsId, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getStoreGoodsAttrList,
       data: {
-        index: curPageIndex,
-        pageSize: pageSize,
         goodsId: goodsId
       },
       success: success,
@@ -1103,9 +1099,9 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public getStoreGoodsAttrInfo(sn, success, failure?): void {
+  public getStoreGoodsAttr(sn, success, failure?): void {
     this.apiCall({
-      url: this.apiConfig.paths.getStoreGoodsAttrInfo,
+      url: this.apiConfig.paths.getStoreGoodsAttr,
       data: {
         sn: sn
       },
@@ -1122,9 +1118,9 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public addStoreGoodsAttrInfo(goodsId, paramId, valueId, success, failure?): void {
+  public addStoreGoodsAttr(goodsId, paramId, valueId, success, failure?): void {
     this.apiCall({
-      url: this.apiConfig.paths.addStoreGoodsAttrInfo,
+      url: this.apiConfig.paths.addStoreGoodsAttr,
       data: {
         goodsId: goodsId,
         paramId: paramId,
@@ -1144,9 +1140,9 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public updateStoreGoodsAttrInfo(attrId, goodsId, paramId, valueId, success, failure?): void {
+  public updateStoreGoodsAttr(attrId, goodsId, paramId, valueId, success, failure?): void {
     this.apiCall({
-      url: this.apiConfig.paths.updateStoreGoodsAttrInfo,
+      url: this.apiConfig.paths.updateStoreGoodsAttr,
       data: {
         attrId: attrId,
         goodsId: goodsId,
@@ -1160,13 +1156,13 @@ export class ApiCall {
 
   /**
    * 删除商品基本参数
-   * @param goodsAttrId 商品基本参数ID
+   * @param attrId 商品基本参数ID
    * @param success
    * @param failure
    */
-  public removeStoreGoodsAttrInfo(attrId: string, success, failure?): void {
+  public removeStoreGoodsAttr(attrId: string, success, failure?): void {
     this.apiCall({
-      url: this.apiConfig.paths.removeStoreGoodsAttrInfo,
+      url: this.apiConfig.paths.removeStoreGoodsAttr,
       data: {
         attrId: attrId
       },

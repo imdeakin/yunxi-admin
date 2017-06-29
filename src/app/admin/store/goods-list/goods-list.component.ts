@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {GoodsList} from '../data-type/godds-list';
 import {StoreFunction} from '../data-type/store-function';
 
+declare let layer: any;
+
 @Component({
   selector: 'goods-list',
   templateUrl: './goods-list.component.html',
@@ -29,14 +31,28 @@ export class GoodsListComponent implements OnInit, DoCheck {
 
   public storeGoodsTypeOptions; // 商品类型选项组
   public storeGoodsBrandOptions; // 商品品牌选项组
+  public goodsTypeAttrOptions; // 商品类型参数选项组
+  public goodsTypeAttrValOptions; // 商品类型参数值选项组
+
+  public goodsAttrList; // 商品基本参数列表
+  public goodsTypeAttrList; // 商品类型参数列表
+  public goodsTypeAttrValList; // 商品类型参数值列表
 
   // 模态窗
-  public modalShow: boolean = false;
-  public editInfoModalData;
-  public modalGoodsTypeId;
-  public modalGoodsId;
-  public curModalStep: number = 0;
-  public goodsAttrList;
+  public editBaseInfoMalShow: boolean = false; // 商品基本信息的显示状态
+  public editBaseInfoModalData; // 商品基本信息数据
+
+  public goodsAttrListModalShow: boolean = false; // 商品基本参数列表的显示状态
+  public editGoodsAttrModalShow: boolean = false; // 商品基本参数编辑窗的显示状态
+  public editGoodsAttrModalData = { // 商品基本参数编辑窗的数据
+    attr_id: '',
+    param_id: '',
+    value_id: ''
+  };
+
+  public curGoodsId; // 当前选中的商品ID
+  public curGoodsTypeId; // 当前选中的商品类型ID
+
 
   public editAttrModalShow: boolean = false;
 
@@ -49,19 +65,22 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public ngDoCheck(): void {
 
     // 监听所选中的商品类型ID，更新商品品牌列表
-    if (this.editInfoModalData && this.editInfoModalData.goods_type_id !== this.modalGoodsTypeId) {
-      this.modalGoodsTypeId = this.editInfoModalData.goods_type_id;
-      if (this.modalGoodsTypeId !== undefined && this.modalGoodsTypeId !== '') {
-        this.getStoreGoodsBrandList(this.editInfoModalData.goods_type_id);
+    if (this.editBaseInfoModalData && this.editBaseInfoModalData.goods_type_id !== this.curGoodsTypeId) {
+      this.curGoodsTypeId = this.editBaseInfoModalData.goods_type_id;
+
+      // 更新商品品牌列表
+      if (this.curGoodsTypeId !== undefined && this.curGoodsTypeId !== '') {
+        this.getStoreGoodsBrandList();
+
       } else {
         this.storeGoodsBrandOptions = [];
       }
     }
 
     // 监听所选中的商品ID，更新商品参数列表
-    if (this.editInfoModalData && this.editInfoModalData.goods_id !== this.modalGoodsId) {
-      this.modalGoodsId = this.editInfoModalData.goods_id;
-      this.getStoreGoodsAttrList(this.modalGoodsId);
+    if (this.editBaseInfoModalData && this.editBaseInfoModalData.goods_id !== this.curGoodsId) {
+      this.curGoodsId = this.editBaseInfoModalData.goods_id;
+      this.getStoreGoodsAttrList();
     }
   }
 
@@ -112,9 +131,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
       });
   }
 
-  public getStoreGoodsBrandList(goodsTypeId): void {
+  public getStoreGoodsBrandList(): void {
     this.apiCall.getStoreGoodsBrandList(
-      goodsTypeId,
+      this.curGoodsTypeId,
       '',
       '',
       (list) => {
@@ -133,27 +152,17 @@ export class GoodsListComponent implements OnInit, DoCheck {
     this.apiCall.getStoreGoodsInfo(
       sn,
       (data) => {
-        this.editInfoModalData = data;
-      });
-  }
-
-  public getStoreGoodsAttrList(goodsId): void {
-    this.apiCall.getStoreGoodsAttrList(
-      goodsId,
-      '',
-      '',
-      (data) => {
-        this.goodsAttrList = data;
+        this.editBaseInfoModalData = data;
       });
   }
 
   // 模态窗
   public toggleEditInfoModal(item?): void {
     if (item) { // 传递数据用于编辑
-      this.editInfoModalData = null; // 先清空数据
+      this.editBaseInfoModalData = null; // 先清空数据
       this.getStoreGoodsInfo(item.sn);
-    } else if (!this.modalShow) { // 将显示出来用于添加
-      this.editInfoModalData = {
+    } else if (!this.editBaseInfoMalShow) { // 将显示出来用于添加
+      this.editBaseInfoModalData = {
         goods_type_id: '',
         goods_brand_id: '',
         business_name: '',
@@ -164,15 +173,148 @@ export class GoodsListComponent implements OnInit, DoCheck {
       };
     }
 
-    this.modalShow = !this.modalShow;
-    this.curModalStep = 0;
+    this.editBaseInfoMalShow = !this.editBaseInfoMalShow;
   }
 
-  public nextModal(): void {
-    this.curModalStep++;
+  /*
+   * 商品类型参数列表
+   */
+
+  public getStoreGoodsAttrList() {
+    this.apiCall.getStoreGoodsAttrList(
+      this.curGoodsId,
+      (list) => {
+        this.goodsAttrList = list;
+      }
+    )
   }
 
-  public prevModal(): void {
-    this.curModalStep--;
+  public removeGoodsAttr(attrId) {
+    let index = layer.confirm('确定删除吗？', ['确定', '取消'],
+      () => {
+        this.apiCall.removeStoreGoodsAttr(
+          attrId,
+          () => {
+            layer.msg("删除成功");
+            this.getStoreGoodsAttrList();
+            layer.close(index);
+          },
+          () => {
+            layer.msg("删除失败");
+            layer.close(index);
+          }
+        );
+      });
+  }
+
+  public toggleGoodsAttrListModal(): void {
+    this.getStoreGoodsAttrList();
+
+    this.goodsAttrListModalShow = !this.goodsAttrListModalShow;
+
+    if (!this.goodsAttrListModalShow) {
+      this.goodsAttrList = null;
+    }
+  }
+
+  /*
+   * 编辑商品类型参数
+   */
+
+  // 获取类型参数列表
+  public getStoreGoodsTypeAttrList() {
+    this.apiCall.getStoreGoodsTypeAttrList(
+      this.curGoodsTypeId,
+      '0',
+      (list) => {
+        this.goodsTypeAttrList = list;
+
+        let arr = [];
+        for (let i = 0, len = list.length; i < len; i++) {
+          arr.push({
+            value: list[i].param_id,
+            text: list[i].name
+          });
+        }
+        this.goodsTypeAttrOptions = arr;
+      }
+    )
+  }
+
+  // 获取类型参数值列表
+  public getStoreGoodsTypeAttrValList(paramId) {
+    this.apiCall.getStoreGoodsTypeAttrValList(
+      paramId,
+      (list) => {
+        this.goodsTypeAttrValList = list;
+
+        let arr = [];
+        for (let i = 0, len = list.length; i < len; i++) {
+          arr.push({
+            value: list[i].value_id,
+            text: list[i].value
+          });
+        }
+        this.goodsTypeAttrValOptions = arr;
+      }
+    )
+  }
+
+  public goodsTypeAttrChange(paramId) {
+    this.editGoodsAttrModalData.param_id = paramId;
+    this.getStoreGoodsTypeAttrValList(paramId);
+  }
+
+  public toggleEditGoodsAttrModal(item?): void {
+    if (item) {
+      this.editGoodsAttrModalData = this.funcServer.deepCopy(item);
+      console.log(this.editGoodsAttrModalData);
+    }
+
+    if (!this.editGoodsAttrModalShow) { // 显示的话 要执行这里
+      // 获取商品类型参数列表
+      this.goodsTypeAttrOptions = null;
+      this.goodsTypeAttrValOptions = [];
+      this.getStoreGoodsTypeAttrList();
+    }
+
+    this.editGoodsAttrModalShow = !this.editGoodsAttrModalShow;
+
+    if (!this.editGoodsAttrModalShow) {
+      this.editGoodsAttrModalData = this.funcServer.emptyObj(this.editGoodsAttrModalData);
+    }
+  }
+
+  public addGoodsAttr(): void {
+    this.apiCall.addStoreGoodsAttr(
+      this.curGoodsId,
+      this.editGoodsAttrModalData.param_id,
+      this.editGoodsAttrModalData.value_id,
+      (data) => {
+        this.toggleEditGoodsAttrModal();
+        this.getStoreGoodsAttrList();
+      }
+    );
+  }
+
+  public editGoodsAttr(): void {
+    this.apiCall.updateStoreGoodsAttr(
+      this.editGoodsAttrModalData.attr_id,
+      this.curGoodsId,
+      this.editGoodsAttrModalData.param_id,
+      this.editGoodsAttrModalData.value_id,
+      (data) => {
+        this.toggleEditGoodsAttrModal();
+        this.getStoreGoodsAttrList();
+      }
+    );
+  }
+
+  public editGoodsAttrSubmit(): void {
+    if (this.editGoodsAttrModalData.attr_id) {
+      this.editGoodsAttr();
+    } else {
+      this.addGoodsAttr();
+    }
   }
 }

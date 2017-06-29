@@ -103,10 +103,10 @@ export class ApiConfig {
 
     // 商品基础参数
     getStoreGoodsAttrList: this.root + '/marketManage/mallGoodsAttrList', // 获取商品基础参数列表
-    getStoreGoodsAttrInfo: this.root + '/marketManage/getMallGoodsAttr', // 获取商品基础参数
-    addStoreGoodsAttrInfo: this.root + '/marketManage/saveMallGoodsAttr', // 添加商品基础参数
-    updateStoreGoodsAttrInfo: this.root + '/marketManage/saveMallGoodsAttr', // 更新商品基础参数
-    removeStoreGoodsAttrInfo: this.root + '/marketManage/delMallGoodsAttr', // 删除商品基础参数
+    getStoreGoodsAttr: this.root + '/marketManage/getMallGoodsAttr', // 获取商品基础参数
+    addStoreGoodsAttr: this.root + '/marketManage/saveMallGoodsAttr', // 添加商品基础参数
+    updateStoreGoodsAttr: this.root + '/marketManage/saveMallGoodsAttr', // 更新商品基础参数
+    removeStoreGoodsAttr: this.root + '/marketManage/delMallGoodsAttr', // 删除商品基础参数
 
     // 订单
     getStoreOrderList: this.root + '/marketManage/mallOrderList', // 获取订单列表
@@ -136,7 +136,7 @@ export class ApiConfig {
     updateCloudpayVerification: this.root + '/finance/yftVerification', // 云付通核验
     getRechargeOrderList: this.root + '/finance/accountTransferOrderList', // 获取充值订单列表
     getBonusWithdrawList: this.root + '/finance/accountWithdrawList', // 获取奖金提现列表
-    
+
     //门店管理
     getMallSshopList:this.root + '/adminShop/mallSshopList',//获取门店列表
     getMallShop:this.root + '/adminShop/getMallShop',//获取门店详情

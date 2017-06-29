@@ -63,150 +63,53 @@
     </div>
   </div>
 </div>
-<!--商品编辑-->
-<div class="modal-wrapper" [class.hidden]="!modalShow">
+<!--商品基本信息编辑-->
+<div class="modal-wrapper" [class.hidden]="!editBaseInfoMalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
   <div class="modal-con">
-    <div class="modal-loading" *ngIf="!(storeGoodsTypeOptions && storeGoodsBrandOptions && editInfoModalData)">
+    <div class="modal-loading" *ngIf="!(storeGoodsTypeOptions && storeGoodsBrandOptions && editBaseInfoModalData)">
       <i class="icon-font">&#xe64b;</i>
     </div>
     <div class="modal-close" (click)="toggleEditInfoModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
-    <template [ngIf]="storeGoodsTypeOptions && storeGoodsBrandOptions && editInfoModalData">
-      <!--商品信息-->
-      <template [ngIf]="curModalStep == 0">
-        <h3 class="modal-title">商品信息</h3>
-        <form class="modal-form">
-          <div class="modal-input-group">
-            <label>类型</label>
-            <select-box [options]="storeGoodsTypeOptions"
-                        [first]="{value:'',text:'请选择'}"
-                        [value]="editInfoModalData.goods_type_id"
-                        (optionSelect)="editInfoModalData.goods_type_id = $event"></select-box>
-          </div>
-          <div class="modal-input-group">
-            <label>品牌</label>
-            <select-box [options]="storeGoodsBrandOptions"
-                        [value]="editInfoModalData.goods_brand_id"
-                        (optionSelect)="editInfoModalData.goods_brand_id = $event"></select-box>
-          </div>
-          <div class="modal-input-group">
-            <label>商品标题</label>
-            <input type="text" name="businessName" [(ngModel)]="editInfoModalData.business_name">
-          </div>
-          <div class="modal-input-group">
-            <label>商品产地</label>
-            <input type="text" name="producer" [(ngModel)]="editInfoModalData.producer">
-          </div>
-          <div class="modal-input-group">
-            <label>上架状态</label>
-            <select-box [options]="storeFunction.goodsStatusOptions"
-                        [first]="false"
-                        [value]="editInfoModalData.on_sale"
-                        (optionSelect)="editInfoModalData.on_sale = $event"></select-box>
-          </div>
-          <div class="modal-input-group">
-            <label>运费</label>
-            <input type="text" name="freight" [(ngModel)]="editInfoModalData.freight">
-          </div>
-          <div class="modal-input-group">
-            <label>商品描述</label>
-            <textarea name="described" [(ngModel)]="editInfoModalData.described"></textarea>
-          </div>
-          <div class="modal-input-group">
-            <label>商品详情</label>
-            <a href="javascript:void(0)" class="text-btn">点击编辑</a>
-          </div>
-          <div class="modal-input-group">
-            <label>轮播图片</label>
-            <a href="javascript:void(0)" class="text-btn">点击编辑</a>
-          </div>
-          <div class="modal-btn-group bottom">
-            <button (click)="nextModal()">下一步</button>
-          </div>
-        </form>
-      </template>
-      <!--基本参数-->
-      <template [ngIf]="curModalStep == 1">
-        <h3 class="modal-title">基本参数</h3>
-        <table class="modal-table" border="1px">
-          <thead>
-          <tr>
-            <th>参数名</th>
-            <th>参数值</th>
-            <th>操作</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let item of goodsAttrList">
-            <td>{{item.value_id}}</td>
-            <td>{{item.value}}</td>
-            <td>
-              <a href="javascript:void(0)" class="ctrl-btn">编辑</a>
-              <a href="javascript:void(0)" class="ctrl-btn">删除</a>
-            </td>
-          </tr>
-          <tr *ngIf="!(goodsAttrList?.length)">
-            <td colspan="3">暂无相关数据</td>
-          </tr>
-          </tbody>
-        </table>
-        <div class="modal-btn-group padding-top">
-          <button class="float-right">添加基本参数</button>
-        </div>
-        <div class="modal-btn-group bottom">
-          <button (click)="prevModal()">上一步</button>
-          <button (click)="nextModal()">下一步</button>
-        </div>
-      </template>
-    </template>
-  </div>
-</div>
-<!--基本参数的添加或编辑-->
-<div class="modal-wrapper" [class.hidden]="!editAttrModalShow">
-  <div class="modal-con">
-    <div class="modal-loading" *ngIf="!(editInfoModalData && storeGoodsTypeOptions && storeGoodsBrandOptions)">
-      <i class="icon-font">&#xe64b;</i>
-    </div>
-    <div class="modal-close" (click)="toggleEditInfoModal()">
-      <i class="icon-font">&#xe6e9;</i>
-    </div>
-    <template [ngIf]="editInfoModalData && storeGoodsTypeOptions && storeGoodsBrandOptions">
-      <h3 class="modal-title">基本参数</h3>
+    <template [ngIf]="storeGoodsTypeOptions && storeGoodsBrandOptions && editBaseInfoModalData">
+      <h3 class="modal-title">商品信息</h3>
       <form class="modal-form">
         <div class="modal-input-group">
           <label>类型</label>
-          <select-box [options]="storeGoodsTypeOptions" [first]="false"
-                      [value]="editInfoModalData.goods_type_id"
-                      (optionSelect)="editInfoModalData.goods_type_id = $event"></select-box>
+          <select-box [options]="storeGoodsTypeOptions"
+                      [first]="{value:'',text:'请选择'}"
+                      [value]="editBaseInfoModalData.goods_type_id"
+                      (optionSelect)="editBaseInfoModalData.goods_type_id = $event"></select-box>
         </div>
         <div class="modal-input-group">
           <label>品牌</label>
-          <select-box [options]="storeGoodsBrandOptions" [first]="false"
-                      [value]="editInfoModalData.goods_brand_id"
-                      (optionSelect)="editInfoModalData.goods_brand_id = $event"></select-box>
+          <select-box [options]="storeGoodsBrandOptions"
+                      [value]="editBaseInfoModalData.goods_brand_id"
+                      (optionSelect)="editBaseInfoModalData.goods_brand_id = $event"></select-box>
         </div>
         <div class="modal-input-group">
           <label>商品标题</label>
-          <input type="text" name="businessName" [(ngModel)]="editInfoModalData.business_name">
+          <input type="text" name="businessName" [(ngModel)]="editBaseInfoModalData.business_name">
         </div>
         <div class="modal-input-group">
           <label>商品产地</label>
-          <input type="text" name="producer" [(ngModel)]="editInfoModalData.producer">
+          <input type="text" name="producer" [(ngModel)]="editBaseInfoModalData.producer">
         </div>
         <div class="modal-input-group">
           <label>上架状态</label>
-          <select-box [options]="storeFunction.goodsStatusOptions" [first]="false"
-                      [value]="editInfoModalData.on_sale"
-                      (optionSelect)="editInfoModalData.on_sale = $event"></select-box>
+          <select-box [options]="storeFunction.goodsStatusOptions"
+                      [first]="false"
+                      [value]="editBaseInfoModalData.on_sale"
+                      (optionSelect)="editBaseInfoModalData.on_sale = $event"></select-box>
         </div>
         <div class="modal-input-group">
           <label>运费</label>
-          <input type="text" name="freight" [(ngModel)]="editInfoModalData.freight">
+          <input type="text" name="freight" [(ngModel)]="editBaseInfoModalData.freight">
         </div>
         <div class="modal-input-group">
           <label>商品描述</label>
-          <textarea name="described" [(ngModel)]="editInfoModalData.described"></textarea>
+          <textarea name="described" [(ngModel)]="editBaseInfoModalData.described"></textarea>
         </div>
         <div class="modal-input-group">
           <label>商品详情</label>
@@ -217,7 +120,86 @@
           <a href="javascript:void(0)" class="text-btn">点击编辑</a>
         </div>
         <div class="modal-btn-group bottom">
-          <button (click)="nextModal()">下一步</button>
+          <button (click)="toggleGoodsAttrListModal()">下一步</button>
+        </div>
+      </form>
+    </template>
+  </div>
+</div>
+<!--商品基本参数列表-->
+<div class="modal-wrapper" [class.hidden]="!goodsAttrListModalShow || editGoodsAttrModalShow">
+  <div class="modal-con type-attr-val-list-modal">
+    <div class="modal-close" (click)="toggleGoodsAttrListModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+    <div class="modal-loading" *ngIf="!goodsAttrList">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <template [ngIf]="goodsAttrList">
+      <h3 class="modal-title">基本参数</h3>
+      <div class="modal-btn-group padding clearfix">
+        <button class="float-right" (click)="toggleEditGoodsAttrModal()">添加基本参数</button>
+      </div>
+      <table class="modal-table">
+        <thead>
+        <tr>
+          <th>参数名</th>
+          <th>参数值</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of goodsAttrList">
+          <td>{{item.value_id}}</td>
+          <td>{{item.value}}</td>
+          <td>
+            <a href="javascript:void(0)" class="ctrl-btn" (click)="toggleEditGoodsAttrModal(item)">编辑</a>
+            <a href="javascript:void(0)" class="ctrl-btn" (click)="removeGoodsAttr(item.attr_id)">删除</a>
+          </td>
+        </tr>
+        <tr *ngIf="!(goodsAttrList?.length)">
+          <td colspan="3">暂无相关数据</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="modal-btn-group bottom">
+        <button (click)="toggleGoodsAttrListModal()">上一步</button>
+        <!--<button (click)="toggleEditGoodsAttrModal()">下一步</button>-->
+      </div>
+    </template>
+  </div>
+</div>
+<!--编辑商品基本参数-->
+<div class="modal-wrapper" [class.hidden]="!editGoodsAttrModalShow">
+  <div class="modal-con edit-type-attr-val-modal">
+    <div class="modal-close" (click)="toggleEditGoodsAttrModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+    <div class="modal-loading" *ngIf="!(goodsTypeAttrOptions && goodsTypeAttrValOptions)">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <template [ngIf]="goodsTypeAttrOptions && goodsTypeAttrValOptions">
+      <h3 class="modal-title" [class.hidden]="!editGoodsAttrModalData.attr_id">编辑基本参数</h3>
+      <h3 class="modal-title" [class.hidden]="editGoodsAttrModalData.attr_id">添加基本参数</h3>
+      <form class="modal-form" (ngSubmit)="editGoodsAttrSubmit()">
+        <div class="modal-input-group">
+          <label>参数名称</label>
+          <select-box
+            [options]="goodsTypeAttrOptions"
+            [first]="{value:'',text:'请选择'}"
+            [value]="editGoodsAttrModalData.param_id"
+            (optionSelect)="goodsTypeAttrChange($event)"></select-box>
+        </div>
+        <div class="modal-input-group">
+          <label>参数值</label>
+          <select-box
+            [options]="goodsTypeAttrValOptions"
+            [first]="{value:'',text:'暂无'}"
+            [value]="editGoodsAttrModalData.value_id"
+            (optionSelect)="editGoodsAttrModalData.value_id = $event"></select-box>
+        </div>
+        <div class="modal-btn-group">
+          <button type="submit">保存</button>
         </div>
       </form>
     </template>
