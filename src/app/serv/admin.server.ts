@@ -20,6 +20,10 @@ export class AdminFunc {
 
   public getAdminId(): string {
     let adminInfo = this.getAdminInfo();
+<<<<<<< HEAD
+    return adminInfo['admin_id']
+=======
     return adminInfo['admin_id'];
+>>>>>>> 0fee90ab6edca0762e4cd2126cc9fa62824c3ab2
   }
 }
