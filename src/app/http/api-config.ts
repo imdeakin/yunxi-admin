@@ -62,7 +62,9 @@ export class ApiConfig {
     getPartnerInfo: this.root + '/copartner/getPartnerInfo', // 获取合伙人详情
     getPartnerApplyList: this.root + '/copartner/applyPartnerList', // 获取合伙人申请列表
     getPartnerApplyInfo: this.root + '/copartner/applyPartnerInfo', // 获取合伙人申请详情
-
+    getAuditPass:this.root + '/copartner/auditPass',//审批
+    getReexamine:this.root + '/copartner/reexamine',//复核
+    
     /*
      * 商城管理
      */

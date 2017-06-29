@@ -24,7 +24,7 @@ export class ApiCall {
         failure(code, msg);
       }
     };
-
+    console.log(options);
     this.apiRequest.post(options);
   }
 
@@ -535,6 +535,24 @@ export class ApiCall {
       url: this.apiConfig.paths.getPartnerApplyInfo,
       data: {
         partnerApplyId: partnerApplyId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //审批
+  public getAuditPass(partnerApplyId:string,adminId:string,agreementCode:string,approve:string,summary:string,remark:string,status:number,success,failure?):void{
+      this.apiCall({
+      url: this.apiConfig.paths.getAuditPass,
+      data: {
+        partnerApplyId: partnerApplyId,
+        adminId:adminId,
+        agreementCode:agreementCode,
+        approve:approve,
+        summary:summary,
+        remark:remark,
+        status:status
       },
       success: success,
       failure: failure

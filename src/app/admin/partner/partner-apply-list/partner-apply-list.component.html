@@ -59,8 +59,9 @@
             <td>{{partnerFunction.getPartnerApplyStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">查看</a>
-                <a class="table-btn" href="javascript:void(0);">复核</a>
+                <a class="table-btn" href="javascript:void(0);"  (click)="toggleModal(item)">查看</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !==0" (click)="toggleCheckModal(item)">审批</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !==-1"(click)="toggleAgainModal(item)">复核</a>
               </div>
             </td>
           </tr>
@@ -167,4 +168,89 @@
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
+</div>
+
+<!--审批-->
+<div class="modal-wrapper" [class.hidden]="!readCheckModalShow" *ngIf="readModalData">
+   <form>
+  <div class="modal-con">
+    <h3 class="modal-title">订单详情</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+        <div class="modal-half modal-half-left">
+          <div class="modal-detail-item">
+            <label>编号</label>
+            <div class="value">{{readModalData.sn}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>代理区域</label>
+            <div class="value">{{readModalData.name}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>代理级别</label>
+            <div class="value">{{readModalData.partner_level}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>用户账号</label>
+            <div class="value">{{readModalData.user_mobile}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>姓名</label>
+            <div class="value">{{readModalData.name}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>身份证</label>
+            <div class="value">{{readModalData.iDcard}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>联系手机</label>
+            <div class="value">{{readModalData.mobile}}</div>
+          </div>
+           <div class="modal-detail-item">
+            <label>推介人</label>
+            <div class="value">{{readModalData.referee}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>推介人电话</label>
+            <div class="value">{{readModalData.referee_mobile}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>推介人身份证</label>
+            <div class="value">{{readModalData.referee_idcard}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>经办人</label>
+            <div class="value">{{readModalData.handler}}</div>
+          </div>
+        </div>
+        <div class="modal-half modal-half-right">
+          <div class="modal-input-group">
+            <label>合同编号</label>
+            <input type="text" name="agreement_code" [(ngModel)]="readModalData.agreement_code">
+          </div>
+           <div class="modal-input-group">
+            <label>备注</label>
+            <textarea name="remark" [(ngModel)]="readModalData.remark"></textarea>
+          </div>
+          <div class="modal-input-group">
+            <label>摘要</label>
+            <textarea name="summary" [(ngModel)]="readModalData.summary"></textarea>
+          </div>
+          <div class="modal-input-group">
+            <label>审批意见</label>
+             <textarea name="approve" [(ngModel)]="readModalData.approve"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-btn-group">
+      <button (click)="toggleCheckModal()">关闭</button>
+      <button (click)="getAuditPass(1)">通过</button>
+      <button (click)="getAuditPass(2)">不通过</button>
+    </div>
+    <div class="modal-close" (click)="toggleCheckModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+    </form>
 </div>
