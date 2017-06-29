@@ -74,7 +74,14 @@ export class canWeizhangComponent implements OnInit {
       address:'',
       status:0,
       VerifyCode:'',
-      searchName:''
+      searchName:'',
+      CheliangZhengShu:'',
+      QRCode:'',
+      XingShiZhengHao:'',
+      DrivingUrl:'',
+      DrivingSecondUrl:'',
+      DriverUrl:'',
+      DriverSecondUrl:'',
   }
 
 public orderConfig={
@@ -175,7 +182,14 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
           status:0,
           CardNo:'',
           VerifyCode:'',
-          searchName:''
+          searchName:'',
+          CheliangZhengShu:"",
+          QRCode:"",
+          XingShiZhengHao:"",
+          DrivingUrl:"",
+          DrivingSecondUrl:"L",
+          DriverUrl:"",
+          DriverSecondUrl:"",
       }
     }else{
         this.modalData ={
@@ -192,7 +206,14 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
           status:0,
           CardNo:'',
           VerifyCode:'',
-          searchName:''
+          searchName:'',
+          CheliangZhengShu:"",
+          QRCode:"",
+          XingShiZhengHao:"",
+          DrivingUrl:"",
+          DrivingSecondUrl:"L",
+          DriverUrl:"",
+          DriverSecondUrl:"",
       }
     }
   }
@@ -205,12 +226,6 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
   }
 
   public submitModal():void{
-    let carUrl = (document.getElementById('carUrl') as HTMLInputElement).value || '';
-    let twoCodeUrl = (document.getElementById('twoCodeUrl') as HTMLInputElement).value || '';
-    let carDriveUrl = (document.getElementById('carDriveUrl') as HTMLInputElement).value || '';
-    let carDriveUrlBreak =(document.getElementById('carDriveUrlBreak') as HTMLInputElement).value || '';
-    let driveUrl =(document.getElementById('driveUrl') as HTMLInputElement).value || '';
-    let driveUrlBreak =(document.getElementById('driveUrlBreak') as HTMLInputElement).value || '';
     this.orderConfig = {
       Name:this.modalData.username,
       Phone:this.modalData.mobile,
@@ -220,16 +235,16 @@ constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcSer
       CarDrive:this.modalData.frameNumber,
       FileNumber:this.modalData.frameNumber,
       FilePhone:this.modalData.carPhone,
-      CheliangZhengShu:carUrl,
-      QRCode:twoCodeUrl,
-      XingShiZhengHao:this.modalData.pCount,
-      DrivingUrl:carDriveUrl,
-      DrivingSecondUrl:carDriveUrlBreak ,
-      DriverUrl:driveUrl,
-      DriverSecondUrl:driveUrlBreak,
+      CheliangZhengShu:this.modalData.CheliangZhengShu,
+      QRCode:this.modalData.QRCode,
+      XingShiZhengHao:this.modalData.XingShiZhengHao,
+      DrivingUrl:this.modalData.DrivingUrl,
+      DrivingSecondUrl:this.modalData.DrivingSecondUrl,
+      DriverUrl:this.modalData.DriverUrl,
+      DriverSecondUrl:this.modalData.DriverSecondUrl,
       VerifyCode:this.modalData.VerifyCode
     };
-    console.log(this.imgData);
+    console.log(this.orderConfig);
     // this.apiCall.postPeccancyManage(this.modalData.orderId,JSON.stringify(this.orderConfig),(data)=>{
     //     this.toggleEditModal();
     //     this.getCanWeiZhangList();
