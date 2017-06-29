@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://yx.51meets.com'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
+  public server: string = 'http://yx.51meets.com:8082'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
@@ -62,7 +62,9 @@ export class ApiConfig {
     getPartnerInfo: this.root + '/copartner/getPartnerInfo', // 获取合伙人详情
     getPartnerApplyList: this.root + '/copartner/applyPartnerList', // 获取合伙人申请列表
     getPartnerApplyInfo: this.root + '/copartner/applyPartnerInfo', // 获取合伙人申请详情
-
+    getAuditPass:this.root + '/copartner/auditPass',//审批
+    getReexamine:this.root + '/copartner/reexamine',//复核
+    
     /*
      * 商城管理
      */

@@ -4,3 +4,6 @@
   margin-left: -430px;
   margin-top: -340px;
 }
+.modal-half-right textarea{
+    overflow-y:scroll;
+}

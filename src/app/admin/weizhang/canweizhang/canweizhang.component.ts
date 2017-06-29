@@ -219,10 +219,10 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
       VerifyCode:this.modalData.VerifyCode
     };
     console.log(this.orderConfig);
-    // this.apiCall.postPeccancyManage(this.modalData.orderId,JSON.stringify(this.orderConfig),(data)=>{
-    //     this.toggleEditModal();
-    //     this.getCanWeiZhangList();
-    // })
+    this.apiCall.postPeccancyManage(this.modalData.orderId,JSON.stringify(this.orderConfig),(data)=>{
+        this.toggleEditModal();
+        this.getCanWeiZhangList();
+    })
   }
 
   //确认支付接口
