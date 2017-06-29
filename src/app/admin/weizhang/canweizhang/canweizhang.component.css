@@ -26,6 +26,9 @@
 .modal-input-group input{
     width:50%;
 }
+.modal-input-group label{
+    width:48%;
+}
 
 .modal-form .table-btn{
     font-weight: block;
