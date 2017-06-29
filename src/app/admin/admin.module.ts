@@ -89,9 +89,7 @@ import {
     FormsModule,
     HttpModule,
     AdminRoutingModule,
-    Ng2PaginationModule,
-    // ImageUploadModule.forRoot(),
-
+    Ng2PaginationModule
   ],
   declarations: [
     AdminComponent,
