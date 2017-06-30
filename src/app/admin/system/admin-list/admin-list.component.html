@@ -5,7 +5,7 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getCarSeriesList(1)">
+        <form class="clearfix" (ngSubmit)="getAdminList(1)">
           <div class="input-group">
             <label>角色名</label>
             <input type="text" name="name" value="" [(ngModel)]="filterData.roleName">
@@ -42,7 +42,7 @@
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls (pageChange)="getCarSeriesList($event)" previousLabel="上一页"
+        <pagination-controls (pageChange)="getAdminList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>

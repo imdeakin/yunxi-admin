@@ -22,7 +22,8 @@ export class CarBrandListComponent implements OnInit {
   public tableList: CarBrandList[];
   public filterData = {
     carBrandId: '',
-    carBrand: ''
+    carBrand: '',
+    brand:''
   };
 
   public systemFunction = SystemFunction;

@@ -40,7 +40,7 @@ export class CloudpayVerificationHistoryComponent implements OnInit {
     yft_account: '',
     create_time: '',
     money: '',
-    status: ''
+    status: 0
   };
   public readModalShow: boolean = false;
   public editModalShow: boolean = false;
