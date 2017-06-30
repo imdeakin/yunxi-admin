@@ -170,6 +170,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
     if (item) { // 传递数据用于编辑
       this.editBaseInfoModalData = null; // 先清空数据
       this.getStoreGoodsInfo(item.sn);
+
     } else if (!this.editBaseInfoModalShow) { // 将显示出来用于添加
       this.editBaseInfoModalData = {
         goods_type_id: '',
@@ -189,8 +190,10 @@ export class GoodsListComponent implements OnInit, DoCheck {
    * 商品详情编辑
    */
   public toggleEditGoodsDetailModal(detail?): void {
-    if (detail) {
-
+    if (detail !== undefined) {
+      this.goodsDetailEditor.setHTML(detail);
+    } else {
+      this.goodsDetailEditor.setHTML('');
     }
     this.editGoodsDetailModalShow = !this.editGoodsDetailModalShow;
   }
