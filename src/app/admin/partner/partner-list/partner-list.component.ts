@@ -24,7 +24,8 @@ export class PartnerListComponent implements OnInit {
     sn: '',
     partnerLevelId: '',
     regionId: '',
-    effectTime: ''
+    effectTime: '',
+    mobile:''
   };
   public partnerFunction = PartnerFunction;
 

@@ -67,7 +67,7 @@ export class cantWeizhangComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getCanWeiZhangList(this.modalData.searchName,this.cantType,this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getCantWeiZhangList(this.modalData.searchName,this.cantType,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
     });

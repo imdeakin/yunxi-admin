@@ -1,5 +1,5 @@
 <div class="province-picker-con">
-  <input [name]="name" value="{{provinceName}}" hidden>
+  <input [name]="name" value="{{oldProvinceName}}" hidden>
   <div class="province-picker-select province-picker-province">
     <select-box [options]="provinceList" [index]="-1" [placeholder]="'选择'" (optionSelect)="setProvinceList($event)"></select-box>
   </div>

@@ -23,9 +23,7 @@ export class UserListComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: User[];
   public yearOptions;
-  public totalData = {
-
-  };
+  public totalData;
   public filterData = {
     mobile: '',
     level: '',
@@ -134,17 +132,7 @@ export class UserListComponent implements OnInit {
       this.modalSpreadShow = !this.modalSpreadShow;
       if(!this.modalSpreadShow){
         this.userId = '';
-        this.totalData = {
-          one_vip1:'',
-          one_vip2:'',
-          one_vip3:'',
-          two_vip1:'',
-          two_vip2:'',
-          two_vip3:'',
-          three_vip1:'',
-          three_vip2:'',
-          three_vip3:''
-        }
+        this.totalData = null;
       }
   }
 }

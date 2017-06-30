@@ -5,7 +5,7 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getCarSeriesList(1)">
+        <form class="clearfix" (ngSubmit)="getRegionRecommendInsurerList(1)">
           <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleAddModal()">添加</a>
         </form>
       </div>
@@ -44,7 +44,7 @@
 <!--编辑窗-->
 <div class="modal-wrapper" [class.hidden]="!modalShow">
   <div class="modal-con">
-    <h3 class="modal-title" [class.hidden]="filterData.carSeriesId">编辑</h3>
+    <h3 class="modal-title">编辑</h3>
     <form class="modal-form" (ngSubmit)="modalSubmit()">
       <div class="modal-input-group">
           <label>省份名称</label>

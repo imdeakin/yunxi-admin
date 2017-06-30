@@ -72,7 +72,7 @@
     <div class="modal-close" (click)="toggleEditInfoModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
-    <template [ngIf]="storeGoodsTypeOptions && storeGoodsBrandOptions && editBaseInfoModalData">
+    <ng-template *ngIf="storeGoodsTypeOptions && storeGoodsBrandOptions && editBaseInfoModalData">
       <h3 class="modal-title">商品信息</h3>
       <form class="modal-form">
         <div class="modal-input-group">
@@ -123,7 +123,7 @@
           <button (click)="toggleGoodsAttrListModal()">下一步</button>
         </div>
       </form>
-    </template>
+    </ng-template>
   </div>
 </div>
 <!--商品基本参数列表-->
@@ -135,7 +135,7 @@
     <div class="modal-loading" *ngIf="!goodsAttrList">
       <i class="icon-font">&#xe64b;</i>
     </div>
-    <template [ngIf]="goodsAttrList">
+    <ng-template [ngIf]="goodsAttrList">
       <h3 class="modal-title">基本参数</h3>
       <div class="modal-btn-group padding clearfix">
         <button class="float-right" (click)="toggleEditGoodsAttrModal()">添加基本参数</button>
@@ -166,7 +166,7 @@
         <button (click)="toggleGoodsAttrListModal()">上一步</button>
         <!--<button (click)="toggleEditGoodsAttrModal()">下一步</button>-->
       </div>
-    </template>
+    </ng-template>
   </div>
 </div>
 <!--编辑商品基本参数-->
@@ -178,7 +178,7 @@
     <div class="modal-loading" *ngIf="!(goodsTypeAttrOptions && goodsTypeAttrValOptions)">
       <i class="icon-font">&#xe64b;</i>
     </div>
-    <template [ngIf]="goodsTypeAttrOptions && goodsTypeAttrValOptions">
+    <ng-template [ngIf]="goodsTypeAttrOptions && goodsTypeAttrValOptions">
       <h3 class="modal-title" [class.hidden]="!editGoodsAttrModalData.attr_id">编辑基本参数</h3>
       <h3 class="modal-title" [class.hidden]="editGoodsAttrModalData.attr_id">添加基本参数</h3>
       <form class="modal-form" (ngSubmit)="editGoodsAttrSubmit()">
@@ -202,6 +202,6 @@
           <button type="submit">保存</button>
         </div>
       </form>
-    </template>
+    </ng-template>
   </div>
 </div>

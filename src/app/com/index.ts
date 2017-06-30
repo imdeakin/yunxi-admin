@@ -10,3 +10,4 @@ export * from './img-upload';
 export * from './province-picker';
 export * from './insurer-picker';
 export * from './watch-box';
+export * from './modal-window';

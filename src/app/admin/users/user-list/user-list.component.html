@@ -12,12 +12,12 @@
           </div>
           <div class="input-group">
             <label>会员等级</label>
-            <select-box [options]="usersFunction.userLevelOptions" [name]="level"
+            <select-box [options]="usersFunction.userLevelOptions" [name]="filterData.level"
                         (optionSelect)="filterData.level = $event"></select-box>
           </div>
           <div class="input-group">
             <label>城市</label>
-            <city-picker [name]="regionId" (change)="filterData.regionId = $event"></city-picker>
+            <city-picker [name]="filterData.regionId" (change)="filterData.regionId = $event"></city-picker>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
