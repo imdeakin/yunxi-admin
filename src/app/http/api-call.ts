@@ -278,6 +278,21 @@ export class ApiCall {
     });
   }
 
+  public getCantWeiZhangList(searchName: string, type: string, index: number, pageSize: number, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getCanWeizhangList,
+      data: {
+        searchName: searchName,
+        type: type,
+        index: index,
+        pageSize: pageSize
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+
   public getCanWeiZhangData(orderId: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getCanWeizhangData,

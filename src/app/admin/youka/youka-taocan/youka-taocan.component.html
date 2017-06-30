@@ -55,7 +55,7 @@
   <div class="modal-con">
     <h3 class="modal-title" [class.hidden]="modalData.oilPackageId">添加套餐</h3>
      <h3 class="modal-title" [class.hidden]="!modalData.oilPackageId">编辑套餐</h3>
-    <form class="modal-form" (ngSubmit)="getAuditPass()">
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
       <div class="modal-input-group">
         <label>套餐类型</label>
         <select-box [options]="youkaFunction.youkaTaocanClassifyOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.classify" (optionSelect)="modalData.classify = $event"></select-box>

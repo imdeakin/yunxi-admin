@@ -32,8 +32,8 @@ export class canWeizhangComponent implements OnInit {
   private toContainPrevMonth: boolean = false;
   private toContainNextMonth: boolean = false;
   private value: string = '';
-  private detailPages:boolean = false;
-  public modalData ={
+  public detailPages:boolean = false;
+  public modalData = {
       orderId:'',
       carNumber:'',
       engineNumber:'',
@@ -221,7 +221,7 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
     console.log(this.orderConfig);
     this.apiCall.postPeccancyManage(this.modalData.orderId,JSON.stringify(this.orderConfig),(data)=>{
         this.toggleEditModal();
-        this.getCanWeiZhangList();
+        this.getCanWeiZhangList(1);
     })
   }
 
@@ -229,7 +229,7 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
   public comfirmCxyPayOrder(orderId:string):void{
       this.apiCall.comfirmCxyPayOrder(orderId,(data)=>{
         console.log(data);
-        this.getCanWeiZhangList();
+        this.getCanWeiZhangList(1);
       })
   }
 

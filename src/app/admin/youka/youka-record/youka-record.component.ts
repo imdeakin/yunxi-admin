@@ -5,8 +5,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {ApiCall} from '../../../http/api-call';
 import {YoukaRecord} from '../data-type/youka-record';
 import {YoukaFunction} from '../data-type/youka-function';
-import {FuncServer} from '../../../serv/func.server';
-import { ModalWindowComponent } from '../../../../../../yunxi-admin - 副本/src/app/com/modal-window/modal-window.component';
+import {FuncServer} from '../../../serv/func.server'; 
 
 @Component({
   selector: 'youka-record',
