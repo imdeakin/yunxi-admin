@@ -29,7 +29,7 @@ export class bonusWithdrawListComponent implements OnInit {
     mobile: '',
     cardNumber: '',
     cardType: '',
-    status: ''
+    status: 0
   };
 
   // 模态窗
@@ -41,7 +41,7 @@ export class bonusWithdrawListComponent implements OnInit {
     yft_account: '',
     create_time: '',
     money: '',
-    status: ''
+    status: 0
   };
   public readModalShow: boolean = false;
   public editModalShow: boolean = false;

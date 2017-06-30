@@ -1570,9 +1570,9 @@ export class ApiCall {
     this.apiCall({
       url: this.apiConfig.paths.getFeedbackList,
       data: {
+        mobile: mobile,
         index: curPageIndex,
         pageSize: pageSize,
-        mobile: mobile
       },
       success: success,
       failure: failure

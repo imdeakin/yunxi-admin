@@ -23,7 +23,7 @@ export class FeedbackListComponent implements OnInit {
   public filterData = {
     mobile: '',
     title:'',
-    status:''
+    status:0
   };
 
   public msgFunction = MsgFunction;
@@ -36,7 +36,7 @@ export class FeedbackListComponent implements OnInit {
     content: 0,
     contact: '',
     createTime: '',
-    status: ''
+    status: 0
   };
   public readModalShow: boolean = false;
 

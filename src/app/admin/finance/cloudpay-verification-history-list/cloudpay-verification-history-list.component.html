@@ -8,7 +8,7 @@
         <form class="clearfix" (ngSubmit)="getCloudpayVerificationList(1)">
           <div class="input-group">
             <label>订单类型</label>
-            <select-box [options]="financeFunction.cloudpayOrderTypeOptions" [name]="level"
+            <select-box [options]="financeFunction.cloudpayOrderTypeOptions" [name]="filterData.type"
                         [first]="false"
                         (optionSelect)="filterData.type = $event"></select-box>
           </div>

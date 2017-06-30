@@ -16,7 +16,7 @@
           </div>
           <div class="input-group">
             <label>消息类型</label>
-            <select-box [options]="msgFunction.msgTypeOptions" [name]="filterData.level"
+            <select-box [options]="msgFunction.msgTypeOptions" [name]="filterData.type"
                         (optionSelect)="filterData.type = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
