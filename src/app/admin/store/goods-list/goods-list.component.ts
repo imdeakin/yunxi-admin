@@ -9,6 +9,7 @@ import {GoodsList} from '../data-type/godds-list';
 import {StoreFunction} from '../data-type/store-function';
 
 declare let layer: any;
+declare let Squire: any;
 
 @Component({
   selector: 'goods-list',
@@ -38,9 +39,13 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public goodsTypeAttrList; // 商品类型参数列表
   public goodsTypeAttrValList; // 商品类型参数值列表
 
+  public goodsDetailEditor; // 商品详情富文本编辑器
+
   // 模态窗
-  public editBaseInfoMalShow: boolean = false; // 商品基本信息的显示状态
+  public editBaseInfoModalShow: boolean = false; // 商品基本信息的显示状态
   public editBaseInfoModalData; // 商品基本信息数据
+
+  public editGoodsDetailModalShow: boolean = false; // 商品详情编辑窗的显示状态
 
   public goodsAttrListModalShow: boolean = false; // 商品基本参数列表的显示状态
   public editGoodsAttrModalShow: boolean = false; // 商品基本参数编辑窗的显示状态
@@ -88,6 +93,10 @@ export class GoodsListComponent implements OnInit, DoCheck {
     this.computeOnResize();
     this.getStoreGoodsList();
     this.getStoreGoodsTypeList();
+
+    // 初始化富文本编辑器
+    let node = document.querySelector('#goods-detail-modal .editor-container');
+    this.goodsDetailEditor = new Squire(node);
   }
 
   public computeOnResize() {
@@ -161,7 +170,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
     if (item) { // 传递数据用于编辑
       this.editBaseInfoModalData = null; // 先清空数据
       this.getStoreGoodsInfo(item.sn);
-    } else if (!this.editBaseInfoMalShow) { // 将显示出来用于添加
+    } else if (!this.editBaseInfoModalShow) { // 将显示出来用于添加
       this.editBaseInfoModalData = {
         goods_type_id: '',
         goods_brand_id: '',
@@ -173,7 +182,17 @@ export class GoodsListComponent implements OnInit, DoCheck {
       };
     }
 
-    this.editBaseInfoMalShow = !this.editBaseInfoMalShow;
+    this.editBaseInfoModalShow = !this.editBaseInfoModalShow;
+  }
+
+  /*
+   * 商品详情编辑
+   */
+  public toggleEditGoodsDetailModal(detail?): void {
+    if (detail) {
+
+    }
+    this.editGoodsDetailModalShow = !this.editGoodsDetailModalShow;
   }
 
   /*
