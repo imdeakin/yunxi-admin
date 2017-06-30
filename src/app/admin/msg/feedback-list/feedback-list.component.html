@@ -12,11 +12,11 @@
           </div>
           <div class="input-group">
             <label>标题</label>
-            <input type="text" name="mobile" value="" [(ngModel)]="filterData.title">
+            <input type="text" name="title" value="" [(ngModel)]="filterData.title">
           </div>
           <div class="input-group">
             <label>状态</label>
-            <select-box [options]="msgFunction.feebackStatusOptions" [name]="level" (optionSelect)="filterData.status = $event"></select-box>
+            <select-box [options]="msgFunction.feebackStatusOptions" [name]="filterData.status" (optionSelect)="filterData.status = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>

@@ -22,21 +22,21 @@ export class ShopOrderListComponent implements OnInit {
   public tableList: ShopOrderList[] = [
   ];
   public filterData = {
+    regionId:'',
     sn: '',
     status: '',
-    userMobile: ''
+    userMobile: '',
+    code:''
   };
 
-  public modalData = {
-
-  }
+  public modalData;
 
   public shopFunction = ShopFunction;
 
   // 模态窗
   public modalShow: boolean = false;
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
+  constructor(private elRef: ElementRef, private apiCall: ApiCall, public funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
 
   public ngOnInit(): void {
@@ -76,7 +76,7 @@ export class ShopOrderListComponent implements OnInit {
         this.getMallShopServiceOrder(item.shop_service_order_id)
     }
     if(!this.modalShow){
-        this.modalData = {};
+        this.modalData = null;
     }
   }
 }

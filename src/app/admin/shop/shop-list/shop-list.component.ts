@@ -23,7 +23,7 @@ export class ShopListComponent implements OnInit {
   public tableList;
   public filterData = {
     mobile: '',
-    status: ''
+    status: '',
   };
 
   public shopFunction = ShopFunction;
