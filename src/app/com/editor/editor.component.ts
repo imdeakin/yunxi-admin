@@ -14,11 +14,18 @@ declare let Squire: any;
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit, AfterViewInit {
-  @Input() private content: string;
-  @Input() private height: string = '300px';
+  @Input() private content: string = '';
+  @Input() private height: number = 300;
 
   public id: string; //
   public editor; // 富文本编辑器
+  public fontFamily: string = '黑体'; // 字体
+  public fontSize: string = '24'; // 字体大小
+  public dropFontShow: boolean; // 字体选择显示状态
+  public linkUrl: string; // 插入超链接
+  public dropLinkShow: boolean; // 插入超链接显示状态
+  public imageUrl: string; // 插入超链接
+  public imageUrlShow: boolean; // 插入超链接显示状态
 
   constructor(private elRef: ElementRef, private scrollbarServer: ScrollbarServer) {
   }
@@ -28,19 +35,20 @@ export class EditorComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    // 滚动条美化
-    // this.scrollbar();
+    //滚动条美化
+    this.scrollbar();
 
     // 初始化富文本编辑器
-    let query: string = '#' + this.id + ' .editor';
+    let query: string = '#' + this.id + ' .editor .editor-wrapper';
     let node = document.querySelector(query);
     this.editor = new Squire(node);
-    this.initMenu();
+    this.editor.setHTML(this.content);
   }
 
   // 滚动条美化
   public scrollbar(): void {
     let con = document.querySelector(<string>('#' + this.id + ' .editor'));
+    console.log(con);
     this.scrollbarServer.init(con);
   }
 
@@ -57,11 +65,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
     return s.join("");
   }
 
-  public initMenu(): void {
-
-  }
-
-  public toggleFontStyle(e): void {
+  public toggleMenuItem(e): void {
     let target = e.currentTarget;
     console.log(target);
     let action = this.getNodeAttruteValue(target, 'data-action');
@@ -119,6 +123,14 @@ export class EditorComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public toggleDrop(e, key): void {
+    console.log(e.currentTarget.parentNode);
+    this.toggleMenuItem({currentTarget: e.currentTarget.parentNode});
+    if (e.target === e.currentTarget) {
+      this[key] = !this[key];
+    }
+  }
+
   public testPresenceinSelection(name, action, format, validation): boolean {
     let path = this.editor.getPath(),
       test = (validation.test(path) || this.editor.hasFormat(format));
@@ -141,5 +153,19 @@ export class EditorComponent implements OnInit, AfterViewInit {
       }
     }
     return attrValue;
+  }
+
+  public getNodeByClassName(nodes, className) {
+    for (let i = 0, len = nodes.length; i < len; i++) {
+      try {
+        let classList = nodes[i].classList;
+        for (let ii = 0; ii < classList.length; ii++) {
+          if (classList[ii] === className) {
+            return nodes[i];
+          }
+        }
+      } catch (err) {
+      }
+    }
   }
 }

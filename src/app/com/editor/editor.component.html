@@ -1,37 +1,79 @@
 <div id="{{id}}" class="editor-container">
   <div class="menu" contenteditable="false">
     <div class="group">
-      <div data-action="bold" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-bold"></i></div>
-      <div data-action="italic" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-italic"></i></div>
-      <div data-action="underline" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-underline"></i></div>
-      <div data-action="selectFont" class="item" (click)="toggleFontStyle($event)">
-        <i class="fa fa-font"></i>
+      <div data-action="bold" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-bold"></i></div>
+      <div data-action="italic" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-italic"></i></div>
+      <div data-action="underline" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-underline"></i></div>
+      <div data-action="selectFont" class="item">
+        <i class="fa fa-font" (click)="toggleDrop($event,'dropFontShow');"></i>
+        <div class="drop drop-font" [class.hidden]="!dropFontShow">
+          <strong>选择字体</strong>
+          <i class="fa fa-chevron-up quit"></i>
+          <div class="padding-top-bottom-small">
+            <label>字体:</label>
+            <select name="fontFamily" [(ngModel)]="fontFamily" (change)="editor.setFontFace(fontFamily)">
+              <option value="黑体">黑体</option>
+              <option value="宋体">宋体</option>
+              <option value="新宋体">新宋体</option>
+              <option value="仿宋">仿宋</option>
+              <option value="楷体">楷体</option>
+              <option value="微软雅黑">微软雅黑</option>
+              <option value="Arial">Arial</option>
+              <option value="Helvetica">Helvetica</option>
+              <option value="Monospace">Monospace</option>
+              <option value="verdana">Verdana</option>
+            </select>
+          </div>
+          <div class="padding-top-bottom-small">
+            <label>大小:</label>
+            <select name="fontFamily" [(ngModel)]="fontSize" (change)="editor.setFontSize(fontSize + 'px')">
+              <option value="12">小</option>
+              <option value="24">中</option>
+              <option value="30">大</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
     <div class="group">
-      <div data-action="makeLink" class="item" (click)="toggleFontStyle($event)">
-        <i class="fa fa-link"></i></div>
-      <div data-action="makeOrderedList" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-list"></i></div>
-      <div data-action="insertImage" class="item" (click)="toggleFontStyle($event)">
-        <i class="fa fa-picture-o"></i>
+      <div data-action="makeLink" class="item">
+        <i class="fa fa-link" (click)="toggleDrop($event,'dropLinkShow')"></i>
+        <div class="drop drop-link" [class.hidden]="!dropLinkShow">
+          <strong>插入超链接</strong>
+          <i class="fa fa-chevron-up quit"></i>
+          <input placeholder="URL" type="text" name="linkUrl" [(ngModel)]="linkUrl"/>
+          <div class="btn" (click)="editor.makeLink(linkUrl);dropLinkShow = !dropLinkShow;">插入</div>
+        </div>
       </div>
-      <div data-action="increaseQuoteLevel" class="item" (click)="toggleFontStyle($event)"><i
+      <div data-action="makeOrderedList" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-list"></i></div>
+      <div data-action="insertImage" class="item">
+        <i class="fa fa-picture-o" (click)="toggleDrop($event,'imageUrlShow')"></i>
+        <div class="drop drop-image" [class.hidden]="!imageUrlShow">
+          <strong>插入图片</strong>
+          <i class="fa fa-chevron-up quit"></i>
+          <input placeholder="图片地址" type="text" name="imageUrl" [(ngModel)]="imageUrl"/>
+          <div class="btn" (click)="editor.insertImage(imageUrl);imageUrlShow = !imageUrlShow;">插入</div>
+        </div>
+      </div>
+      <div data-action="increaseQuoteLevel" class="item" (click)="toggleMenuItem($event)"><i
         class="fa fa-quote-right"></i></div>
     </div>
 
     <div class="group">
-      <div data-action="makeHeading" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-header"></i></div>
-      <div data-action="alignLeft" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-align-left"></i></div>
-      <div data-action="alignCenter" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-align-center"></i>
+      <div data-action="makeHeading" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-header"></i></div>
+      <div data-action="alignLeft" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-align-left"></i></div>
+      <div data-action="alignCenter" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-align-center"></i>
       </div>
-      <div data-action="alignRight" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-align-right"></i>
+      <div data-action="alignRight" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-align-right"></i>
       </div>
     </div>
 
     <div class="group">
-      <div data-action="undo" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-undo"></i></div>
-      <div data-action="redo" class="item" (click)="toggleFontStyle($event)"><i class="fa fa-undo flip"></i></div>
+      <div data-action="undo" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-undo"></i></div>
+      <div data-action="redo" class="item" (click)="toggleMenuItem($event)"><i class="fa fa-undo flip"></i></div>
     </div>
   </div>
-  <div class="editor" [style.height]="height"></div>
+  <div class="editor" [style.height]="height + 'px'">
+    <div class="editor-wrapper" [style.minHeight]="height + 'px'"></div>
+  </div>
 </div>
