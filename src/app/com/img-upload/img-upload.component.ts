@@ -19,12 +19,12 @@ export class ImgUploadComponent {
   @Output() public resultUrl: EventEmitter<any> = new EventEmitter();
   @Input() public src: string = '';
   @Input() public file_id: string = '';
+  @Input() public num:number=0;
 
   public path: string = '';
   public showForm: boolean = false;
   public type = '';
   public file;
-  public num;
 
   public formId = "fileUploadFrom";
 
@@ -49,7 +49,7 @@ export class ImgUploadComponent {
     this.apiCall.uploadFile(formData, (list) => {
       this.resultUrl.emit(list[0].url);
       if(list){
-        let img = $("<img>");
+        let img = $("<img>").css({'width':'100%','height':'100px'});
         let div = $("<div></div>").css({"display": "inline-block",
                                       "list-style-type": "none",
                                       "width":"100px",
