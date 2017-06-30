@@ -10,6 +10,7 @@ import {StoreFunction} from '../data-type/store-function';
 
 declare let layer: any;
 declare let Squire: any;
+declare let SquireUI: any;
 
 @Component({
   selector: 'goods-list',
@@ -40,6 +41,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public goodsTypeAttrValList; // 商品类型参数值列表
 
   public goodsDetailEditor; // 商品详情富文本编辑器
+  public goodsDetailEditorUI; // 商品详情富文本编辑器
 
   // 模态窗
   public editBaseInfoModalShow: boolean = false; // 商品基本信息的显示状态
@@ -95,8 +97,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
     this.getStoreGoodsTypeList();
 
     // 初始化富文本编辑器
-    let node = document.querySelector('#goods-detail-modal .editor-container');
+    let node = document.querySelector('#goods-detail-modal .editor-container .squire-editor');
     this.goodsDetailEditor = new Squire(node);
+    this.goodsDetailEditorUI = new SquireUI({replace: 'textarea#foo', height: 300});
   }
 
   public computeOnResize() {
