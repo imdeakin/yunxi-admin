@@ -17,8 +17,7 @@ import {
   ImgUploadComponent,
   ProvinceComponent,
   InsurerComponent,
-  WatchBoxComponent,
-  ModalWindowComponent,
+  WatchBoxComponent
 } from '../com';
 
 
@@ -104,7 +103,6 @@ import {
     ProvinceComponent,
     InsurerComponent,
     WatchBoxComponent,
-    ModalWindowComponent,
     // 工作台
     BarGraphPageComponent,
     WorkbenchPageComponent,

@@ -129,7 +129,7 @@
     <div class="modal-loading" *ngIf="!shopDetail">
       <i class="icon-font">&#xe64b;</i>
     </div>
-    <template [ngIf]="shopDetail">
+    <ng-template [ngIf]="shopDetail">
       <h3 class="modal-title">门店详情</h3>
       <div class="modal-detail">
         <div class="modal-detail-content">
@@ -186,7 +186,7 @@
           </div>
         </div>
       </div>
-    </template>
+    </ng-template>
   </div>
 </div>
 <!--门店-银行卡信息-->
@@ -198,7 +198,7 @@
     <div class="modal-loading" *ngIf="!shopDetail">
       <i class="icon-font">&#xe64b;</i>
     </div>
-    <template [ngIf]="shopDetail">
+    <ng-template [ngIf]="shopDetail">
       <h3 class="modal-title">银行卡信息</h3>
       <div class="modal-detail">
         <div class="modal-detail-content">
@@ -219,7 +219,7 @@
       <div class="modal-btn-group">
         <button (click)="toggleReadShopBankModal()">关闭</button>
       </div>
-    </template>
+    </ng-template>
   </div>
 </div>
 <!--门店-身份证信息-->
@@ -231,7 +231,7 @@
     <div class="modal-loading" *ngIf="!shopDetail">
       <i class="icon-font">&#xe64b;</i>
     </div>
-    <template [ngIf]="shopDetail">
+    <ng-template [ngIf]="shopDetail">
       <h3 class="modal-title">身份证信息</h3>
       <div class="modal-detail">
         <div class="modal-detail-content">
@@ -256,6 +256,6 @@
       <div class="modal-btn-group">
         <button (click)="toggleReadShopIdCardModal()">关闭</button>
       </div>
-    </template>
+    </ng-template>
   </div>
 </div>
