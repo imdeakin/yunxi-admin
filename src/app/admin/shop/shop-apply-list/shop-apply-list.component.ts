@@ -25,11 +25,10 @@ export class ShopApplyListComponent implements OnInit {
   public filterData = {
     mobile: '',
     status: '',
+    regionId:''
   };
 
-  public modalData = {
-
-  }
+  public modalData;
 
   public shopFunction = ShopFunction;
   public modalShow:boolean = false;
@@ -80,7 +79,7 @@ export class ShopApplyListComponent implements OnInit {
     }
     this.modalShow = !this.modalShow;
     if(!this.modalShow){
-      this.modalData = {};
+      this.modalData = null;
     }
   }
   

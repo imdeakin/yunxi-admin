@@ -21,7 +21,9 @@ export class FeedbackListComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: FeedbackList[];
   public filterData = {
-    mobile: ''
+    mobile: '',
+    title:'',
+    status:''
   };
 
   public msgFunction = MsgFunction;

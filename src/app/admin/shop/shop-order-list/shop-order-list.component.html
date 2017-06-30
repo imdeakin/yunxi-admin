@@ -5,18 +5,18 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getYoukaUserList(1)">
+        <form class="clearfix" (ngSubmit)="getMallShopServiceOrderList(1)">
           <div class="input-group">
             <label>订单编号</label>
-            <input type="text" name="mobile" value="" [(ngModel)]="filterData.code">
+            <input type="text" name="code" value="" [(ngModel)]="filterData.code">
           </div>
           <div class="input-group">
             <label>状态</label>
-            <select-box [options]="shopFunction.payTypeOptions" [name]="level" (optionSelect)="filterData.status = $event"></select-box>
+            <select-box [options]="shopFunction.payTypeOptions" [name]="filterData.status" (optionSelect)="filterData.status = $event"></select-box>
           </div>
           <div class="input-group">
             <label>城市</label>
-            <city-picker [name]="regionId" (change)="filterData.regionId = $event"></city-picker>
+            <city-picker [name]="filterData.regionId" (change)="filterData.regionId = $event"></city-picker>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>

@@ -66,6 +66,25 @@ export class ShopFunction {
     }
   ];
 
+  public static payTypeOptions = [
+     {
+      value: '1',
+      text: '支付宝'
+    },
+    {
+      value: '2',
+      text: '微信'
+    },
+     {
+      value: '3',
+      text: '云付通'
+    },
+    {
+      value: '4',
+      text: '余额'
+    }
+  ]
+
   // 门店状态
   public static getShopStatusText(code: number): string {
     let text: string;

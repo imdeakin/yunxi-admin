@@ -16,7 +16,7 @@
           </div>
           <div class="input-group">
             <label>状态</label>
-            <select-box [name]="status" [options]="usersFunction.uplevelOrderStatusOptions" (optionSelect)="filterData.status = $event"></select-box>
+            <select-box [name]="filterData.status" [options]="usersFunction.uplevelOrderStatusOptions" (optionSelect)="filterData.status = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
