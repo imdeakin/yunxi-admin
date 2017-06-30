@@ -43,6 +43,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public editBaseInfoModalData; // 商品基本信息数据
 
   public editGoodsDetailModalShow: boolean = false; // 商品详情编辑窗的显示状态
+  public editGoodsDetailModalData = { // 商品详情编辑窗的数据
+    content: ''
+  };
 
   public goodsAttrListModalShow: boolean = false; // 商品基本参数列表的显示状态
   public editGoodsAttrModalShow: boolean = false; // 商品基本参数编辑窗的显示状态
@@ -186,9 +189,14 @@ export class GoodsListComponent implements OnInit, DoCheck {
    */
   public toggleEditGoodsDetailModal(detail?): void {
     if (detail !== undefined) {
+      this.editGoodsDetailModalData = {
+        content: detail
+      }
       // this.goodsDetailEditor.setHTML(detail);
     } else {
-      // this.goodsDetailEditor.setHTML('');
+      this.editGoodsDetailModalData = {
+        content: ''
+      }
     }
     this.editGoodsDetailModalShow = !this.editGoodsDetailModalShow;
   }

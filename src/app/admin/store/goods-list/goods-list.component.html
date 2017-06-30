@@ -135,7 +135,9 @@
       <i class="icon-font">&#xe6e9;</i>
     </div>
     <h3 class="modal-title">商品详情</h3>
-    <ng2-editor [content]="editBaseInfoModalData?.instruction" [height]="480"></ng2-editor>
+    <ng2-editor [content]="editBaseInfoModalData?.instruction"
+                [height]="480"
+                (contentChange)="editGoodsDetailModalData.content = $event"></ng2-editor>
     <div class="modal-btn-group bottom">
       <button (click)="toggleEditGoodsDetailModal()">保存</button>
       <button (click)="toggleEditGoodsDetailModal()">关闭</button>

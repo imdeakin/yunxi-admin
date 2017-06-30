@@ -1,7 +1,7 @@
 /**
  * Created by Deakin on 2017/5/8 0008.
  */
-import {Component, Input, OnInit, AfterViewInit, ElementRef} from '@angular/core';
+import {Component, Input, Output, OnInit, AfterViewInit, DoCheck, ElementRef, EventEmitter} from '@angular/core';
 
 import {ScrollbarServer} from '../../serv/scrollbar-server'
 
@@ -13,9 +13,10 @@ declare let Squire: any;
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css']
 })
-export class EditorComponent implements OnInit, AfterViewInit {
+export class EditorComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() private content: string = '';
   @Input() private height: number = 300;
+  @Output() private contentChange: EventEmitter<string> = new EventEmitter();
 
   public id: string; //
   public editor; // 富文本编辑器
@@ -28,6 +29,13 @@ export class EditorComponent implements OnInit, AfterViewInit {
   public imageUrlShow: boolean; // 插入超链接显示状态
 
   constructor(private elRef: ElementRef, private scrollbarServer: ScrollbarServer) {
+  }
+
+  public ngDoCheck(): void {
+    if (this.editor && this.editor.getHTML() !== this.content) {
+      this.content = this.editor.getHTML();
+      this.contentChange.emit(this.content);
+    }
   }
 
   public ngOnInit(): void {
