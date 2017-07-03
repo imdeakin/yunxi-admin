@@ -5,6 +5,13 @@
   margin-top: -340px;
 }
 
+.edit-goods-detail-modal {
+  width: 800px;
+  height: 680px;
+  margin-left: -400px;
+  margin-top: -340px;
+}
+
 .modal-btn-group.bottom {
   position: absolute;
   bottom: 20px;

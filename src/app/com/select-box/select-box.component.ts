@@ -5,10 +5,6 @@ import {Component, Input, Output, DoCheck, EventEmitter, OnInit, ElementRef} fro
 import {Option} from './option-data-type';
 import {ScrollbarServer} from '../../serv/scrollbar-server'
 
-declare let $: any;
-require("jquery-mousewheel")($);
-require('malihu-custom-scrollbar-plugin')($);
-
 @Component({
   selector: 'select-box',
   templateUrl: './select-box.component.html',

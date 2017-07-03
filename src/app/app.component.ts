@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
+declare let $: any;
+require("jquery-mousewheel")($);
+require('malihu-custom-scrollbar-plugin')($);
+
 @Component({
   selector: 'app',
   styleUrls: [

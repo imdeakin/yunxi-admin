@@ -1,0 +1,38 @@
+.editor {
+  border: 1px solid #ccc;
+}
+
+.editor-wrapper:focus {
+  outline: none;
+}
+
+.item {
+  position: relative;
+  padding: 0;
+}
+
+.item > i {
+  display: inline-block;
+  width: 34px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.drop {
+  position: absolute;
+  left: 50%;
+  margin-top: 16px;
+  text-align: left;
+  z-index: 999;
+}
+
+.drop-font {
+  width: 260px;
+  height: 150px;
+  margin-left: -130px;
+}
+
+.drop-link, .drop-image {
+  width: 360px;
+  margin-left: -180px;
+}

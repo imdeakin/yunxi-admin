@@ -130,12 +130,14 @@
 </div>
 <!--商品详情编辑-->
 <div id="goods-detail-modal" class="modal-wrapper" [class.hidden]="!editGoodsDetailModalShow">
-  <div class="modal-con">
+  <div class="modal-con edit-goods-detail-modal">
     <div class="modal-close" (click)="toggleEditGoodsDetailModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
     <h3 class="modal-title">商品详情</h3>
-    <div class="editor-container"></div>
+    <ng2-editor [content]="editBaseInfoModalData?.instruction"
+                [height]="480"
+                (contentChange)="editGoodsDetailModalData.content = $event"></ng2-editor>
     <div class="modal-btn-group bottom">
       <button (click)="toggleEditGoodsDetailModal()">保存</button>
       <button (click)="toggleEditGoodsDetailModal()">关闭</button>
@@ -144,7 +146,7 @@
 </div>
 <!--商品基本参数列表-->
 <div class="modal-wrapper" [class.hidden]="!goodsAttrListModalShow || editGoodsAttrModalShow">
-  <div class="modal-con">
+  <div class="modal-con goods-attr-list-modal">
     <div class="modal-close" (click)="toggleGoodsAttrListModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
