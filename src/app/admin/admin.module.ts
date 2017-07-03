@@ -14,11 +14,14 @@ import {
   SelectBoxComponent,
   CityPickerComponent,
   CityPickerServer,
-  ImgUploadComponent,
   ProvinceComponent,
   InsurerComponent,
   WatchBoxComponent,
-  EditorComponent
+  EditorComponent,
+
+  fileUploadComponent,
+  ImgUploadComponent,
+  ImgUploadListComponent
 } from '../com';
 
 
@@ -100,11 +103,13 @@ import {
     DatePickerComponent,
     SelectBoxComponent,
     CityPickerComponent,
-    ImgUploadComponent,
     ProvinceComponent,
     InsurerComponent,
     WatchBoxComponent,
     EditorComponent,
+    fileUploadComponent,
+    ImgUploadComponent,
+    ImgUploadListComponent,
 
     // 工作台
     BarGraphPageComponent,

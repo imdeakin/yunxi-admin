@@ -24,7 +24,6 @@ export class ApiCall {
         failure(code, msg);
       }
     };
-    console.log(options);
     this.apiRequest.post(options);
   }
 

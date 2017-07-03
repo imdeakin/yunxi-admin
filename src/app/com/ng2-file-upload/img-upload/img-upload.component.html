@@ -1,0 +1,14 @@
+<div class="img-upload-container" *ngIf="!deleted || addibleAfterDeleted">
+  <!--已经有图片-->
+  <div *ngIf="img.url" class="img-upload-wrapper img-upload-edit" [ngStyle]="{backgroundImage:'url(' + img.url + ')'}">
+    <i class="icon-font img-upload-btn select-btn" *ngIf="selectable" [class.selected]="img.selected"
+       (click)="img.selected = !img.selected">&#xe64d;</i>
+    <i class="icon-font img-upload-btn delete-btn" *ngIf="deletable" (click)="removeFile()">&#xe602;</i>
+    <file-upload (fileChange)="uploadFile($event)" *ngIf="editable"></file-upload>
+  </div>
+  <!--还没有图片-->
+  <div *ngIf="!img.url" class="img-upload-wrapper img-upload-add">
+    <i class="icon-font img-upload-btn add-btn">&#xe632;</i>
+    <file-upload (fileChange)="uploadFile($event)"></file-upload>
+  </div>
+</div>

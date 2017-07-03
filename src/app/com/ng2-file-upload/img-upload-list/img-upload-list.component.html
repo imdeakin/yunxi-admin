@@ -1,0 +1,15 @@
+<div class="img-upload-list">
+  <div class="img-upload-item" *ngFor="let img of imgList; let i = index;">
+    <img-upload [img]="img"
+                [editable]="editable"
+                [selectable]="selectable"
+                [deletable]="deletable"
+                [addibleAfterDeleted]="false"
+                (afterChange)="onAfterChange($event,i)"
+                (afterRemove)="onAfterRemove($event,i)"></img-upload>
+  </div>
+  <div class="img-upload-item" *ngIf="imgList.length < max">
+    <img-upload [onlyAdd]="true"
+                (afterChange)="onAfterAdd($event)"></img-upload>
+  </div>
+</div>

@@ -30,14 +30,14 @@ export class AdListComponent implements OnInit {
 
   // 模态窗
   public editModalData = {
-    adId: '',
-    fileId: '',
+    ad_id: '',
+    file_id: '',
     url: '',
     title: '',
-    createTime: '',
-    positionCode: '',
-    businessId: '',
-    isShow: '',
+    create_time: '',
+    position_code: '',
+    business_id: '',
+    is_show: '',
     sort: ''
   };
   public editModalShow: boolean = false;
@@ -80,42 +80,22 @@ export class AdListComponent implements OnInit {
 
   public toggleEditModal(item?): void {
     if (item) {
-      this.editModalData = {
-        adId: item.ad_id,
-        fileId: item.file_id,
-        url: item.url,
-        title: item.title,
-        createTime: item.create_time,
-        positionCode: item.position_code,
-        businessId: item.business_id,
-        isShow: item.is_show,
-        sort: item.sort
-      };
+      this.editModalData = this.funcServer.deepCopy(item);
     }
     this.editModalShow = !this.editModalShow;
     if (!this.editModalShow) {
-      this.editModalData = {
-        adId: '',
-        fileId: '',
-        url: '',
-        title: '',
-        createTime: '',
-        positionCode: '',
-        businessId: '',
-        isShow: '',
-        sort: ''
-      };
+      this.editModalData = this.funcServer.emptyObj(this.editModalData);
     }
   }
 
   public updateAd(): void {
     this.apiCall.updateAd(
-      this.editModalData.adId,
+      this.editModalData.ad_id,
       this.editModalData.title,
-      this.editModalData.fileId,
-      this.editModalData.businessId,
-      this.editModalData.isShow,
-      this.editModalData.positionCode,
+      this.editModalData.file_id,
+      this.editModalData.business_id,
+      this.editModalData.is_show,
+      this.editModalData.position_code,
       this.editModalData.sort,
       (data) => {
         this.toggleEditModal();
@@ -127,10 +107,10 @@ export class AdListComponent implements OnInit {
   public addAd(): void {
     this.apiCall.addAd(
       this.editModalData.title,
-      this.editModalData.fileId,
-      this.editModalData.businessId,
-      this.editModalData.isShow,
-      this.editModalData.positionCode,
+      this.editModalData.file_id,
+      this.editModalData.business_id,
+      this.editModalData.is_show,
+      this.editModalData.position_code,
       this.editModalData.sort,
       (data) => {
         this.toggleEditModal();
@@ -149,7 +129,7 @@ export class AdListComponent implements OnInit {
   }
 
   public modalSubmit(): void {
-    if (this.editModalData.adId) {
+    if (this.editModalData.ad_id) {
       this.updateAd();
     } else {
       this.addAd();
