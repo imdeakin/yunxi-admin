@@ -21,12 +21,12 @@ export class SystemFunction {
   // 方案类型选项组
   public static articleTypeOptions = [
     {
-      value: '0',
-      text: '合同'
+      value: '1',
+      text: '云洗协议'
     },
     {
-      value: '1',
-      text: '协议'
+      value: '2',
+      text: '文案'
     }
   ];
 

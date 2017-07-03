@@ -120,7 +120,7 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!modalSpreadShow">
+<div class="modal-wrapper" [class.hidden]="!modalSpreadShow" *ngIf="totalData">
   <div class="modal-con">
     <form class="modal-form" >
     <h3 class="modal-title">详情</h3>

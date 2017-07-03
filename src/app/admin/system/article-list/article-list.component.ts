@@ -8,6 +8,11 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {SystemFunction} from '../data-type/system-function';
 import {ArticleList} from '../data-type/article-list';
 
+import 'tinymce';
+import 'tinymce/themes/modern';
+
+import 'tinymce/plugins/table';
+import 'tinymce/plugins/link';
 declare var tinymce: any;
 
 
@@ -23,40 +28,13 @@ export class ArticleListComponent implements OnInit {
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList: ArticleList[] = [
-    {
-      title: '4280172168844',
-      content: '云洗计划..',
-      type: 0,
-      create_time: '2017-06-03 13:41:55',
-      author: '张三',
-    },
-    {
-      title: '4280172168844',
-      content: '云洗计划..',
-      type: 0,
-      create_time: '2017-06-03 13:41:55',
-      author: '张三',
-    },
-    {
-      title: '4280172168844',
-      content: '云洗计划..',
-      type: 1,
-      create_time: '2017-06-03 13:41:55',
-      author: '张三',
-    },
-    {
-      title: '4280172168844',
-      content: '云洗计划..',
-      type: 0,
-      create_time: '2017-06-03 13:41:55',
-      author: '张三',
-    }
   ];
   public filterData = {
+    documentId:'',
     title: '',
     content:'',
     author:'',
-    type:0
+    type:0,
   };
 
   public systemFunction = SystemFunction;
@@ -69,6 +47,7 @@ export class ArticleListComponent implements OnInit {
   public ngOnInit(): void {
     this.computeOnResize();
     this.getYoukaUserList();
+    this.ediotTinymce();
   }
 
   public computeOnResize() {
@@ -78,6 +57,17 @@ export class ArticleListComponent implements OnInit {
       this.contentHeight = this.funcServer.getContentHeight(this.elRef);
       this.perPageSize = this.funcServer.getPerPageSize(this.contentHeight);
     });
+  }
+
+  public ediotTinymce():void{
+     tinymce.init({
+        selector:'.editContent',
+        language_url : 'assets/js/langs/zh_CN.js',  
+        skin_url: 'assets/css/skins/lightgray',
+        height:170,
+        resize: false,
+        elementpath: false
+    })
   }
 
   public getYoukaUserList(curPageIndex?): void {
@@ -91,45 +81,86 @@ export class ArticleListComponent implements OnInit {
     });
   }
 
+  public updateDocument():void{
+  this.filterData.content = tinymce.activeEditor.getContent();
+  // let content = tinymce.getInstanceById('editContent').getBody().innerHTML;
+  // console.log(content);
+  console.log(this.filterData.content.length);
+  console.log(this.filterData);
+    this.apiCall.updateDocument(this.filterData.documentId,this.filterData.title,this.filterData.content,this.filterData.type,this.filterData.author,(data)=>{
+        this.toggleEditModal();
+        this.getYoukaUserList(1);
+    })
+  }
+
   public toggleModal(item?):void{
       this.modalShow = !this.modalShow;
       if(item){
         this.filterData ={
+          documentId:item.document_id,
           title:item.title,
           content:item.content,
           author:item.author,
           type:item.type
         }
       }
-
+      if(!this.modalShow){
+        this.filterData = {
+          documentId:'',
+          title: '',
+          content:'',
+          author:'',
+          type:0
+        };
+      }
   }
 
   public toggleEditModal(item?){
       this.modalEditShow = !this.modalEditShow;
-      this.initEditor();
-       this.filterData ={
+      if(item){
+          tinymce.activeEditor.setContent(item.content)
+          this.filterData ={
+          documentId:item.document_id,
           title:item.title,
           content:item.content,
           author:item.author,
           type:item.type
         }
+      }
+       if(!this.modalEditShow){
+        tinymce.activeEditor.setContent('')
+        this.filterData = {
+          documentId:'',
+          title: '',
+          content:'',
+          author:'',
+          type:0
+        };
+      }
   }
 
-  initEditor() {  
-   tinymce.init({  
-     selector: '#editContent',  
-     language: 'zh_CN',  
-     plugins: [  
-       'advlist autolink lists link charmap print preview hr anchor pagebreak media',  
-       'searchreplace wordcount visualblocks visualchars code fullscreen ',  
-       'insertdatetime nonbreaking save table contextmenu directionality ',  
-       'paste textcolor colorpicker textpattern'  
-     ],  
-     toolbar1: ' fullscreen insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link ',  
-     toolbar2: 'print preview | forecolor backcolor media ',  
-     height:"480",  
-     image_advtab: true,  
-     menubar: true,  
-   });  
- }  
+  public modalSubmit(){
+    console.log(this.filterData.documentId);
+      if(this.filterData.documentId){
+        console.log('update');
+          this.updateDocument()
+      }else{
+        console.log('add');
+          this.addDocument()
+      }
+  }
+
+  public addDocument():void{
+    this.filterData.content = tinymce.activeEditor.getContent();
+    this.apiCall.addDocument(this.filterData.title,this.filterData.content,this.filterData.type,this.filterData.author,(data)=>{
+        this.toggleEditModal();
+        this.getYoukaUserList(1);
+    })
+  }
+
+  public delDocument(documentId):void{
+    this.apiCall.delDocument(documentId,(data)=>{
+        this.getYoukaUserList(1)
+    })
+  }
 }
