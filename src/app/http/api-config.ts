@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://yx.51meets.com'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
+  public server: string = 'http://yx.51meets.com:8082'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
@@ -199,6 +199,7 @@ export class ApiConfig {
     addDocumentList:this.root + '/system/addDocument',//添加文案列表
     updateDocument:this.root + '/system/updateDocument',//编辑文案列表
     delDocument:this.root + '/system/delDocument',//删除文案列表
+    addDocument:this.root + '/system/addDocument',//增加文案列表
 
     //上传文件
     uploadFile:this.root +'/adfile/upload'

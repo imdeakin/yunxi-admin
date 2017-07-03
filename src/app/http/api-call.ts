@@ -1723,6 +1723,47 @@ export class ApiCall {
     })
   }
 
+  //修改文案
+  public updateDocument(documentId:string,title:string,content:string,type:number,author:string,success,failure?):void{
+    this.apiCall({
+      url: this.apiConfig.paths.updateDocument,
+      data: {
+        documentId:documentId,
+        title:title,
+        content:content,
+        type:type,
+        author:author
+      },
+      success: success,
+      failure: failure
+    })
+  }
+
+  public delDocument(documentId:string,success,failure?):void{
+    this.apiCall({
+      url: this.apiConfig.paths.delDocument,
+      data: {
+        documentId:documentId
+      },
+      success: success,
+      failure: failure
+    })
+  }
+
+  public addDocument(title:string,content:string,type:number,author:string,success,failure?):void{
+     this.apiCall({
+      url: this.apiConfig.paths.addDocument,
+      data: {
+        title:title,
+        content:content,
+        type:type,
+        author:author
+      },
+      success: success,
+      failure: failure
+    })
+  }
+
   public getCarBrandList(brand, curPageIndex, pageSize, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getCarBrandList,
