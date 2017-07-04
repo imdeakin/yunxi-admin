@@ -7,6 +7,7 @@ import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
 import {GoodsList} from '../data-type/godds-list';
 import {StoreFunction} from '../data-type/store-function';
+import {Image} from '../../../com/ng2-file-upload';
 
 declare let layer: any;
 
@@ -47,6 +48,8 @@ export class GoodsListComponent implements OnInit, DoCheck {
     content: ''
   };
 
+  public editGoodsSlideModalShow: boolean = false; // 商品轮播图编辑窗的显示状态
+
   public goodsAttrListModalShow: boolean = false; // 商品基本参数列表的显示状态
   public editGoodsAttrModalShow: boolean = false; // 商品基本参数编辑窗的显示状态
   public editGoodsAttrModalData = { // 商品基本参数编辑窗的数据
@@ -57,7 +60,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
 
   public curGoodsId; // 当前选中的商品ID
   public curGoodsTypeId; // 当前选中的商品类型ID
-
+  public originalGoodsSlideList = []; // 当前选中的商品的未经处理的轮播图数组
+  public curGoodsSlideList: Image[] = []; // 当前选中的商品的轮播图数组
+  public oldGoodsSlideList: Image[] = []; // 缓存起来 用于比较
 
   public editAttrModalShow: boolean = false;
 
@@ -191,14 +196,100 @@ export class GoodsListComponent implements OnInit, DoCheck {
     if (detail !== undefined) {
       this.editGoodsDetailModalData = {
         content: detail
-      }
-      // this.goodsDetailEditor.setHTML(detail);
+      };
     } else {
       this.editGoodsDetailModalData = {
         content: ''
-      }
+      };
     }
     this.editGoodsDetailModalShow = !this.editGoodsDetailModalShow;
+  }
+
+  // 保存详情
+  public saveGoodsDetail(): void {
+    this.editBaseInfoModalData.instruction = this.editGoodsDetailModalData.content;
+    this.toggleEditGoodsDetailModal();
+  }
+
+  /*
+   * 商品轮播图编辑
+   */
+  public toggleEditGoodsSlideModal(goodsId?): void {
+    if (goodsId) {
+      this.curGoodsSlideList = null;
+      this.getStoreGoodsSlideList(goodsId);
+    }
+    this.editGoodsSlideModalShow = !this.editGoodsSlideModalShow;
+  }
+
+  public getStoreGoodsSlideList(goodsId): void {
+    this.apiCall.getStoreGoodsSlideList(
+      goodsId,
+      (list) => {
+        this.originalGoodsSlideList = list;
+
+        // 整理数据
+        let imgList: Image[] = [];
+        for (let i = 0, len = list.length; i < len; i++) {
+          let item = list[i];
+          let img: Image = <Image>{
+            url: item.url,
+            file_id: item.file_id,
+            selected: item.is_cover === 1
+          };
+          imgList.push(img);
+        }
+        this.curGoodsSlideList = imgList;
+        this.oldGoodsSlideList = this.funcServer.deepCopy(imgList);
+      },
+      () => {
+        this.curGoodsSlideList = [];
+        this.oldGoodsSlideList = [];
+      }
+    );
+  }
+
+  // 保存详情
+  public saveGoodsSlide(): void {
+    if (this.curGoodsSlideList !== this.oldGoodsSlideList) {
+      let delList = this.originalGoodsSlideList;
+      let addList = this.curGoodsSlideList;
+
+      // 开始删除
+      for (let i = 0; i < delList.length; i++) {
+        let item = delList[i];
+        this.apiCall.removeStoreGoodsSlide(
+          item.goods_pic_id,
+          () => {
+          }
+        );
+      }
+
+      // 开始添加
+      for (let i = 0; i < addList.length; i++) {
+        let item = addList[i];
+
+        this.apiCall.addStoreGoodsSlide(
+          this.curGoodsId,
+          item.file_id,
+          (data) => {
+
+            // 设置成封面
+            if (item.selected) {
+              this.apiCall.setToShopSlideCover(
+                data.goods_pic_id,
+                this.curGoodsId,
+                () => {
+                }
+              );
+            }
+
+          }
+        );
+
+      }
+    }
+    this.toggleEditGoodsSlideModal();
   }
 
   /*

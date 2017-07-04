@@ -78,7 +78,6 @@ export class SelectBoxComponent implements OnInit, DoCheck {
         } else {
           this.options[0] = this.first;
         }
-        console.log(this.options);
       }
 
       // this.updateListScroll();
