@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {MsgFunction} from '../data-type/msg-function';
 import {MsgList} from '../data-type/msg-list';
 
+declare let layer: any;
+
 @Component({
   selector: 'msg-list',
   templateUrl: './msg-list.component.html',
@@ -159,5 +161,24 @@ export class MsgListComponent implements OnInit {
     } else {
       this.addMsg();
     }
+  }
+
+  //确认弹窗
+  public verificationConfirm(msgId): void {
+    let adminId = '';
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.removeMsg(msgId);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
   }
 }

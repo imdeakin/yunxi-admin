@@ -13,6 +13,7 @@ import 'tinymce/themes/modern';
 
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/link';
+import 'tinymce/plugins/paste';
 declare var tinymce: any;
 
 
@@ -27,6 +28,9 @@ export class ArticleListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
+  public editContentData ={
+      content:''
+  }; 
   public tableList: ArticleList[] = [
   ];
   public filterData = {
@@ -46,7 +50,7 @@ export class ArticleListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getDocumentList();
     this.ediotTinymce();
   }
 
@@ -66,11 +70,13 @@ export class ArticleListComponent implements OnInit {
         skin_url: 'assets/css/skins/lightgray',
         height:170,
         resize: false,
-        elementpath: false
+        elementpath: false,
+        plugins: 'paste',  
+        paste_as_text: true
     })
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getDocumentList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
@@ -82,14 +88,10 @@ export class ArticleListComponent implements OnInit {
   }
 
   public updateDocument():void{
-  this.filterData.content = tinymce.activeEditor.getContent();
-  // let content = tinymce.getInstanceById('editContent').getBody().innerHTML;
-  // console.log(content);
-  console.log(this.filterData.content.length);
-  console.log(this.filterData);
-    this.apiCall.updateDocument(this.filterData.documentId,this.filterData.title,this.filterData.content,this.filterData.type,this.filterData.author,(data)=>{
+    console.log(this.editContentData.content)
+    this.apiCall.updateDocument(this.filterData.documentId,this.filterData.title,this.editContentData.content,this.filterData.type,this.filterData.author,(data)=>{
         this.toggleEditModal();
-        this.getYoukaUserList(1);
+        this.getDocumentList(1);
     })
   }
 
@@ -116,9 +118,8 @@ export class ArticleListComponent implements OnInit {
   }
 
   public toggleEditModal(item?){
-      this.modalEditShow = !this.modalEditShow;
       if(item){
-          tinymce.activeEditor.setContent(item.content)
+          // tinymce.activeEditor.setContent(item.content)
           this.filterData ={
           documentId:item.document_id,
           title:item.title,
@@ -127,8 +128,8 @@ export class ArticleListComponent implements OnInit {
           type:item.type
         }
       }
+      this.modalEditShow = !this.modalEditShow;
        if(!this.modalEditShow){
-        tinymce.activeEditor.setContent('')
         this.filterData = {
           documentId:'',
           title: '',
@@ -136,11 +137,12 @@ export class ArticleListComponent implements OnInit {
           author:'',
           type:0
         };
+        this.editContentData.content = '';
       }
   }
 
   public modalSubmit(){
-    console.log(this.filterData.documentId);
+
       if(this.filterData.documentId){
         console.log('update');
           this.updateDocument()
@@ -151,16 +153,15 @@ export class ArticleListComponent implements OnInit {
   }
 
   public addDocument():void{
-    this.filterData.content = tinymce.activeEditor.getContent();
-    this.apiCall.addDocument(this.filterData.title,this.filterData.content,this.filterData.type,this.filterData.author,(data)=>{
+    this.apiCall.addDocument(this.filterData.title,this.editContentData.content,this.filterData.type,this.filterData.author,(data)=>{
         this.toggleEditModal();
-        this.getYoukaUserList(1);
+        this.getDocumentList(1);
     })
   }
 
   public delDocument(documentId):void{
     this.apiCall.delDocument(documentId,(data)=>{
-        this.getYoukaUserList(1)
+        this.getDocumentList(1)
     })
   }
 }

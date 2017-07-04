@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {AdFunction} from '../data-type/ad-function';
 import {AdList} from '../data-type/ad-list';
 
+declare let layer: any;
+
 @Component({
   selector: 'ad-list',
   templateUrl: './ad-list.component.html',
@@ -79,6 +81,7 @@ export class AdListComponent implements OnInit {
   // 模态窗
 
   public toggleEditModal(item?): void {
+    console.log(item);
     if (item) {
       this.editModalData = this.funcServer.deepCopy(item);
     }
@@ -134,5 +137,23 @@ export class AdListComponent implements OnInit {
     } else {
       this.addAd();
     }
+  }
+
+  public verificationConfirm(adId): void {
+    let adminId = '';
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.removeAd(adId);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
   }
 }

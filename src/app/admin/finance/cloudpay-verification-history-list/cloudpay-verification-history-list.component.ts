@@ -114,7 +114,7 @@ export class CloudpayVerificationHistoryComponent implements OnInit {
     this.readModalShow = !this.readModalShow;
   }
 
-  // 核验弹窗
+  //确认弹窗
   public verificationConfirm(item): void {
     let adminId = '';
     let index = layer.confirm(

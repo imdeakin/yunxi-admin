@@ -2,11 +2,12 @@
  * Created by Kun on 2017/6/22 0008.
  */
 
-
 import { Component,OnInit,ElementRef } from '@angular/core';
 import { FuncServer } from '../../../serv/func.server';
 import { ApiCall } from '../../../http/api-call';
 import { InsuranceFunction } from '../data-type/insurance-function';
+
+declare let layer: any;
 
 @Component({
   selector:'car-protect',
@@ -160,5 +161,23 @@ export class CarProtectComponent implements OnInit {
             this.toggleAddModal();
           })
     }
+  }
+  //确认弹窗
+  public verificationConfirm(recommendInsurerId): void {
+    let adminId = '';
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.removeRegionSupportInsurance(recommendInsurerId);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
   }
 }

@@ -18,7 +18,7 @@
         <table>
           <thead>
           <tr>
-            <th>ID</th>
+            <th>编号</th>
             <th>用户名</th>
             <th>角色</th>
             <th>最后登录时间</th>
@@ -28,14 +28,14 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.admin_id}}</td>
+            <td>{{i+1}}</td>
             <td>{{item.name}}</td>
             <td>{{item.role}}</td>
             <td>{{item.last_login_time}}</td>
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="removeAdmin(item.admin_id)">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.admin_id)">删除</a>
               </div>
             </td>
           </tr>

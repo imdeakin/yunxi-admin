@@ -38,7 +38,7 @@
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="removeYoukaTancanList(item.oil_package_id)">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.oil_package_id)">删除</a>
               </div>
             </td>
           </tr>
@@ -58,15 +58,15 @@
     <form class="modal-form" (ngSubmit)="modalSubmit()">
       <div class="modal-input-group">
         <label>套餐类型</label>
-        <select-box [options]="youkaFunction.youkaTaocanClassifyOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.classify" (optionSelect)="modalData.classify = $event"></select-box>
+        <select-box [options]="youkaFunction.youkaTaocanClassifyOptions" [value]="'modalData.classify'" (optionSelect)="modalData.classify = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>优惠类型</label>
-        <select-box [options]="youkaFunction.youcaTaocanClassOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.type" (optionSelect)="modalData.type = $event"></select-box>
+        <select-box [options]="youkaFunction.youcaTaocanClassOptions" [first]="{value:'',text:'请选择'}" [value]="'modalData.type'" (optionSelect)="modalData.type = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>油卡类型</label>
-        <select-box [options]="youkaFunction.youcaTaocanTypeOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.oilCardType"  (optionSelect)="modalData.oilCardType = $event"></select-box>
+        <select-box [options]="youkaFunction.youcaTaocanTypeOptions" [first]="{value:'',text:'请选择'}" [value]="'modalData.oilCardType'"  (optionSelect)="modalData.oilCardType = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>每期套餐金额</label>

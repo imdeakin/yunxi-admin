@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {SystemFunction} from '../data-type/system-function';
 import {CarBrandList} from '../data-type/car-brand-list';
 
+declare let layer: any;
+
 @Component({
   selector: 'car-brand-list',
   templateUrl: './car-brand-list.component.html',
@@ -119,5 +121,23 @@ export class CarBrandListComponent implements OnInit {
     } else {
       this.addCarBrand();
     }
+  }
+
+  // 核验弹窗
+  public verificationConfirm(carBrandId): void {
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.removeCarBrand(carBrandId);
+        layer.close(index);
+      },
+      () => {
+         layer.close(index);
+      }
+    )
   }
 }

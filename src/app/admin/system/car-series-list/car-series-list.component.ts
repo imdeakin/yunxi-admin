@@ -14,7 +14,7 @@ import {CarSeriesList} from '../data-type/car-series-list';
   styleUrls: ['./car-series-list.component.css']
 })
 export class CarSeriesListComponent implements OnInit {
-  public title = '管理员';
+  public title = '车系';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
@@ -136,6 +136,7 @@ export class CarSeriesListComponent implements OnInit {
     if (this.filterData.carSeriesId) {
       this.updateCarSeries();
     } else {
+      console.log(1);
       this.addCarSeries();
     }
   }

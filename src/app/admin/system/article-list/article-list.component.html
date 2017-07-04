@@ -5,7 +5,7 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getYoukaUserList(1)">
+        <form class="clearfix" (ngSubmit)="getDocumentList(1)">
           <div class="input-group">
             <label>标题</label>
             <input type="text" name="title" value="" [(ngModel)]="filterData.title">
@@ -43,7 +43,7 @@
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls  (pageChange)="getYoukaUserList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls  (pageChange)="getDocumentList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>
@@ -96,7 +96,8 @@
         </div>
         <div class="modal-input-group" style="height:320px;">
           <label>内容</label>
-          <textarea id="editContent" class="editContent" name="content"></textarea>
+          <!--<textarea id="editContent" class="editContent"></textarea>-->
+          <ng2-editor [height]="200" [content]="filterData?.content"  (contentChange)="editContentData.content = $event"></ng2-editor>
         </div>
       </div>
     </div>

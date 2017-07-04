@@ -24,6 +24,7 @@ export class ApiCall {
         failure(code, msg);
       }
     };
+    console.log(options);
     this.apiRequest.post(options);
   }
 
@@ -566,6 +567,21 @@ export class ApiCall {
         approve:approve,
         summary:summary,
         remark:remark,
+        status:status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //复核
+  public getReexamine(partnerApplyId:string,adminId:string,review:string,status:number,success,failure?):void{
+      this.apiCall({
+      url: this.apiConfig.paths.getReexamine,
+      data: {
+        partnerApplyId: partnerApplyId,
+        adminId:adminId,
+        review:review,
         status:status
       },
       success: success,
@@ -1672,12 +1688,12 @@ export class ApiCall {
     });
   }
 
-  public addCarSeries(series: string, carBrandId: string, success, failure?): void {
+  public addCarSeries(series: string, carbrandId: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addCarSeries,
       data: {
         series: series,
-        carBrandId: carBrandId
+        carbrandId: carbrandId
       },
       success: success,
       failure: failure

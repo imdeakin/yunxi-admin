@@ -18,7 +18,7 @@
         <table>
           <thead>
           <tr>
-            <th>ID</th>
+            <th>编号</th>
             <th>品牌</th>
             <th>操作</th>
           </tr>
@@ -26,12 +26,12 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.car_brand_id}}</td>
+            <td>{{i+1}}</td>
             <td>{{item.brand}}</td>
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="removeCarBrand(item.car_brand_id)">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.car_brand_id)">删除</a>
               </div>
             </td>
           </tr>

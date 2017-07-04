@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {MsgFunction} from '../data-type/msg-function';
 import {FeedbackList} from '../data-type/feedback-list';
 
+declare let layer: any;
+
 @Component({
   selector: 'feedback-list',
   templateUrl: './feedback-list.component.html',
@@ -90,5 +92,24 @@ export class FeedbackListComponent implements OnInit {
         this.getFeedbackList(1);
       }
     );
+  }
+
+   //确认弹窗
+  public verificationConfirm(msgId): void {
+    let adminId = '';
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.removeFeedback(msgId);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
   }
 }
