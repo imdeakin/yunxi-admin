@@ -56,3 +56,10 @@
   width:240px;
   border:none;
 }
+.modal-form .infoWaring{
+  color:red;
+  font-size: 16px;
+}
+.modal-form .prompt{
+  font-size: 16px;
+}

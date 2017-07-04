@@ -69,82 +69,101 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]='!detailPages'>
-  <div class="content" [style.height]="contentHeight + 'px'">
+<div class="modal-wrapper" [class.hidden]='!detailPages' *ngIf="need_data">
+  <div class="content"  [style.height]="contentHeight + 'px'">
     <div class="modal-con">
       <form class="modal-form">
         <div class="modal-btn-group">
           <h2 style="font-size:50px;">填写信息</h2>
+          <div class="prompt"><span  class="infoWaring">*</span>必填,<span class="infoWaring">红色数字</span>为填写的后几位</div>
         </div>
         <h3 class="modal-title">车辆信息</h3>
         <div class="modal-input-group">
-          <label>车牌号码:</label>
+          <label>车牌号码:<span class="infoWaring">*</span></label>
           <input type="text" name="carNumber" [(ngModel)]="modalData.carNumber">
         </div>
         <div class="modal-input-group">
-          <label>发动机号:</label>
+          <label>发动机号:<span [class.hidden]="need_data.CarDriveLen!=99" class="infoWaring">*</span></label>
           <input type="text" name="engineNumber" [(ngModel)]="modalData.engineNumber">
         </div>
         <div class="modal-input-group">
-          <label>车架号：</label>
+          <label>车架号：<span [class.hidden]="need_data.CarCodeLen!=99" class="infoWaring">*</span></label>
           <input type="text" name="frameNumber" [(ngModel)]="modalData.frameNumber">
         </div>
         <h3 class="modal-title">车主信息</h3>
         <div class="modal-input-group">
-          <label>车主姓名：</label>
+          <label>车主姓名：<span [class.hidden]="need_data.CarOwnerLen!=99" class="infoWaring">*</span></label>
           <input type="text" name="username" [(ngModel)]="modalData.username">
         </div>
         <div class="modal-input-group">
-          <label>驾驶证/身份证</label>
+          <label>驾驶证/身份证：<span [class.hidden]="need_data.JashiZhengHaoLen!=99" class="infoWaring">*</span></label>
           <input type="text" name="CardNo" [(ngModel)]="modalData.CardNo">
         </div>
         <div class="modal-input-group">
-          <label>车主电话：</label>
+          <label>车主电话：<span [class.hidden]="need_data.CarOwnerPhoneLen!=99" class="infoWaring">*</span></label>
           <input type="text" name="mobile" [(ngModel)]="modalData.mobile">
           <span class="modal-must">*</span>
         </div>
         <div class="modal-input-group">
-          <label>驾驶证档案编号：</label>
+          <label>驾驶证档案编号：<span [class.hidden]="need_data.DanganBianHaoLen!=99" class="infoWaring">*</span></label>
           <input type="text" name="pCount" [(ngModel)]="modalData.pCount">
         </div>
         <div class="modal-input-group">
-          <label>驾驶证登记手机号：</label>
+          <label>驾驶证登记手机号:<span [class.hidden]="need_data.FilePhoneLen!=99" class="infoWaring">*</span></label>
           <input type="text" name="carPhone" [(ngModel)]="modalData.carPhone">
         </div>
         <div class="modal-input-group">
-          <label>车辆登记证书URL：</label>
+         <label>车辆登记证书号URL: <span [class.hidden]="need_data.CheliangZhengShuLen!=99" class="infoWaring">*</span></label>
+          <img-upload [img]="{url:modalData.CheliangZhengShu}"
+                      [selectable]="false"
+                      (afterChange)="modalData.CheliangZhengShu = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label>驾驶证条形二维码URL：</label>
+          <label>驾驶证条形二维码URL：<span [class.hidden]="need_data.TiaoXingMaLen!=99" class="infoWaring">*</span></label>
           <img-upload [img]="{url:modalData.QRCode}"
                       [selectable]="false"
                       (afterChange)="modalData.QRCode = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label>行驶证URL：</label>
-          <!--<img-upload [num]="2" resultUrl="modalData.DrivingUrl"></img-upload>-->
+          <label>行驶证URL：<span [class.hidden]="need_data.DrivingLicense!=99" class="infoWaring">*</span></label>
+          <img-upload [img]="{url:modalData.DrivingUrl}"
+                      [selectable]="false"
+                      (afterChange)="modalData.DrivingUrl = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label>行驶证副页URL</label>
-          <!--<img-upload [num]="3" resultUrl="modalData.DrivingSecondUrl"></img-upload>-->
+          <label>行驶证副页URL：<span [class.hidden]="need_data.DrivingSecondLicense!=99" class="infoWaring">*</span></label>
+              <img-upload [img]="{url:modalData.DrivingSecondUrl}"
+                      [selectable]="false"
+                      (afterChange)="modalData.DrivingSecondUrl = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label>驾驶证URL</label>
-          <!--<img-upload [num]="4" resultUrl="modalData.DriverUrl"></img-upload>-->
+          <label>驾驶证URL：<span [class.hidden]="need_data.CarDriveLen!=99" class="infoWaring">*</span></label>
+             <img-upload [img]="{url:modalData.DriverUrl}"
+                      [selectable]="false"
+                      (afterChange)="modalData.DriverUrl = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label>驾驶证副页URL</label>
-          <!--<img-upload [num]="5" resultUrl="modalData.DriverSecondUrl"></img-upload>-->
+           <label>行驶证副页URL：<span [class.hidden]="need_data.MajorViolation!=99" class="infoWaring">*</span></label>
+              <img-upload [img]="{url:modalData.DriverUrl}"
+                      [selectable]="false"
+                      (afterChange)="modalData.DriverUrl = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label class="modal-msg">车主收到的短信验证码</label>
+          <label>驾驶证副页URL：<span [class.hidden]="need_data.MajorSecondViolation!=99" class="infoWaring">*</span></label>
+            <img-upload [img]="{url:modalData.DriverSecondUrl}"
+                      [selectable]="false"
+                      (afterChange)="modalData.DriverSecondUrl = $event.url"></img-upload>
+        </div>
+        <div class="modal-input-group" [class.hidden]="need_data.VerifyCodeLen!=99">
+          <span [class.hidden]="need_data.VerifyCodeLen!=99" class="infoWaring">*</span><label class="modal-msg">车主收到的短信验证码</label>
           <input type="text" name="VerifyCode" style="display:inline-block;" [(ngModel)]="modalData.VerifyCode">
           <div class="table-btns" style="display:inline-block;" class="sendMsg">
             <a class="table-btn" href="javascript:void(0);" (click)="sendMsg(modalData.carNumber)">发送短信验证码</a>
           </div>
         </div>
         <div class="modal-btn-group">
-          <button type="submit" (click)="submitModal()">确定</button>
+          <button type="submit" (click)="submitModal()">保存</button>
+          <button (click)="toggleEditModal()">关闭</button>
         </div>
       </form>
       <div class="modal-close" (click)="toggleEditModal()">

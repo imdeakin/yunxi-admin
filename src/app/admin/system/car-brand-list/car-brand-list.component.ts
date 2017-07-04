@@ -123,7 +123,7 @@ export class CarBrandListComponent implements OnInit {
     }
   }
 
-  // 核验弹窗
+  //确认弹窗
   public verificationConfirm(carBrandId): void {
     let index = layer.confirm(
       '请确认删除结果',

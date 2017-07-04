@@ -14,8 +14,8 @@ import 'tinymce/themes/modern';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/paste';
-declare var tinymce: any;
 
+declare let layer: any;
 
 @Component({
   selector: 'article-list',
@@ -51,7 +51,6 @@ export class ArticleListComponent implements OnInit {
   public ngOnInit(): void {
     this.computeOnResize();
     this.getDocumentList();
-    this.ediotTinymce();
   }
 
   public computeOnResize() {
@@ -61,19 +60,6 @@ export class ArticleListComponent implements OnInit {
       this.contentHeight = this.funcServer.getContentHeight(this.elRef);
       this.perPageSize = this.funcServer.getPerPageSize(this.contentHeight);
     });
-  }
-
-  public ediotTinymce():void{
-     tinymce.init({
-        selector:'.editContent',
-        language_url : 'assets/js/langs/zh_CN.js',  
-        skin_url: 'assets/css/skins/lightgray',
-        height:170,
-        resize: false,
-        elementpath: false,
-        plugins: 'paste',  
-        paste_as_text: true
-    })
   }
 
   public getDocumentList(curPageIndex?): void {
@@ -163,5 +149,23 @@ export class ArticleListComponent implements OnInit {
     this.apiCall.delDocument(documentId,(data)=>{
         this.getDocumentList(1)
     })
+  }
+
+   //确认弹窗
+  public verificationConfirm(documentId): void {
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.delDocument(documentId);
+        layer.close(index);
+      },
+      () => {
+         layer.close(index);
+      }
+    )
   }
 }
