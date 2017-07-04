@@ -14,8 +14,8 @@ declare let layer: any;
   styleUrls: ['./img-upload.component.css']
 })
 export class ImgUploadComponent implements DoCheck {
-  @Output() public afterChange: EventEmitter<Image> = new EventEmitter();
-  @Output() public afterRemove: EventEmitter<Image> = new EventEmitter();
+  @Output() public afterChange: EventEmitter<Image> = new EventEmitter(); // 图片变动后调用 传递变动后的图片数据 (删除图片也会变动的一种)
+  @Output() public afterRemove: EventEmitter<Image> = new EventEmitter(); // 图片删除后调用 传递被删除的图片数据 (删除后也会触发afterChange事件)
   @Input() public img: Image = new Image('', ''); // 已添加的图片
   @Input() public editable: boolean = true; // 是否可修改
   @Input() public selectable: boolean = true; // 是否可选中
@@ -66,11 +66,12 @@ export class ImgUploadComponent implements DoCheck {
   public removeFile() {
     let index = layer.confirm('删除图片？', {btns: ['确定', '取消']},
       () => {
+        layer.close(index);
         let img = this.img;
         this.img = new Image('', '');
         this.deleted = true;
-        layer.close(index);
         this.afterRemove.emit(img);
+        this.afterChange.emit(this.img);
       });
   }
 }

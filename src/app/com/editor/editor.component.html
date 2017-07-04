@@ -8,7 +8,7 @@
         <i class="fa fa-font" (click)="toggleDrop($event,'dropFontShow');"></i>
         <div class="drop drop-font" [class.hidden]="!dropFontShow">
           <strong>选择字体</strong>
-          <i class="fa fa-chevron-up quit"></i>
+          <i class="fa fa-chevron-up quit" (click)="dropFontShow = !dropFontShow"></i>
           <div class="padding-top-bottom-small">
             <label>字体:</label>
             <select name="fontFamily" [(ngModel)]="fontFamily" (change)="editor.setFontFace(fontFamily)">
@@ -40,7 +40,7 @@
         <i class="fa fa-link" (click)="toggleDrop($event,'dropLinkShow')"></i>
         <div class="drop drop-link" [class.hidden]="!dropLinkShow">
           <strong>插入超链接</strong>
-          <i class="fa fa-chevron-up quit"></i>
+          <i class="fa fa-chevron-up quit" (click)="dropLinkShow = !dropLinkShow"></i>
           <input placeholder="URL" type="text" name="linkUrl" [(ngModel)]="linkUrl"/>
           <div class="btn" (click)="editor.makeLink(linkUrl);dropLinkShow = !dropLinkShow;">插入</div>
         </div>
@@ -50,7 +50,7 @@
         <i class="fa fa-picture-o" (click)="toggleDrop($event,'imageUrlShow')"></i>
         <div class="drop drop-image" [class.hidden]="!imageUrlShow">
           <strong>插入图片</strong>
-          <i class="fa fa-chevron-up quit"></i>
+          <i class="fa fa-chevron-up quit" (click)="imageUrlShow = !imageUrlShow"></i>
           <input placeholder="图片地址" type="text" name="imageUrl" [(ngModel)]="imageUrl"/>
           <div class="btn" (click)="editor.insertImage(imageUrl);imageUrlShow = !imageUrlShow;">插入</div>
         </div>

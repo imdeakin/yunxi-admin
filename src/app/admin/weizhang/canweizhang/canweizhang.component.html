@@ -52,8 +52,11 @@
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=0'></a>
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1' (click)="toggleEditModal(item)">办理</a>
-                <a class="table-btn" href="javascript:void(0);" [hidden]="item.cxy_pay_status !=='' || item.handle_status !==0 "  (click)="comfirmCxyPayOrder(item.order_id)">确认支付</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1'
+                   (click)="toggleEditModal(item)">办理</a>
+                <a class="table-btn" href="javascript:void(0);"
+                   [hidden]="item.cxy_pay_status !=='' || item.handle_status !==0 "
+                   (click)="comfirmCxyPayOrder(item.order_id)">确认支付</a>
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3'>确认</a>
               </div>
             </td>
@@ -66,86 +69,87 @@
     </div>
   </div>
 </div>
-  <div class="modal-wrapper" [class.hidden]='!detailPages'>
-  <div class="content" [style.height]="contentHeight + 'px'" >
-       <div class="modal-con">
-        <form class="modal-form">
-          <div class="modal-btn-group">
-            <h2 style="font-size:50px;">填写信息</h2>
-          </div>
-           <h3 class="modal-title">车辆信息</h3>
-            <div class="modal-input-group">
-              <label>车牌号码:</label>
-              <input type="text" name="carNumber" [(ngModel)]="modalData.carNumber">
-            </div>
-             <div class="modal-input-group">
-              <label>发动机号:</label>
-              <input type="text" name="engineNumber" [(ngModel)]="modalData.engineNumber">
-            </div>
-             <div class="modal-input-group" >
-              <label>车架号：</label>
-              <input type="text" name="frameNumber" [(ngModel)]="modalData.frameNumber">
-            </div>
-          <h3 class="modal-title">车主信息</h3>
-            <div class="modal-input-group">
-              <label>车主姓名：</label>
-              <input type="text" name="username" [(ngModel)]="modalData.username">
-            </div>
-            <div class="modal-input-group">
-              <label>驾驶证/身份证</label>
-              <input type="text" name="CardNo" [(ngModel)]="modalData.CardNo">
-            </div>
-             <div class="modal-input-group">
-              <label>车主电话：</label>
-              <input type="text" name="mobile" [(ngModel)]="modalData.mobile">
-              <span class="modal-must">*</span>
-            </div>
-            <div class="modal-input-group">
-              <label>驾驶证档案编号：</label>
-              <input type="text" name="pCount" [(ngModel)]="modalData.pCount">
-            </div>
-            <div class="modal-input-group">
-              <label>驾驶证登记手机号：</label>
-              <input type="text" name="carPhone" [(ngModel)]="modalData.carPhone">
-            </div>
-            <div class="modal-input-group">
-              <label>车辆登记证书URL：</label>
-              <img-upload-list [selectable]="false"></img-upload-list>
-            </div>
-            <div class="modal-input-group">
-              <label>驾驶证条形二维码URL：</label>
-              <!--<img-upload [num]="1" resultUrl="modalData.QRCode"></img-upload>-->
-            </div>
-            <div class="modal-input-group">
-              <label>行驶证URL：</label>
-               <!--<img-upload [num]="2" resultUrl="modalData.DrivingUrl"></img-upload>-->
-            </div>
-            <div class="modal-input-group">
-              <label>行驶证副页URL</label>
-              <!--<img-upload [num]="3" resultUrl="modalData.DrivingSecondUrl"></img-upload>-->
-            </div>
-            <div class="modal-input-group">
-              <label>驾驶证URL</label>
-              <!--<img-upload [num]="4" resultUrl="modalData.DriverUrl"></img-upload>-->
-            </div>
-            <div class="modal-input-group">
-              <label>驾驶证副页URL</label>
-              <!--<img-upload [num]="5" resultUrl="modalData.DriverSecondUrl"></img-upload>-->
-            </div>
-            <div class="modal-input-group">
-              <label class="modal-msg">车主收到的短信验证码</label>
-              <input type="text" name="VerifyCode" style="display:inline-block;"  [(ngModel)]="modalData.VerifyCode">
-              <div class="table-btns" style="display:inline-block;" class="sendMsg">
-                <a class="table-btn" href="javascript:void(0);" (click)="sendMsg(modalData.carNumber)">发送短信验证码</a>
-              </div>
-            </div>
-          <div class="modal-btn-group">
-            <button type="submit" (click)="submitModal()">确定</button>
-          </div>
-        </form>
-        <div class="modal-close" (click)="toggleEditModal()">
-          <i class="icon-font">&#xe6e9;</i>
+<div class="modal-wrapper" [class.hidden]='!detailPages'>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="modal-con">
+      <form class="modal-form">
+        <div class="modal-btn-group">
+          <h2 style="font-size:50px;">填写信息</h2>
         </div>
+        <h3 class="modal-title">车辆信息</h3>
+        <div class="modal-input-group">
+          <label>车牌号码:</label>
+          <input type="text" name="carNumber" [(ngModel)]="modalData.carNumber">
         </div>
+        <div class="modal-input-group">
+          <label>发动机号:</label>
+          <input type="text" name="engineNumber" [(ngModel)]="modalData.engineNumber">
+        </div>
+        <div class="modal-input-group">
+          <label>车架号：</label>
+          <input type="text" name="frameNumber" [(ngModel)]="modalData.frameNumber">
+        </div>
+        <h3 class="modal-title">车主信息</h3>
+        <div class="modal-input-group">
+          <label>车主姓名：</label>
+          <input type="text" name="username" [(ngModel)]="modalData.username">
+        </div>
+        <div class="modal-input-group">
+          <label>驾驶证/身份证</label>
+          <input type="text" name="CardNo" [(ngModel)]="modalData.CardNo">
+        </div>
+        <div class="modal-input-group">
+          <label>车主电话：</label>
+          <input type="text" name="mobile" [(ngModel)]="modalData.mobile">
+          <span class="modal-must">*</span>
+        </div>
+        <div class="modal-input-group">
+          <label>驾驶证档案编号：</label>
+          <input type="text" name="pCount" [(ngModel)]="modalData.pCount">
+        </div>
+        <div class="modal-input-group">
+          <label>驾驶证登记手机号：</label>
+          <input type="text" name="carPhone" [(ngModel)]="modalData.carPhone">
+        </div>
+        <div class="modal-input-group">
+          <label>车辆登记证书URL：</label>
+        </div>
+        <div class="modal-input-group">
+          <label>驾驶证条形二维码URL：</label>
+          <img-upload [img]="{url:modalData.QRCode}"
+                      [selectable]="false"
+                      (afterChange)="modalData.QRCode = $event.url"></img-upload>
+        </div>
+        <div class="modal-input-group">
+          <label>行驶证URL：</label>
+          <!--<img-upload [num]="2" resultUrl="modalData.DrivingUrl"></img-upload>-->
+        </div>
+        <div class="modal-input-group">
+          <label>行驶证副页URL</label>
+          <!--<img-upload [num]="3" resultUrl="modalData.DrivingSecondUrl"></img-upload>-->
+        </div>
+        <div class="modal-input-group">
+          <label>驾驶证URL</label>
+          <!--<img-upload [num]="4" resultUrl="modalData.DriverUrl"></img-upload>-->
+        </div>
+        <div class="modal-input-group">
+          <label>驾驶证副页URL</label>
+          <!--<img-upload [num]="5" resultUrl="modalData.DriverSecondUrl"></img-upload>-->
+        </div>
+        <div class="modal-input-group">
+          <label class="modal-msg">车主收到的短信验证码</label>
+          <input type="text" name="VerifyCode" style="display:inline-block;" [(ngModel)]="modalData.VerifyCode">
+          <div class="table-btns" style="display:inline-block;" class="sendMsg">
+            <a class="table-btn" href="javascript:void(0);" (click)="sendMsg(modalData.carNumber)">发送短信验证码</a>
+          </div>
+        </div>
+        <div class="modal-btn-group">
+          <button type="submit" (click)="submitModal()">确定</button>
+        </div>
+      </form>
+      <div class="modal-close" (click)="toggleEditModal()">
+        <i class="icon-font">&#xe6e9;</i>
+      </div>
+    </div>
   </div>
 </div>

@@ -27,14 +27,17 @@ export class EditorComponent implements OnInit, AfterViewInit, DoCheck {
   public dropLinkShow: boolean; // 插入超链接显示状态
   public imageUrl: string; // 插入超链接
   public imageUrlShow: boolean; // 插入超链接显示状态
+  public editorInit: boolean;
+
+  public contentOld: string = '';
 
   constructor(private elRef: ElementRef, private scrollbarServer: ScrollbarServer) {
   }
 
   public ngDoCheck(): void {
-    if (this.editor && this.editor.getHTML() !== this.content) {
-      this.content = this.editor.getHTML();
-      this.contentChange.emit(this.content);
+    if (this.editor && this.content !== this.contentOld) {
+      this.contentOld = this.content;
+      this.editor.setHTML(this.content);
     }
   }
 
@@ -51,12 +54,17 @@ export class EditorComponent implements OnInit, AfterViewInit, DoCheck {
     let node = document.querySelector(query);
     this.editor = new Squire(node);
     this.editor.setHTML(this.content);
+
+    // 监听编辑器失去焦点，触发contentChange事件
+    this.editor.addEventListener('blur', () => {
+      this.content = this.editor.getHTML();
+      this.contentChange.emit(this.content);
+    });
   }
 
   // 滚动条美化
   public scrollbar(): void {
     let con = document.querySelector(<string>('#' + this.id + ' .editor'));
-    console.log(con);
     this.scrollbarServer.init(con);
   }
 
@@ -75,7 +83,6 @@ export class EditorComponent implements OnInit, AfterViewInit, DoCheck {
 
   public toggleMenuItem(e): void {
     let target = e.currentTarget;
-    console.log(target);
     let action = this.getNodeAttruteValue(target, 'data-action');
 
     let test = {
@@ -132,7 +139,6 @@ export class EditorComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   public toggleDrop(e, key): void {
-    console.log(e.currentTarget.parentNode);
     this.toggleMenuItem({currentTarget: e.currentTarget.parentNode});
     if (e.target === e.currentTarget) {
       this[key] = !this[key];

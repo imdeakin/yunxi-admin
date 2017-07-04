@@ -557,17 +557,17 @@ export class ApiCall {
   }
 
   //审批
-  public getAuditPass(partnerApplyId:string,adminId:string,agreementCode:string,approve:string,summary:string,remark:string,status:number,success,failure?):void{
-      this.apiCall({
+  public getAuditPass(partnerApplyId: string, adminId: string, agreementCode: string, approve: string, summary: string, remark: string, status: number, success, failure?): void {
+    this.apiCall({
       url: this.apiConfig.paths.getAuditPass,
       data: {
         partnerApplyId: partnerApplyId,
-        adminId:adminId,
-        agreementCode:agreementCode,
-        approve:approve,
-        summary:summary,
-        remark:remark,
-        status:status
+        adminId: adminId,
+        agreementCode: agreementCode,
+        approve: approve,
+        summary: summary,
+        remark: remark,
+        status: status
       },
       success: success,
       failure: failure
@@ -1219,6 +1219,99 @@ export class ApiCall {
     });
   }
 
+  /**
+   * 获取商品轮播图列表
+   * @param goodsId 商品ID
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsSlideList(goodsId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsSlideList,
+      data: {
+        goodsId: goodsId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 添加商品轮播图
+   * @param goodsId 商品ID
+   * @param fileId 图片ID
+   * @param success
+   * @param failure
+   */
+  public addStoreGoodsSlide(goodsId, fileId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsSlide,
+      data: {
+        goodsId: goodsId,
+        fileId: fileId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品轮播图
+   * @param goodsPicId 商品轮播图ID
+   * @param goodsId 商品ID
+   * @param fileId 图片ID
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsSlide(goodsPicId, goodsId, fileId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsSlide,
+      data: {
+        goodsPicId: goodsPicId,
+        goodsId: goodsId,
+        fileId: fileId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 删除商品轮播图
+   * @param goodsPicId 商品轮播图ID
+   * @param success
+   * @param failure
+   */
+  public removeStoreGoodsSlide(goodsPicId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoodsSlide,
+      data: {
+        goodsPicId: goodsPicId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 将商品轮播图设置为门店轮播图封面
+   * @param goodsPicId 商品轮播图ID
+   * @param goodsId 商品ID
+   * @param success
+   * @param failure
+   */
+  public setToShopSlideCover(goodsPicId, goodsId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.setToShopSlideCover,
+      data: {
+        goodsPicId: goodsPicId,
+        goodsId: goodsId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   public getStoreOrderList(sn, status, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getStoreOrderList,
@@ -1739,40 +1832,40 @@ export class ApiCall {
   }
 
   //修改文案
-  public updateDocument(documentId:string,title:string,content:string,type:number,author:string,success,failure?):void{
+  public updateDocument(documentId: string, title: string, content: string, type: number, author: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateDocument,
       data: {
-        documentId:documentId,
-        title:title,
-        content:content,
-        type:type,
-        author:author
+        documentId: documentId,
+        title: title,
+        content: content,
+        type: type,
+        author: author
       },
       success: success,
       failure: failure
     })
   }
 
-  public delDocument(documentId:string,success,failure?):void{
+  public delDocument(documentId: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.delDocument,
       data: {
-        documentId:documentId
+        documentId: documentId
       },
       success: success,
       failure: failure
     })
   }
 
-  public addDocument(title:string,content:string,type:number,author:string,success,failure?):void{
-     this.apiCall({
+  public addDocument(title: string, content: string, type: number, author: string, success, failure?): void {
+    this.apiCall({
       url: this.apiConfig.paths.addDocument,
       data: {
-        title:title,
-        content:content,
-        type:type,
-        author:author
+        title: title,
+        content: content,
+        type: type,
+        author: author
       },
       success: success,
       failure: failure

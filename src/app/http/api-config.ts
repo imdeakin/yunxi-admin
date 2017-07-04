@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://yx.51meets.com:8082'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
+  public server: string = 'http://yx.51meets.com'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
@@ -19,33 +19,33 @@ export class ApiConfig {
     getYoukaBindList: this.root + '/oiling/oilBoundList', // 获取油卡套餐列表
     getYoukaOrderList: this.root + '/oiling/chargeOrderdList', // 获取油卡购买套餐订单列表
     getYoukaRecordManageList: this.root + '/oiling/chargeOrderdList', // 获取油卡到账记录列表
-    updateYoukaTaocanList:this.root +'/oiling/updatePackageInfo',//编辑油卡套餐
-    addYoukaTaocanList:this.root + '/oiling/addPackageInfo',//增加油卡套餐
-    removeYoukaTaocanList:this.root + '/oiling/delPackageInfo',//删除油卡列表
-    YouCardOrderReturn:this.root + '/oiling/upadteCardOrderAndCardOrderReturn',//油卡订单返还
-    getYoucardOrderReturnList:this.root + '/oiling/cardOrderReturnList',//油卡到账记录表
-    getCardOrderReturn:this.root + '/oiling/getCardOrderReturn',//油卡到账详情
+    updateYoukaTaocanList: this.root + '/oiling/updatePackageInfo',//编辑油卡套餐
+    addYoukaTaocanList: this.root + '/oiling/addPackageInfo',//增加油卡套餐
+    removeYoukaTaocanList: this.root + '/oiling/delPackageInfo',//删除油卡列表
+    YouCardOrderReturn: this.root + '/oiling/upadteCardOrderAndCardOrderReturn',//油卡订单返还
+    getYoucardOrderReturnList: this.root + '/oiling/cardOrderReturnList',//油卡到账记录表
+    getCardOrderReturn: this.root + '/oiling/getCardOrderReturn',//油卡到账详情
 
     //违章管理
-    getCanWeizhangList:this.root + '/peccancyManage/peccancyOrderList',//获取可办理违章
-    getCanWeizhangData:this.root + '/peccancyManage/getHandleOrderNeeds',//获取可办理违章资料
-    postPeccancyMsg:this.root + '/peccancyManage/sendVcode',//发送短信验证码接口
-    postPeccancyManage:this.root + '/peccancyManage/saveOrder',//管理
-    comfirmCxyPayOrder:this.root + '/peccancyManage/comfirmCxyPayOrder',//确认可支付接口
-    setOrderMoneyAndServiceFee:this.root + '/peccancyManage/setOrderMoneyAndServiceFee',//设置不可办理订单的办理违章所需价格和云洗利润服务费
-    comfirmOrderOfDoing:this.root + '/peccancyManage/comfirmOrderOfDoing',//办理不可支付订单
-    comfirmOrderOfFinish:this.root + '/peccancyManage/comfirmOrderOfFinish',//确认不可支付订单
+    getCanWeizhangList: this.root + '/peccancyManage/peccancyOrderList',//获取可办理违章
+    getCanWeizhangData: this.root + '/peccancyManage/getHandleOrderNeeds',//获取可办理违章资料
+    postPeccancyMsg: this.root + '/peccancyManage/sendVcode',//发送短信验证码接口
+    postPeccancyManage: this.root + '/peccancyManage/saveOrder',//管理
+    comfirmCxyPayOrder: this.root + '/peccancyManage/comfirmCxyPayOrder',//确认可支付接口
+    setOrderMoneyAndServiceFee: this.root + '/peccancyManage/setOrderMoneyAndServiceFee',//设置不可办理订单的办理违章所需价格和云洗利润服务费
+    comfirmOrderOfDoing: this.root + '/peccancyManage/comfirmOrderOfDoing',//办理不可支付订单
+    comfirmOrderOfFinish: this.root + '/peccancyManage/comfirmOrderOfFinish',//确认不可支付订单
 
     // 车险管理
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表
 
     //推荐车险管理
-    getregionRecommendInsurerList:this.root+'/system/regionRecommendInsurerList',//推荐车险管理列表
-    provinceShortname:this.root+'/system/provinceShortname',//获取省份缩写
-    getinsuranceList:this.root+'/system/insuranceList',//获取所有保险公司
-    delRegionSupportInsurance:this.root + '/system/delRegionSupportInsurance',//删除地区推荐的保险公司
-    addRegionSupportlnsurance:this.root + '/system/addRegionSupportInsurance',//添加地区推荐的保险公司
-    updateRegionSupportInsurance:this.root + '/system/updateRegionSupportInsurance',//修改地区推荐的保险公司
+    getregionRecommendInsurerList: this.root + '/system/regionRecommendInsurerList',//推荐车险管理列表
+    provinceShortname: this.root + '/system/provinceShortname',//获取省份缩写
+    getinsuranceList: this.root + '/system/insuranceList',//获取所有保险公司
+    delRegionSupportInsurance: this.root + '/system/delRegionSupportInsurance',//删除地区推荐的保险公司
+    addRegionSupportlnsurance: this.root + '/system/addRegionSupportInsurance',//添加地区推荐的保险公司
+    updateRegionSupportInsurance: this.root + '/system/updateRegionSupportInsurance',//修改地区推荐的保险公司
 
     // 会员管理
     getUserList: this.root + '/members/memberInfoList', // 获取会员列表
@@ -53,8 +53,8 @@ export class ApiConfig {
     getLevelRecordList: this.root + '/members/memberUpgradeList', // 获取会员升级记录列表
     getLevelOrderList: this.root + '/members/memberUpgradeOrder', // 获取会员升级订单列表
     getRelationList: this.root + '/members/getRelationInfo', // 获取推介关系列表
-    updateMemberInfo:this.root + '/members/updateMemberInfo',//修改会员等级信息
-    getStatisticsData:this.root + '/members/statisticsData',//推广会员统计表
+    updateMemberInfo: this.root + '/members/updateMemberInfo',//修改会员等级信息
+    getStatisticsData: this.root + '/members/statisticsData',//推广会员统计表
 
 
     // 合伙人管理
@@ -62,9 +62,9 @@ export class ApiConfig {
     getPartnerInfo: this.root + '/copartner/getPartnerInfo', // 获取合伙人详情
     getPartnerApplyList: this.root + '/copartner/applyPartnerList', // 获取合伙人申请列表
     getPartnerApplyInfo: this.root + '/copartner/applyPartnerInfo', // 获取合伙人申请详情
-    getAuditPass:this.root + '/copartner/auditPass',//审批
-    getReexamine:this.root + '/copartner/reexamine',//复核
-    
+    getAuditPass: this.root + '/copartner/auditPass',//审批
+    getReexamine: this.root + '/copartner/reexamine',//复核
+
     /*
      * 商城管理
      */
@@ -73,7 +73,7 @@ export class ApiConfig {
     getStoreGoodsList: this.root + '/marketManage/mallGoodsList', // 获取商品列表
     addStoreGoods: this.root + '/marketManage/addMallGoods', // 添加商品
     updateStoreGoods: this.root + '/marketManage/updateMallGoods', // 修改商品
-    removeStoreGoods: this.root + '/marketManage/delMallGoodsl', // 删除商品
+    removeStoreGoods: this.root + '/marketManage/delMallGoods', // 删除商品
 
     // 商品信息
     getStoreGoodsInfo: this.root + '/marketManage/getMallGoods', // 获取商品信息
@@ -110,6 +110,13 @@ export class ApiConfig {
     updateStoreGoodsAttr: this.root + '/marketManage/saveMallGoodsAttr', // 更新商品基础参数
     removeStoreGoodsAttr: this.root + '/marketManage/delMallGoodsAttr', // 删除商品基础参数
 
+    // 商品轮播图
+    getStoreGoodsSlideList: this.root + '/marketManage/mallGoodsPicList', // 获取商品轮播图列表
+    addStoreGoodsSlide: this.root + '/marketManage/saveMallGoodsPic', // 添加商品轮播图
+    updateStoreGoodsSlide: this.root + '/marketManage/saveMallGoodsPic', // 更新商品轮播图
+    removeStoreGoodsSlide: this.root + '/marketManage/delMallGoodsPic', // 删除商品轮播图
+    setToShopSlideCover: this.root + '/marketManage/setIsCover', // 将商品轮播图设置为门店轮播图封面
+
     // 订单
     getStoreOrderList: this.root + '/marketManage/mallOrderList', // 获取订单列表
     updateStoreOrder: this.root + '/marketManage/updateMallOrder', // 修改订单信息
@@ -140,12 +147,12 @@ export class ApiConfig {
     getBonusWithdrawList: this.root + '/finance/accountWithdrawList', // 获取奖金提现列表
 
     //门店管理
-    getMallSshopList:this.root + '/adminShop/mallSshopList',//获取门店列表
-    getMallShop:this.root + '/adminShop/getMallShop',//获取门店详情
-    updateMallShopStatus:this.root + '/adminShop/updateMallShopStatus',//修改门店状态
-    getMallShopServiceList:this.root + '/adminShop/mallShopServiceList',//获取门店服务列表
-    getMallShopServiceOrderList:this.root + '/adminShop/mallShopServiceOrderList',//获取门店订单列表
-    getMallShopServiceOrder:this.root + '/adminShop/getMallShopServiceOrder',//获取门店订单详情
+    getMallSshopList: this.root + '/adminShop/mallSshopList',//获取门店列表
+    getMallShop: this.root + '/adminShop/getMallShop',//获取门店详情
+    updateMallShopStatus: this.root + '/adminShop/updateMallShopStatus',//修改门店状态
+    getMallShopServiceList: this.root + '/adminShop/mallShopServiceList',//获取门店服务列表
+    getMallShopServiceOrderList: this.root + '/adminShop/mallShopServiceOrderList',//获取门店订单列表
+    getMallShopServiceOrder: this.root + '/adminShop/getMallShopServiceOrder',//获取门店订单详情
 
     // 消息管理
     getMsgList: this.root + '/sysMsg/sysMsgList', // 获取消息列表
@@ -195,14 +202,14 @@ export class ApiConfig {
     removeRole: this.root + '/system/delRole', // 删除角色
 
     //文案管理
-    getDocumentList:this.root + '/system/getDocumentList',//查询文案列表
-    addDocumentList:this.root + '/system/addDocument',//添加文案列表
-    updateDocument:this.root + '/system/updateDocument',//编辑文案列表
-    delDocument:this.root + '/system/delDocument',//删除文案列表
-    addDocument:this.root + '/system/addDocument',//增加文案列表
+    getDocumentList: this.root + '/system/getDocumentList',//查询文案列表
+    addDocumentList: this.root + '/system/addDocument',//添加文案列表
+    updateDocument: this.root + '/system/updateDocument',//编辑文案列表
+    delDocument: this.root + '/system/delDocument',//删除文案列表
+    addDocument: this.root + '/system/addDocument',//增加文案列表
 
     //上传文件
-    uploadFile:this.root +'/adfile/upload'
+    uploadFile: this.root + '/adfile/upload'
   };
 
   public getImgFullPath(imgPath: string): string {

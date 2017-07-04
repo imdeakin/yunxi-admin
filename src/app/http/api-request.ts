@@ -43,7 +43,7 @@ export class ApiRequest {
    */
   public post(options: ReqOpts) {
     // 处理数据
-    let processData = !(options.processData === false);
+    let processData = options.processData !== false;
     let data = processData ? this.getParams(options.data) : options.data;
 
     // 设置content-type请求头
@@ -54,6 +54,8 @@ export class ApiRequest {
       } else {
         this.setHeaders({'content-type': contentType});
       }
+    } else {
+      this.setHeaders({'content-type': 'application/x-www-form-urlencoded'});
     }
 
     this._post(options.url, data)

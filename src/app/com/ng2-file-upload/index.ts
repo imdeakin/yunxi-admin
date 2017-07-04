@@ -4,3 +4,4 @@
 export * from './file-upload';
 export * from './img-upload';
 export * from './img-upload-list';
+export * from './image';
