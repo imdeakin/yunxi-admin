@@ -7,7 +7,7 @@ import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
 import {GoodsList} from '../data-type/godds-list';
 import {StoreFunction} from '../data-type/store-function';
-import {Image} from '../../../com/ng2-file-upload';
+import {UploadImage} from '../../../com/ng2-file-upload';
 
 declare let layer: any;
 
@@ -61,8 +61,8 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public curGoodsId; // 当前选中的商品ID
   public curGoodsTypeId; // 当前选中的商品类型ID
   public originalGoodsSlideList = []; // 当前选中的商品的未经处理的轮播图数组
-  public curGoodsSlideList: Image[] = []; // 当前选中的商品的轮播图数组
-  public oldGoodsSlideList: Image[] = []; // 缓存起来 用于比较
+  public curGoodsSlideList: UploadImage[] = []; // 当前选中的商品的轮播图数组
+  public oldGoodsSlideList: UploadImage[] = []; // 缓存起来 用于比较
 
   public editAttrModalShow: boolean = false;
 
@@ -189,6 +189,14 @@ export class GoodsListComponent implements OnInit, DoCheck {
     this.editBaseInfoModalShow = !this.editBaseInfoModalShow;
   }
 
+  // 保存商品基本信息
+  public saveGoodsBaseInfo(): void {
+    // 保存
+
+    // 进入下一步
+    this.toggleEditGoodsDetailModal(this.editBaseInfoModalData.instruction)
+  }
+
   /*
    * 商品详情编辑
    */
@@ -207,8 +215,11 @@ export class GoodsListComponent implements OnInit, DoCheck {
 
   // 保存详情
   public saveGoodsDetail(): void {
+    // 保存
     this.editBaseInfoModalData.instruction = this.editGoodsDetailModalData.content;
-    this.toggleEditGoodsDetailModal();
+
+    // 进入下一步
+    this.toggleEditGoodsSlideModal(this.curGoodsId);
   }
 
   /*
@@ -229,16 +240,16 @@ export class GoodsListComponent implements OnInit, DoCheck {
         this.originalGoodsSlideList = list;
 
         // 整理数据
-        let imgList: Image[] = [];
+        let imgList = [];
         for (let i = 0, len = list.length; i < len; i++) {
           let item = list[i];
-          let img: Image = <Image>{
+          imgList.push({
             url: item.url,
             file_id: item.file_id,
-            selected: item.is_cover === 1
-          };
-          imgList.push(img);
+            selected: !!item.is_cover
+          });
         }
+
         this.curGoodsSlideList = imgList;
         this.oldGoodsSlideList = this.funcServer.deepCopy(imgList);
       },
@@ -249,9 +260,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
     );
   }
 
-  // 保存详情
+  // 保存商品轮播图
   public saveGoodsSlide(): void {
-    if (this.curGoodsSlideList !== this.oldGoodsSlideList) {
+    if (this.curGoodsSlideList != this.oldGoodsSlideList) {
       let delList = this.originalGoodsSlideList;
       let addList = this.curGoodsSlideList;
 
@@ -289,7 +300,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
 
       }
     }
-    this.toggleEditGoodsSlideModal();
+
+    // 进入下一步
+    this.toggleGoodsAttrListModal();
   }
 
   /*

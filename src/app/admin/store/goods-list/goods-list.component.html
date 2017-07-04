@@ -112,25 +112,28 @@
           <label>商品描述</label>
           <textarea name="described" [(ngModel)]="editBaseInfoModalData.described"></textarea>
         </div>
-        <div class="modal-input-group">
-          <label>商品详情</label>
-          <a href="javascript:void(0)" class="text-btn"
-             (click)="toggleEditGoodsDetailModal(editBaseInfoModalData.instruction)">点击编辑</a>
-        </div>
-        <div class="modal-input-group">
-          <label>轮播图片</label>
-          <a href="javascript:void(0)" class="text-btn"
-             (click)="toggleEditGoodsSlideModal(curGoodsId)">点击编辑</a>
-        </div>
-        <div class="modal-btn-group bottom">
-          <button (click)="toggleGoodsAttrListModal()">下一步</button>
+        <!--<div class="modal-input-group">-->
+          <!--<label>商品详情</label>-->
+          <!--<a href="javascript:void(0)" class="text-btn"-->
+             <!--(click)="toggleEditGoodsDetailModal(editBaseInfoModalData.instruction)">点击编辑</a>-->
+        <!--</div>-->
+        <!--<div class="modal-input-group">-->
+          <!--<label>轮播图片</label>-->
+          <!--<a href="javascript:void(0)" class="text-btn"-->
+             <!--(click)="toggleEditGoodsSlideModal(curGoodsId)">点击编辑</a>-->
+        <!--</div>-->
+        <!--<div class="modal-btn-group bottom">-->
+          <!--<button (click)="toggleGoodsAttrListModal()">下一步</button>-->
+        <!--</div>-->
+        <div class="modal-btn-group">
+          <button (click)="saveGoodsBaseInfo()">下一步</button>
         </div>
       </form>
     </ng-template>
   </div>
 </div>
 <!--商品详情编辑-->
-<div class="modal-wrapper" [class.hidden]="!editGoodsDetailModalShow">
+<div class="modal-wrapper" [class.hidden]="!editGoodsDetailModalShow || editGoodsSlideModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
   <div class="modal-con edit-goods-detail-modal">
     <div class="modal-close" (click)="toggleEditGoodsDetailModal()">
       <i class="icon-font">&#xe6e9;</i>
@@ -139,14 +142,14 @@
     <ng2-editor [height]="480"
                 [content]="editGoodsDetailModalData.content"
                 (contentChange)="editGoodsDetailModalData.content = $event"></ng2-editor>
-    <div class="modal-btn-group bottom">
-      <button (click)="saveGoodsDetail();">保存</button>
-      <button (click)="toggleEditGoodsDetailModal()">关闭</button>
+    <div class="modal-btn-group">
+      <button (click)="toggleEditGoodsDetailModal()">上一步</button>
+      <button (click)="saveGoodsDetail()">下一步</button>
     </div>
   </div>
 </div>
 <!--商品轮播图编辑-->
-<div class="modal-wrapper" [class.hidden]="!editGoodsSlideModalShow">
+<div class="modal-wrapper" [class.hidden]="!editGoodsSlideModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
   <div class="modal-con edit-goods-slide-modal">
     <div class="modal-close" (click)="toggleEditGoodsSlideModal()">
       <i class="icon-font">&#xe6e9;</i>
@@ -157,11 +160,11 @@
     <ng-template [ngIf]="curGoodsSlideList">
       <h3 class="modal-title">商品轮播图</h3>
       <div class="modal-detail-content">
-        <img-upload-list [imgList]="curGoodsSlideList" [selectable]="true" [max]="8"></img-upload-list>
+        <img-upload-list [imgList]="curGoodsSlideList" [selectable]="true" [maxSize]="8"></img-upload-list>
       </div>
       <div class="modal-btn-group bottom">
-        <button (click)="saveGoodsSlide();">保存</button>
-        <button (click)="toggleEditGoodsSlideModal()">关闭</button>
+        <button (click)="toggleEditGoodsSlideModal()">上一步</button>
+        <button (click)="saveGoodsSlide();">下一步</button>
       </div>
     </ng-template>
   </div>

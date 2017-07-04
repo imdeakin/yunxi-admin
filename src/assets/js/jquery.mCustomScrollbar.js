@@ -537,7 +537,7 @@ and dependencies (minified).
 						if($this.hasClass(classes[3])){$this.removeClass(classes[3]);}
 						if($this.hasClass(classes[4])){$this.removeClass(classes[4]);}
 						
-						/* css flexbox fix, detect/set max-height */
+						/* css flexbox fix, detect/set maxSize-height */
 						mCustomScrollBox.css("max-height","none");
 						if(mCustomScrollBox.height()!==$this.height()){mCustomScrollBox.css("max-height",$this.height());}
 						
