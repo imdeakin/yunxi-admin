@@ -25,4 +25,16 @@
   margin-left: -230px;
   margin-top: -320px;
 }
+.manager-table{
+  height:480px;
+  /*overflow-y: hidden;  */
+  overflow-x: scroll;
+  margin:0;
+}
+.manager-table th{
+  white-space:nowrap;
+}
+.manager-table td{
+  white-space:nowrap;
+}
 

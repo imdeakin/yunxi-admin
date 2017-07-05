@@ -73,3 +73,15 @@
   border-radius: 50%;
   font-size:14px;
 }
+.manager-table{
+  height:480px;
+  /*overflow-y: hidden;  */
+  overflow-x: scroll;
+  margin:0;
+}
+.manager-table th{
+  white-space:nowrap;
+}
+.manager-table td{
+  white-space:nowrap;
+}

@@ -20,7 +20,7 @@ export class YoukaOrderComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: YoukaOrder[];
   public filterData = {
-    oilPackageId:0,
+    oilPackageId:'',
     sn:'',
     oilCard: '',
     price:'',
@@ -31,7 +31,7 @@ export class YoukaOrderComponent implements OnInit {
     amount:0,
     classify: 0,
     described:'',
-    status:0,
+    status:'',
     tradeMode: '',
     modifyTime:'',
     oilCardId:'',

@@ -159,6 +159,9 @@ export class ApiCall {
       data: {
         sn: sn,
         oilCard: oilCard,
+        tradeMode:tradeMode,
+        oilPackageId:oilPackageId,
+        status:status,
         index: curPageIndex,
         pageSize: perPageSize
       },
