@@ -63,3 +63,13 @@
 .modal-form .prompt{
   font-size: 16px;
 }
+.modal-form .len{
+  display: inline-block;
+  width:18px;
+  height:18px;
+  text-align: center;
+  line-height: 18px;
+  border: 1px solid red;
+  border-radius: 50%;
+  font-size:14px;
+}

@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {SystemFunction} from '../data-type/system-function';
 import {CarSeriesList} from '../data-type/car-series-list';
 
+declare let layer: any;
+
 @Component({
   selector: 'car-series-list',
   templateUrl: './car-series-list.component.html',
@@ -139,5 +141,23 @@ export class CarSeriesListComponent implements OnInit {
       console.log(1);
       this.addCarSeries();
     }
+  }
+
+   //确认弹窗
+  public verificationConfirm(seriesId): void {
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.removeCarSeries(seriesId);
+        layer.close(index);
+      },
+      () => {
+         layer.close(index);
+      }
+    )
   }
 }

@@ -7,6 +7,7 @@ import {ApiCall} from '../../../http/api-call';
 import {FinanceFunction} from '../data-type/finance-function';
 import {CloudpayVerificationList} from '../data-type/cloudpay-verification-list';
 import {ActivatedRoute} from '@angular/router'
+import { AdminFunc } from '../../../serv/admin.server';
 
 declare let layer: any;
 
@@ -51,7 +52,8 @@ export class CloudpayVerificationComponent implements OnInit {
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
               private funcServer: FuncServer,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private adminFunc:AdminFunc) {
   }
 
   public ngOnInit(): void {
@@ -92,6 +94,7 @@ export class CloudpayVerificationComponent implements OnInit {
         this.curOrderType = parseInt(this.filterData.type + '');
         this.curOrderTypeText = this.financeFunction.getCloudpayOrderTypeText(this.curOrderType);
         this.tableList = list;
+        console.log(list);
         this.total = total;
       }
     );
@@ -130,8 +133,7 @@ export class CloudpayVerificationComponent implements OnInit {
 
   // 核验弹窗
   public verificationConfirm(item): void {
-    let adminId = '';
-    console.log(adminId);
+    let adminId = this.adminFunc.getAdminId();
     let index = layer.confirm(
       '请选择核验结果',
       {
@@ -143,7 +145,7 @@ export class CloudpayVerificationComponent implements OnInit {
         layer.close(index);
       },
       () => {
-        this.updatecloudpayVerification(adminId, item.sn, this.curOrderType, 0);
+        this.updatecloudpayVerification(adminId, item.sn, this.curOrderType, -1);
       }
     )
   }

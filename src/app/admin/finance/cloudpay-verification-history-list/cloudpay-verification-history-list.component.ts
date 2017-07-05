@@ -6,7 +6,7 @@ import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {FinanceFunction} from '../data-type/finance-function';
 import {CloudpayVerificationList} from '../data-type/cloudpay-verification-list';
-
+import { AdminFunc } from '../../../serv/admin.server';
 declare let layer: any;
 
 @Component({
@@ -48,7 +48,8 @@ export class CloudpayVerificationHistoryComponent implements OnInit {
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
-              private funcServer: FuncServer) {
+              private funcServer: FuncServer,
+              private adminFunc:AdminFunc) {
   }
 
   public ngOnInit(): void {
@@ -116,7 +117,7 @@ export class CloudpayVerificationHistoryComponent implements OnInit {
 
   //确认弹窗
   public verificationConfirm(item): void {
-    let adminId = '';
+    let adminId = this.adminFunc.getAdminId();
     let index = layer.confirm(
       '请选择核验结果',
       {
