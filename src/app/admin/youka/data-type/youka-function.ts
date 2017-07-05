@@ -78,19 +78,19 @@ export class YoukaFunction {
   // 油卡交易方式选项组
   public static youcaTradeModeOptions = [
     {
-      value: '0',
+      value: '1',
       text: '支付宝'
     },
     {
-      value: '1',
+      value: '2',
       text: '微信'
     },
     {
-      value: '2',
+      value: '3',
       text: '云付通'
     },
     {
-      value: '3',
+      value: '4',
       text: '余额'
     }
   ];

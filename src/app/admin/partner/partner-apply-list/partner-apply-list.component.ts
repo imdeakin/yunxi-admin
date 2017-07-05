@@ -99,9 +99,7 @@ export class PartnerApplyListComponent implements OnInit {
    public getAuditPass(status): void {
     let adminId = this.adminFunc.getAdminId();
     this.apiCall.getAuditPass(this.readModalData.partner_apply_id,adminId,this.readModalData.agreement_code,this.readModalData.approve,this.readModalData.summary,this.readModalData.remark,status, (data) => {
-<<<<<<< HEAD
       // this.readModalData = data.result;
-=======
       this.readModalData = data;
       console.log(data);
       this.getPartnerApplyList(1);
@@ -113,7 +111,6 @@ export class PartnerApplyListComponent implements OnInit {
     let adminId = this.adminFunc.getAdminId();
     this.apiCall.getReexamine(this.readModalData.partner_apply_id,adminId,this.readModalData.review,status,(data) => {
       this.readModalData = data;
->>>>>>> 2984626e87ca91f52c53bd313d4c5e94abcb7d9a
       console.log(data);
       this.getPartnerApplyList(1);
       this.toggleCheckModal();
@@ -127,28 +124,5 @@ export class PartnerApplyListComponent implements OnInit {
     }
      this.readCheckModalShow = !this.readCheckModalShow;
   }
-
-<<<<<<< HEAD
-  //复核窗
-  public toggleAgainModal(item?):void{
-    if(item){
-      this.getPartnerApplyInfo(item.partner_apply_id);
-    }
-    this.readAgainModalShow = !this.readAgainModalShow;
-  }
-
-  public getReexamine(status): void {
-    let adminId = this.adminFunc.getAdminId();
-    this.apiCall.getReexamine(this.readModalData.partner_apply_id,adminId,this.readModalData.review,status, (data) => {
-      // this.readModalData = data.result;
-      this.getPartnerApplyList(1);
-      this.toggleAgainModal();
-    });
-  }
-
-
-
-=======
->>>>>>> 2984626e87ca91f52c53bd313d4c5e94abcb7d9a
 }
 

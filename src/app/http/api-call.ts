@@ -24,7 +24,6 @@ export class ApiCall {
         failure(code, msg);
       }
     };
-
     this.apiRequest.post(options);
   }
 
@@ -159,6 +158,8 @@ export class ApiCall {
       data: {
         sn: sn,
         oilCard: oilCard,
+        tradeMode:tradeMode,
+        status:status,
         index: curPageIndex,
         pageSize: perPageSize
       },
@@ -575,20 +576,19 @@ export class ApiCall {
   }
 
   //复核
-  public getReexamine(partnerApplyId: string, adminId: string, review: string, status: number, success, failure?): void {
-    this.apiCall({
+  public getReexamine(partnerApplyId:string,adminId:string,review:string,status:number,success,failure?):void{
+      this.apiCall({
       url: this.apiConfig.paths.getReexamine,
       data: {
         partnerApplyId: partnerApplyId,
-        adminId: adminId,
-        review: review,
-        status: status
+        adminId:adminId,
+        review:review,
+        status:status
       },
       success: success,
       failure: failure
     });
   }
-
 
   /*
    * 商城管理

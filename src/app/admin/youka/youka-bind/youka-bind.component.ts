@@ -54,9 +54,13 @@ export class YoukaBindComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
+    console.log(this.filterData.mobile);
     this.apiCall.getYoukaBindList(this.filterData.oilCard,this.filterData.mobile,this.filterData.userName, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
+      this.filterData.oilCard = '';
+      this.filterData.mobile = '';
+      this.filterData.userName = '';
     });
   }
 
@@ -70,15 +74,10 @@ export class YoukaBindComponent implements OnInit {
 
   public selectValue():void{
       this.getYoukaSelectOptions();
-      this.getYoukaBindList(1);
-      this.filterData.oilCard = '';
-      this.filterData.mobile = '';
-      this.filterData.userName = '';
   }
 
    //匹配油卡搜索查询
   public getYoukaSelectOptions():void{
-    console.log(this.filterData);
       switch(this.filterData.nowData){
         case 'oilCard':
           this.filterData.oilCard = this.filterData.searchData;
@@ -90,6 +89,7 @@ export class YoukaBindComponent implements OnInit {
           this.filterData.userName = this.filterData.searchData;
           break;
       }
+      this.getYoukaBindList(1);
   }
 
 }

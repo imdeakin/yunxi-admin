@@ -108,9 +108,11 @@ export class CloudpayVerificationComponent implements OnInit {
       status,
       () => {
         layer.msg('操作成功');
+        this.getCloudpayVerificationList(1);
       },
       () => {
         layer.msg('操作失败，请重试');
+        this.getCloudpayVerificationList(1);
       }
     );
   }

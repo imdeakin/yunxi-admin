@@ -137,7 +137,7 @@ export class YoukaTaocanComponent implements OnInit {
    this.apiCall.updateYoukaTaocanList(
         this.modalData.oilPackageId,
         this.modalData.classify,
-        this.modalData.amount*this.modalData.eachs,
+        this.modalData.payMoney,
         this.modalData.amount,
         this.modalData.eachs,
         this.modalData.type,
