@@ -574,6 +574,22 @@ export class ApiCall {
     });
   }
 
+  //复核
+  public getReexamine(partnerApplyId:string,adminId:string,review:string,status,success,failure?):void{
+    this.apiCall({
+      url: this.apiConfig.paths.getReexamine,
+      data: {
+        partnerApplyId: partnerApplyId,
+        adminId:adminId,
+        review:review,
+        status:status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+
   /*
    * 商城管理
    */
