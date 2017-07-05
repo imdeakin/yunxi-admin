@@ -34,10 +34,15 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public storeGoodsBrandOptions; // 商品品牌选项组
   public goodsTypeAttrOptions; // 商品类型参数选项组
   public goodsTypeAttrValOptions; // 商品类型参数值选项组
+  public goodsSKUAttrOptionsArr; // 商品销售属性参数选项组
+  public goodsSKUAttrValOptionsArr; // 商品销售属性参数值选项组
 
   public goodsAttrList; // 商品基本参数列表
   public goodsTypeAttrList; // 商品类型参数列表
   public goodsTypeAttrValList; // 商品类型参数值列表
+  public goodsSKUList; // 商品销售属性列表
+  public goodsSKUAttrList; // 商品销售属性参数列表
+  public goodsAllAttrValList; // 商品所有参数的参数值列表
 
   // 模态窗
   public editBaseInfoModalShow: boolean = false; // 商品基本信息的显示状态
@@ -58,13 +63,28 @@ export class GoodsListComponent implements OnInit, DoCheck {
     value_id: ''
   };
 
+  public goodsSKUListModalShow: boolean = false; // 商品销售属性列表的显示状态
+  public editGoodsSKUModalShow: boolean = false; // 商品销售属性编辑窗的显示状态
+  // public editGoodsSKUModalData; // 商品销售属性编辑窗的数据
+  public editGoodsSKUModalData = { // 商品销售属性编辑窗的数据
+    sku_id: '',
+    goods_id: '',
+    outer_code: '',
+    product_code: '',
+    original_price: '',
+    price: '',
+    inventory: '',
+    sales_volume: '',
+    file_id: '',
+    url: '',
+    sku_arr_json: []
+  };
+
   public curGoodsId; // 当前选中的商品ID
   public curGoodsTypeId; // 当前选中的商品类型ID
   public originalGoodsSlideList = []; // 当前选中的商品的未经处理的轮播图数组
   public curGoodsSlideList: UploadImage[] = []; // 当前选中的商品的轮播图数组
   public oldGoodsSlideList: UploadImage[] = []; // 缓存起来 用于比较
-
-  public editAttrModalShow: boolean = false;
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -98,8 +118,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
     this.computeOnResize();
     this.getStoreGoodsList();
     this.getStoreGoodsTypeList();
-
-
   }
 
   public computeOnResize() {
@@ -192,9 +210,22 @@ export class GoodsListComponent implements OnInit, DoCheck {
   // 保存商品基本信息
   public saveGoodsBaseInfo(): void {
     // 保存
-
-    // 进入下一步
-    this.toggleEditGoodsDetailModal(this.editBaseInfoModalData.instruction)
+    this.apiCall.addStoreGoodsInfo(
+      this.editBaseInfoModalData.goods_type_id,
+      this.editBaseInfoModalData.goods_brand_id,
+      this.editBaseInfoModalData.business_name,
+      this.editBaseInfoModalData.producer,
+      this.editBaseInfoModalData.described,
+      this.editBaseInfoModalData.freight,
+      this.editBaseInfoModalData.on_sale,
+      () => {
+        // 进入下一步
+        this.toggleEditGoodsDetailModal(this.editBaseInfoModalData.instruction)
+      },
+      () => {
+        layer.msg('保存失败，请重试');
+      }
+    );
   }
 
   /*
@@ -216,10 +247,17 @@ export class GoodsListComponent implements OnInit, DoCheck {
   // 保存详情
   public saveGoodsDetail(): void {
     // 保存
-    this.editBaseInfoModalData.instruction = this.editGoodsDetailModalData.content;
-
-    // 进入下一步
-    this.toggleEditGoodsSlideModal(this.curGoodsId);
+    this.apiCall.updateStoreGoodsDetail(
+      this.curGoodsId,
+      this.editGoodsDetailModalData.content,
+      () => {
+        // 进入下一步
+        this.toggleEditGoodsSlideModal(this.curGoodsId);
+      },
+      () => {
+        layer.msg('保存失败，请重试');
+      }
+    );
   }
 
   /*
@@ -373,6 +411,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
   // 获取类型参数值列表
   public getStoreGoodsTypeAttrValList(paramId) {
     this.apiCall.getStoreGoodsTypeAttrValList(
+      this.curGoodsTypeId,
       paramId,
       (list) => {
         this.goodsTypeAttrValList = list;
@@ -445,6 +484,211 @@ export class GoodsListComponent implements OnInit, DoCheck {
       this.editGoodsAttr();
     } else {
       this.addGoodsAttr();
+    }
+  }
+
+  /*
+   * 商品销售属性列表
+   */
+
+  public getStoreGoodsSKUList() {
+    this.apiCall.getStoreGoodsSKUList(
+      this.curGoodsId,
+      (list) => {
+        this.goodsSKUList = list;
+      }
+    )
+  }
+
+  // 获取SKU参数列表
+  public getStoreGoodsSKUAttrList() {
+    this.goodsSKUAttrOptionsArr = null;
+    this.goodsSKUAttrValOptionsArr = null;
+    this.apiCall.getStoreGoodsTypeAttrList(
+      this.curGoodsTypeId,
+      '1',
+      (list) => {
+        this.goodsSKUAttrList = list;
+
+        // 获取所有的参数值列表
+        this.getStoreGoodsAllAttrValList();
+      }
+    )
+  }
+
+  // 获取所有的参数值列表
+  public getStoreGoodsAllAttrValList() {
+    this.apiCall.getStoreGoodsTypeAttrValList(
+      this.curGoodsTypeId,
+      '',
+      (list) => {
+        this.goodsAllAttrValList = list;
+        let optionsArr = [];
+        let arr = this.goodsSKUAttrList;
+        for (let i = 0, len = arr.length; i < len; i++) {
+          optionsArr.push(this.getStoreGoodsSKUAttrValOptions(arr[i].param_id))
+        }
+        this.goodsSKUAttrValOptionsArr = optionsArr;
+        console.log(this.goodsSKUAttrValOptionsArr);
+      }
+    )
+  }
+
+  // 获取销售属性值列表
+  public getStoreGoodsSKUAttrValOptions(paramId) {
+    let arr = [];
+    let list = this.goodsAllAttrValList;
+    for (let i = 0, len = list.length; i < len; i++) {
+      if (list[i].param_id === paramId) {
+        arr.push({
+          value: list[i].value_id,
+          text: list[i].value
+        });
+      }
+    }
+    console.log(arr);
+    return arr;
+  }
+
+  // 获取销售属性值ID
+  public getStoreGoodsSKUAttrValueId(paramId): string {
+    let valueId = '';
+    let list = this.editGoodsSKUModalData.sku_arr_json;
+    for (let i = 0, len = list.length; i < len; i++) {
+      if (list[i].param_id === paramId) {
+        valueId = list[i].valueId;
+      }
+    }
+    console.log(valueId);
+    return valueId;
+  }
+
+  // 获取销售属性值名称
+  public getStoreGoodsSKUAttrValueName(paramId): string {
+    let value = '';
+    let list = this.editGoodsSKUModalData.sku_arr_json;
+    for (let i = 0, len = list.length; i < len; i++) {
+      if (list[i].param_id === paramId) {
+        value = list[i].value;
+      }
+    }
+    return value;
+  }
+
+  // 获取商品销售属性信息
+  public getStoreGoodsSKU(skuId) {
+    this.editGoodsSKUModalData = null;
+    this.apiCall.getStoreGoodsSKU(
+      skuId,
+      (data) => {
+        this.editGoodsSKUModalData = data;
+      }
+    );
+  }
+
+  // 改变SKU参数值
+  public goodsSKUAttrValChange(valueId, paramId) {
+    let list = this.editGoodsSKUModalData.sku_arr_json;
+    for (let i = 0, len = list.length; i < len; i++) {
+      if (list[i].param_id === paramId) {
+        list[i].value_id = valueId;
+        break;
+      }
+    }
+  }
+
+  public removeGoodsSKU(skuId) {
+    let index = layer.confirm('确定删除吗？', ['确定', '取消'],
+      () => {
+        this.apiCall.removeStoreGoodsSKU(
+          skuId,
+          () => {
+            layer.msg("删除成功");
+            this.getStoreGoodsSKUList();
+            layer.close(index);
+          },
+          () => {
+            layer.msg("删除失败");
+            layer.close(index);
+          }
+        );
+      });
+  }
+
+  public toggleGoodsSKUListModal(goodsId?): void {
+    if (goodsId) {
+      this.getStoreGoodsSKUList();
+    }
+
+    if (!this.goodsSKUListModalShow) { // 显示的话 要执行这里
+      // 获取商品销售属性参数列表
+      this.getStoreGoodsSKUAttrList();
+    }
+
+    this.goodsSKUListModalShow = !this.goodsSKUListModalShow;
+
+    if (!this.goodsSKUListModalShow) {
+      this.goodsSKUList = null;
+    }
+  }
+
+  /*
+   * 编辑商品销售属性
+   */
+  public toggleEditGoodsSKUModal(skuId?): void {
+    if (skuId) {
+      this.getStoreGoodsSKU(skuId);
+    }
+
+    this.editGoodsSKUModalShow = !this.editGoodsSKUModalShow;
+
+    if (!this.editGoodsSKUModalShow) {
+      this.editGoodsSKUModalData = this.funcServer.emptyObj(this.editGoodsSKUModalData);
+    }
+  }
+
+  public addGoodsSKU(): void {
+    this.apiCall.addStoreGoodsSKU(
+      this.editGoodsSKUModalData.sku_id,
+      this.curGoodsId,
+      this.editGoodsSKUModalData.outer_code,
+      this.editGoodsSKUModalData.product_code,
+      this.editGoodsSKUModalData.original_price,
+      this.editGoodsSKUModalData.price,
+      this.editGoodsSKUModalData.inventory,
+      this.editGoodsSKUModalData.sales_volume,
+      this.editGoodsSKUModalData.file_id,
+      this.editGoodsSKUModalData.sku_arr_json,
+      (data) => {
+        this.toggleEditGoodsSKUModal();
+        this.getStoreGoodsSKUList();
+      }
+    );
+  }
+
+  public editGoodsSKU(): void {
+    this.apiCall.updateStoreGoodsSKU(
+      this.curGoodsId,
+      this.editGoodsSKUModalData.outer_code,
+      this.editGoodsSKUModalData.product_code,
+      this.editGoodsSKUModalData.original_price,
+      this.editGoodsSKUModalData.price,
+      this.editGoodsSKUModalData.inventory,
+      this.editGoodsSKUModalData.sales_volume,
+      this.editGoodsSKUModalData.file_id,
+      this.editGoodsSKUModalData.sku_arr_json,
+      (data) => {
+        this.toggleEditGoodsSKUModal();
+        this.getStoreGoodsSKUList();
+      }
+    );
+  }
+
+  public editGoodsSKUSubmit(): void {
+    if (this.editGoodsSKUModalData.sku_id) {
+      this.editGoodsSKU();
+    } else {
+      this.addGoodsSKU();
     }
   }
 }

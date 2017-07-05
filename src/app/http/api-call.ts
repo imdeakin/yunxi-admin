@@ -24,7 +24,7 @@ export class ApiCall {
         failure(code, msg);
       }
     };
-    console.log(options);
+
     this.apiRequest.post(options);
   }
 
@@ -575,29 +575,14 @@ export class ApiCall {
   }
 
   //复核
-  public getReexamine(partnerApplyId:string,adminId:string,review:string,status:number,success,failure?):void{
-      this.apiCall({
-      url: this.apiConfig.paths.getReexamine,
-      data: {
-        partnerApplyId: partnerApplyId,
-        adminId:adminId,
-        review:review,
-        status:status
-      },
-      success: success,
-      failure: failure
-    });
-  }
-
-  //复核
-  public getReexamine(partnerApplyId:string,adminId:string,review:string,status,success,failure?):void{
+  public getReexamine(partnerApplyId: string, adminId: string, review: string, status: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getReexamine,
       data: {
         partnerApplyId: partnerApplyId,
-        adminId:adminId,
-        review:review,
-        status:status
+        adminId: adminId,
+        review: review,
+        status: status
       },
       success: success,
       failure: failure
@@ -789,6 +774,91 @@ export class ApiCall {
   }
 
   /**
+   * 添加商品信息
+   * @param goodsTypeId 商品类型ID
+   * @param goodsBrandId 商品品牌ID
+   * @param businessName 商品名称
+   * @param producer 产地
+   * @param described 商品描述
+   * @param freight 运费
+   * @param seeCount 浏览数量
+   * @param onSale 是否上架：0 否 1是
+   * @param salesVolume 总销量
+   * @param success
+   * @param failure
+   */
+  public addStoreGoodsInfo(goodsTypeId, goodsBrandId, businessName, producer, described, freight, onSale, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsInfo,
+      data: {
+        goodsTypeId: goodsTypeId,
+        goodsBrandId: goodsBrandId,
+        businessName: businessName,
+        producer: producer,
+        described: described,
+        freight: freight,
+        onSale: onSale
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品信息
+   * @param goodsId 商品ID
+   * @param goodsTypeId 商品类型ID
+   * @param goodsBrandId 商品品牌ID
+   * @param businessName 商品名称
+   * @param producer 产地
+   * @param described 商品描述
+   * @param freight 运费
+   * @param seeCount 浏览数量
+   * @param onSale 是否上架：0 否 1是
+   * @param salesVolume 总销量
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsInfo(goodsId, goodsTypeId, goodsBrandId, businessName, producer, described, freight, seeCount, onSale, salesVolume, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsInfo,
+      data: {
+        goodsId: goodsId,
+        goodsTypeId: goodsTypeId,
+        goodsBrandId: goodsBrandId,
+        businessName: businessName,
+        producer: producer,
+        described: described,
+        freight: freight,
+        seeCount: seeCount,
+        onSale: onSale,
+        salesVolume: salesVolume,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品详情
+   * @param goodsId 商品ID
+   * @param instruction 商品详情
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsDetail(goodsId, instruction, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsDetail,
+      data: {
+        goodsId: goodsId,
+        instruction: instruction
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
    * 获取商品类型列表
    * @param curPageIndex
    * @param pageSize
@@ -962,15 +1032,16 @@ export class ApiCall {
 
   /**
    * 获取商品类型参数值列表
-   * @param goodsTypeId 类型Id
-   * @param isSku 是否销售 0 否 1 是
+   * @param goodsTypeId 商品类型ID
+   * @param paramId 类型ID
    * @param success
    * @param failure
    */
-  public getStoreGoodsTypeAttrValList(paramId, success, failure?): void {
+  public getStoreGoodsTypeAttrValList(goodsTypeId, paramId, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getStoreGoodsTypeAttrValList,
       data: {
+        goodsTypeId: goodsTypeId,
         paramId: paramId
       },
       success: success,
@@ -1229,6 +1300,125 @@ export class ApiCall {
       url: this.apiConfig.paths.removeStoreGoodsAttr,
       data: {
         attrId: attrId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取商品销售属性列表
+   * @param goodsId 商品ID
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsSKUList(goodsId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsSKUList,
+      data: {
+        goodsId: goodsId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 获取商品销售属性信息
+   * @param sn 商品编号
+   * @param success
+   * @param failure
+   */
+  public getStoreGoodsSKU(skuId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getStoreGoodsSKU,
+      data: {
+        skuId: skuId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 添加商品销售属性
+   * @param skuId 商品ID
+   * @param goodsId 商品ID
+   * @param outerCode 商品类型参数表ID
+   * @param productCode 商品类型参数值表ID
+   * @param originalPrice 原价
+   * @param price 价格
+   * @param inventory 库存
+   * @param salesVolume 销量
+   * @param fileId 图片ID
+   * @param skuArrJson SKU选项属性数据
+   * @param success
+   * @param failure
+   */
+  public addStoreGoodsSKU(skuId, goodsId, outerCode, productCode, originalPrice, price, inventory, salesVolume, fileId, skuArrJson, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.addStoreGoodsSKU,
+      data: {
+        skuId: skuId,
+        goodsId: goodsId,
+        outerCode: outerCode,
+        productCode: productCode,
+        originalPrice: originalPrice,
+        price: price,
+        inventory: inventory,
+        salesVolume: salesVolume,
+        fileId: fileId,
+        skuArrJson: skuArrJson,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 修改商品销售属性
+   * @param goodsId 商品ID
+   * @param outerCode 商品类型参数表ID
+   * @param productCode 商品类型参数值表ID
+   * @param originalPrice 原价
+   * @param price 价格
+   * @param inventory 库存
+   * @param salesVolume 销量
+   * @param fileId 图片ID
+   * @param skuArrJson SKU选项属性数据
+   * @param success
+   * @param failure
+   */
+  public updateStoreGoodsSKU(goodsId, outerCode, productCode, originalPrice, price, inventory, salesVolume, fileId, skuArrJson, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateStoreGoodsSKU,
+      data: {
+        goodsId: goodsId,
+        outerCode: outerCode,
+        productCode: productCode,
+        originalPrice: originalPrice,
+        price: price,
+        inventory: inventory,
+        salesVolume: salesVolume,
+        fileId: fileId,
+        skuArrJson: skuArrJson,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 删除商品销售属性
+   * @param skuId 商品销售属性ID
+   * @param success
+   * @param failure
+   */
+  public removeStoreGoodsSKU(skuId: string, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removeStoreGoodsSKU,
+      data: {
+        skuId: skuId
       },
       success: success,
       failure: failure

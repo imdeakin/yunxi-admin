@@ -113,17 +113,17 @@
           <textarea name="described" [(ngModel)]="editBaseInfoModalData.described"></textarea>
         </div>
         <!--<div class="modal-input-group">-->
-          <!--<label>商品详情</label>-->
-          <!--<a href="javascript:void(0)" class="text-btn"-->
-             <!--(click)="toggleEditGoodsDetailModal(editBaseInfoModalData.instruction)">点击编辑</a>-->
+        <!--<label>商品详情</label>-->
+        <!--<a href="javascript:void(0)" class="text-btn"-->
+        <!--(click)="toggleEditGoodsDetailModal(editBaseInfoModalData.instruction)">点击编辑</a>-->
         <!--</div>-->
         <!--<div class="modal-input-group">-->
-          <!--<label>轮播图片</label>-->
-          <!--<a href="javascript:void(0)" class="text-btn"-->
-             <!--(click)="toggleEditGoodsSlideModal(curGoodsId)">点击编辑</a>-->
+        <!--<label>轮播图片</label>-->
+        <!--<a href="javascript:void(0)" class="text-btn"-->
+        <!--(click)="toggleEditGoodsSlideModal(curGoodsId)">点击编辑</a>-->
         <!--</div>-->
         <!--<div class="modal-btn-group bottom">-->
-          <!--<button (click)="toggleGoodsAttrListModal()">下一步</button>-->
+        <!--<button (click)="toggleGoodsAttrListModal()">下一步</button>-->
         <!--</div>-->
         <div class="modal-btn-group">
           <button (click)="saveGoodsBaseInfo()">下一步</button>
@@ -133,7 +133,8 @@
   </div>
 </div>
 <!--商品详情编辑-->
-<div class="modal-wrapper" [class.hidden]="!editGoodsDetailModalShow || editGoodsSlideModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
+<div class="modal-wrapper"
+     [class.hidden]="!editGoodsDetailModalShow || editGoodsSlideModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
   <div class="modal-con edit-goods-detail-modal">
     <div class="modal-close" (click)="toggleEditGoodsDetailModal()">
       <i class="icon-font">&#xe6e9;</i>
@@ -149,7 +150,8 @@
   </div>
 </div>
 <!--商品轮播图编辑-->
-<div class="modal-wrapper" [class.hidden]="!editGoodsSlideModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
+<div class="modal-wrapper"
+     [class.hidden]="!editGoodsSlideModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
   <div class="modal-con edit-goods-slide-modal">
     <div class="modal-close" (click)="toggleEditGoodsSlideModal()">
       <i class="icon-font">&#xe6e9;</i>
@@ -207,7 +209,7 @@
       </table>
       <div class="modal-btn-group bottom">
         <button (click)="toggleGoodsAttrListModal()">上一步</button>
-        <!--<button (click)="toggleEditGoodsAttrModal()">下一步</button>-->
+        <button (click)="toggleGoodsSKUListModal(curGoodsId)">下一步</button>
       </div>
     </ng-template>
   </div>
@@ -240,6 +242,79 @@
             [first]="{value:'',text:'暂无'}"
             [value]="editGoodsAttrModalData.value_id"
             (optionSelect)="editGoodsAttrModalData.value_id = $event"></select-box>
+        </div>
+        <div class="modal-btn-group">
+          <button type="submit">保存</button>
+        </div>
+      </form>
+    </ng-template>
+  </div>
+</div>
+<!--商品销售属性列表-->
+<div class="modal-wrapper" [class.hidden]="!goodsSKUListModalShow || editGoodsSKUModalShow">
+  <div class="modal-con goods-attr-list-modal">
+    <div class="modal-close" (click)="toggleGoodsSKUListModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+    <div class="modal-loading" *ngIf="!goodsSKUList && goodsSKUAttrList && goodsAllAttrValList">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <ng-template [ngIf]="goodsSKUList && goodsSKUAttrList && goodsAllAttrValList">
+      <h3 class="modal-title">基本参数</h3>
+      <div class="modal-btn-group padding clearfix">
+        <button class="float-right" (click)="toggleEditGoodsSKUModal()">添加基本参数</button>
+      </div>
+      <table class="modal-table">
+        <thead>
+        <tr>
+          <th *ngFor="let item of goodsSKUAttrList;">{{item.name}}</th>
+          <th>价格</th>
+          <th>数量</th>
+          <th>销量</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of goodsSKUList">
+          <td *ngFor="let attr of goodsSKUAttrList;">{{getStoreGoodsSKUAttrValueName(attr.param_id)}}</td>
+          <td>{{item.sku_id}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.inventory}}</td>
+          <td>{{item.sales_volume}}</td>
+          <td>
+            <a href="javascript:void(0)" class="ctrl-btn" (click)="toggleEditGoodsSKUModal(item.sku_id)">编辑</a>
+            <a href="javascript:void(0)" class="ctrl-btn" (click)="removeGoodsSKU(item.sku_id)">删除</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!(goodsSKUList?.length)" class="text-center">暂无相关数据</div>
+      <div class="modal-btn-group bottom">
+        <button (click)="toggleGoodsSKUListModal()">结束</button>
+        <!--<button (click)="toggleEditGoodsSKUModal()">下一步</button>-->
+      </div>
+    </ng-template>
+  </div>
+</div>
+<!--编辑商品销售属性-->
+<div class="modal-wrapper" [class.hidden]="!editGoodsSKUModalShow">
+  <div class="modal-con">
+    <div class="modal-close" (click)="toggleEditGoodsSKUModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+    <div class="modal-loading" *ngIf="!(editGoodsSKUModalData && goodsSKUAttrList && goodsAllAttrValList)">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <ng-template [ngIf]="editGoodsSKUModalData && goodsSKUAttrList && goodsAllAttrValList">
+      <h3 class="modal-title" [class.hidden]="!editGoodsSKUModalData.sku_id">编辑销售属性</h3>
+      <h3 class="modal-title" [class.hidden]="editGoodsSKUModalData.sku_id">添加销售属性</h3>
+      <form class="modal-form" (ngSubmit)="editGoodsSKUSubmit()">
+        <div class="modal-input-group" *ngFor="let item of goodsSKUAttrList;let i = index;">
+          <label>{{item.name}}：</label>
+          <select-box
+            [options]="goodsSKUAttrValOptionsArr[i]"
+            [first]="{value:'',text:'请选择'}"
+            (optionSelect)="goodsSKUAttrValChange($event,item.param_id)"></select-box>
         </div>
         <div class="modal-btn-group">
           <button type="submit">保存</button>

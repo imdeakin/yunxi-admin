@@ -77,7 +77,9 @@ export class ApiConfig {
 
     // 商品信息
     getStoreGoodsInfo: this.root + '/marketManage/getMallGoods', // 获取商品信息
+    addStoreGoodsInfo: this.root + '/marketManage/saveMallGoods', // 添加商品信息
     updateStoreGoodsInfo: this.root + '/marketManage/saveMallGoods', // 修改商品信息
+    updateStoreGoodsDetail: this.root + '/marketManage/saveMallGoodsInstruction', // 修改商品详情
 
     // 商品类型
     getStoreGoodsTypeList: this.root + '/brandGoodsTypeManage/mallGoodsTypeList', // 获取商品类型列表
@@ -109,6 +111,13 @@ export class ApiConfig {
     addStoreGoodsAttr: this.root + '/marketManage/saveMallGoodsAttr', // 添加商品基础参数
     updateStoreGoodsAttr: this.root + '/marketManage/saveMallGoodsAttr', // 更新商品基础参数
     removeStoreGoodsAttr: this.root + '/marketManage/delMallGoodsAttr', // 删除商品基础参数
+
+    // 商品销售属性
+    getStoreGoodsSKUList: this.root + '/marketManage/mallGoodsSkuList', // 获取商品销售属性列表
+    getStoreGoodsSKU: this.root + '/marketManage/getMallGoodsSku', // 获取商品销售属性
+    addStoreGoodsSKU: this.root + '/marketManage/saveMallGoodsSku', // 添加商品销售属性
+    updateStoreGoodsSKU: this.root + '/marketManage/saveMallGoodsSku', // 更新商品销售属性
+    removeStoreGoodsSKU: this.root + '/marketManage/delMallGoodsSku', // 删除商品销售属性
 
     // 商品轮播图
     getStoreGoodsSlideList: this.root + '/marketManage/mallGoodsPicList', // 获取商品轮播图列表

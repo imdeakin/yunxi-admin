@@ -286,6 +286,7 @@ export class GoodsTypeListComponent implements OnInit {
 
   public getStoreGoodsTypeAttrValList() {
     this.apiCall.getStoreGoodsTypeAttrValList(
+      this.curGoodsTypeId,
       this.curGoodsTypeAttrId,
       (list) => {
         this.goodsTypeAttrValList = list;
