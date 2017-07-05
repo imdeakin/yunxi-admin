@@ -7,6 +7,8 @@ import {YoukaTaocan} from '../data-type/youka-taocan';
 import {YoukaFunction} from '../data-type/youka-function';
 import {FuncServer} from '../../../serv/func.server';
 
+declare let layer: any;
+
 @Component({
   selector: 'youka-taocan',
   templateUrl: './youka-taocan.component.html',
@@ -83,7 +85,6 @@ export class YoukaTaocanComponent implements OnInit {
   // 模态窗
   public toggleModal(data?): void {
     this.editModalShow = !this.editModalShow;
-    console.log(data);
     if(data){
         this.modalData = {
           oilPackageId:data.oil_package_id,
@@ -173,7 +174,6 @@ export class YoukaTaocanComponent implements OnInit {
   }
 
   public removeYoukaTancanList(oilPackageId): void {
-    console.log(typeof(oilPackageId))
     this.apiCall.deleteYoukaTaocanList(
       oilPackageId,
       (data) => {
@@ -181,6 +181,25 @@ export class YoukaTaocanComponent implements OnInit {
       }
     );
   }
+
+  public verificationConfirm(oilPackageId): void {
+    let adminId = '';
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.removeYoukaTancanList(oilPackageId);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
+  }
+  
 
   public modalSubmit(): void {
     if (this.modalData.oilPackageId) {

@@ -1,8 +1,8 @@
 .modal-con{
-    width:500px;
-    height:600px;
-    margin-left:-250px;
-    margin-top:-300px;
+    width:800px;
+    height:580px;
+    margin-left:-400px;
+    margin-top:-290px;
 }
 .item-content{
     display: block; 
@@ -14,8 +14,12 @@
 .modalContent{
     width: 96%;
     height:320px;
+    font-size:14px;
     overflow-y:scroll;
 }
 .modal-detail-item .value{
     text-align:left;
+}
+.modal-input-group{
+    font-size: 16px;
 }

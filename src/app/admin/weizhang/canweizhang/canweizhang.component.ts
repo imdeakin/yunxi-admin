@@ -33,6 +33,7 @@ export class canWeizhangComponent implements OnInit {
   private toContainNextMonth: boolean = false;
   private value: string = '';
   public detailPages:boolean = false;
+  public need_data;
   public modalData = {
       orderId:'',
       carNumber:'',
@@ -134,19 +135,20 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
 
   public getCanWeizhangData(item):void{
     this.apiCall.getCanWeiZhangData(item.order_id,(data)=>{
+        console.log(data);
         this.fromModal(data)
     })
   }
 
   public fromModal(data){
     let car_info = data.car_info;
-    let need_data = data.need_data;
+    this.need_data = data.need_data;
     if(data){
       this.modalData ={
           orderId:data.order_id,
           carNumber:car_info.car_number,
-          engineNumber:car_info.engine_number.slice(-need_data.CarDriveLen),
-          frameNumber:car_info.frame_number.slice(-need_data.CarCodeLen),
+          engineNumber:car_info.engine_number.slice(-this.need_data.CarDriveLen),
+          frameNumber:car_info.frame_number.slice(-this.need_data.CarCodeLen),
           username:car_info.name,
           mobile:car_info.mobile,
           pCount:car_info.license_number,

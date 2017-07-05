@@ -47,7 +47,7 @@
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="removeAd(item.ad_id)">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.ad_id)">删除</a>
               </div>
             </td>
           </tr>
@@ -62,8 +62,8 @@
 <!--编辑-->
 <div class="modal-wrapper edit-modal-wrapper" [class.hidden]="!editModalShow">
   <div class="modal-con">
-    <h3 class="modal-title" [class.hidden]="editModalData.adId">添加</h3>
-    <h3 class="modal-title" [class.hidden]="!editModalData.adId">编辑</h3>
+    <h3 class="modal-title" [class.hidden]="editModalData.ad_id">添加</h3>
+    <h3 class="modal-title" [class.hidden]="!editModalData.ad_id">编辑</h3>
     <form class="modal-form" (ngSubmit)="modalSubmit()">
       <div class="modal-input-group">
         <label>标题</label>
@@ -72,20 +72,20 @@
       <div class="modal-input-group">
         <label>业务</label>
         <select-box [options]="adFunction.adBusinessOptions"
-                    [value]="editModalData.businessId"
-                    (optionSelect)="editModalData.businessId = $event"></select-box>
+                    [value]="editModalData.business_id"
+                    (optionSelect)="editModalData.business_id = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>是否可见</label>
         <select-box [options]="adFunction.adVisibleStatusOptions"
-                    [value]="editModalData.isShow"
-                    (optionSelect)="editModalData.isShow = $event"></select-box>
+                    [value]="editModalData.is_show"
+                    (optionSelect)="editModalData.is_show = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>广告位置编码</label>
         <select-box [options]="adFunction.adPositionOptions"
-                    [value]="editModalData.positionCode"
-                    (optionSelect)="editModalData.positionCode = $event"></select-box>
+                    [value]="editModalData.position_code"
+                    (optionSelect)="editModalData.position_code = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>排序</label>

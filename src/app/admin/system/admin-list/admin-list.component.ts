@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {SystemFunction} from '../data-type/system-function';
 import {AdminList} from '../data-type/admin-list';
 
+declare let layer: any;
+
 @Component({
   selector: 'admin-list',
   templateUrl: './admin-list.component.html',
@@ -153,5 +155,23 @@ export class AdminListComponent implements OnInit {
     } else {
       this.addAdmin();
     }
+  }
+
+   // 核验弹窗
+  public verificationConfirm(adminId): void {
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.removeAdmin(adminId);
+        layer.close(index);
+      },
+      () => {
+         layer.close(index);
+      }
+    )
   }
 }

@@ -1,0 +1,60 @@
+.img-upload-container {
+  display: inline-block;
+  margin: 12px;
+}
+
+.img-upload-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+}
+
+.img-upload-edit {
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.img-upload-btn {
+  position: absolute;
+  font-size: 20px;
+}
+
+.img-upload-btn.add-btn {
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+  font-size: 120px;
+  z-index: 0;
+}
+
+.img-upload-btn.select-btn {
+  display: none;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.img-upload-btn.select-btn.selected {
+  display: block;
+  color: limegreen;
+}
+
+.img-upload-btn.delete-btn {
+  display: none;
+  right: -10px;
+  top: -10px;
+  color: red;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.img-upload-wrapper:hover .img-upload-btn {
+  display: block;
+}

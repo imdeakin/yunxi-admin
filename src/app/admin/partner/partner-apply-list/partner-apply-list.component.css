@@ -1,8 +1,9 @@
 .modal-con {
   width: 860px;
-  height: 680px;
+  height: 600px;
   margin-left: -430px;
-  margin-top: -340px;
+  margin-top: -300px;
+  overflow-y: scroll;
 }
 .modal-half-right textarea{
     overflow-y:scroll;

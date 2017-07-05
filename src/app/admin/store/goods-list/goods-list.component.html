@@ -65,7 +65,7 @@
 </div>
 <!--商品基本信息编辑-->
 <div class="modal-wrapper"
-     [class.hidden]="!editBaseInfoModalShow || editGoodsDetailModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
+     [class.hidden]="!editBaseInfoModalShow || editGoodsDetailModalShow || editGoodsSlideModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
   <div class="modal-con">
     <div class="modal-loading" *ngIf="!(storeGoodsTypeOptions && storeGoodsBrandOptions && editBaseInfoModalData)">
       <i class="icon-font">&#xe64b;</i>
@@ -100,7 +100,7 @@
         <div class="modal-input-group">
           <label>上架状态</label>
           <select-box [options]="storeFunction.goodsStatusOptions"
-                      [first]="false"
+                      [first]="{value:'',text:'请选择'}"
                       [value]="editBaseInfoModalData.on_sale"
                       (optionSelect)="editBaseInfoModalData.on_sale = $event"></select-box>
         </div>
@@ -112,36 +112,61 @@
           <label>商品描述</label>
           <textarea name="described" [(ngModel)]="editBaseInfoModalData.described"></textarea>
         </div>
-        <div class="modal-input-group">
-          <label>商品详情</label>
-          <a href="javascript:void(0)" class="text-btn"
-             (click)="toggleEditGoodsDetailModal(editBaseInfoModalData.instruction)">点击编辑</a>
-        </div>
-        <div class="modal-input-group">
-          <label>轮播图片</label>
-          <a href="javascript:void(0)" class="text-btn">点击编辑</a>
-        </div>
-        <div class="modal-btn-group bottom">
-          <button (click)="toggleGoodsAttrListModal()">下一步</button>
+        <!--<div class="modal-input-group">-->
+          <!--<label>商品详情</label>-->
+          <!--<a href="javascript:void(0)" class="text-btn"-->
+             <!--(click)="toggleEditGoodsDetailModal(editBaseInfoModalData.instruction)">点击编辑</a>-->
+        <!--</div>-->
+        <!--<div class="modal-input-group">-->
+          <!--<label>轮播图片</label>-->
+          <!--<a href="javascript:void(0)" class="text-btn"-->
+             <!--(click)="toggleEditGoodsSlideModal(curGoodsId)">点击编辑</a>-->
+        <!--</div>-->
+        <!--<div class="modal-btn-group bottom">-->
+          <!--<button (click)="toggleGoodsAttrListModal()">下一步</button>-->
+        <!--</div>-->
+        <div class="modal-btn-group">
+          <button (click)="saveGoodsBaseInfo()">下一步</button>
         </div>
       </form>
     </ng-template>
   </div>
 </div>
 <!--商品详情编辑-->
-<div id="goods-detail-modal" class="modal-wrapper" [class.hidden]="!editGoodsDetailModalShow">
+<div class="modal-wrapper" [class.hidden]="!editGoodsDetailModalShow || editGoodsSlideModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
   <div class="modal-con edit-goods-detail-modal">
     <div class="modal-close" (click)="toggleEditGoodsDetailModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
     <h3 class="modal-title">商品详情</h3>
-    <ng2-editor [content]="editBaseInfoModalData?.instruction"
-                [height]="480"
+    <ng2-editor [height]="480"
+                [content]="editGoodsDetailModalData.content"
                 (contentChange)="editGoodsDetailModalData.content = $event"></ng2-editor>
-    <div class="modal-btn-group bottom">
-      <button (click)="toggleEditGoodsDetailModal()">保存</button>
-      <button (click)="toggleEditGoodsDetailModal()">关闭</button>
+    <div class="modal-btn-group">
+      <button (click)="toggleEditGoodsDetailModal()">上一步</button>
+      <button (click)="saveGoodsDetail()">下一步</button>
     </div>
+  </div>
+</div>
+<!--商品轮播图编辑-->
+<div class="modal-wrapper" [class.hidden]="!editGoodsSlideModalShow || goodsAttrListModalShow || editGoodsAttrModalShow">
+  <div class="modal-con edit-goods-slide-modal">
+    <div class="modal-close" (click)="toggleEditGoodsSlideModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+    <div class="modal-loading" *ngIf="!curGoodsSlideList">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <ng-template [ngIf]="curGoodsSlideList">
+      <h3 class="modal-title">商品轮播图</h3>
+      <div class="modal-detail-content">
+        <img-upload-list [imgList]="curGoodsSlideList" [selectable]="true" [maxSize]="8"></img-upload-list>
+      </div>
+      <div class="modal-btn-group bottom">
+        <button (click)="toggleEditGoodsSlideModal()">上一步</button>
+        <button (click)="saveGoodsSlide();">下一步</button>
+      </div>
+    </ng-template>
   </div>
 </div>
 <!--商品基本参数列表-->

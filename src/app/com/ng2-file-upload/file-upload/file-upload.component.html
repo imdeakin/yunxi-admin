@@ -1,0 +1,5 @@
+<div class="file-upload-container" [ngClass]="{'hide-input':hideInput}" (click)="onClick($event.target)">
+  <input class="upload-file-input" type="file"
+         [name]="name"
+         (change)="onChange($event.target)" hidden>
+</div>

@@ -23,7 +23,6 @@ export class UserListComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: User[];
   public yearOptions;
-  public totalData;
   public filterData = {
     mobile: '',
     level: '',
@@ -41,6 +40,7 @@ export class UserListComponent implements OnInit {
   public modalSpreadShow:boolean = false;
   public YearMonthsShow:boolean = false;
   public modalData;
+  public totalData;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, public funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
@@ -94,6 +94,7 @@ export class UserListComponent implements OnInit {
 
     if (!this.modalShow) {
       this.modalData = null;
+      this.totalData = null;
     }
   }
 

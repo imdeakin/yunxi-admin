@@ -8,8 +8,14 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {SystemFunction} from '../data-type/system-function';
 import {ArticleList} from '../data-type/article-list';
 
-declare var tinymce: any;
+import 'tinymce';
+import 'tinymce/themes/modern';
 
+import 'tinymce/plugins/table';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/paste';
+
+declare let layer: any;
 
 @Component({
   selector: 'article-list',
@@ -22,41 +28,17 @@ export class ArticleListComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
+  public editContentData ={
+      content:''
+  }; 
   public tableList: ArticleList[] = [
-    {
-      title: '4280172168844',
-      content: '云洗计划..',
-      type: 0,
-      create_time: '2017-06-03 13:41:55',
-      author: '张三',
-    },
-    {
-      title: '4280172168844',
-      content: '云洗计划..',
-      type: 0,
-      create_time: '2017-06-03 13:41:55',
-      author: '张三',
-    },
-    {
-      title: '4280172168844',
-      content: '云洗计划..',
-      type: 1,
-      create_time: '2017-06-03 13:41:55',
-      author: '张三',
-    },
-    {
-      title: '4280172168844',
-      content: '云洗计划..',
-      type: 0,
-      create_time: '2017-06-03 13:41:55',
-      author: '张三',
-    }
   ];
   public filterData = {
+    documentId:'',
     title: '',
     content:'',
     author:'',
-    type:0
+    type:0,
   };
 
   public systemFunction = SystemFunction;
@@ -68,7 +50,7 @@ export class ArticleListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getYoukaUserList();
+    this.getDocumentList();
   }
 
   public computeOnResize() {
@@ -80,7 +62,7 @@ export class ArticleListComponent implements OnInit {
     });
   }
 
-  public getYoukaUserList(curPageIndex?): void {
+  public getDocumentList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
@@ -91,45 +73,99 @@ export class ArticleListComponent implements OnInit {
     });
   }
 
+  public updateDocument():void{
+    console.log(this.editContentData.content)
+    this.apiCall.updateDocument(this.filterData.documentId,this.filterData.title,this.editContentData.content,this.filterData.type,this.filterData.author,(data)=>{
+        this.toggleEditModal();
+        this.getDocumentList(1);
+    })
+  }
+
   public toggleModal(item?):void{
       this.modalShow = !this.modalShow;
       if(item){
         this.filterData ={
+          documentId:item.document_id,
           title:item.title,
           content:item.content,
           author:item.author,
           type:item.type
         }
       }
-
+      if(!this.modalShow){
+        this.filterData = {
+          documentId:'',
+          title: '',
+          content:'',
+          author:'',
+          type:0
+        };
+      }
   }
 
   public toggleEditModal(item?){
-      this.modalEditShow = !this.modalEditShow;
-      this.initEditor();
-       this.filterData ={
+      if(item){
+          // tinymce.activeEditor.setContent(item.content)
+          this.filterData ={
+          documentId:item.document_id,
           title:item.title,
           content:item.content,
           author:item.author,
           type:item.type
         }
+      }
+      this.modalEditShow = !this.modalEditShow;
+       if(!this.modalEditShow){
+        this.filterData = {
+          documentId:'',
+          title: '',
+          content:'',
+          author:'',
+          type:0
+        };
+        this.editContentData.content = '';
+      }
   }
 
-  initEditor() {  
-   tinymce.init({  
-     selector: '#editContent',  
-     language: 'zh_CN',  
-     plugins: [  
-       'advlist autolink lists link charmap print preview hr anchor pagebreak media',  
-       'searchreplace wordcount visualblocks visualchars code fullscreen ',  
-       'insertdatetime nonbreaking save table contextmenu directionality ',  
-       'paste textcolor colorpicker textpattern'  
-     ],  
-     toolbar1: ' fullscreen insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link ',  
-     toolbar2: 'print preview | forecolor backcolor media ',  
-     height:"480",  
-     image_advtab: true,  
-     menubar: true,  
-   });  
- }  
+  public modalSubmit(){
+
+      if(this.filterData.documentId){
+        console.log('update');
+          this.updateDocument()
+      }else{
+        console.log('add');
+          this.addDocument()
+      }
+  }
+
+  public addDocument():void{
+    this.apiCall.addDocument(this.filterData.title,this.editContentData.content,this.filterData.type,this.filterData.author,(data)=>{
+        this.toggleEditModal();
+        this.getDocumentList(1);
+    })
+  }
+
+  public delDocument(documentId):void{
+    this.apiCall.delDocument(documentId,(data)=>{
+        this.getDocumentList(1)
+    })
+  }
+
+   //确认弹窗
+  public verificationConfirm(documentId): void {
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.delDocument(documentId);
+        layer.close(index);
+      },
+      () => {
+         layer.close(index);
+      }
+    )
+  }
 }

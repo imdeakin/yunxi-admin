@@ -5,13 +5,13 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getYoukaUserList(1)">
+        <form class="clearfix" (ngSubmit)="getDocumentList(1)">
           <div class="input-group">
-            <label>用户名</label>
+            <label>标题</label>
             <input type="text" name="title" value="" [(ngModel)]="filterData.title">
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
-          <a class="text-btn float-right margin-large-right" href="javascript:void(0);">添加</a>
+          <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleEditModal()">添加</a>
         </form>
       </div>
       <div class="manager-table">
@@ -19,7 +19,6 @@
           <thead>
           <tr>
             <th>标题</th>
-            <th>内容</th>
             <th>类型</th>
             <th>创建时间</th>
             <th>作者</th>
@@ -30,7 +29,6 @@
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{item.title}}</td>
-            <td class="item-content">{{item.content}}</td>
             <td>{{systemFunction.getArticleTypeText(item.type)}}</td>
             <td>{{item.create_time}}</td>
             <td>{{item.author}}</td>
@@ -38,14 +36,14 @@
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.document_id)">删除</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls  (pageChange)="getYoukaUserList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
+        <pagination-controls  (pageChange)="getDocumentList($event)" previousLabel="上一页" nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>
@@ -66,7 +64,7 @@
         </div>
         <div class="modal-detail-item">
           <label>内容</label>
-          <div class="value modalContent">{{filterData.content}}</div>
+          <div class="value" class="modalContent">{{filterData.content}}</div>
         </div>
       </div>
     </div>
@@ -81,31 +79,33 @@
 <!--编辑-->
 <div class="modal-wrapper" [class.hidden]="!modalEditShow">
   <div class="modal-con">
-    <h3 class="modal-title">订单详情</h3>
+    <h3 class="modal-title">文案详情</h3>
     <div class="modal-detail">
       <div class="modal-detail-content">
         <div class="modal-input-group">
           <label>标题</label>
-          <input class="value" [(ngModel)]="filterData.title">
+          <input class="value" name="title" [(ngModel)]="filterData.title">
         </div>
         <div class="modal-input-group">
           <label>作者</label>
-          <input class="value" [(ngModel)]="filterData.author">
+          <input class="value" name="author" [(ngModel)]="filterData.author">
         </div>
         <div class="modal-input-group">
           <label>类型</label>
-          <input class="value" [(ngModel)]="filterData.type">
+          <select-box [options]="systemFunction.articleTypeOptions" first="{value:'',text:'选择'}" [value]="filterData.type" (optionSelect)="filterData.type = $event"></select-box>
         </div>
-        <div class="modal-input-group">
+        <div class="modal-input-group" style="height:320px;">
           <label>内容</label>
-          <textarea id="editContent" [(ngModel)]="filterData.content"></textarea>
+          <!--<textarea id="editContent" class="editContent"></textarea>-->
+          <ng2-editor [height]="200" [content]="filterData?.content"  (contentChange)="editContentData.content = $event"></ng2-editor>
         </div>
       </div>
     </div>
     <div class="modal-btn-group">
-      <button (click)="toggleModal()">关闭</button>
+      <button (click)="modalSubmit()">保存</button>
+      <button (click)="toggleEditModal()">关闭</button>      
     </div>
-    <div class="modal-close" (click)="toggleModal()">
+    <div class="modal-close" (click)="toggleEditModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>

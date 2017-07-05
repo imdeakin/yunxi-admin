@@ -53,7 +53,7 @@
             <td>{{item.name}}</td>
             <td>{{item.mobile}}</td>
             <td>{{item.region_name}}</td>
-            <td>{{partnerFunction.getPartnerLevelText(item.partner_level)}}</td>
+            <td>{{item.partner_level}}</td>
             <td>{{item.create_time}}</td>
             <td>{{item.handler}}</td>
             <td>{{partnerFunction.getPartnerApplyStatusText(item.status)}}</td>
@@ -61,7 +61,11 @@
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);"  (click)="toggleModal(item)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !==0" (click)="toggleCheckModal(item)">审批</a>
+<<<<<<< HEAD
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !==1" (click)="toggleAgainModal(item)">复核</a>
+=======
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !==2" (click)="toggleCheckModal(item)">复核</a>
+>>>>>>> 2984626e87ca91f52c53bd313d4c5e94abcb7d9a
               </div>
             </td>
           </tr>
@@ -136,12 +140,12 @@
             <div class="value">{{readModalData.summary}}</div>
           </div>
           <div class="modal-detail-item">
-            <label>复核意见</label>
-            <div class="value">{{readModalData.review}}</div>
-          </div>
-          <div class="modal-detail-item">
             <label>审批意见</label>
             <div class="value">{{readModalData.approve}}</div>
+          </div>
+          <div class="modal-detail-item" [class.hidden]="readModalData.status !=2">
+            <label>复核意见</label>
+            <div class="value">{{readModalData.review}}</div>
           </div>
           <div class="modal-detail-item">
             <label>备注</label>
@@ -241,13 +245,19 @@
             <label>审批意见</label>
              <textarea name="approve" [(ngModel)]="readModalData.approve"></textarea>
           </div>
+          <div class="modal-input-group" [class.hidden]="readModalData.status !=2">
+            <label>复核意见</label>
+            <textarea name="review" [(ngModel)]="readModalData.review"></textarea>
+          </div>
         </div>
       </div>
     </div>
     <div class="modal-btn-group">
       <button (click)="toggleCheckModal()">关闭</button>
-      <button (click)="getAuditPass(1)">通过</button>
-      <button (click)="getAuditPass(2)">不通过</button>
+      <button (click)="getAuditPass(1)" [class.hidden]="readModalData.status !=0">通过</button>
+      <button (click)="getAuditPass(-1)" [class.hidden]="readModalData.status !=0">不通过</button>
+      <button (click)="getReexamine(1)" [class.hidden]="readModalData.status !=2">通过</button>
+      <button (click)="getReexamine(-1)" [class.hidden]="readModalData.status !=2">不通过</button>
     </div>
     <div class="modal-close" (click)="toggleCheckModal()">
       <i class="icon-font">&#xe6e9;</i>

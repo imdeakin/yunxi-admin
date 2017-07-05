@@ -61,7 +61,7 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!modalShow">
+<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
     <h3 class="modal-title">订单详情</h3>
     <div class="modal-detail">
