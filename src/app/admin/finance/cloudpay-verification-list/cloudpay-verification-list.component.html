@@ -42,7 +42,7 @@
             <td>{{item.yft_account}}</td>
             <td>{{item.create_time}}</td>
             <td>{{item.money}}</td>
-            <td>{{financeFunction.getCloudpayOrderStatusText(item.status)}}</td>
+            <td>{{financeFunction.getYunFuKindStatusText(curOrderType,item.status)}}</td>
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal(item)">查看</a>

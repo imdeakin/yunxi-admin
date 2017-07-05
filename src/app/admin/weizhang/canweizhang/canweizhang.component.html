@@ -83,73 +83,104 @@
           <input type="text" name="carNumber" [(ngModel)]="modalData.carNumber">
         </div>
         <div class="modal-input-group">
-          <label>发动机号:<span [class.hidden]="need_data.CarDriveLen!=99" class="infoWaring">*</span></label>
+          <label>发动机号:
+              <span [class.hidden]="need_data.CarDriveLen!=99" class="infoWaring">*</span>
+              <span  class="infoWaring len" [class.hidden]="need_data.CarDriveLen == 99 && need_data.CarDriveLen == 0">{{need_data.CarDriveLen}}</span>
+          </label>
           <input type="text" name="engineNumber" [(ngModel)]="modalData.engineNumber">
         </div>
         <div class="modal-input-group">
-          <label>车架号：<span [class.hidden]="need_data.CarCodeLen!=99" class="infoWaring">*</span></label>
+          <label>车架号：
+            <span [class.hidden]="need_data.CarCodeLen!=99" class="infoWaring">*</span>
+            <span  class="infoWaring len" [class.hidden]="need_data.CarCodeLen == 99 && need_data.CarCodeLen == 0">{{need_data.CarCodeLen}}</span>
+          </label>
           <input type="text" name="frameNumber" [(ngModel)]="modalData.frameNumber">
         </div>
         <h3 class="modal-title">车主信息</h3>
         <div class="modal-input-group">
-          <label>车主姓名：<span [class.hidden]="need_data.CarOwnerLen!=99" class="infoWaring">*</span></label>
+          <label>车主姓名：
+            <span [class.hidden]="need_data.CarOwnerLen!=99" class="infoWaring">*</span>
+            <span  class="infoWaring len" [class.hidden]="need_data.CarOwnerLen == 99 || need_data.CarOwnerLen == 0">{{need_data.CarOwnerLen}}</span>
+          </label>
           <input type="text" name="username" [(ngModel)]="modalData.username">
         </div>
         <div class="modal-input-group">
-          <label>驾驶证/身份证：<span [class.hidden]="need_data.JashiZhengHaoLen!=99" class="infoWaring">*</span></label>
+          <label>驾驶证/身份证：
+            <span [class.hidden]="need_data.JashiZhengHaoLen!=99" class="infoWaring">*</span>
+            <span  class="infoWaring len" [class.hidden]="need_data.JashiZhengHaoLen == 99 || need_data.JashiZhengHaoLen == 0">{{need_data.JashiZhengHaoLen}}</span>
+          </label>
           <input type="text" name="CardNo" [(ngModel)]="modalData.CardNo">
         </div>
         <div class="modal-input-group">
-          <label>车主电话：<span [class.hidden]="need_data.CarOwnerPhoneLen!=99" class="infoWaring">*</span></label>
+          <label>车主电话：
+            <span [class.hidden]="need_data.CarOwnerPhoneLen!=99" class="infoWaring">*</span>
+            <span  class="infoWaring len" [class.hidden]="need_data.CarOwnerPhoneLen == 99 || need_data.CarOwnerPhoneLen == 0">{{need_data.CarOwnerPhoneLen}}</span>
+          </label>
           <input type="text" name="mobile" [(ngModel)]="modalData.mobile">
-          <span class="modal-must">*</span>
         </div>
         <div class="modal-input-group">
-          <label>驾驶证档案编号：<span [class.hidden]="need_data.DanganBianHaoLen!=99" class="infoWaring">*</span></label>
+          <label>驾驶证档案编号：
+            <span [class.hidden]="need_data.DanganBianHaoLen!=99" class="infoWaring">*</span>
+            <span  class="infoWaring len" [class.hidden]="need_data.DanganBianHaoLen == 99 || need_data.DanganBianHaoLen == 0">{{need_data.DanganBianHaoLen}}</span>
+          </label>
           <input type="text" name="pCount" [(ngModel)]="modalData.pCount">
         </div>
         <div class="modal-input-group">
-          <label>驾驶证登记手机号:<span [class.hidden]="need_data.FilePhoneLen!=99" class="infoWaring">*</span></label>
+          <label>驾驶证登记手机号:
+            <span [class.hidden]="need_data.FilePhoneLen!=99" class="infoWaring">*</span>
+            <span  class="infoWaring len" [class.hidden]="need_data.FilePhoneLen == 99 || need_data.FilePhoneLen == 0">{{need_data.FilePhoneLen}}</span>
+          </label>
           <input type="text" name="carPhone" [(ngModel)]="modalData.carPhone">
         </div>
         <div class="modal-input-group">
-         <label>车辆登记证书号URL: <span [class.hidden]="need_data.CheliangZhengShuLen!=99" class="infoWaring">*</span></label>
-          <img-upload [img]="{url:modalData.CheliangZhengShu}"
-                      [selectable]="false"
-                      (afterChange)="modalData.CheliangZhengShu = $event.url"></img-upload>
+         <label>车辆登记证书号: 
+           <span [class.hidden]="need_data.CheliangZhengShuLen!=99" class="infoWaring">*</span>
+           <span  class="infoWaring len" [class.hidden]="need_data.CheliangZhengShuLen == 99 || need_data.CheliangZhengShuLen == 0">{{need_data.CheliangZhengShuLen}}</span></label>
+         <input type="text" name="CheliangZhengShu" [(ngModel)]="modalData.CheliangZhengShu">
         </div>
         <div class="modal-input-group">
-          <label>驾驶证条形二维码URL：<span [class.hidden]="need_data.TiaoXingMaLen!=99" class="infoWaring">*</span></label>
-          <img-upload [img]="{url:modalData.QRCode}"
-                      [selectable]="false"
-                      (afterChange)="modalData.QRCode = $event.url"></img-upload>
+          <label>驾驶证条形二维码：
+            <span [class.hidden]="need_data.TiaoXingMaLen!=99" class="infoWaring">*</span>
+            <span  class="infoWaring len" [class.hidden]="need_data.TiaoXingMaLen == 99 || need_data.TiaoXingMaLen == 0">{{need_data.TiaoXingMaLen}}</span>
+          </label>
+          <input type="text" name="QRCode" [(ngModel)]="modalData.QRCode">
         </div>
         <div class="modal-input-group">
-          <label>行驶证URL：<span [class.hidden]="need_data.DrivingLicense!=99" class="infoWaring">*</span></label>
+          <label>行驶证URL：
+            <span [class.hidden]="need_data.DrivingLicense!=99" class="infoWaring">*</span>
+          </label>
           <img-upload [img]="{url:modalData.DrivingUrl}"
                       [selectable]="false"
                       (afterChange)="modalData.DrivingUrl = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label>行驶证副页URL：<span [class.hidden]="need_data.DrivingSecondLicense!=99" class="infoWaring">*</span></label>
+          <label>行驶证副页URL：
+            <span [class.hidden]="need_data.DrivingSecondLicense!=99" class="infoWaring">*</span>
+          </label>
               <img-upload [img]="{url:modalData.DrivingSecondUrl}"
                       [selectable]="false"
                       (afterChange)="modalData.DrivingSecondUrl = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label>驾驶证URL：<span [class.hidden]="need_data.CarDriveLen!=99" class="infoWaring">*</span></label>
+          <label>驾驶证URL：
+            <span [class.hidden]="need_data.CarDriveLen!=99" class="infoWaring">*</span>
+          </label>
              <img-upload [img]="{url:modalData.DriverUrl}"
                       [selectable]="false"
                       (afterChange)="modalData.DriverUrl = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-           <label>行驶证副页URL：<span [class.hidden]="need_data.MajorViolation!=99" class="infoWaring">*</span></label>
+          <label>行驶证副页URL：
+             <span [class.hidden]="need_data.MajorViolation!=99" class="infoWaring">*</span>
+          </label>
               <img-upload [img]="{url:modalData.DriverUrl}"
                       [selectable]="false"
                       (afterChange)="modalData.DriverUrl = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label>驾驶证副页URL：<span [class.hidden]="need_data.MajorSecondViolation!=99" class="infoWaring">*</span></label>
+          <label>驾驶证副页URL：
+            <span [class.hidden]="need_data.MajorSecondViolation!=99" class="infoWaring">*</span>
+          </label>
             <img-upload [img]="{url:modalData.DriverSecondUrl}"
                       [selectable]="false"
                       (afterChange)="modalData.DriverSecondUrl = $event.url"></img-upload>

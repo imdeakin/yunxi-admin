@@ -415,6 +415,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
   }
 
   public addGoodsAttr(): void {
+    console.log(this.curGoodsId);
     this.apiCall.addStoreGoodsAttr(
       this.curGoodsId,
       this.editGoodsAttrModalData.param_id,

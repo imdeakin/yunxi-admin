@@ -15,7 +15,7 @@ declare let Squire: any;
 })
 export class EditorComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() private content: string = '';
-  @Input() private height: number = 300;
+  @Input() public height: number = 300;
   @Output() private contentChange: EventEmitter<string> = new EventEmitter();
 
   public id: string; //

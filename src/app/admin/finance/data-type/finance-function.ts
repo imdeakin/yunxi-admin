@@ -168,6 +168,9 @@ export class FinanceFunction {
   public static getRechageOrderStatusText(code: number): string {
     let text: string;
     switch (code) {
+      case -3:
+        text="审核不通过";
+        break;
       case 1:
         text = '成功';
         break;
@@ -238,5 +241,118 @@ export class FinanceFunction {
         text = '未知'
     }
     return text;
+  }
+
+  //云付通核验订单状态
+  public static getYunFuKindStatusText(curOrderType,status):string{
+      let text:string;
+      console.log(curOrderType,status)
+      if(curOrderType == 0){
+          switch(status){
+            case -3:
+              text='审核不通过';
+              break;
+            case 1:
+              text ='已支付';
+              break;
+            case 3:
+              text ='待核验';
+              break;
+            default:
+              text ='未知'
+          }
+          return text;
+      }else if(curOrderType == 1){
+          switch(status){
+            case -3:
+              text='审核不通过';
+              break;
+            case 5:
+              text ='已支付';
+              break;
+            case 9:
+              text ='待核验';
+              break;
+            default:
+              text ='未知'
+          }
+          return text;
+      }else if(curOrderType == 2){
+          switch(status){
+            case -3:
+              text='审核不通过';
+              break;
+            case 1:
+              text ='已支付';
+              break;
+            case 3:
+              text ='待核验';
+              break;
+            default:
+              text ='未知'
+          }
+          return text;
+      }else if(curOrderType == 3){
+          switch(status){
+            case -3:
+              text='审核不通过';
+              break;
+            case 1:
+              text ='已支付';
+              break;
+            case 0:
+              text ='待核验';
+              break;
+            default:
+              text ='未知'
+          }
+          return text;
+      }else if(curOrderType == 4){
+           switch(status){
+            case -4:
+              text='审核不通过';
+              break;
+            case 1:
+              text ='已支付';
+              break;
+            case -3:
+              text ='待核验';
+              break;
+            default:
+              text ='未知'
+          }
+          return text;
+      }else if(curOrderType == 5){
+           switch(status){
+            case -3:
+              text='审核不通过';
+              break;
+            case 2:
+              text ='已支付';
+              break;
+            case 5:
+              text ='待核验';
+              break;
+            default:
+              text ='未知'
+          }
+          return text;
+      }else if(curOrderType == 6){
+           switch(status){
+            case -3:
+              text='审核不通过';
+              break;
+            case 2:
+              text ='已支付';
+              break;
+            case 5:
+              text ='待核验';
+              break;
+            default:
+              text ='未知'
+          }
+          return text;
+      }
+      return text; 
   }
 }

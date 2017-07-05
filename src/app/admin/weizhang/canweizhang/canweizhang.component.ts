@@ -143,6 +143,7 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
   public fromModal(data){
     let car_info = data.car_info;
     this.need_data = data.need_data;
+
     if(data){
       this.modalData ={
           orderId:data.order_id,
@@ -163,7 +164,7 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
           QRCode:"",
           XingShiZhengHao:"",
           DrivingUrl:"",
-          DrivingSecondUrl:"L",
+          DrivingSecondUrl:"",
           DriverUrl:"",
           DriverSecondUrl:"",
       }

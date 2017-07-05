@@ -105,9 +105,8 @@ export class YoukaTaocanComponent implements OnInit {
    */
   
   public toggleEditModal(data?):void{
-    console.log(data);
-    this.editModalShow = !this.editModalShow
-       if(data){
+    this.editModalShow = !this.editModalShow;
+      if(data){
         this.modalData = {
           oilPackageId:data.oil_package_id,
           classify:data.classify,
@@ -118,7 +117,7 @@ export class YoukaTaocanComponent implements OnInit {
           amount: data.amount,
           oilCardType:data.oil_card_type,
           described: data.described
-      };
+        };
     }if(!this.editModalShow){
       this.modalData = {
         oilPackageId:'',
@@ -135,7 +134,6 @@ export class YoukaTaocanComponent implements OnInit {
   }
 
   public updateYoukaTaocanList(oilPackageId?): void {
-  console.log(this.modalData.eachs)
    this.apiCall.updateYoukaTaocanList(
         this.modalData.oilPackageId,
         this.modalData.classify,
