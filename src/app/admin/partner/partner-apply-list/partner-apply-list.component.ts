@@ -34,6 +34,7 @@ export class PartnerApplyListComponent implements OnInit {
   public readModalShow: boolean = false;
   public readCheckModalShow:boolean = false;
   public readModalData;
+  public readAgainModalShow:boolean = false;
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -98,6 +99,7 @@ export class PartnerApplyListComponent implements OnInit {
    public getAuditPass(status): void {
     let adminId = this.adminFunc.getAdminId();
     this.apiCall.getAuditPass(this.readModalData.partner_apply_id,adminId,this.readModalData.agreement_code,this.readModalData.approve,this.readModalData.summary,this.readModalData.remark,status, (data) => {
+      // this.readModalData = data.result;
       this.readModalData = data;
       console.log(data);
       this.getPartnerApplyList(1);
@@ -122,5 +124,5 @@ export class PartnerApplyListComponent implements OnInit {
     }
      this.readCheckModalShow = !this.readCheckModalShow;
   }
-
 }
+

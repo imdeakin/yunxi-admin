@@ -24,7 +24,6 @@ export class ApiCall {
         failure(code, msg);
       }
     };
-    console.log(options);
     this.apiRequest.post(options);
   }
 
@@ -160,7 +159,6 @@ export class ApiCall {
         sn: sn,
         oilCard: oilCard,
         tradeMode:tradeMode,
-        oilPackageId:oilPackageId,
         status:status,
         index: curPageIndex,
         pageSize: perPageSize
@@ -591,6 +589,7 @@ export class ApiCall {
       failure: failure
     });
   }
+
 
   /*
    * 商城管理

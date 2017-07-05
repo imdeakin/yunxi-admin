@@ -20,7 +20,7 @@ export class YoukaOrderComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: YoukaOrder[];
   public filterData = {
-    oilPackageId:'',
+    oilPackageId:0,
     sn:'',
     oilCard: '',
     price:'',
@@ -31,8 +31,8 @@ export class YoukaOrderComponent implements OnInit {
     amount:0,
     classify: 0,
     described:'',
-    status:'',
-    tradeMode: '',
+    status:0,
+    tradeMode: 0,
     modifyTime:'',
     oilCardId:'',
   };
@@ -129,21 +129,21 @@ export class YoukaOrderComponent implements OnInit {
       };
     }else{
       this.filterData = {
-          oilPackageId:0,
-          sn:'',
-          oilCard: '',
-          price:'',
-          mobile:'',
-          totalPeriods:'',
-          usedPeriods:'',
-          payTime:'',
-          amount:0,
-          classify: 0,
-          described:'',
-          status:0,
-          tradeMode: '',
-          modifyTime:'',
-          oilCardId:'',
+        oilPackageId:0,
+        sn:'',
+        oilCard: '',
+        price:'',
+        mobile:'',
+        totalPeriods:'',
+        usedPeriods:'',
+        payTime:'',
+        amount:0,
+        classify: 0,
+        described:'',
+        status:0,
+        tradeMode: 0,
+        modifyTime:'',
+        oilCardId:'',
         };
     }
   }
