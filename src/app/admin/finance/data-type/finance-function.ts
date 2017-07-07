@@ -165,7 +165,7 @@ export class FinanceFunction {
   }
 
   // 充值订单状态
-  public static getRechageOrderStatusText(code: number): string {
+  public static getRechageOrderStatusText(code): string {
     let text: string;
     switch (code) {
       case -3:

@@ -41,7 +41,8 @@ export class bonusWithdrawHistoryListComponent implements OnInit {
     yft_account: '',
     create_time: '',
     money: '',
-    status: ''
+    status: '',
+    cardNumber:''
   };
   public readModalShow: boolean = false;
   public editModalShow: boolean = false;
@@ -98,7 +99,8 @@ export class bonusWithdrawHistoryListComponent implements OnInit {
         yft_account: item.yft_account,
         create_time: item.create_time,
         money: item.money,
-        status: item.status
+        status: item.status,
+        cardNumber:''
       };
     }
     this.readModalShow = !this.readModalShow;

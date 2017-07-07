@@ -20,7 +20,7 @@
           </div>
           <div class="input-group">
             <label>支付类型</label>
-            <input type="text" name="name" [(ngModel)]="filterData.cardNumber">
+            <select-box [options]="financeFunction.bounsCardTypeOptions" (optionSelect)="filterData.cardType = $event"></select-box>
           </div>
           <!--<div class="input-group">-->
             <!--<label>状态</label>-->
@@ -35,7 +35,7 @@
           <tr>
             <th>流水号</th>
             <th>用户账号</th>
-            <th>银行卡号</th>
+            <th>卡号</th>
             <th>支付类型</th>
             <th>会员类型</th>
             <th>金额</th>
@@ -84,8 +84,8 @@
         <div class="value">{{modalData.mobile}}</div>
       </div>
       <div class="modal-detail-item">
-        <label>银行卡号</label>
-        <div class="value">{{modalData.mobile}}</div>
+        <label>卡号</label>
+        <div class="value">{{modalData.cardNumber}}</div>
       </div>
       <div class="modal-detail-item">
         <label>交易方式</label>
