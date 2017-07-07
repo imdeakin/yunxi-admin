@@ -55,7 +55,7 @@ export class ApiConfig {
     getRelationList: this.root + '/members/getRelationInfo', // 获取推介关系列表
     updateMemberInfo: this.root + '/members/updateMemberInfo',//修改会员等级信息
     getStatisticsData: this.root + '/members/statisticsData',//推广会员统计表
-
+    getMyMemberList:this.root + '/members/myMemberList',//我的会员列表
 
     // 合伙人管理
     getPartnerList: this.root + '/copartner/selectPartnerList', // 获取合伙人列表
@@ -154,6 +154,7 @@ export class ApiConfig {
     updateCloudpayVerification: this.root + '/finance/yftVerification', // 云付通核验
     getRechargeOrderList: this.root + '/finance/accountTransferOrderList', // 获取充值订单列表
     getBonusWithdrawList: this.root + '/finance/accountWithdrawList', // 获取奖金提现列表
+    updateWithdrawStatusList:this.root + '/finance/updateWithdrawStatus',//更新奖金提现状态
 
     //门店管理
     getMallSshopList: this.root + '/adminShop/mallSshopList',//获取门店列表

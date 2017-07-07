@@ -152,7 +152,7 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public getYoukaOrderList(sn, oilCard, tradeMode, oilPackageId, status, curPageIndex: number, perPageSize: number, success, failure?): void {
+  public getYoukaOrderList(sn, oilCard, tradeMode, oilPackageId, status, classify,curPageIndex: number, perPageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getYoukaOrderList,
       data: {
@@ -160,6 +160,7 @@ export class ApiCall {
         oilCard: oilCard,
         tradeMode:tradeMode,
         status:status,
+        classify:classify,
         index: curPageIndex,
         pageSize: perPageSize
       },
@@ -476,6 +477,22 @@ export class ApiCall {
       failure: failure
     })
 
+  }
+
+  //我的会员列表
+  public  getMyMemberList(memberId,level,memberLevel,curPageindex,perPageSize,success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.getMyMemberList,
+      data:{
+        memberId:memberId,
+        level:level,
+        memberLevel:memberLevel,
+        index:curPageindex,
+        pageSize:perPageSize
+      },
+      success:success,
+      failure:failure
+    })
   }
 
 
@@ -1825,6 +1842,18 @@ export class ApiCall {
     });
   }
 
+    public updateWithdrawStatusList(withdrawId, status, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateWithdrawStatusList,
+      data: {
+        withdrawId: withdrawId,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   public getMsgList(regionId: string, title: string, msgType: string, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getMsgList,
@@ -1840,13 +1869,14 @@ export class ApiCall {
     });
   }
 
-  public addMsg(regionId, title, msgType, success, failure?): void {
+  public addMsg(regionId, title, msgType,content,success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addMsg,
       data: {
         regionId: regionId,
         title: title,
         msgType: msgType,
+        content:content
       },
       success: success,
       failure: failure

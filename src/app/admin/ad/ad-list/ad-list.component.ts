@@ -33,16 +33,20 @@ export class AdListComponent implements OnInit {
   // 模态窗
   public editModalData = {
     ad_id: '',
-    file_id: '',
-    url: '',
+    ad_url:'',
     title: '',
     create_time: '',
+    file_id: '',
     position_code: '',
     business_id: '',
     is_show: '',
     sort: ''
   };
   public editModalShow: boolean = false;
+  public fileMoodaData ={
+    ad_url:'',
+    file_id:''
+  }
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
@@ -73,6 +77,7 @@ export class AdListComponent implements OnInit {
       this.perPageSize,
       (list, total) => {
         this.tableList = list;
+        console.log(this.tableList);
         this.total = total;
       }
     );
@@ -84,14 +89,19 @@ export class AdListComponent implements OnInit {
     console.log(item);
     if (item) {
       this.editModalData = this.funcServer.deepCopy(item);
+      this.fileMoodaData.ad_url = this.editModalData.ad_url;
     }
     this.editModalShow = !this.editModalShow;
     if (!this.editModalShow) {
+      this.fileMoodaData.ad_url = '';
+      this.editModalData.file_id = '';
       this.editModalData = this.funcServer.emptyObj(this.editModalData);
+      console.log(this.editModalData);
     }
   }
 
   public updateAd(): void {
+    this.editModalData.file_id = this.fileMoodaData.file_id;
     this.apiCall.updateAd(
       this.editModalData.ad_id,
       this.editModalData.title,

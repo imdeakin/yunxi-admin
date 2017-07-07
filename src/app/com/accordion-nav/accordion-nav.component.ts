@@ -5,6 +5,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import { Title } from '../../../app-demo/home/title/title.service';
 
 @Component({
   selector: 'accordion-nav',
@@ -148,6 +149,10 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '奖金提现管理',
           link: '/admin/bonus-withdraw-list'
+        },
+        {
+          title:'奖金提现管理历史',
+          link:'/admin/bonus-withdraw-history-list'
         }
       ]
     },

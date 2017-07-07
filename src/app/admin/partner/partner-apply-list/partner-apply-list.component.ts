@@ -80,6 +80,7 @@ export class PartnerApplyListComponent implements OnInit {
   public getPartnerApplyInfo(partnerApplyId): void {
     this.apiCall.getPartnerApplyInfo(partnerApplyId, (data) => {
       this.readModalData = data.result;
+      console.log(this.readModalData);
     });
   }
 

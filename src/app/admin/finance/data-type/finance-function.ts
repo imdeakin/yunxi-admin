@@ -243,10 +243,28 @@ export class FinanceFunction {
     return text;
   }
 
+  //充值类型
+  public static getChargeListStatus(status):string{
+    let text:string;
+    switch(status){
+      case 1:
+        text ="支付宝";
+        break;
+      case 2:
+        text ="微信";
+        break;
+      case 3:
+        text ="云付通";
+        break;
+      default:
+        text ="未知";
+    }
+    return text;
+  }
+
   //云付通核验订单状态
   public static getYunFuKindStatusText(curOrderType,status):string{
       let text:string;
-      console.log(curOrderType,status)
       if(curOrderType == 0){
           switch(status){
             case -3:

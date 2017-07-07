@@ -42,6 +42,7 @@ export class MsgListComponent implements OnInit {
   };
   public readModalShow: boolean = false;
   public editModalShow: boolean = false;
+  public sendMsgShow:boolean = true;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
   }
@@ -66,13 +67,19 @@ export class MsgListComponent implements OnInit {
     }
     this.apiCall.getMsgList(
       this.filterData.regionId,
-      this.filterData.type,
       this.filterData.title,
+      this.filterData.type,
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {
         this.tableList = list;
+        console.log(this.tableList);
         this.total = total;
+        if(this.filterData.type == '6'){
+            this.sendMsgShow = false;
+        }else{
+             this.sendMsgShow = true;
+        }
       }
     );
   }
@@ -135,10 +142,13 @@ export class MsgListComponent implements OnInit {
   }
 
   public addMsg(): void {
+    let type = 6;
+    console.log(this.modalData.content);
     this.apiCall.addMsg(
       this.modalData.regionId,
       this.modalData.title,
-      this.modalData.msgType,
+      type,
+      this.modalData.content,
       (data) => {
         this.toggleEditModal();
         this.getMsgList(1);

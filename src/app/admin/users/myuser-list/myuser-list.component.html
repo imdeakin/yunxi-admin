@@ -33,7 +33,6 @@
             <th>最后登陆时间</th>
             <th>最后登陆IP</th>
             <th>所属城市</th>
-            <th>登录状态</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -47,12 +46,10 @@
             <td>{{item.last_login_time}}</td>
             <td>{{item.last_login_ip}}</td>
             <td>{{item.region_name}}</td>
-            <td>{{usersFunction.isBlackOptions(item.is_black)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/user-list/' + item.member_id">下级</a>                
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleSpreadModal(item.user_id,1)">推广</a>
+                <a class="table-btn"  (click)="toggleSpreadModal(item.user_id,1)">推广</a>
               </div>
             </td>
           </tr>

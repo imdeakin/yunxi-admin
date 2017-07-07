@@ -133,7 +133,21 @@ export class UsersFunction {
           text:i,
         })
       }
-      console.log(yearOptions);
       return yearOptions
+  }
+
+  public static isBlackOptions(type):string{
+    let text:string;
+    switch(type){
+      case 0:
+        text = "允许登录";
+        break;
+      case 1:
+        text = "禁止登录";
+        break;
+      default:
+        text = "未知";
+    }
+    return text;
   }
 }

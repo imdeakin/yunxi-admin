@@ -26,6 +26,7 @@
             <th>添加时间</th>
             <th>类型</th>
             <th>是否默认</th>
+            <th>操作</th>
           </tr>
           </thead>
           <tbody>
@@ -36,6 +37,12 @@
             <td>{{item.create_time}}</td>
             <td>{{getYoukaTypeText(item.type)}}</td>
             <td>{{getYoukaDefaultText(item.is_default)}}</td>
+            <td>
+               <div class="table-btns">
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.oil_package_id)">删除</a>
+              </div>
+            </td>
           </tr>
           </tbody>
         </table>

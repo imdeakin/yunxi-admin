@@ -86,12 +86,11 @@
           </div>
           <div class="modal-detail-item">
             <label>代理区域</label>
-            <div class="value">{{readModalData.name}}</div>
+            <div class="value">{{readModalData.region_name}}</div>
           </div>
           <div class="modal-detail-item">
             <label>代理级别</label>
             <div class="value">{{readModalData.partner_level}}</div>
-
           </div>
           <div class="modal-detail-item">
             <label>用户账号</label>
@@ -140,7 +139,7 @@
             <div class="value">{{readModalData.approve}}</div>
           </div>
           <div class="modal-detail-item" [class.hidden]="readModalData.status !=2">
-            <label>复核意见</label>
+            <label>复核意见<span style="color:red">必填</span></label>
             <div class="value">{{readModalData.review}}</div>
           </div>
           <div class="modal-detail-item">

@@ -7,8 +7,12 @@
       <div class="filter-bar">
         <form class="clearfix" (ngSubmit)="getPartnerList(1)">
           <div class="input-group">
-            <label>会员账号</label>
-            <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
+            <label>合伙人编号</label>
+            <input type="text" name="mobile" [(ngModel)]="filterData.sn">
+          </div>
+            <div class="input-group">
+            <label>合伙人等级</label>
+            <select-box [options]="partnerFunction.partnerLevelOptions" [first]="{value:'',text:'请选择'}" (optionSelect)="filterData.partnerLevelId = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
