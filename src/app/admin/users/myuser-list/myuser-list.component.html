@@ -6,19 +6,16 @@
     <div class="content-wrapper">
       <div class="filter-bar">
         <form class="clearfix" (ngSubmit)="getMyMemberList(1)">
-          <!--<div class="input-group">
-            <label>会员账号</label>
-            <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
-          </div>
           <div class="input-group">
-            <label>会员等级</label>
-            <select-box [options]="usersFunction.userLevelOptions" [name]="filterData.level"
+            <label>层级</label>
+            <select-box [options]="usersFunction.uplevelTopClassOptions" [name]="filterData.level"
                         (optionSelect)="filterData.level = $event"></select-box>
           </div>
           <div class="input-group">
-            <label>城市</label>
-            <city-picker  (change)="filterData.regionId = $event"></city-picker>
-          </div>-->
+            <label>等级</label>
+            <select-box [options]="usersFunction.userLevelOptions" [name]="filterData.memberLevel"
+                        (optionSelect)="filterData.memberLevel = $event"></select-box>
+          </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
@@ -26,32 +23,17 @@
         <table>
           <thead>
           <tr>
-            <th>会员账号</th>
-            <th>上级会员</th>
+            <th>会员编号</th>
             <th>会员等级</th>
-            <th>注册时间</th>
-            <th>最后登陆时间</th>
-            <th>最后登陆IP</th>
-            <th>所属城市</th>
-            <th>操作</th>
+            <th>手机号码</th>
           </tr>
           </thead>
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.member_mobile}}</td>
-            <td>{{item.upmember_mobile}}</td>
-            <td>{{item.member_level_name}}</td>
-            <td>{{item.create_time}}</td>
-            <td>{{item.last_login_time}}</td>
-            <td>{{item.last_login_ip}}</td>
-            <td>{{item.region_name}}</td>
-            <td>
-              <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
-                <a class="table-btn"  (click)="toggleSpreadModal(item.user_id,1)">推广</a>
-              </div>
-            </td>
+            <td>{{item.sn}}</td>
+            <td>{{usersFunction.getUserLevelTextStr(item.member_level_id)}}</td>
+            <td>{{item.mobile}}</td>
           </tr>
           </tbody>
         </table>

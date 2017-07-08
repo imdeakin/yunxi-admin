@@ -39,8 +39,8 @@
             <td>{{getYoukaDefaultText(item.is_default)}}</td>
             <td>
                <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.oil_package_id)">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.oil_card_id)">删除</a>
               </div>
             </td>
           </tr>
@@ -53,3 +53,30 @@
     </div>
   </div>
 </div>
+<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
+  <div class="modal-con">
+     <h3 class="modal-title" [class.hidden]="!modalData.oilPackageId">编辑</h3>
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
+      <div class="modal-input-group">
+        <label>油卡类型</label>
+        <select-box [options]="youkaFunction.youcaTaocanTypeOptions" [value]="modalData.type +''" (optionSelect)="modalData.type = $event"></select-box>
+      </div>
+      <div class="modal-input-group">
+        <label>姓名</label>
+        <input type="text" name="name" [(ngModel)]="modalData.user_name">
+      </div>
+      <div class="modal-input-group">
+        <label>油卡卡号</label>
+        <input type="text" name="oil_card" [(ngModel)]="modalData.oil_card">
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit">保存</button>
+        <button type="button" (click)="toggleModal()">关闭</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+

@@ -13,7 +13,7 @@
           </div>
           <div class="input-group">
             <label>投保城市</label>
-            <city-picker></city-picker>
+            <city-picker  (change)="filterData.regionId = $event"></city-picker>
           </div>
           <button class="text-btn text-sub" (click)="getInsuranceOrderList(1)">搜索</button>
         </form>

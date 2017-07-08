@@ -82,8 +82,24 @@ export class UsersFunction {
     }
   ];
 
+   // 会员升级订单状态选项组
+  public static uplevelTopClassOptions = [
+    {
+      value: '1',
+      text: '一级'
+    },
+    {
+      value: '2',
+      text: '二级'
+    },
+    {
+      value: '3',
+      text: '三级'
+    },
+  ];
+
   // 会员等级
-  public static getUserLevelText(classify: number): string {
+  public static getUserLevelText(classify): string {
     let text: string;
     switch (classify) {
       case 1:
@@ -93,6 +109,24 @@ export class UsersFunction {
         text = 'VIP会员';
         break;
       case 3:
+        text = '钻石会员';
+        break;
+      default:
+        text = '未知'
+    }
+    return text;
+  }
+
+   public static getUserLevelTextStr(classify): string {
+    let text: string;
+    switch (classify) {
+      case '1':
+        text = '普通会员';
+        break;
+      case '2':
+        text = 'VIP会员';
+        break;
+      case '3':
         text = '钻石会员';
         break;
       default:

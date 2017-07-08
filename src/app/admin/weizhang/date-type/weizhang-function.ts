@@ -68,8 +68,6 @@ export class weiZhangFunction{
       case 6:
         text = '已失效';
         break;
-      default:
-        text = '未知'
     }
     return text;
   }
@@ -120,8 +118,6 @@ export class weiZhangFunction{
       case 500:
         text ='生成订单异常';
         break;
-      default:
-        text = '未知'
     }
     return text;
   }
@@ -145,8 +141,6 @@ export class weiZhangFunction{
       case 16:
         text = '您的订单已过期,无法完成支付（有效期3天）';
         break;
-      default:
-        text = '未知'
     }
     return text;
   }

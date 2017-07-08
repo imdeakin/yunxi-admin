@@ -21,7 +21,8 @@ export class InsuranceOrderListPageComponent implements OnInit {
   public tableList: InsuranceOrderList[];
   public insuranceFunction = InsuranceFunction;
   public filterData = {
-    searchName: ''
+    searchName: '',
+    regionId:''
   };
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, public funcServer: FuncServer) {
@@ -45,7 +46,7 @@ export class InsuranceOrderListPageComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getInsuranceOrderList(this.filterData.searchName, this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getInsuranceOrderList(this.filterData.searchName,this.filterData.regionId,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
     });

@@ -15,6 +15,10 @@
             <select-box [options]="usersFunction.userLevelOptions" [name]="filterData.level"
                         (optionSelect)="filterData.level = $event"></select-box>
           </div>
+          <!--<div class="input-group">
+            <input type="text" name="birthday">
+            <date-picker></date-picker>
+          </div>-->
           <div class="input-group">
             <label>城市</label>
             <city-picker  (change)="filterData.regionId = $event"></city-picker>
@@ -80,13 +84,13 @@
             <label>昵称</label>
             <div class="value">{{modalData.nike_name}}</div>
           </div>
-          <div class="modal-detail-item">
+          <div class="modal-input-group">
             <label>身份证</label>
-            <div class="value">{{modalData.idcard}}</div>
+            <input type="text" name="idcard" [(ngModel)]="modalData.idcard">
           </div>
-          <div class="modal-detail-item">
-            <label>生日</label>
-            <div class="value">{{modalData.birth_day}}</div>
+          <div class="modal-input-group">
+            <label>密码</label>
+             <input type="text" name="password" placeholder="不修改就不碰" [(ngModel)]="password">
           </div>
           <div class="modal-detail-item">
             <label>会员等级</label>

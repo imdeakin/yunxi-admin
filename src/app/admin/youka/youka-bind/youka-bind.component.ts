@@ -7,6 +7,8 @@ import {YoukaBind} from '../data-type/youka-bind';
 import {YoukaFunction} from '../data-type/youka-function';
 import {FuncServer} from '../../../serv/func.server';
 
+declare let layer: any;
+
 @Component({
   selector: 'youka-bind',
   templateUrl: './youka-bind.component.html',
@@ -30,6 +32,14 @@ export class YoukaBindComponent implements OnInit {
     searchData:''
   }
 
+  public modalData = {
+      oil_card_id:'',
+      oil_card:'',
+      type:0,
+      user_name:''
+  };
+
+  public modalShow:boolean = false;
   constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
   }
 
@@ -92,4 +102,49 @@ export class YoukaBindComponent implements OnInit {
       this.getYoukaBindList(1);
   }
 
+  public updateOilBound():void{
+    this.apiCall.updateOilBound(this.modalData.oil_card_id,this.modalData.oil_card,this.modalData.type,this.modalData.user_name,(data)=>{
+        this.toggleModal();
+        this.getYoukaBindList(1);
+    })  
+  }
+
+  public delOilBound(oil_card_id):void{
+    this.apiCall.delOilBound(oil_card_id,(data) =>{
+        this.getYoukaBindList(1);
+    })
+  }
+
+  public toggleModal(item?):void{
+      if(item){
+        this.modalData = this.funcServer.deepCopy(item);
+      }
+      this.modalShow = !this.modalShow;
+      if(!this.modalShow){
+
+      }
+  }
+
+  public modalSubmit():void{
+    if(this.modalData.oil_card_id)
+      this.updateOilBound();
+  }
+
+  public verificationConfirm(oil_card_id): void {
+    let adminId = '';
+    let index = layer.confirm(
+      '请确认删除结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.delOilBound(oil_card_id);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
+  }
 }

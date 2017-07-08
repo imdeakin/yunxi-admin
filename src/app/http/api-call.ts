@@ -140,6 +140,33 @@ export class ApiCall {
     });
   }
 
+   //修改油卡绑定列表
+   public updateOilBound(oilCardId: string, oilCard: string, type: number, name:string , success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateOilBound,
+      data: {
+        oilCardId:oilCardId,
+        oilCard: oilCard,
+        type: type,
+        name: name
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //删除油卡绑定列表
+  public delOilBound(oilCardId: string,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.delOilBound,
+      data: {
+        oilCardId:oilCardId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   /**
    * 获取油卡购买套餐订单列表
    * @param sn 订单流水号
@@ -219,7 +246,7 @@ export class ApiCall {
     })
   }
 
-  public getInsuranceOrderList(searchName, curPageIndex: number, pageSize: number, success, failure?): void {
+  public getInsuranceOrderList(searchName,regionId,curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getInsuranceOrderList,
       data: {
