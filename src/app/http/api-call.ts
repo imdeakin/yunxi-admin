@@ -679,11 +679,11 @@ export class ApiCall {
     });
   }
 
-  public removeStoreGoods(userStoreGoodsId: string, success, failure?): void {
+  public removeStoreGoods(goodsId: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.removeStoreGoods,
       data: {
-        userStoreGoodsId: userStoreGoodsId
+        goodsId: goodsId
       },
       success: success,
       failure: failure

@@ -33,7 +33,7 @@ export class DatePickerComponent implements OnChanges {
   public showDp = 'none';
 
   public ngOnChanges(): void {
-    this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+    // this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     // this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     this.daysofWeek = ['日', '一', '二', '三', '四', '五', '六'];
     this.months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];

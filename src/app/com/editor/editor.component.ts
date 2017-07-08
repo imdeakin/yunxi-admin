@@ -57,8 +57,7 @@ export class EditorComponent implements OnInit, AfterViewInit, DoCheck {
 
     // 监听编辑器失去焦点，触发contentChange事件
     this.editor.addEventListener('blur', () => {
-      this.content = this.editor.getHTML();
-      this.contentChange.emit(this.content);
+      this.contentChange.emit(this.editor.getHTML());
     });
   }
 
@@ -84,7 +83,7 @@ export class EditorComponent implements OnInit, AfterViewInit, DoCheck {
   public toggleMenuItem(e): void {
     let target = e.currentTarget;
     let action = this.getNodeAttruteValue(target, 'data-action');
-
+    console.log(target);
     let test = {
       value: action,
       testBold: this.testPresenceinSelection('bold',

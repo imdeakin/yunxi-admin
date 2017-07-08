@@ -46,10 +46,21 @@ export class GoodsListComponent implements OnInit, DoCheck {
 
   // 模态窗
   public editBaseInfoModalShow: boolean = false; // 商品基本信息的显示状态
-  public editBaseInfoModalData; // 商品基本信息数据
+  public editBaseInfoModalData = { // 商品基本信息数据
+    goods_id: '',
+    goods_type_id: '',
+    goods_brand_id: '',
+    business_name: '',
+    producer: '',
+    on_sale: '',
+    freight: '',
+    described: '',
+    instruction: ''
+  };
 
   public editGoodsDetailModalShow: boolean = false; // 商品详情编辑窗的显示状态
   public editGoodsDetailModalData = { // 商品详情编辑窗的数据
+    modernContent: '',
     content: ''
   };
 
@@ -60,6 +71,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public editGoodsAttrModalData = { // 商品基本参数编辑窗的数据
     attr_id: '',
     param_id: '',
+    param_name: '',
     value_id: ''
   };
 
@@ -170,15 +182,17 @@ export class GoodsListComponent implements OnInit, DoCheck {
         let arr = [];
         for (let i = 0, len = list.length; i < len; i++) {
           arr.push({
-            value: list[i].goodsBrandId,
+            value: list[i].goods_brand_id,
             text: list[i].name
           });
         }
         this.storeGoodsBrandOptions = arr;
+        console.log(arr);
       });
   }
 
   public getStoreGoodsInfo(sn): void {
+    this.editBaseInfoModalData = null; // 先清空数据
     this.apiCall.getStoreGoodsInfo(
       sn,
       (data) => {
@@ -187,24 +201,24 @@ export class GoodsListComponent implements OnInit, DoCheck {
   }
 
   // 模态窗
-  public toggleEditInfoModal(item?): void {
+  public toggleEditBaseInfoModal(item?): void {
     if (item) { // 传递数据用于编辑
-      this.editBaseInfoModalData = null; // 先清空数据
       this.getStoreGoodsInfo(item.sn);
-
     } else if (!this.editBaseInfoModalShow) { // 将显示出来用于添加
-      this.editBaseInfoModalData = {
-        goods_type_id: '',
-        goods_brand_id: '',
-        business_name: '',
-        producer: '',
-        on_sale: '',
-        freight: '',
-        described: ''
-      };
+      this.editBaseInfoModalData = this.funcServer.emptyObj(this.editBaseInfoModalData);
     }
 
     this.editBaseInfoModalShow = !this.editBaseInfoModalShow;
+  }
+
+  // 关闭所有模态窗
+  public closeAllModal(): void {
+    this.editBaseInfoModalShow = false;
+    this.editGoodsDetailModalShow = false;
+    this.editGoodsSlideModalShow = false;
+    this.goodsAttrListModalShow = false;
+    this.goodsSKUListModalShow = false;
+    this.getStoreGoodsList(1);
   }
 
   // 保存商品基本信息
@@ -218,7 +232,8 @@ export class GoodsListComponent implements OnInit, DoCheck {
       this.editBaseInfoModalData.described,
       this.editBaseInfoModalData.freight,
       this.editBaseInfoModalData.on_sale,
-      () => {
+      (data) => {
+        this.editBaseInfoModalData.goods_id = data.goods_id;
         // 进入下一步
         this.toggleEditGoodsDetailModal(this.editBaseInfoModalData.instruction)
       },
@@ -228,16 +243,37 @@ export class GoodsListComponent implements OnInit, DoCheck {
     );
   }
 
+  // 删除商品
+  public removeGoods(goodsId) {
+    let index = layer.confirm('确定删除吗？', ['确定', '取消'],
+      () => {
+        this.apiCall.removeStoreGoods(
+          goodsId,
+          () => {
+            layer.msg("删除成功");
+            this.getStoreGoodsList();
+            layer.close(index);
+          },
+          () => {
+            layer.msg("删除失败");
+            layer.close(index);
+          }
+        );
+      });
+  }
+
   /*
    * 商品详情编辑
    */
   public toggleEditGoodsDetailModal(detail?): void {
     if (detail !== undefined) {
       this.editGoodsDetailModalData = {
+        modernContent: detail,
         content: detail
       };
     } else {
       this.editGoodsDetailModalData = {
+        modernContent: '',
         content: ''
       };
     }
@@ -529,7 +565,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
           optionsArr.push(this.getStoreGoodsSKUAttrValOptions(arr[i].param_id))
         }
         this.goodsSKUAttrValOptionsArr = optionsArr;
-        console.log(this.goodsSKUAttrValOptionsArr);
       }
     )
   }
@@ -546,7 +581,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
         });
       }
     }
-    console.log(arr);
     return arr;
   }
 

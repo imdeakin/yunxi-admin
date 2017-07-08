@@ -11,7 +11,7 @@ import {ScrollbarServer} from '../../serv/scrollbar-server'
   styleUrls: ['./select-box.component.css']
 })
 export class SelectBoxComponent implements OnInit, DoCheck {
-  @Output() public optionSelect: EventEmitter<any> = new EventEmitter();
+  @Output() public optionSelect: EventEmitter<string | number> = new EventEmitter();
   @Output() public onInit: EventEmitter<any> = new EventEmitter();
   @Input() public name: string = '';
   @Input() public placeholder: string = '';
@@ -21,42 +21,50 @@ export class SelectBoxComponent implements OnInit, DoCheck {
     text: '不限'
   };
   @Input() public index: number;
-  @Input() public value;
-  @Input() public text;
+  @Input() public value: string;
+  @Input() public text: string;
+
   public active: boolean = false;
   public curOption: Option;
   public curText: string;
 
-  private oldOptions;
-  private oldValue = this.value;
-  private oldText = this.text;
+  private oldOptions: Option[];
+  private oldValue: string;
+  private oldText: string;
+  private oldIndex: number;
 
   constructor(private ref: ElementRef, private scrollbarServer: ScrollbarServer) {
 
   }
 
   public ngOnInit(): void {
-    this.init();
     this.scrollbar();
+    this.onInit.emit(this);
   }
 
   public ngDoCheck(): void {
     if (this.options !== this.oldOptions) {
-      this.init();
       this.oldOptions = this.options;
+      this.onUpdateOptions();
       console.log('The options had changed.');
     }
 
-    if (this.value !== this.oldValue) {
-      this.updateCurOptionsByValue();
-      this.oldValue = this.value;
-      console.log('The value had changed.');
-    }
-
-    if (this.text !== this.oldText) {
-      this.updateCurOptionsByText();
-      this.oldText = this.text;
-      console.log('The text had changed.');
+    if (typeof this.value === 'string' || typeof this.value === 'number') {
+      if (this.value !== this.oldValue) {
+        this.oldValue = this.value;
+        this.updateCurOptionsByValue();
+        console.log('The value had changed.');
+      }
+    } else if (typeof this.text === 'string' || typeof this.text === 'number') {
+      if (this.text !== this.oldText) {
+        this.oldText = this.text;
+        this.updateCurOptionsByText();
+        console.log('The text had changed.');
+      }
+    } else if (this.index !== this.oldIndex) {
+      this.oldIndex = this.index;
+      this.updateCurOptionsByIndex();
+      console.log('The index had changed.');
     }
   }
 
@@ -66,10 +74,10 @@ export class SelectBoxComponent implements OnInit, DoCheck {
     this.scrollbarServer.init(list);
   }
 
-  public init(): void {
-
+  public onUpdateOptions(): void {
     if (this.options instanceof Array) {
 
+      // 首项数据
       if (this.first) {
         if (this.options[0]) {
           if (this.options[0].value !== this.first.value) {
@@ -80,52 +88,33 @@ export class SelectBoxComponent implements OnInit, DoCheck {
         }
       }
 
-      // this.updateListScroll();
-
-      // 是否有默认值
-      if (this.value) { // 默认值
+      // 默认选项
+      if (typeof this.value === 'string' || typeof this.value === 'number') {
         this.updateCurOptionsByValue();
-      } else if (this.text) { // 默认内容
+      } else if (typeof this.text === 'string' || typeof this.text === 'number') {
         this.updateCurOptionsByText();
-      } else { // 默认索引
+      } else if (this.index !== this.oldIndex) {
         this.updateCurOptionsByIndex();
       }
 
     } else {
       console.error('the property of options is not allow empty');
     }
-    this.onInit.emit(this);
-  }
-
-  public updateListScroll(): void {
-    let list = this.ref.nativeElement.firstChild.childNodes;
-    let target;
-    for (let i = 0, len = list.length; i < len; i++) {
-      let item = list[i];
-      if (item.className) {
-        let classList = item.className.split(' ');
-        for (let i = 0, len = classList.length; i < len; i++) {
-          if (classList[i] === "select-option-list") {
-            target = item;
-            break;
-          }
-        }
-        if (target) {
-          break;
-        }
-      }
-    }
   }
 
   public updateCurOptionsByValue(): void {
-    if (this.value && this.options && this.options.length) {
+    if ((typeof this.value === 'string' || typeof this.value === 'number') && this.options && this.options.length) {
       for (let i = 0, len = this.options.length; i < len; i++) {
         let item = this.options[i];
-        if (item.value === this.value) {
+        if (item.value + '' === this.value + '') {
           this.index = i;
           this.curOption = this.options[this.index];
           this.curText = this.curOption.text;
-          this.optionSelect.emit(this.curOption.value);
+          if (typeof this.value === 'number') {
+            this.optionSelect.emit(parseInt(this.curOption.value));
+          } else {
+            this.optionSelect.emit(this.curOption.value + '');
+          }
           break;
         }
       }
@@ -133,14 +122,18 @@ export class SelectBoxComponent implements OnInit, DoCheck {
   }
 
   public updateCurOptionsByText(): void {
-    if (this.text && this.options && this.options.length) {
+    if ((typeof this.text === 'string' || typeof this.text === 'number') && this.options && this.options.length) {
       for (let i = 0, len = this.options.length; i < len; i++) {
         let item = this.options[i];
-        if (item.text === this.text) {
+        if (item.text + '' === this.text + '') {
           this.index = i;
           this.curOption = this.options[this.index];
           this.curText = this.curOption.text;
-          this.optionSelect.emit(this.curOption.value);
+          if (typeof this.value === 'number') {
+            this.optionSelect.emit(parseInt(this.curOption.value));
+          } else {
+            this.optionSelect.emit(this.curOption.value + '');
+          }
           break;
         }
       }
