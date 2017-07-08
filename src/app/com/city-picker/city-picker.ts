@@ -54,7 +54,8 @@ export class CityPickerComponent implements OnInit, DoCheck {
   }
 
   public updateAddress(): void {
-    this.addr = this.provinceCode + '/' + this.cityCode;
+    this.addr = this.cityCode;
+    // this.addr = this.provinceCode + '/' + this.cityCode;
   }
 
   public parseToOptions(cityData): Option[] {

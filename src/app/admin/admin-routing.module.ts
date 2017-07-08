@@ -28,6 +28,7 @@ import {
   UserRecordComponent,
   UplevelOrderComponent,
   RelationListComponent,
+  myUserListComponent,
 
   // 合伙人管理
   PartnerListComponent,
@@ -50,6 +51,7 @@ import {
   CloudpayVerificationHistoryComponent,
   RechargeListComponent,
   bonusWithdrawListComponent,
+  bonusWithdrawHistoryListComponent,
 
   // 消息中心
   MsgListComponent,
@@ -84,7 +86,7 @@ const AdminRoutes: Routes = [
       {path: 'youka-taocan', component: YoukaTaocanComponent},
       {path: 'youka-bind', component: YoukaBindComponent},
       {path: 'youka-order', component: YoukaOrderComponent},
-      {path:'youka-recordManage',component:YoukaRecordManageComponent},
+      {path: 'youka-recordManage',component:YoukaRecordManageComponent},
       {path: 'youka-record', component: YoukaRecordComponent},
 
       // 车险管理
@@ -92,9 +94,11 @@ const AdminRoutes: Routes = [
        {path:'car-protect-list',component:CarProtectComponent},
       // 会员管理
       {path: 'user-list', component: UserListComponent},
+      {path: 'user-list/:memberId', component:myUserListComponent},
       {path: 'user-record', component: UserRecordComponent},
       {path: 'uplevel-order', component: UplevelOrderComponent},
-      {path: 'relation-list', component: RelationListComponent},
+      {path: 'relation-list', component: RelationListComponent},    
+
 
       // 合伙人管理
       {path: 'partner-list', component: PartnerListComponent},
@@ -119,6 +123,7 @@ const AdminRoutes: Routes = [
       {path: 'cloudpay-verification-history-list', component: CloudpayVerificationHistoryComponent},
       {path: 'recharge-list', component: RechargeListComponent},
       {path: 'bonus-withdraw-list', component: bonusWithdrawListComponent},
+      {path: 'bonus-withdraw-history-list',component:bonusWithdrawHistoryListComponent},
 
       // 广告
       {path: 'ad-list', component: AdListComponent},

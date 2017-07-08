@@ -5,8 +5,8 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getUserList(1)">
-          <div class="input-group">
+        <form class="clearfix" (ngSubmit)="getMyMemberList(1)">
+          <!--<div class="input-group">
             <label>会员账号</label>
             <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
           </div>
@@ -18,7 +18,7 @@
           <div class="input-group">
             <label>城市</label>
             <city-picker  (change)="filterData.regionId = $event"></city-picker>
-          </div>
+          </div>-->
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
@@ -33,7 +33,6 @@
             <th>最后登陆时间</th>
             <th>最后登陆IP</th>
             <th>所属城市</th>
-            <th>登录状态</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -47,25 +46,23 @@
             <td>{{item.last_login_time}}</td>
             <td>{{item.last_login_ip}}</td>
             <td>{{item.region_name}}</td>
-            <td>{{usersFunction.isBlackOptions(item.is_black)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/user-list/' + item.member_id">下级</a>                
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleSpreadModal(item.user_id,1)">推广</a>
+                <a class="table-btn"  (click)="toggleSpreadModal(item.user_id,1)">推广</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls (pageChange)="getUserList($event)" previousLabel="上一页"
+        <pagination-controls (pageChange)="getMyMemberList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
+<!--<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
     <form class="modal-form" (ngSubmit)="modalSubmit()">
     <h3 class="modal-title">详情</h3>
@@ -122,59 +119,4 @@
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
-</div>
-<div class="modal-wrapper" [class.hidden]="!modalSpreadShow" *ngIf="totalData">
-  <div class="modal-con">
-    <form class="modal-form" >
-    <h3 class="modal-title">详情</h3>
-      <div class="modal-btn-group" id="spreadButton">
-        <button type="button" (click)="toggleTypeModal(userId,1)">总数</button>
-        <button type="button" (click)="YearMonthsShow = !YearMonthsShow">月份</button>
-        <button type="button" (click)="toggleTypeModal(userId,3)">今日</button>
-      </div>
-      <div class="modal-input-group yearMonths" [class.hidden]="!YearMonthsShow">
-        <label>年:</label><select-box [options]="yearOptions" [first]="{value:'',text:'请选择'}" [value]="detaData.years"  (optionSelect)="detaData.years = $event"></select-box>
-        <label>月:</label><select-box [options]="usersFunction.MonthOptions" [first]="{value:'',text:'请选择'}" [value]="detaData.months"  (optionSelect)="detaData.months = $event"></select-box>
-        <div class="modal-btn-group">
-        <button type="button" (click)="toggleTypeModal(userId,4)">确认</button>
-        </div>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <td>等级</td>
-            <td>普通</td>
-            <td>高级</td>
-            <td>钻石</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>一级会员</th>
-            <th>{{totalData.one_vip1}}</th>
-            <th>{{totalData.one_vip2}}</th>
-            <th>{{totalData.one_vip3}}</th>
-          </tr>
-          <tr>
-            <th>二级会员</th>
-            <th>{{totalData.two_vip1}}</th>
-            <th>{{totalData.two_vip2}}</th>
-            <th>{{totalData.two_vip3}}</th>
-          </tr>
-           <tr>
-            <th>三级会员</th>
-            <th>{{totalData.three_vip1}}</th>
-            <th>{{totalData.three_vip2}}</th>
-            <th>{{totalData.three_vip3}}</th>
-          </tr>
-        </tbody>
-      </table>
-      <div class="modal-btn-group">
-        <button (click)="toggleSpreadModal()">关闭</button>
-      </div>
-      </form>
-    <div class="modal-close" (click)="toggleSpreadModal()">
-      <i class="icon-font">&#xe6e9;</i>
-    </div>
-  </div>
-</div>
+</div>-->

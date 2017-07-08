@@ -50,7 +50,7 @@ import {
   UserRecordComponent,
   UplevelOrderComponent,
   RelationListComponent,
-
+  myUserListComponent,
   // 合伙人管理
   PartnerListComponent,
   PartnerApplyListComponent,
@@ -72,6 +72,7 @@ import {
   CloudpayVerificationHistoryComponent,
   RechargeListComponent,
   bonusWithdrawListComponent,
+  bonusWithdrawHistoryListComponent,
 
   // 消息中心
   MsgListComponent,
@@ -135,6 +136,7 @@ import {
     UserRecordComponent,
     UplevelOrderComponent,
     RelationListComponent,
+    myUserListComponent,
 
     // 合伙人管理
     PartnerListComponent,
@@ -157,6 +159,7 @@ import {
     CloudpayVerificationHistoryComponent,
     RechargeListComponent,
     bonusWithdrawListComponent,
+    bonusWithdrawHistoryListComponent,
 
     // 消息中心
     MsgListComponent,

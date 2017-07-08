@@ -23,6 +23,10 @@ export class MsgFunction {
     {
       value: '5',
       text: '系统消息'
+    },
+    {
+      value:'6',
+      text:'公告'
     }
   ];
 
@@ -60,6 +64,9 @@ export class MsgFunction {
         break;
       case 5:
         text = '系统消息';
+        break;
+      case 6:
+        text = '公告';
         break;
       default:
         text = '未知'

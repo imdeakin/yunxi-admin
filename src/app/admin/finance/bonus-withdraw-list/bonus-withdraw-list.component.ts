@@ -29,7 +29,7 @@ export class bonusWithdrawListComponent implements OnInit {
     mobile: '',
     cardNumber: '',
     cardType: '',
-    status: 0
+    status: 1
   };
 
   // 模态窗
@@ -37,11 +37,11 @@ export class bonusWithdrawListComponent implements OnInit {
     order_id: '',
     sn: '',
     mobile: '',
-    trade_mode: '',
+    cardType: '',
     yft_account: '',
     create_time: '',
     money: '',
-    status: 0
+    status: 1
   };
   public readModalShow: boolean = false;
   public editModalShow: boolean = false;
@@ -81,9 +81,17 @@ export class bonusWithdrawListComponent implements OnInit {
       this.perPageSize,
       (list, total) => {
         this.tableList = list;
+        console.log(this.tableList);
         this.total = total;
       }
     );
+  }
+
+  public updateWithdrawStatusList(item,status):void{
+    console.log(item,status);
+    this.apiCall.updateWithdrawStatusList(item.withdraw_id,status,(data)=>{
+        this.getBonusWithdrawList(1);
+    })
   }
 
   // 模态窗
@@ -93,7 +101,7 @@ export class bonusWithdrawListComponent implements OnInit {
         order_id: item.order_id,
         sn: item.sn,
         mobile: item.mobile,
-        trade_mode: item.trade_mode,
+        cardType : item.cardType,
         yft_account: item.yft_account,
         create_time: item.create_time,
         money: item.money,

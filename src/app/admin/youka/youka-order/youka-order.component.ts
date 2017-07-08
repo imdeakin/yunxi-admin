@@ -20,7 +20,7 @@ export class YoukaOrderComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: YoukaOrder[];
   public filterData = {
-    oilPackageId:0,
+    oilPackageId:'',
     sn:'',
     oilCard: '',
     price:'',
@@ -29,10 +29,10 @@ export class YoukaOrderComponent implements OnInit {
     usedPeriods:'',
     payTime:'',
     amount:0,
-    classify: 0,
+    classify: '',
     described:'',
-    status:0,
-    tradeMode: 0,
+    status:'',
+    tradeMode: '',
     modifyTime:'',
     oilCardId:'',
   };
@@ -83,21 +83,22 @@ export class YoukaOrderComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getYoukaOrderList(this.filterData.sn,this.filterData.oilCard, this.filterData.tradeMode, this.filterData.oilPackageId, this.filterData.status,this.curPageIndex, this.perPageSize, (list, total) => {
+    console.log(this.filterData.tradeMode);
+    this.apiCall.getYoukaOrderList(this.filterData.sn,this.filterData.oilCard, this.filterData.tradeMode, this.filterData.oilPackageId, this.filterData.status,this.filterData.classify,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
     });
   }
 
-  public getTaocanClassText(classify: number): string {
+  public getTaocanClassText(classify): string {
     return YoukaFunction.getYoucaTaocanClassText(classify);
   }
 
-  public getTaocanOrderStatusText(status: number): string {
+  public getTaocanOrderStatusText(status): string {
     return YoukaFunction.getYoukaOrderStatus(status);
   }
 
-  public getYoukaPayStyle(payStyle: number ): string{
+  public getYoukaPayStyle(payStyle): string{
     return YoukaFunction.getYoukaPayStyle(payStyle);
   }
 
@@ -129,7 +130,7 @@ export class YoukaOrderComponent implements OnInit {
       };
     }else{
       this.filterData = {
-        oilPackageId:0,
+        oilPackageId:'',
         sn:'',
         oilCard: '',
         price:'',
@@ -138,10 +139,10 @@ export class YoukaOrderComponent implements OnInit {
         usedPeriods:'',
         payTime:'',
         amount:0,
-        classify: 0,
+        classify: '',
         described:'',
-        status:0,
-        tradeMode: 0,
+        status:'',
+        tradeMode: '',
         modifyTime:'',
         oilCardId:'',
         };

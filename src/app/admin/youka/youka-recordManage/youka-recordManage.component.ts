@@ -23,7 +23,7 @@ export class YoukaRecordManageComponent implements OnInit {
   public youkaFunction = YoukaFunction;
 
   public modalData ={
-    oilPackageId:0,
+    oilPackageId:'',
     sn:'',
     oilCard: '',
     price:'',
@@ -32,9 +32,9 @@ export class YoukaRecordManageComponent implements OnInit {
     usedPeriods:'',
     payTime:'',
     amount:0,
-    classify: 0,
+    classify: '',
     described:'',
-    status:0,
+    status:'',
     tradeMode: '',
     modifyTime:'',
     oilCardId:'',
@@ -91,18 +91,18 @@ export class YoukaRecordManageComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getYoukaOrderList(this.modalData.sn,this.modalData.oilCard, this.modalData.tradeMode, this.modalData.oilPackageId, this.modalData.status,this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getYoukaOrderList(this.modalData.sn,this.modalData.oilCard, this.modalData.tradeMode, this.modalData.oilPackageId, this.modalData.status,this.modalData.classify,this.curPageIndex, this.perPageSize, (list, total) => {
       console.log(list);
       this.tableList = list;
       this.total = total;
     });
   }
 
-  public getTaocanClassText(classify: number): string {
+  public getTaocanClassText(classify): string {
     return YoukaFunction.getYoucaTaocanClassText(classify);
   }
 
-  public getTaocanOrderStatusText(status: number): string {
+  public getTaocanOrderStatusText(status): string {
     return YoukaFunction.getYoukaOrderStatus(status);
   }
 
@@ -136,7 +136,7 @@ export class YoukaRecordManageComponent implements OnInit {
       };
     }else{
         this.modalData ={
-          oilPackageId:0,
+          oilPackageId:'',
           sn:'',
           oilCard: '',
           price:'',
@@ -145,9 +145,9 @@ export class YoukaRecordManageComponent implements OnInit {
           usedPeriods:'',
           payTime:'',
           amount:0,
-          classify: 0,
+          classify: '',
           described:'',
-          status:0,
+          status:'',
           tradeMode: '',
           modifyTime:'',
           oilCardId:'',

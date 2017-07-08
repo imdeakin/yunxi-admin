@@ -7,20 +7,16 @@
       <div class="filter-bar">
         <form class="clearfix" (ngSubmit)="getBonusWithdrawList(1)">
           <div class="input-group">
-            <label>流水号</label>
-            <input type="text" name="orderId" value="" [(ngModel)]="filterData.sn">
+            <label>银行卡号</label>
+            <input type="text" name="cardNumber"  [(ngModel)]="filterData.cardNumber">
           </div>
           <div class="input-group">
             <label>账号</label>
-            <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
-          </div>
-          <div class="input-group">
-            <label>支付账号</label>
-            <input type="text" name="name" value="" [(ngModel)]="filterData.cardNumber">
+            <input type="text" name="mobile"  [(ngModel)]="filterData.mobile">
           </div>
           <div class="input-group">
             <label>支付类型</label>
-            <input type="text" name="name" value="" [(ngModel)]="filterData.cardNumber">
+            <select-box [options]="financeFunction.bounsCardTypeOptions" (optionSelect)="filterData.cardType = $event"></select-box>
           </div>
           <!--<div class="input-group">-->
             <!--<label>状态</label>-->
@@ -58,6 +54,8 @@
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal(item)">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="updateWithdrawStatusList(item,2)">允许</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="updateWithdrawStatusList(item,3)">不允许</a>
               </div>
             </td>
           </tr>
@@ -84,8 +82,12 @@
         <div class="value">{{modalData.mobile}}</div>
       </div>
       <div class="modal-detail-item">
+        <label>银行卡号</label>
+        <div class="value">{{modalData.mobile}}</div>
+      </div>
+      <div class="modal-detail-item">
         <label>交易方式</label>
-        <div class="value">{{modalData.trade_mode}}</div>
+        <div class="value">{{modalData.cardType}}</div>
       </div>
       <div class="modal-detail-item">
         <label>云付通账号</label>

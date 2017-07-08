@@ -5,29 +5,31 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {FinanceFunction} from '../data-type/finance-function';
-import {CloudpayVerificationList} from '../data-type/cloudpay-verification-list';
+import {BonusWithdrawListList} from '../data-type/bouns-withdraw-list';
 
 declare let layer: any;
 
 @Component({
-  selector: 'recharge-list',
-  templateUrl: './recharge-list.component.html',
-  styleUrls: ['./recharge-list.component.css']
+  selector: 'bonus-withdraw-history-list',
+  templateUrl: './bonus-withdraw-history-list.component.html',
+  styleUrls: ['./bonus-withdraw-history-list.component.css']
 })
-export class RechargeListComponent implements OnInit {
-  public title = '充值列表';
+export class bonusWithdrawHistoryListComponent implements OnInit {
+  public title = '奖金提现历史';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: CloudpayVerificationList[];
+  public tableList: BonusWithdrawListList[];
 
   public financeFunction = FinanceFunction;
 
   public filterData = {
     sn: '',
-    name: '',
-    mobile: ''
+    mobile: '',
+    cardNumber: '',
+    cardType: '',
+    status: ''
   };
 
   // 模态窗
@@ -35,11 +37,12 @@ export class RechargeListComponent implements OnInit {
     order_id: '',
     sn: '',
     mobile: '',
-    trade_mode: '',
+    cardType: '',
     yft_account: '',
     create_time: '',
     money: '',
-    status: 0
+    status: '',
+    cardNumber:''
   };
   public readModalShow: boolean = false;
   public editModalShow: boolean = false;
@@ -52,7 +55,8 @@ export class RechargeListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getRechargeOrderList();
+    this.getBonusWithdrawList()
+    ;
   }
 
   public computeOnResize() {
@@ -64,14 +68,16 @@ export class RechargeListComponent implements OnInit {
     });
   }
 
-  public getRechargeOrderList(curPageIndex?): void {
+  public getBonusWithdrawList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getRechargeOrderList(
+    this.apiCall.getBonusWithdrawList(
       this.filterData.sn,
       this.filterData.mobile,
-      this.filterData.name,
+      this.filterData.cardNumber,
+      this.filterData.cardType,
+      this.filterData.status,
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {
@@ -89,11 +95,12 @@ export class RechargeListComponent implements OnInit {
         order_id: item.order_id,
         sn: item.sn,
         mobile: item.mobile,
-        trade_mode: item.trade_mode,
+        cardType : item.cardType,
         yft_account: item.yft_account,
         create_time: item.create_time,
         money: item.money,
-        status: item.status
+        status: item.status,
+        cardNumber:''
       };
     }
     this.readModalShow = !this.readModalShow;

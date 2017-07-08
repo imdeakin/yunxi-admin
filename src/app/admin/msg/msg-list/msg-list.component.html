@@ -20,6 +20,7 @@
                         (optionSelect)="filterData.type = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
+           <button class="text-btn text-sub" type="button" (click)="toggleEditModal()" [class.hidden]="sendMsgShow">发送消息</button>
         </form>
       </div>
       <div class="manager-table">
@@ -43,7 +44,7 @@
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal(item)">查看</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)" [class.hidden]="item.msg_type != '6'">编辑</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.user_msg_id)">删除</a>
               </div>
             </td>
@@ -97,12 +98,6 @@
     <h3 class="modal-title" [class.hidden]="modalData.userMsgId">添加</h3>
     <h3 class="modal-title" [class.hidden]="!modalData.userMsgId">编辑</h3>
     <form class="modal-form" (ngSubmit)="modalSubmit()">
-      <div class="modal-input-group">
-        <label>消息类型</label>
-        <select-box [options]="msgFunction.msgTypeOptions"
-                    [value]="modalData.msgType"
-                    (optionSelect)="modalData.msgType = $event"></select-box>
-      </div>
       <div class="modal-input-group">
         <label>所属地区</label>
         <div class="float-right">

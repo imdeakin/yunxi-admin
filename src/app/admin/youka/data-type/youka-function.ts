@@ -96,7 +96,7 @@ export class YoukaFunction {
   ];
 
   // 油卡套餐的优惠类型：1、默认套餐，2、优惠活动，3、会员专享
-  public static getYoucaTaocanClassText(classify: number): string {
+  public static getYoucaTaocanClassText(classify): string {
     let text: string;
     switch (classify) {
       case 1:
@@ -150,7 +150,7 @@ export class YoukaFunction {
   }
 
   // 油卡订单状态 0待审核，1待返还(订单已充值成功，待返还)，2不予充值，-1加入购物车，3取消，4删除，5 已完成(订单返还结束)，6 待支付
-  public static getYoukaOrderStatus(status: number): string {
+  public static getYoukaOrderStatus(status): string {
     let text: string;
     switch (status) {
       case 0:

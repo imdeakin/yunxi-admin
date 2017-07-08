@@ -63,6 +63,7 @@
           </tr>
           </tbody>
         </table>
+           <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
         <pagination-controls *ngIf="tableList?.length" (pageChange)="getCanWeiZhangList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>

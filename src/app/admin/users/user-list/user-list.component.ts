@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {User} from '../data-type/user';
 import {UsersFunction} from '../data-type/users-function';
 
+declare var $:any;
+
 @Component({
   selector: 'user-list',
   templateUrl: './user-list.component.html',
@@ -48,7 +50,15 @@ export class UserListComponent implements OnInit {
   public ngOnInit(): void {
     this.computeOnResize();
     this.getUserList(); 
-    this.yearOptions = this.usersFunction.chooseYearOptions()
+    this.yearOptions = this.usersFunction.chooseYearOptions();
+    $(function(){
+       console.log($("#spreadButton"));
+      $("#spreadButton").children().click(function(){
+        //  console.log($("[name='spreadButton']").children());
+          $("#spreadButton").children().removeClass("active-btn");  
+              $(this).addClass("active-btn");
+      })
+    })
   }
 
   public computeOnResize() {
@@ -66,7 +76,6 @@ export class UserListComponent implements OnInit {
     }
     this.apiCall.getUserList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-      console.log(list);
       this.total = total;
     });
   }
@@ -74,14 +83,12 @@ export class UserListComponent implements OnInit {
   public getUserInfo(memberId):void {
     this.apiCall.getUserInfo(memberId, (data) => {
         this.modalData = data;
-        console.log(data);
     });
   }
 
   public getStatisticsData():void{
       this.apiCall.getStatisticsData(this.userId,this.type,this.detaData.years,this.detaData.months,(data)=>{
           this.totalData = data;
-          console.log(this.totalData); 
       })
   }
 
@@ -91,7 +98,6 @@ export class UserListComponent implements OnInit {
       this.getUserInfo(item.member_id);
     }
     this.modalShow = !this.modalShow;
-
     if (!this.modalShow) {
       this.modalData = null;
       this.totalData = null;
@@ -123,6 +129,7 @@ export class UserListComponent implements OnInit {
 
   }
   
+
   //推广弹窗
   public toggleSpreadModal(user_id?,num?):void{
       this.userId = user_id;
