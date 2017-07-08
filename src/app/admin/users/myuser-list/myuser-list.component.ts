@@ -72,7 +72,6 @@ export class myUserListComponent implements OnInit {
     }
     this.apiCall.getMyMemberList(this.memberId, this.filterData.level, this.filterData.memberLevel, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-      console.log(this.tableList);
       this.total = total;
     });
   }

@@ -30,7 +30,7 @@
     border-color: #009be8;
 }
 .manager-table{
-  height:480px;
+  /*height:480px;*/
   /*overflow-y: hidden;  */
   overflow-x: scroll;
   margin:0;

@@ -25,6 +25,7 @@ export class UserListComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: User[];
   public yearOptions;
+  public password;
   public filterData = {
     mobile: '',
     level: '',
@@ -83,6 +84,7 @@ export class UserListComponent implements OnInit {
   public getUserInfo(memberId):void {
     this.apiCall.getUserInfo(memberId, (data) => {
         this.modalData = data;
+        console.log(this.modalData);
     });
   }
 
@@ -104,12 +106,16 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  public modalSubmit(): void{
-    if(this.modalData.member_id){
-        this.apiCall.updateMemberInfo(this.modalData.member_id,this.modalData.member_level_id,(data)=>{
+  public updateMemberInfo(){
+       this.apiCall.updateMemberInfo(this.modalData.member_id,this.modalData.member_level_id,(data)=>{
           this.toggleModal();
           this.getUserList(1);
         })
+  }
+
+  public modalSubmit(): void{
+    if(this.modalData.member_id){
+        this.updateMemberInfo();
     }
   }
   //选择类型请求
@@ -128,7 +134,6 @@ export class UserListComponent implements OnInit {
       }
 
   }
-  
 
   //推广弹窗
   public toggleSpreadModal(user_id?,num?):void{
