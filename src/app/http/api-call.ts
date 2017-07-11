@@ -1881,6 +1881,78 @@ export class ApiCall {
     });
   }
 
+  //人工充值
+  public manualCharge(adminId,userId,quota,type,change,described,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.manualCharge,
+      data:{
+        adminId:adminId,
+        userId:userId,
+        quota:quota,
+        type:type,
+        change:change,
+        described:described
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+
+  public getCurrQuota(memberId,success,failure?):void{
+    this.apiCall({
+      url: this.apiConfig.paths.getCurrQuota,
+      data: {
+        memberId: memberId,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  //人工充值订单
+  public manualChargeList(searchItem,type, status,curPageIndex,perPageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.manualChargeList,
+      data: {
+        searchItem: searchItem,
+        type: type,
+        status:status,
+        index:curPageIndex,
+        pageSize:perPageSize
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+
+  //人工充值订单审核
+  public updateManuralCharge(manualChargeId,status,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateManuralCharge,
+      data: {
+        manualChargeId: manualChargeId,
+        status: status,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+   //人工充值订单复核
+  public updatesManualCharge(manualChargeId,status,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updatesManualCharge,
+      data: {
+        manualChargeId: manualChargeId,
+        status: status,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   public getMsgList(regionId: string, title: string, msgType: string, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getMsgList,

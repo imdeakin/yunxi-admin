@@ -62,7 +62,7 @@
   </div>
 </div>
 <!--编辑-->
-<div class="modal-wrapper edit-modal-wrapper" [class.hidden]="!editModalShow">
+<div class="modal-wrapper edit-modal-wrapper" [class.hidden]="!editModalShow" *ngIf="editModalData">
   <div class="modal-con">
     <h3 class="modal-title" [class.hidden]="editModalData.ad_id">添加</h3>
     <h3 class="modal-title" [class.hidden]="!editModalData.ad_id">编辑</h3>
@@ -77,12 +77,12 @@
                     [value]="editModalData.business_id"
                     (optionSelect)="editModalData.business_id = $event"></select-box>
       </div>
-      <div class="modal-input-group">
+      <!--<div class="modal-input-group">
         <label>是否可见</label>
         <select-box [options]="adFunction.adVisibleStatusOptions"
                     [value]="editModalData.is_show"
                     (optionSelect)="editModalData.is_show = $event"></select-box>
-      </div>
+      </div>-->
       <div class="modal-input-group">
         <label>广告位置编码</label>
         <select-box [options]="adFunction.adPositionOptions"
@@ -95,9 +95,9 @@
       </div>
       <div class="modal-input-group">
         <label>图片</label>
-        <img-upload [img]="{url:fileMoodaData.ad_url}"
+        <img-upload [img]="{url:fileModalData.ad_url}"
                   [selectable]="false"
-                  (afterChange)="fileMoodaData = $event"
+                  (afterChange)="fileModalData = $event"
                   ></img-upload>
       </div>
       <div class="modal-btn-group">

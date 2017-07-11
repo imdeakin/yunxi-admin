@@ -28,7 +28,6 @@
     padding-bottom:10px; 
 }
 .manager-table{
-  height:480px;
   /*overflow-y: hidden;  */
   overflow-x: scroll;
   margin:0;

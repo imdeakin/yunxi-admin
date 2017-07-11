@@ -52,6 +52,7 @@ import {
   RechargeListComponent,
   bonusWithdrawListComponent,
   bonusWithdrawHistoryListComponent,
+  manualChargeComponent,
 
   // 消息中心
   MsgListComponent,
@@ -124,6 +125,7 @@ const AdminRoutes: Routes = [
       {path: 'recharge-list', component: RechargeListComponent},
       {path: 'bonus-withdraw-list', component: bonusWithdrawListComponent},
       {path: 'bonus-withdraw-history-list',component:bonusWithdrawHistoryListComponent},
+      {path: 'manual-charge-list',component:manualChargeComponent},
 
       // 广告
       {path: 'ad-list', component: AdListComponent},

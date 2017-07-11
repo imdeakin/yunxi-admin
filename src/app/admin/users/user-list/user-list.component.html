@@ -54,9 +54,11 @@
             <td>{{usersFunction.isBlackOptions(item.is_black)}}</td>
             <td>
               <div class="table-btns">
+                <a class="table-btn" href="javascript:void(0);">禁用</a>                                
                 <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/user-list/' + item.member_id">下级</a>                
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleSpreadModal(item.user_id,1)">推广</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleRecharge(item)">充值</a>
               </div>
             </td>
           </tr>
@@ -84,14 +86,20 @@
             <label>昵称</label>
             <div class="value">{{modalData.nike_name}}</div>
           </div>
-          <div class="modal-input-group">
+          <div class="modal-detail-item">
             <label>身份证</label>
-            <input type="text" name="idcard" [(ngModel)]="modalData.idcard">
+             <div class="value">{{modalData.idcard}}</div>
+            <!--<input type="text" name="idcard" [(ngModel)]="modalData.idcard">-->
           </div>
-          <div class="modal-input-group">
+           <div class="modal-detail-group">
+            <label>生日</label>
+             <div class="value">{{modalData.idcard}}</div>
+            <!--<input type="text" name="idcard" [(ngModel)]="modalData.idcard">-->
+          </div>
+          <!--<div class="modal-input-group">
             <label>密码</label>
              <input type="text" name="password" placeholder="不修改就不碰" [(ngModel)]="password">
-          </div>
+          </div>-->
           <div class="modal-detail-item">
             <label>会员等级</label>
             <select-box [options]="usersFunction.userLevelOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.member_level_id" (optionSelect)="modalData.member_level_id = $event"></select-box>
@@ -127,12 +135,12 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!modalSpreadShow" *ngIf="totalData">
+<div class="modal-wrapper" [class.hidden]="!modalSpreadShow">
   <div class="modal-con">
     <form class="modal-form" >
     <h3 class="modal-title">详情</h3>
-      <div class="modal-btn-group" id="spreadButton">
-        <button type="button" (click)="toggleTypeModal(userId,1)">总数</button>
+      <div class="modal-btn-group" id="spreadButton" name="spread">
+        <button type="button" (click)="toggleTypeModal(userId,1)" class="active-btn">总数</button>
         <button type="button" (click)="YearMonthsShow = !YearMonthsShow">月份</button>
         <button type="button" (click)="toggleTypeModal(userId,3)">今日</button>
       </div>
@@ -143,7 +151,7 @@
         <button type="button" (click)="toggleTypeModal(userId,4)">确认</button>
         </div>
       </div>
-      <table>
+      <table *ngIf="totalData">
         <thead>
           <tr>
             <td>等级</td>
@@ -178,6 +186,65 @@
       </div>
       </form>
     <div class="modal-close" (click)="toggleSpreadModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<!--充值-->
+<div class="modal-wrapper" [class.hidden]="!rechargeShow">
+  <div class="modal-con">
+    <form class="modal-form" (ngSubmit)="recharge()">
+    <h3 class="modal-title">会员充值</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+          <div class="modal-btn-group" id="rechargeButton" >
+            <button type="button" (click)="changeRechargeType(2)">充值积分</button>
+            <button type="button" (click)="changeRechargeType(1)" class="active-btn">充值余额</button>
+          </div>
+          <div class="modal-price" [class.hidden]="priceShow">
+            <div class="modal-detail-item">
+              <label>当前余额</label>
+              <div class="value">{{rechargeData.balance}}</div>
+            </div>
+            <div class="modal-detail-item">
+              <label>变化</label>
+              <select-box [options]="usersFunction.userStatusChangeOptions" [value]="rechargeModal.change + ''" (optionSelect)="rechargeModal.change = $event"></select-box>
+            </div>
+            <div class="modal-input-group">
+              <label>充值数目</label>
+            <input type="text" name="quota"  [(ngModel)]="rechargeModal.quota">
+            </div>
+            <div class="modal-input-group">
+              <label>备注</label>
+              <textarea class="value" name="described"  [(ngModel)]="rechargeModal.described" style="resize: none;"></textarea>
+            </div>
+          </div>
+          <div class="modal-grade" [class.hidden]="gradeShow">
+            <div class="modal-detail-item" >
+              <label>当前积分</label>
+              <div class="value">{{rechargeData.points}}</div>
+            </div>
+            <div class="modal-detail-item">
+              <label>变化</label>
+              <select-box [options]="usersFunction.userStatusChangeOptions" [value]="rechargeModal.change + ''" (optionSelect)="rechargeModal.change = $event"></select-box>
+            </div>
+            <div class="modal-input-group">
+              <label>充值数目</label>
+            <input type="text" name="quota"  [(ngModel)]="rechargeModal.quota">
+            </div>
+            <div class="modal-input-group" >
+              <label>备注</label>
+              <textarea class="value" name="described" [(ngModel)]="rechargeModal.described" style="resize: none;"></textarea>
+            </div>
+          </div>
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit">确认充值</button>
+        <button type="button" (click)="toggleRecharge()">关闭</button>
+      </div>
+    </div>
+      </form>
+    <div class="modal-close" (click)="toggleRecharge()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>

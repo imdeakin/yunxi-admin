@@ -73,6 +73,7 @@ import {
   RechargeListComponent,
   bonusWithdrawListComponent,
   bonusWithdrawHistoryListComponent,
+  manualChargeComponent,
 
   // 消息中心
   MsgListComponent,
@@ -160,6 +161,7 @@ import {
     RechargeListComponent,
     bonusWithdrawListComponent,
     bonusWithdrawHistoryListComponent,
+    manualChargeComponent,
 
     // 消息中心
     MsgListComponent,

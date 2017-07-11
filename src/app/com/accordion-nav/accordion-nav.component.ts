@@ -153,6 +153,10 @@ export class AccordionNavComponent implements OnInit {
         {
           title:'奖金提现管理历史',
           link:'/admin/bonus-withdraw-history-list'
+        },
+        {
+          title:'人工充值列表',
+          link:'/admin/manual-charge-list'
         }
       ]
     },

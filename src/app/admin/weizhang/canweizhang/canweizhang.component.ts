@@ -231,7 +231,6 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
   //确认支付接口
   public comfirmCxyPayOrder(orderId:string):void{
       this.apiCall.comfirmCxyPayOrder(orderId,(data)=>{
-        console.log(data);
         this.getCanWeiZhangList(1);
       })
   }

@@ -27,6 +27,10 @@ export class AdFunction {
     {
       value: 'illegal',
       text: '违章'
+    },
+    {
+      value: 'insurance',
+      text: '车险'
     }
   ];
 
@@ -75,6 +79,9 @@ export class AdFunction {
         break;
       case 'illegal':
         text = '违章';
+        break;
+      case 'insurance':
+        text ='车险';
         break;
       default:
         text = '未知'

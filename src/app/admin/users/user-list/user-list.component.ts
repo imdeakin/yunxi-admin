@@ -7,6 +7,8 @@ import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
 import {User} from '../data-type/user';
 import {UsersFunction} from '../data-type/users-function';
+import { AdminFunc } from '../../../serv/admin.server';
+
 
 declare var $:any;
 
@@ -42,20 +44,46 @@ export class UserListComponent implements OnInit {
   public modalShow: boolean = false;
   public modalSpreadShow:boolean = false;
   public YearMonthsShow:boolean = false;
+  public rechargeShow:boolean = false;
+  public gradeShow:boolean = false;
+  public priceShow:boolean = false;
   public modalData;
   public totalData;
+  public rechargeData = {
+    balance:'',
+    points:''
+  };
+  public rechargeModal = {
+    adminId:'',
+    userId:'',
+    quota:0,
+    type:0,
+    change:0,
+    described:''
+  };
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, public funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
+  constructor(private elRef: ElementRef, 
+              private apiCall: ApiCall, 
+              public funcServer: FuncServer, 
+              public cityPickerServer: CityPickerServer,
+              private adminFunc:AdminFunc) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
     this.getUserList(); 
+    this.jqActive();
     this.yearOptions = this.usersFunction.chooseYearOptions();
-    $(function(){
-       console.log($("#spreadButton"));
-      $("#spreadButton").children().click(function(){
-        //  console.log($("[name='spreadButton']").children());
+  }
+
+  public jqActive():void{
+     $(function(){
+      $("#rechargeButton").children().click(function(){
+          $("#rechargeButton").children().removeClass("active-btn");  
+              $(this).addClass("active-btn");
+      })
+
+       $("#spreadButton").children().click(function(){
           $("#spreadButton").children().removeClass("active-btn");  
               $(this).addClass("active-btn");
       })
@@ -84,7 +112,6 @@ export class UserListComponent implements OnInit {
   public getUserInfo(memberId):void {
     this.apiCall.getUserInfo(memberId, (data) => {
         this.modalData = data;
-        console.log(this.modalData);
     });
   }
 
@@ -146,6 +173,74 @@ export class UserListComponent implements OnInit {
       if(!this.modalSpreadShow){
         this.userId = '';
         this.totalData = null;
+      }
+  }
+
+  public getCurrQuota(item):void{
+    let memberId = item.member_id;
+    this.rechargeModal.userId = item.user_id;
+    this.apiCall.getCurrQuota(memberId,(data)=>{
+        this.rechargeData = data;
+        this.changeRechargeType(1);
+    })
+  }
+
+  public recharge():void{
+      let adminId = this.adminFunc.getAdminId();
+      this.apiCall.manualCharge(adminId,this.rechargeModal.userId,this.rechargeModal.quota,this.rechargeModal.type,this.rechargeModal.change,this.rechargeModal.described,(data)=>{
+          this.toggleRecharge();
+          this.getUserList(1);
+      });
+  }
+
+  //充值弹窗
+  public toggleRecharge(item?):void{
+      if(item){
+         this.getCurrQuota(item);
+      }else{
+         this.rechargeData = {
+            balance:'',
+            points:''
+       }
+          this.rechargeModal ={
+               adminId:'',
+               userId:'',
+               quota:0,
+               type:0,
+               change:0,
+               described:''
+        }
+      }
+      this.rechargeShow = !this.rechargeShow;
+  }
+
+  //清空recharge弹窗数据
+  public cleanRechargeModal():void{
+       this.rechargeModal.quota = 0;
+       this.rechargeModal.type = 0;
+       this.rechargeModal.change = 0;
+       this.rechargeModal.described = '';
+  }
+
+  public changeRechargeType(numType?):void{
+      if(numType){
+          switch(numType){
+          case 1:
+            this.rechargeModal.type = 1;
+            this.priceShow = false;
+            this.gradeShow = true;
+          break;
+          case 2: 
+            this.rechargeModal.type = 2;
+            this.priceShow = true;
+            this.gradeShow = false;
+          break;
+          default:
+            this.priceShow = false;
+            this.gradeShow = true;
+        }
+      }else{
+        this. cleanRechargeModal(); 
       }
   }
 }

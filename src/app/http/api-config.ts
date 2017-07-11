@@ -157,6 +157,11 @@ export class ApiConfig {
     getRechargeOrderList: this.root + '/finance/accountTransferOrderList', // 获取充值订单列表
     getBonusWithdrawList: this.root + '/finance/accountWithdrawList', // 获取奖金提现列表
     updateWithdrawStatusList:this.root + '/finance/updateWithdrawStatus',//更新奖金提现状态
+    manualChargeList:this.root + '/accountManage/manualChargeList',//人工充值列表
+    updateManuralCharge:this.root + '/accountManage/updateManualCharge',//审核人工充值
+    updatesManualCharge:this.root +'/accountManage/updatesManualCharge',//复核人工充值
+    getCurrQuota:this.root + '/members/getCurrQuota',//获取当前账户和积分
+    manualCharge:this.root + '/members/manualCharge',//人工充值
 
     //门店管理
     getMallSshopList: this.root + '/adminShop/mallSshopList',//获取门店列表

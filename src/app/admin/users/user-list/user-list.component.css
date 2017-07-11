@@ -1,7 +1,7 @@
 .modal-con {
-  width: 860px;
+  width: 560px;
   height: 460px;
-  margin-left: -430px;
+  margin-left: -280px;
   margin-top: -230px;
 }
 .modal-half-right{
@@ -30,8 +30,8 @@
     border-color: #009be8;
 }
 .manager-table{
-  /*height:480px;*/
   /*overflow-y: hidden;  */
+  /*overflow-x: scroll;*/
   overflow-x: scroll;
   margin:0;
 }
@@ -40,4 +40,5 @@
 }
 .manager-table td{
   white-space:nowrap;
+  padding:0 6px;
 }

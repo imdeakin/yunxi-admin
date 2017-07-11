@@ -171,14 +171,6 @@
                       (afterChange)="modalData.DriverUrl = $event.url"></img-upload>
         </div>
         <div class="modal-input-group">
-          <label>行驶证副页URL：
-             <span [class.hidden]="need_data.MajorViolation!=99" class="infoWaring">*</span>
-          </label>
-              <img-upload [img]="{url:modalData.DriverUrl}"
-                      [selectable]="false"
-                      (afterChange)="modalData.DriverUrl = $event.url"></img-upload>
-        </div>
-        <div class="modal-input-group">
           <label>驾驶证副页URL：
             <span [class.hidden]="need_data.MajorSecondViolation!=99" class="infoWaring">*</span>
           </label>

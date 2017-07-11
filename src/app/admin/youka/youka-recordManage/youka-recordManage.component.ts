@@ -92,7 +92,6 @@ export class YoukaRecordManageComponent implements OnInit {
       this.curPageIndex = curPageIndex;
     }
     this.apiCall.getYoukaOrderList(this.modalData.sn,this.modalData.oilCard, this.modalData.tradeMode, this.modalData.oilPackageId, this.modalData.status,this.modalData.classify,this.curPageIndex, this.perPageSize, (list, total) => {
-      console.log(list);
       this.tableList = list;
       this.total = total;
     });

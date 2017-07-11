@@ -43,7 +43,7 @@ export class AdListComponent implements OnInit {
     sort: ''
   };
   public editModalShow: boolean = false;
-  public fileMoodaData ={
+  public fileModalData ={
     ad_url:'',
     file_id:''
   }
@@ -86,22 +86,22 @@ export class AdListComponent implements OnInit {
   // 模态窗
 
   public toggleEditModal(item?): void {
-    console.log(item);
     if (item) {
+      console.log(item);
       this.editModalData = this.funcServer.deepCopy(item);
-      this.fileMoodaData.ad_url = this.editModalData.ad_url;
+      console.log(this.editModalData);
+      this.fileModalData.ad_url = this.editModalData.ad_url;
     }
     this.editModalShow = !this.editModalShow;
     if (!this.editModalShow) {
-      this.fileMoodaData.ad_url = '';
+      this.fileModalData.ad_url = '';
       this.editModalData.file_id = '';
       this.editModalData = this.funcServer.emptyObj(this.editModalData);
-      console.log(this.editModalData);
     }
   }
 
   public updateAd(): void {
-    this.editModalData.file_id = this.fileMoodaData.file_id;
+    this.editModalData.file_id = this.fileModalData.file_id;
     this.apiCall.updateAd(
       this.editModalData.ad_id,
       this.editModalData.title,
@@ -118,6 +118,7 @@ export class AdListComponent implements OnInit {
   }
 
   public addAd(): void {
+    this.editModalData.file_id = this.fileModalData.file_id;
     this.apiCall.addAd(
       this.editModalData.title,
       this.editModalData.file_id,

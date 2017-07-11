@@ -98,6 +98,18 @@ export class UsersFunction {
     },
   ];
 
+  //会员充值余额和积分变化
+  public static userStatusChangeOptions = [
+    {
+      value: '1',
+      text: '增加'
+    },
+    {
+      value: '-1',
+      text: '减少'
+    }
+  ];
+
   // 会员等级
   public static getUserLevelText(classify): string {
     let text: string;

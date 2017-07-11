@@ -6,3 +6,4 @@ export * from './cloudpay-verification-history-list';
 export * from './recharge-list';
 export * from './bonus-withdraw-list';
 export * from './bonus-withdraw-history-list';
+export * from './manual－charge-list';
