@@ -10,7 +10,7 @@ export class FuncServer {
    * 计算更新内容高度
    */
   public getContentHeight(elRef: ElementRef): number {
-    let height = elRef.nativeElement.firstChild.offsetHeight - 40;
+    let height = elRef.nativeElement.firstChild.offsetHeight - 40 - 20;
     return height;
   }
 

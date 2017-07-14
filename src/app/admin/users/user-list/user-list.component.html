@@ -16,10 +16,6 @@
                         (optionSelect)="filterData.level = $event"></select-box>
           </div>
           <div class="input-group">
-            <input type="text" name="birthday">
-            <date-picker (selectedDate)='date = $event'></date-picker>
-          </div>
-          <div class="input-group">
             <label>城市</label>
             <city-picker  (change)="filterData.regionId = $event"></city-picker>
           </div>
@@ -55,7 +51,7 @@
             <td>
               <div class="table-btns">
                 <!--<a class="table-btn" href="javascript:void(0);">禁用</a>                                -->
-                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/user-list/' + item.member_id">下级</a>                
+                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/user-list/' + item.member_id">下级</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleSpreadModal(item.user_id,1)">推广</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleRecharge(item)">充值</a>
@@ -91,9 +87,18 @@
              <div class="value">{{modalData.idcard}}</div>
             <!--<input type="text" name="idcard" [(ngModel)]="modalData.idcard">-->
           </div>
-           <div class="modal-detail-group">
+           <div class="modal-detail-item">
             <label>生日</label>
-             <div class="value">{{modalData.idcard}}</div>
+             <!--<div class="value">{{modalData.idcard}}</div>-->
+             <input type='text' value={{selDate}} (change)="setInputDate($event)"/>
+             <date-picker
+               [value]="value"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               [disableDays]="disableDays"
+               [toContainPrevMonth]="toContainPrevMonth"
+               [toContainNextMonth]="toContainNextMonth"
+               (selectedDate)='setDate($event)'></date-picker>
             <!--<input type="text" name="idcard" [(ngModel)]="modalData.idcard">-->
           </div>
           <!--<div class="modal-input-group">

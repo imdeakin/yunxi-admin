@@ -34,6 +34,7 @@ html, body {
   padding: 0 10px;
   border-bottom: 4px solid #e2e3e7;
   background: #fff;
+  margin: 0;
 }
 
 .manager-page .header > h3 {
@@ -383,12 +384,20 @@ html, body {
   padding-left: 2%
 }
 
+.modal-detail-item {
+  position: relative;
+}
+
 .modal-detail-item label, .modal-detail-item .value {
   display: inline-block;
   font-size: 16px;
   color: #727272;
   padding: 10px 0;
   vertical-align: top;
+}
+
+.modal-detail-item input {
+  width: 70%;
 }
 
 .modal-detail-item label {

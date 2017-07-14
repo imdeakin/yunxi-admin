@@ -41,6 +41,21 @@ export class UserListComponent implements OnInit {
   }
   public usersFunction = UsersFunction;
 
+  // 日期时间
+  private selDate: string = '';
+  private minDate: string = '1970/01/01';
+  private maxDate: string = '9999/12/31';
+  private disableDays: number[] = [0, 6];    //For Sunday and Saturday
+  private toContainPrevMonth: boolean = false;
+  private toContainNextMonth: boolean = false;
+  private value: string = '';
+  public setInputDate(event) {
+    this.value = event.target.value;
+  }
+  public setDate(date) {
+    this.selDate = date;
+  }
+
   // 模态窗
   public modalShow: boolean = false;
   public modalSpreadShow:boolean = false;
@@ -67,16 +82,16 @@ export class UserListComponent implements OnInit {
   //   reason:''
   // }
 
-  constructor(private elRef: ElementRef, 
-              private apiCall: ApiCall, 
-              public funcServer: FuncServer, 
+  constructor(private elRef: ElementRef,
+              private apiCall: ApiCall,
+              public funcServer: FuncServer,
               public cityPickerServer: CityPickerServer,
               private adminFunc:AdminFunc) {
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getUserList(); 
+    this.getUserList();
     this.jqActive();
     this.yearOptions = this.usersFunction.chooseYearOptions();
   }
@@ -84,12 +99,12 @@ export class UserListComponent implements OnInit {
   public jqActive():void{
      $(function(){
       $("#rechargeButton").children().click(function(){
-          $("#rechargeButton").children().removeClass("active-btn");  
+          $("#rechargeButton").children().removeClass("active-btn");
               $(this).addClass("active-btn");
       })
 
        $("#spreadButton").children().click(function(){
-          $("#spreadButton").children().removeClass("active-btn");  
+          $("#spreadButton").children().removeClass("active-btn");
               $(this).addClass("active-btn");
       })
     })
@@ -241,7 +256,7 @@ export class UserListComponent implements OnInit {
             this.priceShow = false;
             this.gradeShow = true;
           break;
-          case 2: 
+          case 2:
             this.rechargeModal.type = 2;
             this.priceShow = true;
             this.gradeShow = false;
@@ -251,7 +266,7 @@ export class UserListComponent implements OnInit {
             this.gradeShow = true;
         }
       }else{
-        this. cleanRechargeModal(); 
+        this. cleanRechargeModal();
       }
   }
 }
