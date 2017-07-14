@@ -292,16 +292,16 @@
     <div class="modal-close" (click)="toggleEditGoodsSKUModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
-    <div class="modal-loading" *ngIf="!(editGoodsSKUModalData && goodsSKUAttrOptionsArr && goodsSKUAttrValOptionsArr)">
+    <div class="modal-loading" *ngIf="!(goodsSKUAttrList && goodsAllAttrValList)">
       <i class="icon-font">&#xe64b;</i>
     </div>
-    <ng-template [ngIf]="editGoodsSKUModalData && goodsSKUAttrOptionsArr && goodsSKUAttrValOptionsArr">
+    <ng-template [ngIf]="goodsSKUAttrList && goodsAllAttrValList">
       <h3 class="modal-title" [class.hidden]="!editGoodsSKUModalData.sku_id">编辑销售属性</h3>
       <h3 class="modal-title" [class.hidden]="editGoodsSKUModalData.sku_id">添加销售属性</h3>
       <form class="modal-form" (ngSubmit)="editGoodsSKUSubmit()">
         <div class="modal-input-group" *ngFor="let item of goodsSKUAttrList;let i = index;">
           <label>{{item.name}}：</label>
-          <ng-template [ngIf]="goodsSKUAttrValOptionsArr.length">
+          <ng-template [ngIf]="goodsSKUAttrValOptionsArr?.length">
             <select-box
               [options]="goodsSKUAttrValOptionsArr[i]"
               [first]="{value:'',text:'请选择'}"
