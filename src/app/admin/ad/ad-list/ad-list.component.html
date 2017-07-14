@@ -77,12 +77,12 @@
                     [value]="editModalData.business_id"
                     (optionSelect)="editModalData.business_id = $event"></select-box>
       </div>
-      <!--<div class="modal-input-group">
+      <div class="modal-input-group">
         <label>是否可见</label>
         <select-box [options]="adFunction.adVisibleStatusOptions"
                     [value]="editModalData.is_show"
                     (optionSelect)="editModalData.is_show = $event"></select-box>
-      </div>-->
+      </div>
       <div class="modal-input-group">
         <label>广告位置编码</label>
         <select-box [options]="adFunction.adPositionOptions"
@@ -95,7 +95,7 @@
       </div>
       <div class="modal-input-group">
         <label>图片</label>
-        <img-upload [img]="{url:fileModalData.ad_url}"
+        <img-upload [img]="{url:fileModalData.url}"
                   [selectable]="false"
                   (afterChange)="fileModalData = $event"
                   ></img-upload>

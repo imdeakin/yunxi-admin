@@ -225,6 +225,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public saveGoodsBaseInfo(): void {
     // 保存
     this.apiCall.addStoreGoodsInfo(
+      this.editBaseInfoModalData.goods_id,
       this.editBaseInfoModalData.goods_type_id,
       this.editBaseInfoModalData.goods_brand_id,
       this.editBaseInfoModalData.business_name,

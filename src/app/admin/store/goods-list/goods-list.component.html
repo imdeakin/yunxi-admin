@@ -39,6 +39,7 @@
             <th>状态</th>
             <th>运费</th>
             <th>价格</th>
+            <th>完整性</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -51,6 +52,7 @@
             <td>{{storeFunction.getGoodsStatusText(item.on_sale)}}</td>
             <td>{{item.freight}}</td>
             <td>{{item.price}}</td>
+            <td>{{storeFunction.getGoodsAllStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditBaseInfoModal(item)">编辑</a>
@@ -294,19 +296,21 @@
     <div class="modal-close" (click)="toggleEditGoodsSKUModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
-    <div class="modal-loading" *ngIf="!(editGoodsSKUModalData && goodsSKUAttrList && goodsAllAttrValList)">
+    <div class="modal-loading" *ngIf="!(editGoodsSKUModalData && goodsSKUAttrOptionsArr && goodsSKUAttrValOptionsArr)">
       <i class="icon-font">&#xe64b;</i>
     </div>
-    <ng-template [ngIf]="editGoodsSKUModalData && goodsSKUAttrList && goodsAllAttrValList">
+    <ng-template [ngIf]="editGoodsSKUModalData && goodsSKUAttrOptionsArr && goodsSKUAttrValOptionsArr">
       <h3 class="modal-title" [class.hidden]="!editGoodsSKUModalData.sku_id">编辑销售属性</h3>
       <h3 class="modal-title" [class.hidden]="editGoodsSKUModalData.sku_id">添加销售属性</h3>
       <form class="modal-form" (ngSubmit)="editGoodsSKUSubmit()">
         <div class="modal-input-group" *ngFor="let item of goodsSKUAttrList;let i = index;">
           <label>{{item.name}}：</label>
-          <select-box
-            [options]="goodsSKUAttrValOptionsArr[i]"
-            [first]="{value:'',text:'请选择'}"
-            (optionSelect)="goodsSKUAttrValChange($event,item.param_id)"></select-box>
+          <ng-template [ngIf]="goodsSKUAttrValOptionsArr.length">
+            <select-box
+              [options]="goodsSKUAttrValOptionsArr[i]"
+              [first]="{value:'',text:'请选择'}"
+              (optionSelect)="goodsSKUAttrValChange($event,item.param_id)"></select-box>
+          </ng-template>
         </div>
         <div class="modal-btn-group">
           <button type="submit">保存</button>

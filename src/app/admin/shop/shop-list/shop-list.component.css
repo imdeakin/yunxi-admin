@@ -26,10 +26,12 @@
   margin-top: -320px;
 }
 .manager-table{
-  height:480px;
   /*overflow-y: hidden;  */
   overflow-x: scroll;
   margin:0;
+}
+.manager-table tbody td{
+  padding: 0 10px;
 }
 .manager-table th{
   white-space:nowrap;

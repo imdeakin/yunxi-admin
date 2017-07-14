@@ -29,6 +29,7 @@ export class bonusWithdrawListComponent implements OnInit {
     mobile: '',
     cardNumber: '',
     cardType: '',
+    type:'',
     status: 1
   };
 
@@ -77,6 +78,7 @@ export class bonusWithdrawListComponent implements OnInit {
       this.filterData.cardNumber,
       this.filterData.cardType,
       this.filterData.status,
+      this.filterData.type,
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {

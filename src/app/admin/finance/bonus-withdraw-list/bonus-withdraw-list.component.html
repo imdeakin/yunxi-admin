@@ -18,10 +18,10 @@
             <label>支付类型</label>
             <select-box [options]="financeFunction.bounsCardTypeOptions" (optionSelect)="filterData.cardType = $event"></select-box>
           </div>
-          <!--<div class="input-group">-->
-            <!--<label>状态</label>-->
-            <!--<input type="text" name="name" value="" [(ngModel)]="filterData.status">-->
-          <!--</div>-->
+          <div class="input-group">
+            <label>提现类型</label>
+            <select-box [options]="financeFunction.bounsUserTypeOptions" (optionSelect)="filterData.type = $event"></select-box>
+          </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
@@ -34,7 +34,9 @@
             <th>银行卡号</th>
             <th>支付类型</th>
             <th>会员类型</th>
-            <th>金额</th>
+            <th>提现金额</th>
+            <th>实际金额</th>
+            <th>手续费</th>
             <th>提现时间</th>
             <th>提现状态</th>
             <th>操作</th>
@@ -49,6 +51,8 @@
             <td>{{financeFunction.getBounsCardTypeText(item.card_type)}}</td>
             <td>{{financeFunction.getBounsUserTypeText(item.type)}}</td>
             <td>{{item.money}}</td>
+            <td>{{item.actual_moeny}}</td>
+            <td>{{item.service_money}}</td>
             <td>{{item.create_time}}</td>
             <td>{{financeFunction.getBounsStatusText(item.status)}}</td>
             <td>

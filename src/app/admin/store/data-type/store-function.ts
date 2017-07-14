@@ -14,6 +14,7 @@ export class StoreFunction {
     }
   ];
 
+
   // 是否含运费选项组
   public static orderFreightStatusOptions = [
     {
@@ -129,7 +130,20 @@ export class StoreFunction {
     }
     return text;
   }
-
+  //商品完整性
+  public static getGoodsAllStatusText(status):string{
+    let text:string;
+    switch(status){
+      case 0:
+        text = "待完整";
+        break;
+      case 1:
+        text = "已完整";
+        break;
+    }
+    return text;
+  }
+  
   // 是否含运费 0、否，1、是
   public static getOrderFreightStatusText(status: number): string {
     let text: string;

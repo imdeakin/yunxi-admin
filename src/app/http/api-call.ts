@@ -831,10 +831,11 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public addStoreGoodsInfo(goodsTypeId, goodsBrandId, businessName, producer, described, freight, onSale, success, failure?): void {
+  public addStoreGoodsInfo(goodsId,goodsTypeId, goodsBrandId, businessName, producer, described, freight, onSale, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addStoreGoodsInfo,
       data: {
+        goodsId:goodsId,
         goodsTypeId: goodsTypeId,
         goodsBrandId: goodsBrandId,
         businessName: businessName,
@@ -1852,7 +1853,7 @@ export class ApiCall {
     });
   }
 
-  public getBonusWithdrawList(sn, mobile, cardNumber, cardType, status, curPageIndex: number, pageSize: number, success, failure?): void {
+  public getBonusWithdrawList(sn, mobile, cardNumber, cardType, status,type,curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getBonusWithdrawList,
       data: {
@@ -1862,6 +1863,19 @@ export class ApiCall {
         mobile: mobile,
         cardNumber: cardNumber,
         cardType: cardType,
+        status: status,
+        type:type
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public updateWithdrawStatusList(withdrawId, status, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updateWithdrawStatusList,
+      data: {
+        withdrawId: withdrawId,
         status: status
       },
       success: success,
@@ -1869,12 +1883,15 @@ export class ApiCall {
     });
   }
 
-    public updateWithdrawStatusList(withdrawId, status, success, failure?): void {
+  //解除禁用会员
+  public banOrRecoveryMember(memberId, status,forbiddenTim,reason ,success, failure?): void {
     this.apiCall({
-      url: this.apiConfig.paths.updateWithdrawStatusList,
+      url: this.apiConfig.paths.banOrRecoveryMember,
       data: {
-        withdrawId: withdrawId,
-        status: status
+        memberId: memberId,
+        status: status,
+        forbiddenTim:forbiddenTim,
+        reason:reason
       },
       success: success,
       failure: failure

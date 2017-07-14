@@ -28,6 +28,7 @@ export class UserListComponent implements OnInit {
   public tableList: User[];
   public yearOptions;
   public password;
+  public date;
   public filterData = {
     mobile: '',
     level: '',
@@ -58,9 +59,13 @@ export class UserListComponent implements OnInit {
     userId:'',
     quota:0,
     type:0,
-    change:0,
+    change:'',
     described:''
   };
+  // public banModal ={
+  //   forbiddenTime:'',
+  //   reason:''
+  // }
 
   constructor(private elRef: ElementRef, 
               private apiCall: ApiCall, 
@@ -105,6 +110,7 @@ export class UserListComponent implements OnInit {
     }
     this.apiCall.getUserList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
+      console.log(this.tableList);
       this.total = total;
     });
   }
@@ -176,6 +182,11 @@ export class UserListComponent implements OnInit {
       }
   }
 
+  //解除禁用会员
+  // public banOrRecoveryMember(item,status?):void{
+  //   this.apiCall.banOrRecoveryMember(item.memberId,status,for)
+  // }
+
   public getCurrQuota(item):void{
     let memberId = item.member_id;
     this.rechargeModal.userId = item.user_id;
@@ -207,7 +218,7 @@ export class UserListComponent implements OnInit {
                userId:'',
                quota:0,
                type:0,
-               change:0,
+               change:'',
                described:''
         }
       }
@@ -218,7 +229,7 @@ export class UserListComponent implements OnInit {
   public cleanRechargeModal():void{
        this.rechargeModal.quota = 0;
        this.rechargeModal.type = 0;
-       this.rechargeModal.change = 0;
+       this.rechargeModal.change = '';
        this.rechargeModal.described = '';
   }
 

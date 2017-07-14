@@ -11,7 +11,9 @@
 }
 .manager-table th{
   white-space:nowrap;
+  padding:0 4px;
 }
 .manager-table td{
   white-space:nowrap;
+  padding:0 4px;
 }
