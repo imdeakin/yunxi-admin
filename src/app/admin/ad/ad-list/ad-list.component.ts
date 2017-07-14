@@ -44,7 +44,7 @@ export class AdListComponent implements OnInit {
   };
   public editModalShow: boolean = false;
   public fileModalData ={
-    ad_url:'',
+    url:'',
     file_id:''
   }
 
@@ -87,14 +87,14 @@ export class AdListComponent implements OnInit {
 
   public toggleEditModal(item?): void {
     if (item) {
-      console.log(item);
       this.editModalData = this.funcServer.deepCopy(item);
       console.log(this.editModalData);
-      this.fileModalData.ad_url = this.editModalData.ad_url;
+      this.fileModalData.url = this.editModalData.ad_url;
+
     }
     this.editModalShow = !this.editModalShow;
     if (!this.editModalShow) {
-      this.fileModalData.ad_url = '';
+      this.fileModalData.url = '';
       this.editModalData.file_id = '';
       this.editModalData = this.funcServer.emptyObj(this.editModalData);
     }

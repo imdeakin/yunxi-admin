@@ -85,20 +85,52 @@ export class manualChargeComponent implements OnInit {
     })
   }
 
-  // 模态窗
-  // public toggleReadModal(item?): void {
-  //   if (item) {
-  //     this.modalData = {
-  //       order_id: item.order_id,
-  //       sn: item.sn,
-  //       mobile: item.mobile,
-  //       cardType : item.cardType,
-  //       yft_account: item.yft_account,
-  //       create_time: item.create_time,
-  //       money: item.money,
-  //       status: item.status
-  //     };
-  //   }
-  //   this.readModalShow = !this.readModalShow;
-  // }
+  public updateManuralCharge(item,status):void{
+    this.apiCall.updateManuralCharge(item.manual_charge_id,status,(data)=>{
+        this.manualChargeList(1);
+    })
+  }
+
+  public updatesManualCharge(item,status):void{
+    this.apiCall.updatesManualCharge(item.manual_charge_id,status,(data)=>{
+        this.manualChargeList(1);
+    })
+  }
+
+  // 核验弹窗
+  public verificationConfirm(item): void {
+    let index = layer.confirm(
+      '请选择核验结果',
+      {
+        title: '核验',
+        btn: ["通过", "不通过"]
+      },
+      () => {
+        this.updateManuralCharge(item,1);
+        layer.close(index);
+      },
+      () => {
+        this.updateManuralCharge(item,2);
+        layer.close(index);
+      }
+    )
+  }
+
+  public verificationConfirms(item): void {
+    let index = layer.confirm(
+      '请选择核验结果',
+      {
+        title: '核验',
+        btn: ["通过", "不通过"]
+      },
+      () => {
+        this.updatesManualCharge(item,3);
+        layer.close(index);
+      },
+      () => {
+        this.updatesManualCharge(item,4);
+        layer.close(index);
+      }
+    )
+  }
 }

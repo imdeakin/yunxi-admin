@@ -58,6 +58,7 @@ export class ApiConfig {
     updateMemberInfo: this.root + '/members/updateMemberInfo',//修改会员等级信息
     getStatisticsData: this.root + '/members/statisticsData',//推广会员统计表
     getMyMemberList:this.root + '/members/myMemberList',//我的会员列表
+    banOrRecoveryMember:this.root + '/members/banOrRecoveryMember',//解除禁用会员
 
     // 合伙人管理
     getPartnerList: this.root + '/copartner/selectPartnerList', // 获取合伙人列表

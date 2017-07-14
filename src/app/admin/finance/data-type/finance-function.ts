@@ -114,6 +114,44 @@ export class FinanceFunction {
     }
   ];
 
+  //人工充值列表类型选项组
+  public static MunualChargeTypeOptions = [
+    {
+      value:1,
+      text:'充值余额'
+    },
+    {
+      value:2,
+      text:'充值积分'
+    }
+  ]
+
+  //人工充值列表状态选项组
+  public static MunualChargeStatusOptions = [
+    {
+      value:0,
+      text:'待审核'
+    },
+    {
+      value:1,
+      text:'审核通过'
+    },
+    {
+      value:2,
+      text:'审核不通过'
+    },
+    {
+      value:3,
+      text:'已复核'
+    },
+    {
+      value:4,
+      text:'复核不通过'
+    },
+
+  ]
+
+
   // 云付通订单类型 0.充值订单 1.车险业务 2.违章业务 3.加油业务 4.会员升级 5.官方商城业务 6.门店消费业务
   public static getCloudpayOrderTypeText(code: number): string {
     let text: string;
@@ -259,6 +297,48 @@ export class FinanceFunction {
       default:
         text ="未知";
     }
+    return text;
+  }
+
+  //充值类型
+  public static getMunualChargeType(status):string{
+    let text:string;
+    switch(status){
+      case 1:
+        text = "充值余额";
+        break;
+      case 2:
+        text = "充值积分";
+        break;
+      case 3:
+        text = "充值奖金";
+        break;
+      default:
+        text = "未知"
+    }
+    return text;
+  }
+
+  //人工充值列表状态
+  public static getManualChargeListStatus(status):string{
+    let text:string;
+    switch(status){
+      case 0:
+        text = "待审核";
+        break;
+      case 1:
+        text = "审核通过";
+        break;
+      case 2:
+        text = "审核不通过";
+        break;
+      case 3:
+        text = "已复核";
+        break;
+      case 4:
+        text = "复核不通过";
+        break;
+    } 
     return text;
   }
 

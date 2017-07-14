@@ -6,7 +6,11 @@ export class AdFunction {
   public static adPositionOptions = [
     {
       value: 'index',
-      text: '首页'
+      text: '首页轮播'
+    },
+    {
+      value:'index-2',
+      text:'首页广告'
     },
     {
       value: 'mall',
@@ -63,7 +67,10 @@ export class AdFunction {
     let text: string;
     switch (code) {
       case 'index':
-        text = '首页';
+        text = '首页轮播';
+        break;
+      case 'index-2':
+        text = '首页广告';
         break;
       case 'mall':
         text = '商城';

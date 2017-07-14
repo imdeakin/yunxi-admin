@@ -8,7 +8,7 @@
         <form class="clearfix" (ngSubmit)="getBonusWithdrawList(1)">
           <div class="input-group">
             <label>流水号</label>
-            <input type="text" name="orderId"  [(ngModel)]="filterData.sn">
+            <input type="text" name="sn"  [(ngModel)]="filterData.sn">
           </div>
           <div class="input-group">
             <label>账号</label>
@@ -16,16 +16,12 @@
           </div>
           <div class="input-group">
             <label>支付账号</label>
-            <input type="text" name="name"  [(ngModel)]="filterData.cardNumber">
+            <input type="text" name="cardNumber"  [(ngModel)]="filterData.cardNumber">
           </div>
           <div class="input-group">
             <label>支付类型</label>
             <select-box [options]="financeFunction.bounsCardTypeOptions" (optionSelect)="filterData.cardType = $event"></select-box>
           </div>
-          <!--<div class="input-group">-->
-            <!--<label>状态</label>-->
-            <!--<input type="text" name="name" value="" [(ngModel)]="filterData.status">-->
-          <!--</div>-->
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
