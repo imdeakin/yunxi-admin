@@ -62,10 +62,14 @@ import {
   OrderListComponent,
 
   // 门店管理
-  ShopApplyListComponent,
   ShopListComponent,
   ShopServerListComponent,
   ShopOrderListComponent,
+
+  // 个人门店
+  PShopListComponent,
+  PShopServerListComponent,
+  PShopOrderListComponent,
 
   // 财务管理
   CloudpayVerificationComponent,
@@ -150,10 +154,14 @@ import {
     OrderListComponent,
 
     // 门店管理
-    ShopApplyListComponent,
     ShopListComponent,
     ShopServerListComponent,
     ShopOrderListComponent,
+
+    // 个人门店
+    PShopListComponent,
+    PShopServerListComponent,
+    PShopOrderListComponent,
 
     // 财务管理
     CloudpayVerificationComponent,

@@ -6,29 +6,29 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
-import {ShopFunction} from '../data-type/shop-function';
-import {ShopServerList} from '../data-type/shop-server-list';
+import {PShopFunction} from '../data-type/pshop-function';
+import {PShopServerList} from '../data-type/pshop-server-list';
 
 import 'rxjs/add/operator/map';
 
 declare let layer: any;
 
 @Component({
-  selector: 'shop-server-list',
-  templateUrl: './shop-server-list.component.html',
-  styleUrls: ['./shop-server-list.component.css']
+  selector: 'pshop-server-list',
+  templateUrl: './pshop-server-list.component.html',
+  styleUrls: ['./pshop-server-list.component.css']
 })
-export class ShopServerListComponent implements OnInit {
+export class PShopServerListComponent implements OnInit {
   public title = '门店服务';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: ShopServerList[];
+  public tableList: PShopServerList[];
   public curShopId: string;
   public curShopIdOld: string;
 
-  public shopFunction = ShopFunction;
+  public pshopFunction = PShopFunction;
 
   constructor(private elRef: ElementRef,
               private activatedRoute: ActivatedRoute,

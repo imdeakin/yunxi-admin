@@ -140,12 +140,12 @@ export class ApiCall {
     });
   }
 
-   //修改油卡绑定列表
-   public updateOilBound(oilCardId: string, oilCard: string, type: number, name:string , success, failure?): void {
+  //修改油卡绑定列表
+  public updateOilBound(oilCardId: string, oilCard: string, type: number, name: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateOilBound,
       data: {
-        oilCardId:oilCardId,
+        oilCardId: oilCardId,
         oilCard: oilCard,
         type: type,
         name: name
@@ -156,11 +156,11 @@ export class ApiCall {
   }
 
   //删除油卡绑定列表
-  public delOilBound(oilCardId: string,success, failure?): void {
+  public delOilBound(oilCardId: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.delOilBound,
       data: {
-        oilCardId:oilCardId
+        oilCardId: oilCardId
       },
       success: success,
       failure: failure
@@ -179,15 +179,15 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public getYoukaOrderList(sn, oilCard, tradeMode, oilPackageId, status, classify,curPageIndex: number, perPageSize: number, success, failure?): void {
+  public getYoukaOrderList(sn, oilCard, tradeMode, oilPackageId, status, classify, curPageIndex: number, perPageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getYoukaOrderList,
       data: {
         sn: sn,
         oilCard: oilCard,
-        tradeMode:tradeMode,
-        status:status,
-        classify:classify,
+        tradeMode: tradeMode,
+        status: status,
+        classify: classify,
         index: curPageIndex,
         pageSize: perPageSize
       },
@@ -246,7 +246,7 @@ export class ApiCall {
     })
   }
 
-  public getInsuranceOrderList(searchName,regionId,curPageIndex: number, pageSize: number, success, failure?): void {
+  public getInsuranceOrderList(searchName, regionId, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getInsuranceOrderList,
       data: {
@@ -478,15 +478,15 @@ export class ApiCall {
   }
 
   //修改会员等级列表
-  public updateMemberInfo(memberId: string,idcard:string,birthDay:string ,pwd:string,regionId, success, failure?): void {
+  public updateMemberInfo(memberId: string, idcard: string, birthDay: string, pwd: string, regionId, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateMemberInfo,
       data: {
         memberId: memberId,
-        idcard:idcard,
-        birthDay:birthDay,
-        pwd:pwd,
-        regionId:regionId
+        idcard: idcard,
+        birthDay: birthDay,
+        pwd: pwd,
+        regionId: regionId
       },
       success: success,
       failure: failure
@@ -510,18 +510,18 @@ export class ApiCall {
   }
 
   //我的会员列表
-  public  getMyMemberList(memberId,level,memberLevel,curPageindex,perPageSize,success,failure?){
+  public  getMyMemberList(memberId, level, memberLevel, curPageindex, perPageSize, success, failure?) {
     this.apiCall({
-      url:this.apiConfig.paths.getMyMemberList,
-      data:{
-        memberId:memberId,
-        level:level,
-        memberLevel:memberLevel,
-        index:curPageindex,
-        pageSize:perPageSize
+      url: this.apiConfig.paths.getMyMemberList,
+      data: {
+        memberId: memberId,
+        level: level,
+        memberLevel: memberLevel,
+        index: curPageindex,
+        pageSize: perPageSize
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
   }
 
@@ -623,14 +623,14 @@ export class ApiCall {
   }
 
   //复核
-  public getReexamine(partnerApplyId:string,adminId:string,review:string,status:number,success,failure?):void{
-      this.apiCall({
+  public getReexamine(partnerApplyId: string, adminId: string, review: string, status: number, success, failure?): void {
+    this.apiCall({
       url: this.apiConfig.paths.getReexamine,
       data: {
         partnerApplyId: partnerApplyId,
-        adminId:adminId,
-        review:review,
-        status:status
+        adminId: adminId,
+        review: review,
+        status: status
       },
       success: success,
       failure: failure
@@ -720,89 +720,6 @@ export class ApiCall {
     });
   }
 
-  //门店列表
-  public getMallSshopList(mobile: string, status: string, curPageIndex: number, perPageSize: number, success, failure?): void {
-    this.apiCall({
-      url: this.apiConfig.paths.getMallSshopList,
-      data: {
-        mobile: mobile,
-        status: status,
-        index: curPageIndex,
-        pageSize: perPageSize
-      },
-      success: success,
-      failure: failure
-    });
-  }
-
-  //获取门店详情
-  public getMallShop(shopId: String, success, failure?) {
-    this.apiCall({
-      url: this.apiConfig.paths.getMallShop,
-      data: {
-        shopId: shopId
-      },
-      success: success,
-      failure: failure
-    })
-  }
-
-  //修改门店状态
-  public updateMallShopStatus(shopId: string, status: string, success, failure?): void {
-    this.apiCall({
-      url: this.apiConfig.paths.updateMallShopStatus,
-      data: {
-        shopId: shopId,
-        status: status,
-      },
-      success: success,
-      failure: failure
-    });
-  }
-
-  //获取门店订单列表
-  public getMallShopServiceOrderList(sn: string, userMobile: string, status: string, curPageIndex: number, perPageSize: number, success, failure?) {
-    this.apiCall({
-      url: this.apiConfig.paths.getMallShopServiceOrderList,
-      data: {
-        sn: sn,
-        userMobile: userMobile,
-        status: status,
-        index: curPageIndex,
-        pageSize: perPageSize
-      },
-      success: success,
-      failure: failure
-    });
-  }
-
-  //获取门店详情
-  public getMallShopServiceOrder(shopServiceOrderId: string, success, failure?) {
-    this.apiCall({
-      url: this.apiConfig.paths.getMallShopServiceOrder,
-      data: {
-        shopServiceOrderId: shopServiceOrderId
-      },
-      success: success,
-      failure: failure
-    });
-  }
-
-  //获取门店服务
-  public getMallShopServiceList(shopId: string, onSale: string, curPageIndex: number, perPageSize: number, success, failure?) {
-    this.apiCall({
-      url: this.apiConfig.paths.getMallShopServiceList,
-      data: {
-        shopId: shopId,
-        onSale: onSale,
-        index: curPageIndex,
-        pageSize: perPageSize
-      },
-      success: success,
-      failure: failure
-    });
-  }
-
   /**
    * 获取商品信息
    * @param sn 商品编号
@@ -834,11 +751,11 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public addStoreGoodsInfo(goodsId,goodsTypeId, goodsBrandId, businessName, producer, described, freight, onSale, success, failure?): void {
+  public addStoreGoodsInfo(goodsId, goodsTypeId, goodsBrandId, businessName, producer, described, freight, onSale, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addStoreGoodsInfo,
       data: {
-        goodsId:goodsId,
+        goodsId: goodsId,
         goodsTypeId: goodsTypeId,
         goodsBrandId: goodsBrandId,
         businessName: businessName,
@@ -1697,13 +1614,17 @@ export class ApiCall {
    * 管理员-获取门店服务列表
    * @param shopId 门店ID
    * @param onSale 是否上架：0 否 1是
+   * @param curPageIndex
+   * @param pageSize
    * @param success
    * @param failure
    */
-  public getAdminShopService(shopId, onSale, success, failure?): void {
+  public getAdminShopServiceList(shopId, onSale, curPageIndex, pageSize, success, failure?): void {
     this.apiCall({
-      url: this.apiConfig.paths.getAdminShopService,
+      url: this.apiConfig.paths.getAdminShopServiceList,
       data: {
+        index: curPageIndex,
+        pageSize: pageSize,
         shopId: shopId,
         onSale: onSale
       },
@@ -1813,6 +1734,44 @@ export class ApiCall {
     });
   }
 
+  /**
+   * 管理员-获取门店服务订单列表
+   * @param shopSn 门店编号
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getAdminShopServiceOrderList(shopSn, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdminShopServiceOrderList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        shopSn: shopSn
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 管理员-获取门店服务订单详情
+   * @param shopServiceOrderId 门店服务订单ID
+   * @param success
+   * @param failure
+   */
+  public getAdminShopServiceOrderInfo(shopServiceOrderId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getAdminShopServiceOrderInfo,
+      data: {
+        shopServiceOrderId: shopServiceOrderId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
   public getCloudpayVerificationList(type, sn, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getCloudpayVerificationList,
@@ -1856,7 +1815,7 @@ export class ApiCall {
     });
   }
 
-  public getBonusWithdrawList(sn, mobile, cardNumber, cardType, status,type,curPageIndex: number, pageSize: number, success, failure?): void {
+  public getBonusWithdrawList(sn, mobile, cardNumber, cardType, status, type, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getBonusWithdrawList,
       data: {
@@ -1867,7 +1826,7 @@ export class ApiCall {
         cardNumber: cardNumber,
         cardType: cardType,
         status: status,
-        type:type
+        type: type
       },
       success: success,
       failure: failure
@@ -1887,14 +1846,14 @@ export class ApiCall {
   }
 
   //解除禁用会员
-  public banOrRecoveryMember(memberId, status,forbiddenTim,reason ,success, failure?): void {
+  public banOrRecoveryMember(memberId, status, forbiddenTim, reason, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.banOrRecoveryMember,
       data: {
         memberId: memberId,
         status: status,
-        forbiddenTim:forbiddenTim,
-        reason:reason
+        forbiddenTim: forbiddenTim,
+        reason: reason
       },
       success: success,
       failure: failure
@@ -1902,24 +1861,24 @@ export class ApiCall {
   }
 
   //人工充值
-  public manualCharge(adminId,userId,quota,type,change,described,success,failure?):void{
+  public manualCharge(adminId, userId, quota, type, change, described, success, failure?): void {
     this.apiCall({
-      url:this.apiConfig.paths.manualCharge,
-      data:{
-        adminId:adminId,
-        userId:userId,
-        quota:quota,
-        type:type,
-        change:change,
-        described:described
+      url: this.apiConfig.paths.manualCharge,
+      data: {
+        adminId: adminId,
+        userId: userId,
+        quota: quota,
+        type: type,
+        change: change,
+        described: described
       },
-      success:success,
-      failure:failure
+      success: success,
+      failure: failure
     })
   }
 
 
-  public getCurrQuota(memberId,success,failure?):void{
+  public getCurrQuota(memberId, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getCurrQuota,
       data: {
@@ -1931,15 +1890,15 @@ export class ApiCall {
   }
 
   //人工充值订单
-  public manualChargeList(searchItem,type, status,curPageIndex,perPageSize, success, failure?): void {
+  public manualChargeList(searchItem, type, status, curPageIndex, perPageSize, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.manualChargeList,
       data: {
         searchItem: searchItem,
         type: type,
-        status:status,
-        index:curPageIndex,
-        pageSize:perPageSize
+        status: status,
+        index: curPageIndex,
+        pageSize: perPageSize
       },
       success: success,
       failure: failure
@@ -1948,7 +1907,7 @@ export class ApiCall {
 
 
   //人工充值订单审核
-  public updateManuralCharge(manualChargeId,status,success, failure?): void {
+  public updateManuralCharge(manualChargeId, status, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateManuralCharge,
       data: {
@@ -1960,8 +1919,8 @@ export class ApiCall {
     });
   }
 
-   //人工充值订单复核
-  public updatesManualCharge(manualChargeId,status,success, failure?): void {
+  //人工充值订单复核
+  public updatesManualCharge(manualChargeId, status, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updatesManualCharge,
       data: {
@@ -1988,14 +1947,14 @@ export class ApiCall {
     });
   }
 
-  public addMsg(regionId, title, msgType,content,success, failure?): void {
+  public addMsg(regionId, title, msgType, content, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addMsg,
       data: {
         regionId: regionId,
         title: title,
         msgType: msgType,
-        content:content
+        content: content
       },
       success: success,
       failure: failure

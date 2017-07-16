@@ -128,6 +128,23 @@ export class AccordionNavComponent implements OnInit {
       ]
     },
     {
+      title: '个人门店',
+      items: [
+        {
+          title: '门店中心',
+          link: '/admin/pshop-list'
+        },
+        {
+          title: '门店服务',
+          link: '/admin/pshop-server-list'
+        },
+        {
+          title: '门店订单',
+          link: '/admin/pshop-order-list'
+        }
+      ]
+    },
+    {
       title: '广告',
       link: '/admin/ad-list'
     },

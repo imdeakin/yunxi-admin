@@ -12,7 +12,7 @@
           </div>
           <div class="input-group">
             <label>状态</label>
-            <select-box [options]="shopFunction.payTypeOptions" [name]="filterData.status" (optionSelect)="filterData.status = $event"></select-box>
+            <select-box [options]="pshopFunction.payTypeOptions" [name]="filterData.status" (optionSelect)="filterData.status = $event"></select-box>
           </div>
           <div class="input-group">
             <label>城市</label>
@@ -100,7 +100,7 @@
         </div>
         <div class="modal-detail-item">
           <label>状态</label>
-          <div class="value">{{shopFunction.getOrderStatusText(modalData.status)}}</div>
+          <div class="value">{{pshopFunction.getOrderStatusText(modalData.status)}}</div>
         </div>
       </div>
     </div>
