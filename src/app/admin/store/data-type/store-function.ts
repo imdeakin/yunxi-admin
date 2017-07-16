@@ -14,6 +14,13 @@ export class StoreFunction {
     }
   ];
 
+   //父节点
+  public static fatherOptions = [
+    {
+      value: '0',
+      text: '/'
+    }
+  ]
 
   // 是否含运费选项组
   public static orderFreightStatusOptions = [

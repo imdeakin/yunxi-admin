@@ -57,7 +57,7 @@
       </div>
       <div class="modal-input-group">
         <label>类型父节点</label>
-        <select-box [options]="goodsTypeOptions"
+        <select-box [options]="storeFunction.fatherOptions"
                     [first]="{value:'', text:'/'}"
                     [value]="modalData.p_goods_type_id"
                     (optionSelect)="modalData.p_goods_type_id = $event"></select-box>

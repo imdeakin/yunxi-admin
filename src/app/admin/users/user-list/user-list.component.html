@@ -67,6 +67,7 @@
     </div>
   </div>
 </div>
+<!--详情页  -->
 <div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
     <form class="modal-form" (ngSubmit)="modalSubmit()">
@@ -82,14 +83,12 @@
             <label>昵称</label>
             <div class="value">{{modalData.nike_name}}</div>
           </div>
-          <div class="modal-detail-item">
+          <div class="modal-input-group">
             <label>身份证</label>
-             <div class="value">{{modalData.idcard}}</div>
-            <!--<input type="text" name="idcard" [(ngModel)]="modalData.idcard">-->
+            <input type="text" name="idcard" [(ngModel)]="modalData.idcard">
           </div>
-           <div class="modal-detail-item">
+           <div class="modal-input-group time">
             <label>生日</label>
-             <!--<div class="value">{{modalData.idcard}}</div>-->
              <input type='text' value={{selDate}} (change)="setInputDate($event)"/>
              <date-picker
                [value]="value"
@@ -99,16 +98,15 @@
                [toContainPrevMonth]="toContainPrevMonth"
                [toContainNextMonth]="toContainNextMonth"
                (selectedDate)='setDate($event)'></date-picker>
-            <!--<input type="text" name="idcard" [(ngModel)]="modalData.idcard">-->
           </div>
-          <!--<div class="modal-input-group">
+          <div class="modal-input-group">
             <label>密码</label>
              <input type="text" name="password" placeholder="不修改就不碰" [(ngModel)]="password">
-          </div>-->
-          <div class="modal-detail-item">
+          </div>
+          <!-- <div class="modal-input-group">
             <label>会员等级</label>
             <select-box [options]="usersFunction.userLevelOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.member_level_id" (optionSelect)="modalData.member_level_id = $event"></select-box>
-          </div>
+          </div> -->
         </div>
         <div class="modal-half modal-half-right">
           <div class="modal-detail-item">
@@ -123,9 +121,9 @@
             <label>推介人账号</label>
             <div class="value">{{modalData.upmember_mobile}}</div>
           </div>
-          <div class="modal-detail-item">
+          <div class="modal-input-group">
             <label>所属城市</label>
-            <div class="value">{{modalData.region_name}}</div>
+            <city-picker  (change)="modalData.regionId = $event" [name]="modalData.region_name"></city-picker>
           </div>
         </div>
       </div>

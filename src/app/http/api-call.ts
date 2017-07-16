@@ -478,12 +478,15 @@ export class ApiCall {
   }
 
   //修改会员等级列表
-  public updateMemberInfo(memberId: string, memberLevelId: string, success, failure?): void {
+  public updateMemberInfo(memberId: string,idcard:string,birthDay:string ,pwd:string,regionId, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateMemberInfo,
       data: {
         memberId: memberId,
-        memberLevelId: memberLevelId
+        idcard:idcard,
+        birthDay:birthDay,
+        pwd:pwd,
+        regionId:regionId
       },
       success: success,
       failure: failure

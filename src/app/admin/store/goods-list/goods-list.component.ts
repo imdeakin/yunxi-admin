@@ -565,6 +565,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
         for (let i = 0, len = arr.length; i < len; i++) {
           optionsArr.push(this.getStoreGoodsSKUAttrValOptions(arr[i].param_id))
         }
+        console.log(optionsArr)
         this.goodsSKUAttrValOptionsArr = optionsArr;
       }
     )
