@@ -159,16 +159,19 @@ export class ApiConfig {
      */
 
     // 个人-门店列表
-    getPersonShopList: this.root + '/myshop/mallSshopList', // 获取门店列表
-    getPersonShopInfo: this.root + '/myshop/getMallShop', // 获取门店详情
-    updatePersonShopStatus: this.root + '/myshop/updateMallShopStatus', // 修改门店状态
+    getPersonShopList: this.root + '/myshop/selectShopList', // 获取门店列表
+    getPersonShopInfo: this.root + '/myshop/getShopListInfo', // 获取门店详情
 
     // 个人-门店服务
-    getPersonShopService: this.root + '/myshop/mallShopServiceList', // 获取门店服务列表
-    addPersonShopService: this.root + '/myshop/saveShopService', // 添加门店服务
-    updatePersonShopService: this.root + '/myshop/saveShopService', // 修改门店服务
-    updatePersonShopServiceStatus: this.root + '/myshop/onSaleShopService', // 修改门店服务上架状态
-    removePersonShopService: this.root + '/myshop/delShopService', // 删除门店服务
+    getPersonShopServiceList: this.root + '/myshop/shopServeceList', // 获取门店服务列表
+    getPersonShopServiceInfo: this.root + '/myshop/getShopServece', // 获取门店服务详情
+    addPersonShopService: this.root + '/myshop/addShopServeceType', // 添加门店服务
+    updatePersonShopService: this.root + '/myshop/updateShopServeceType', // 修改门店服务
+    removePersonShopService: this.root + '/myshop/delShopServeceType', // 删除门店服务
+
+    // 个人-门店服务订单
+    getPersonShopServiceOrderList: this.root + '/myshop/mallShopServiceOrderList', // 获取门店服务订单列表
+    getPersonShopServiceOrderInfo: this.root + '/myshop/getMallShopServiceOrder', // 获取门店服务订单详情
 
     // 财务管理
     getCloudpayVerificationList: this.root + '/finance/yftOrderVerificationList', // 获取云付通核验列表

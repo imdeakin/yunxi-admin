@@ -5,7 +5,16 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getAdminShopServiceList(1)">
+        <form class="clearfix" (ngSubmit)="getPersonShopServiceList(1)">
+          <div class="input-group">
+            <label>服务名称</label>
+            <input type="text" name="serviceName" value="" [(ngModel)]="filterData.serviceName">
+          </div>
+          <div class="input-group">
+            <label>状态</label>
+            <select-box [options]="shopFunction.shopServerStatusOptions" [name]="filterData.onSale"
+                        (optionSelect)="filterData.onSale = $event"></select-box>
+          </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
@@ -13,8 +22,9 @@
         <table>
           <thead>
           <tr>
-            <th>服务</th>
-            <th>价格</th>
+            <th>门店编号</th>
+            <th>服务名称</th>
+            <th>服务价格</th>
             <th>是否上架</th>
             <th>创建时间</th>
             <th>操作</th>
@@ -23,21 +33,22 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{item.shop_id}}</td>
             <td>{{item.service_name}}</td>
             <td>{{item.yx_price}}</td>
-            <td>{{item.on_sale}}</td>
+            <td>{{shopFunction.getShopServerStatusText(item.on_sale)}}</td>
             <td>{{item.create_time}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);"
-                   (click)="updateAdminShopServiceStatus(item.on_sale)">{{item.on_sale == 0 ? '上架' : '下架'}}</a>
+                <a class="table-btn" href="javascript:void(0);">查看</a>
+                <a class="table-btn" href="javascript:void(0);">编辑</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls (pageChange)="getAdminShopServiceList($event)" previousLabel="上一页"
+        <pagination-controls (pageChange)="getPersonShopServiceList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>

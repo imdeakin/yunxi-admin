@@ -2,6 +2,7 @@
  * Created by Deakin on 2017/5/8 0008.
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
+import {AdminFunc} from '../../../serv/admin.server';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
@@ -16,6 +17,7 @@ declare let layer: any;
 })
 export class PShopListComponent implements OnInit {
   public title = '我的门店';
+  public userId: string;
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
@@ -33,14 +35,24 @@ export class PShopListComponent implements OnInit {
   public readShopDetailModalShow: boolean = false; // 门店详情的显示状态
   public readShopBankModalShow: boolean = false; // 门店银行卡详情的显示状态
   public readShopIdCardModalShow: boolean = false; // 门店身份证详情的显示状态
+
+  public editShopDetailModalShow: boolean = false; // 编辑门店详情的显示状态
+  public editShopBankModalShow: boolean = false; // 编辑门店银行卡详情的显示状态
+  public editShopIdCardModalShow: boolean = false; // 编辑门店身份证详情的显示状态
+
   public shopDetail; // 门店详情数据
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
+  constructor(private elRef: ElementRef,
+              private apiCall: ApiCall,
+              private funcServer: FuncServer,
+              private adminFunc: AdminFunc,
+              public cityPickerServer: CityPickerServer) {
+    this.userId = adminFunc.getAdminId();
   }
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getAdminShopList();
+    this.getPersonShopList();
   }
 
   public computeOnResize() {
@@ -52,11 +64,12 @@ export class PShopListComponent implements OnInit {
     });
   }
 
-  public getAdminShopList(curPageIndex?): void {
+  public getPersonShopList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getAdminShopList(
+    this.apiCall.getPersonShopList(
+      this.userId,
       this.filterData.mobile,
       this.filterData.status,
       this.curPageIndex, this.perPageSize,
@@ -67,8 +80,10 @@ export class PShopListComponent implements OnInit {
     );
   }
 
-  public getAdminShopInfo(shopId): void {
-    this.apiCall.getAdminShopInfo(
+  public getPersonShopInfo(shopId): void {
+    this.shopDetail = null;
+    this.apiCall.getPersonShopInfo(
+      this.userId,
       shopId,
       (data) => {
         this.shopDetail = data;
@@ -76,49 +91,17 @@ export class PShopListComponent implements OnInit {
     );
   }
 
-  public updateAdminShopStatus(shopId, status): void {
-    this.apiCall.updateAdminShopStatus(
-      shopId,
-      status,
-      () => {
-        layer.msg('操作成功');
-        this.getAdminShopList(1);
-      },
-      () => {
-        layer.msg('操作失败');
-      }
-    );
-  }
-
-  // 门店核验
-  public checkShop(shopId) {
-    let index = layer.confirm('是否通过？', {
-        btn: ['通过', '不通过', '取消']
-      },
-      () => {
-        // 通过
-        this.updateAdminShopStatus(shopId, 3);
-        layer.close(index);
-      },
-      () => {
-        // 不通过
-        this.updateAdminShopStatus(shopId, 2);
-        layer.close(index);
-      },
-      () => {
-        layer.close(index);
-      }
-    );
-  }
-
   // 模态窗
-  public toggleEditModal(): void {
+  public toggleEditModal(shopId?): void {
+    if (shopId) {
+      this.getPersonShopInfo(shopId);
+    }
     this.editModalShow = !this.editModalShow;
   }
 
   public toggleReadDetailModal(shopId?): void {
     if (shopId) {
-      this.getAdminShopInfo(shopId);
+      this.getPersonShopInfo(shopId);
     }
     this.readShopDetailModalShow = !this.readShopDetailModalShow;
   }
@@ -129,5 +112,20 @@ export class PShopListComponent implements OnInit {
 
   public toggleReadShopIdCardModal(): void {
     this.readShopIdCardModalShow = !this.readShopIdCardModalShow;
+  }
+
+  public toggleEditDetailModal(shopId?): void {
+    if (shopId) {
+      this.getPersonShopInfo(shopId);
+    }
+    this.editShopDetailModalShow = !this.editShopDetailModalShow;
+  }
+
+  public toggleEditShopBankModal(): void {
+    this.editShopBankModalShow = !this.editShopBankModalShow;
+  }
+
+  public toggleEditShopIdCardModal(): void {
+    this.editShopIdCardModalShow = !this.editShopIdCardModalShow;
   }
 }

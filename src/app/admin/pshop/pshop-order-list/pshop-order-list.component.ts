@@ -9,7 +9,7 @@ import {PShopFunction} from '../data-type/pshop-function';
 import {PShopOrderList} from '../data-type/pshop-order-list';
 
 @Component({
-  selector: 'shop-order-list',
+  selector: 'pshop-order-list',
   templateUrl: './pshop-order-list.component.html',
   styleUrls: ['./pshop-order-list.component.css']
 })
@@ -37,7 +37,7 @@ export class PShopOrderListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getAdminShopServiceOrderList();
+    this.getPersonShopServiceOrderList();
   }
 
   public computeOnResize() {
@@ -49,11 +49,11 @@ export class PShopOrderListComponent implements OnInit {
     });
   }
 
-  public getAdminShopServiceOrderList(curPageIndex?): void {
+  public getPersonShopServiceOrderList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getAdminShopServiceOrderList(
+    this.apiCall.getPersonShopServiceOrderList(
       this.filterData.sn,
       this.filterData.status,
       this.curPageIndex,
@@ -65,8 +65,8 @@ export class PShopOrderListComponent implements OnInit {
     );
   }
 
-  public getAdminShopServiceOrderInfo(shopServiceOrderId): void {
-    this.apiCall.getAdminShopServiceOrderInfo(
+  public getPersonShopServiceOrderInfo(shopServiceOrderId): void {
+    this.apiCall.getPersonShopServiceOrderInfo(
       shopServiceOrderId,
       (data) => {
         this.modalData = data;
@@ -78,7 +78,7 @@ export class PShopOrderListComponent implements OnInit {
   public toggleModal(item?): void {
     this.modalShow = !this.modalShow;
     if (item) {
-      this.getAdminShopServiceOrderInfo(item.shop_service_order_id)
+      this.getPersonShopServiceOrderInfo(item.shop_service_order_id)
     }
     if (!this.modalShow) {
       this.modalData = null;

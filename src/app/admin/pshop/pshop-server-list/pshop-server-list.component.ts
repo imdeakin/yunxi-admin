@@ -2,7 +2,7 @@
  * Created by Deakin on 2017/5/8 0008.
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {AdminFunc} from '../../../serv/admin.server';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
@@ -20,37 +20,30 @@ declare let layer: any;
 })
 export class PShopServerListComponent implements OnInit {
   public title = '门店服务';
+  public userId: string;
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList: PShopServerList[];
-  public curShopId: string;
-  public curShopIdOld: string;
+  public filterData = {
+    serviceName: '',
+    onSale: '',
+  };
 
-  public pshopFunction = PShopFunction;
+  public shopFunction = PShopFunction;
 
   constructor(private elRef: ElementRef,
-              private activatedRoute: ActivatedRoute,
               private apiCall: ApiCall,
               private funcServer: FuncServer,
+              private adminFunc: AdminFunc,
               public cityPickerServer: CityPickerServer) {
-  }
-
-  public getParams(shopId) {
-    return shopId;
+    this.userId = adminFunc.getAdminId();
   }
 
   public ngOnInit(): void {
-    // 获取路由参数
-    this.activatedRoute.params
-      .map((params: Params) => this.getParams(params['shopId']))
-      .subscribe((shopId: string) => {
-        this.curShopId = shopId;
-        this.getAdminShopServiceList(1);
-      });
-
     this.computeOnResize();
+    this.getPersonShopServiceList();
   }
 
   public computeOnResize() {
@@ -62,40 +55,19 @@ export class PShopServerListComponent implements OnInit {
     });
   }
 
-  public getAdminShopServiceList(curPageIndex?): void {
+  public getPersonShopServiceList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getAdminShopServiceList(
-      this.curShopId,
-      '',
+    this.apiCall.getPersonShopServiceList(
+      this.userId,
+      this.filterData.serviceName,
+      this.filterData.onSale,
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {
         this.tableList = list;
-        console.log(this.tableList);
         this.total = total;
-      });
-  }
-
-  public updateAdminShopServiceStatus(curSaleStatus): void {
-    let status = curSaleStatus == 0 ? 1 : 0;
-    let tips = status == 0 ? '是否下架？' : '是否上架';
-    let index = layer(tips, {btn: ['确定', '取消']},
-      () => {
-        this.apiCall.updateAdminShopServiceStatus(
-          this.curShopId,
-          status,
-          () => {
-            layer.msg('操作成功');
-            layer.close(index);
-            this.getAdminShopServiceList(1);
-          },
-          () => {
-            layer.msg('操作失败');
-            layer.close(index);
-          }
-        );
       }
     );
   }

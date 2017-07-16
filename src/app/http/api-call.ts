@@ -1634,7 +1634,7 @@ export class ApiCall {
   }
 
   /**
-   * 管理员-修改门店服务
+   * 管理员-添加门店服务
    * @param shopServiceTypeId 门店服务类型id
    * @param shopId 门店申请id
    * @param serviceName 服务名称
@@ -1764,6 +1764,189 @@ export class ApiCall {
   public getAdminShopServiceOrderInfo(shopServiceOrderId, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getAdminShopServiceOrderInfo,
+      data: {
+        shopServiceOrderId: shopServiceOrderId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-获取门店列表
+   * @param userId 用户ID
+   * @param mobile 用户账号
+   * @param status 状态：1 待审核 2 不通过  3 通过
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getPersonShopList(userId, mobile, status, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPersonShopList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        userId: userId,
+        mobile: mobile,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-获取门店详情
+   * @param userId 用户ID
+   * @param shopId 门店ID
+   * @param success
+   * @param failure
+   */
+  public getPersonShopInfo(userId, shopId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPersonShopInfo,
+      data: {
+        userId: userId,
+        shopId: shopId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-获取门店服务列表
+   * @param userId 门店ID
+   * @param serviceName 门店服务名称
+   * @param onSale 是否上架：0 否 1是
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getPersonShopServiceList(userId, serviceName, onSale, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPersonShopServiceList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        userId: userId,
+        serviceName: serviceName,
+        onSale: onSale
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-获取门店服务详情
+   * @param shopServiceId 门店服务ID
+   * @param success
+   * @param failure
+   */
+  public getPersonShopServiceInfo(shopServiceId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPersonShopServiceInfo,
+      data: {
+        shopServiceId: shopServiceId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-添加门店服务
+   * @param userId 用户id
+   * @param name 服务名称
+   * @param success
+   * @param failure
+   */
+  public addPersonShopService(userId, name, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updatePersonShopService,
+      data: {
+        userId: userId,
+        name: name
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-修改门店服务
+   * @param userId 用户id
+   * @param shopServicTypeId 服务门店服务类型表id
+   * @param name 服务名称
+   * @param success
+   * @param failure
+   */
+  public updatePersonShopService(userId, shopServicTypeId, name, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updatePersonShopService,
+      data: {
+        userId: userId,
+        shopServicTypeId: shopServicTypeId,
+        name: name
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-删除门店服务
+   * @param shopServicTypeId 服务门店服务类型表id
+   * @param success
+   * @param failure
+   */
+  public removePersonShopService(shopServicTypeId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.removePersonShopService,
+      data: {
+        shopServicTypeId: shopServicTypeId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-获取门店服务订单列表
+   * @param sn 服务订单编号
+   * @param status 订单状态
+   * @param curPageIndex
+   * @param pageSize
+   * @param success
+   * @param failure
+   */
+  public getPersonShopServiceOrderList(sn, status, curPageIndex, pageSize, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPersonShopServiceOrderList,
+      data: {
+        index: curPageIndex,
+        pageSize: pageSize,
+        sn: sn,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-获取门店服务订单详情
+   * @param shopServiceOrderId 门店服务订单ID
+   * @param success
+   * @param failure
+   */
+  public getPersonShopServiceOrderInfo(shopServiceOrderId, success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.getPersonShopServiceOrderInfo,
       data: {
         shopServiceOrderId: shopServiceOrderId
       },
