@@ -29,7 +29,8 @@ export class bonusWithdrawHistoryListComponent implements OnInit {
     mobile: '',
     cardNumber: '',
     cardType: '',
-    status: ''
+    status: '',
+    type:''
   };
 
   // 模态窗
@@ -78,6 +79,7 @@ export class bonusWithdrawHistoryListComponent implements OnInit {
       this.filterData.cardNumber,
       this.filterData.cardType,
       this.filterData.status,
+      this.filterData.type,
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {

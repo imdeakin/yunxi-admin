@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: User[];
   public yearOptions;
-  public password;
+  public password = '';
   public date;
   public filterData = {
     mobile: '',
@@ -133,6 +133,7 @@ export class UserListComponent implements OnInit {
   public getUserInfo(memberId):void {
     this.apiCall.getUserInfo(memberId, (data) => {
         this.modalData = data;
+        console.log(this.modalData);
     });
   }
 
@@ -151,11 +152,13 @@ export class UserListComponent implements OnInit {
     if (!this.modalShow) {
       this.modalData = null;
       this.totalData = null;
+      this.selDate = '';
+      this.password = '';
     }
   }
 
   public updateMemberInfo(){
-       this.apiCall.updateMemberInfo(this.modalData.member_id,this.modalData.member_level_id,(data)=>{
+       this.apiCall.updateMemberInfo(this.modalData.member_id,this.modalData.idcard,this.selDate,this.password,this.modalData.regionId,(data)=>{
           this.toggleModal();
           this.getUserList(1);
         })
