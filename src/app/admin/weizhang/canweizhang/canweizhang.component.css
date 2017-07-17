@@ -74,9 +74,9 @@
   font-size:14px;
 }
 .manager-table{
-  height:480px;
+  /* height:480px; */
   /*overflow-y: hidden;  */
-  overflow-x: scroll;
+  overflow-x: scroll; 
   margin:0;
 }
 .manager-table th{

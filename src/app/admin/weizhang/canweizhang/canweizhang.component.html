@@ -17,7 +17,6 @@
         <table>
           <thead>
           <tr class="canweizhangThead">
-            <th>编号</th>
             <th>订单编号</th>
             <th>车牌号</th>
             <th>姓名</th>
@@ -36,7 +35,6 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex }; let i = index">
-            <td>{{i+1}}</td>
             <td>{{item.sn}}</td>
             <td>{{item.car_number}}</td>
             <td>{{item.name}}</td>

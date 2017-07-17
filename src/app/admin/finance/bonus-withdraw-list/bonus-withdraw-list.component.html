@@ -110,7 +110,7 @@
         <div class="value">{{financeFunction.getRechageOrderStatusText(modalData.status)}}</div>
       </div>
       <div class="modal-btn-group">
-        <button>关闭</button>
+        <button type="button" (click)="toggleReadModal()">关闭</button>
       </div>
     </form>
     <div class="modal-close" (click)="toggleReadModal()">

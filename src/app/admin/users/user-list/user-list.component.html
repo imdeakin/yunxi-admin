@@ -50,7 +50,8 @@
             <td>{{usersFunction.isBlackOptions(item.is_black)}}</td>
             <td>
               <div class="table-btns">
-                <!--<a class="table-btn" href="javascript:void(0);">禁用</a>                                -->
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.is_black != 0" (click)="forbiddenModal(item)">禁用</a>                                
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.is_black != 1">解除</a>                                
                 <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/user-list/' + item.member_id">下级</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleSpreadModal(item.user_id,1)">推广</a>
@@ -67,7 +68,7 @@
     </div>
   </div>
 </div>
-<!--详情页  -->
+<!-- 详情页 -->
 <div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
     <form class="modal-form" (ngSubmit)="modalSubmit()">
@@ -103,10 +104,10 @@
             <label>密码</label>
              <input type="text" name="password" placeholder="不修改就不碰" [(ngModel)]="password">
           </div>
-          <!-- <div class="modal-input-group">
+           <div class="modal-detail-item">
             <label>会员等级</label>
-            <select-box [options]="usersFunction.userLevelOptions" [first]="{value:'',text:'请选择'}" [value]="modalData.member_level_id" (optionSelect)="modalData.member_level_id = $event"></select-box>
-          </div> -->
+            <div class="value">{{modalData.member_level_name}}</div>
+          </div> 
         </div>
         <div class="modal-half modal-half-right">
           <div class="modal-detail-item">
@@ -121,9 +122,10 @@
             <label>推介人账号</label>
             <div class="value">{{modalData.upmember_mobile}}</div>
           </div>
-          <div class="modal-input-group">
+          <div class="modal-detail-item">
             <label>所属城市</label>
-            <city-picker  (change)="modalData.regionId = $event" [name]="modalData.region_name"></city-picker>
+             <div class="value">{{modalData.region_name}}</div>
+             <city-picker  (change)="modalData.regionId = $event" [name]="modalData.region_name"></city-picker>
           </div>
         </div>
       </div>
@@ -138,6 +140,8 @@
     </div>
   </div>
 </div>
+
+<!-- 推广 -->
 <div class="modal-wrapper" [class.hidden]="!modalSpreadShow">
   <div class="modal-con">
     <form class="modal-form" >
@@ -193,7 +197,7 @@
     </div>
   </div>
 </div>
-<!--充值-->
+<!-- 充值 -->
 <div class="modal-wrapper" [class.hidden]="!rechargeShow">
   <div class="modal-con">
     <form class="modal-form" (ngSubmit)="recharge()">
@@ -248,6 +252,42 @@
     </div>
       </form>
     <div class="modal-close" (click)="toggleRecharge()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<!-- 禁用 -->
+<div class="modal-wrapper" [class.hidden]="!forbiddenShow">
+  <div class="modal-con forbiddenWindow">
+    <form class="modal-form" (ngSubmit)="banOrRecoveryMember(0)">
+    <h3 class="modal-title">禁用状态</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+            <div class="modal-input-group time">
+             <label>禁用直到日期</label>
+             <input type='text' value={{selDate2}} (change)="setInputDate2($event)"/>
+             <date-picker
+               [value]="value2"
+               [minDate]="minDate2"
+               [maxDate]="maxDate2"
+               [disableDays]="disableDays2"
+               [toContainPrevMonth]="toContainPrevMonth2"
+               [toContainNextMonth]="toContainNextMonth2"
+               (selectedDate)='setDate2($event)'></date-picker>
+            </div>
+            <div class="modal-input-group">
+              <label>原因</label>
+            
+              <textarea name="reason" [(ngModel)]="banModal.reason"></textarea>
+            </div>
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit">确认</button>
+        <button type="button" (click)="forbiddenModal()">关闭</button>
+      </div>
+    </div>
+      </form>
+    <div class="modal-close" (click)=" forbiddenModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>

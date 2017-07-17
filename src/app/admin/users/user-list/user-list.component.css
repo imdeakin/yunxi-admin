@@ -42,3 +42,9 @@
   white-space:nowrap;
   padding:0 6px;
 }
+.forbiddenWindow{
+  width: 420px;
+  height: 360px;
+  margin-left: -210px;
+  margin-top: -180px;
+}

@@ -1888,6 +1888,7 @@ export class ApiCall {
 
   //解除禁用会员
   public banOrRecoveryMember(memberId, status,forbiddenTim,reason ,success, failure?): void {
+    console.log(forbiddenTim);
     this.apiCall({
       url: this.apiConfig.paths.banOrRecoveryMember,
       data: {

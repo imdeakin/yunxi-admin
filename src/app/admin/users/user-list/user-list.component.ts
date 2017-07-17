@@ -56,6 +56,21 @@ export class UserListComponent implements OnInit {
     this.selDate = date;
   }
 
+  //禁用的日期时间
+  private selDate2: string = '';
+  private minDate2: string = '1970/01/01';
+  private maxDate2: string = '9999/12/31';
+  private disableDays2: number[] = [0, 6];    //For Sunday and Saturday
+  private toContainPrevMonth2: boolean = false;
+  private toContainNextMonth2: boolean = false;
+  private value2: string = '';
+  public setInputDate2(event) {
+    this.value2 = event.target.value;
+  }
+  public setDate2(date) {
+    this.selDate2 = date;
+  }
+
   // 模态窗
   public modalShow: boolean = false;
   public modalSpreadShow:boolean = false;
@@ -63,6 +78,7 @@ export class UserListComponent implements OnInit {
   public rechargeShow:boolean = false;
   public gradeShow:boolean = false;
   public priceShow:boolean = false;
+  public forbiddenShow:boolean = false;
   public modalData;
   public totalData;
   public rechargeData = {
@@ -77,10 +93,11 @@ export class UserListComponent implements OnInit {
     change:'',
     described:''
   };
-  // public banModal ={
-  //   forbiddenTime:'',
-  //   reason:''
-  // }
+  public banModal ={
+    memberId:'',
+    forbiddenTime:'',
+    reason:''
+  }
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -201,9 +218,12 @@ export class UserListComponent implements OnInit {
   }
 
   //解除禁用会员
-  // public banOrRecoveryMember(item,status?):void{
-  //   this.apiCall.banOrRecoveryMember(item.memberId,status,for)
-  // }
+  public banOrRecoveryMember(status):void{
+    this.apiCall.banOrRecoveryMember(this.banModal.memberId,status,this.selDate2+' 23:59:00',this.banModal.reason,(data)=>{
+          this.toggleRecharge();
+          this.getUserList(1);
+    })
+  }
 
   public getCurrQuota(item):void{
     let memberId = item.member_id;
@@ -271,5 +291,13 @@ export class UserListComponent implements OnInit {
       }else{
         this. cleanRechargeModal();
       }
+  }
+
+  //禁用弹窗
+  public forbiddenModal(item?):void{
+      if(item){
+        this.banModal.memberId = item.member_id;
+      }
+      this.forbiddenShow = !this.forbiddenShow;
   }
 }
