@@ -8,3 +8,6 @@
 .modal-half-right textarea{
     overflow-y:scroll;
 }
+.manager-page .filter-bar .input-group {
+    margin-right: 10px;
+}

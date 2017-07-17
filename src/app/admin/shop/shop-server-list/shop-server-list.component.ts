@@ -47,7 +47,7 @@ export class ShopServerListComponent implements OnInit {
       .map((params: Params) => this.getParams(params['shopId']))
       .subscribe((shopId: string) => {
         this.curShopId = shopId;
-        this.getAdminShopService(1);
+        this.getAdminShopServiceList(1);
       });
 
     this.computeOnResize();
@@ -62,12 +62,13 @@ export class ShopServerListComponent implements OnInit {
     });
   }
 
-  public getAdminShopService(curPageIndex?): void {
+  public getAdminShopServiceList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getAdminShopService(
+    this.apiCall.getAdminShopServiceList(
       this.curShopId,
+      '',
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {
@@ -88,7 +89,7 @@ export class ShopServerListComponent implements OnInit {
           () => {
             layer.msg('操作成功');
             layer.close(index);
-            this.getAdminShopService(1);
+            this.getAdminShopServiceList(1);
           },
           () => {
             layer.msg('操作失败');

@@ -51,7 +51,7 @@
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.is_black != 0" (click)="forbiddenModal(item)">禁用</a>                                
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.is_black != 1">解除</a>                                
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.is_black != 1" (click)="verificationConfirm(1,item)">解除</a>                                
                 <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/user-list/' + item.member_id">下级</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleSpreadModal(item.user_id,1)">推广</a>
@@ -125,7 +125,10 @@
           <div class="modal-detail-item">
             <label>所属城市</label>
              <div class="value">{{modalData.region_name}}</div>
-             <city-picker  (change)="modalData.regionId = $event" [name]="modalData.region_name"></city-picker>
+          </div>
+          <div class="modal-input-group">
+            <label>修改城市</label>
+            <city-picker  (change)="modalData.regionId = $event" [name]="modalData.region_name"></city-picker>
           </div>
         </div>
       </div>

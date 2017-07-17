@@ -9,7 +9,7 @@ import {User} from '../data-type/user';
 import {UsersFunction} from '../data-type/users-function';
 import { AdminFunc } from '../../../serv/admin.server';
 
-
+declare let layer: any;
 declare var $:any;
 
 @Component({
@@ -57,13 +57,13 @@ export class UserListComponent implements OnInit {
   }
 
   //禁用的日期时间
-  private selDate2: string = '';
-  private minDate2: string = '1970/01/01';
-  private maxDate2: string = '9999/12/31';
-  private disableDays2: number[] = [0, 6];    //For Sunday and Saturday
-  private toContainPrevMonth2: boolean = false;
-  private toContainNextMonth2: boolean = false;
-  private value2: string = '';
+  public selDate2: string = '';
+  public minDate2: string = '1970/01/01';
+  public maxDate2: string = '9999/12/31';
+  public disableDays2: number[] = [0, 6];    //For Sunday and Saturday
+  public toContainPrevMonth2: boolean = false;
+  public toContainNextMonth2: boolean = false;
+  public value2: string = '';
   public setInputDate2(event) {
     this.value2 = event.target.value;
   }
@@ -218,11 +218,16 @@ export class UserListComponent implements OnInit {
   }
 
   //解除禁用会员
-  public banOrRecoveryMember(status):void{
-    this.apiCall.banOrRecoveryMember(this.banModal.memberId,status,this.selDate2+' 23:59:00',this.banModal.reason,(data)=>{
-          this.toggleRecharge();
-          this.getUserList(1);
-    })
+  public banOrRecoveryMember(status,item?):void{
+    if(item){
+       this.banModal.memberId = item.member_id;
+    }
+     this.apiCall.banOrRecoveryMember(this.banModal.memberId,status,this.selDate2+' 23:59:00',this.banModal.reason,(data)=>{
+        this.getUserList(1);
+      })
+    if(status == 0){
+         this.forbiddenModal();
+    }
   }
 
   public getCurrQuota(item):void{
@@ -296,8 +301,34 @@ export class UserListComponent implements OnInit {
   //禁用弹窗
   public forbiddenModal(item?):void{
       if(item){
-        this.banModal.memberId = item.member_id;
+          this.banModal.memberId = item.member_id;
       }
       this.forbiddenShow = !this.forbiddenShow;
+      if(!this.forbiddenShow){
+          this.banModal = {
+              memberId:'',
+              forbiddenTime:'',
+              reason:''
+          }
+          this.selDate2 = '';
+      }
+  }
+  
+   //确认弹窗
+  public verificationConfirm(status,item?): void {
+    let index = layer.confirm(
+      '请确认结果',
+      {
+        title: '确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.banOrRecoveryMember(status,item);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
   }
 }

@@ -1,7 +1,7 @@
 /**
  * Created by Deakin on 2017/5/16 0016.
  */
-export class ShopFunction {
+export class PShopFunction {
   // 门店状态选项组
   public static shopStatusOptions = [
     {
@@ -33,24 +33,24 @@ export class ShopFunction {
   // 订单状态选项组
   public static orderStatusOptions = [
     {
+      value: '',
+      text: '不限'
+    },
+    {
+      value: '-2',
+      text: '取消'
+    },
+    {
+      value: '-1',
+      text: '失败'
+    },
+    {
+      value: '0',
+      text: '待支付'
+    },
+    {
       value: '1',
-      text: '待支付'
-    },
-    {
-      value: '2',
-      text: '已支付'
-    },
-    {
-      value: '3',
-      text: '待支付'
-    },
-    {
-      value: '4',
-      text: '已删除'
-    },
-    {
-      value: '5',
-      text: '待核验'
+      text: '成功'
     }
   ];
 
@@ -124,20 +124,17 @@ export class ShopFunction {
   public static getOrderStatusText(status: number): string {
     let text: string;
     switch (status) {
+      case -2:
+        text = '取消';
+        break;
+      case -1:
+        text = '失败';
+        break;
+      case 0:
+        text = '待支付';
+        break;
       case 1:
-        text = '待支付';
-        break;
-      case 2:
-        text = '已支付';
-        break;
-      case 3:
-        text = '待支付';
-        break;
-      case 4:
-        text = '已删除';
-        break;
-      case 5:
-        text = '待核验';
+        text = '成功';
         break;
       default:
         text = '未知状态'

@@ -1,0 +1,144 @@
+<div class="manager-page">
+  <div class="header">
+    <h3>{{title}}<s></s></h3>
+  </div>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="content-wrapper">
+      <div class="filter-bar">
+        <form class="clearfix" (ngSubmit)="getPersonShopServiceList(1)">
+          <div class="input-group">
+            <label>服务名称</label>
+            <input type="text" name="serviceName" value="" [(ngModel)]="filterData.serviceName">
+          </div>
+          <div class="input-group">
+            <label>状态</label>
+            <select-box [options]="shopFunction.shopServerStatusOptions" [name]="filterData.onSale"
+                        (optionSelect)="filterData.onSale = $event"></select-box>
+          </div>
+          <button class="text-btn text-sub" type="submit">搜索</button>
+          <button class="text-btn text-sub" type="button" (click)="toggleEditModal()">添加</button>
+        </form>
+      </div>
+      <div class="manager-table">
+        <table>
+          <thead>
+          <tr>
+            <th>门店编号</th>
+            <th>服务名称</th>
+            <th>服务价格</th>
+            <th>是否上架</th>
+            <th>创建时间</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{item.shop_id}}</td>
+            <td>{{item.service_name}}</td>
+            <td>{{item.yx_price}}</td>
+            <td>{{shopFunction.getShopServerStatusText(item.on_sale)}}</td>
+            <td>{{item.create_time}}</td>
+            <td>
+              <div class="table-btns">
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
+        <pagination-controls (pageChange)="getPersonShopServiceList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<!--查看  -->
+<div class="modal-wrapper edit-modal" [class.hidden]="!toggleReadshow" *ngIf="dataModal">
+  <div class="modal-con">
+    <h3 class="modal-title">编辑</h3>
+    <div class="modal-detail-content">
+      <div class="modal-detail-item">
+        <label>门店编号</label>
+        <div class="value">{{dataModal.sn}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>服务</label>
+        <div class="value">{{dataModal.service_name}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>市场价</label>
+        <div class="value">{{dataModal.market_price}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>云洗价</label>
+        <div class="value">{{dataModal.yx_price}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>创建时间</label>
+        <div class="value">{{dataModal.create_time}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>是否上架</label>
+        <div class="value">{{shopFunction.getShopServerStatusText(dataModal.on_sale)}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>封面</label>
+        <div class="value">{{dataModal.sn}}</div>
+      </div>
+      <div class="modal-detail-item">
+        <label>服务描述</label>
+        <div class="value">{{dataModal.sn}}</div>
+      </div>
+      <div class="modal-btn-group">
+        <!-- <button type="submit" (click)="toggleEditModal()">保存</button> -->
+        <button type="submit" (click)="toggleModal()">关闭</button>
+      </div>
+    </div>
+    <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<!--编辑  -->
+<div class="modal-wrapper edit-modal" [class.hidden]="!toggleEditshow" *ngIf="dataModal">
+  <div class="modal-con">
+    <h3 class="modal-title" [class.hidden]="!dataModal.shop_service_id">编辑</h3>
+    <h3 class="modal-title" [class.hidden]="dataModal.shop_service_id">增加</h3>
+    <form class="modal-form">
+      <div class="modal-input-group">
+        <label>服务</label>
+        <input type="text" name="service_name" [(ngModel)]="dataModal.service_name">
+      </div>
+      <div class="modal-input-group">
+        <label>市场价</label>
+        <input type="text" name="market_price" [(ngModel)]="dataModal.market_price">
+      </div>
+      <div class="modal-input-group">
+        <label>云洗价</label>
+        <input type="text" name="yx_price" [(ngModel)]="dataModal.yx_price">
+      </div>
+      <div class="modal-input-group">
+        <label>是否上架</label>
+        <select-box [options]="shopFunction.shopServerStatusOptions" first="{value:'',text:'请选择'}"></select-box>
+      </div>
+      <div class="modal-input-group">
+        <label>封面</label>
+        <!-- <input type="text" name="price" value=""> -->
+      </div>
+      <div class="modal-input-group">
+        <label>服务描述</label>
+         <textarea type="text" name="described" [(ngModel)]="dataModal.described"></textarea> 
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit" (click)="toggleEditModal()">保存</button>
+        <button type="submit" (click)="toggleEditModal()">关闭</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggleEditModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>

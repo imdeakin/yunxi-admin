@@ -146,11 +146,33 @@ export class ApiConfig {
     updateAdminShopStatus: this.root + '/adminShop/updateMallShopStatus', // 修改门店状态
 
     // 管理员-门店服务
-    getAdminShopService: this.root + '/adminShop/mallShopServiceList', // 获取门店服务列表
+    getAdminShopServiceList: this.root + '/adminShop/mallShopServiceList', // 获取门店服务列表
     addAdminShopService: this.root + '/adminShop/saveShopService', // 添加门店服务
     updateAdminShopService: this.root + '/adminShop/saveShopService', // 修改门店服务
     updateAdminShopServiceStatus: this.root + '/adminShop/onSaleShopService', // 修改门店服务上架状态
     removeAdminShopService: this.root + '/adminShop/delShopService', // 删除门店服务
+    getAdminShopServiceOrderList: this.root + '/adminShop/mallShopServiceOrderList', // 获取门店服务订单列表
+    getAdminShopServiceOrderInfo: this.root + '/adminShop/getMallShopServiceOrder', // 获取门店服务订单详情
+
+    /*
+     * 个人门店管理
+     */
+
+    // 个人-门店列表
+    getPersonShopList: this.root + '/myshop/selectShopList', // 获取门店列表
+    getPersonShopInfo: this.root + '/myshop/getShopListInfo', // 获取门店详情
+    withdrawApply:this.root + '/myshop/withdrawApply',//提现
+
+    // 个人-门店服务
+    getPersonShopServiceList: this.root + '/myshop/shopServeceList', // 获取门店服务列表
+    getPersonShopServiceInfo: this.root + '/myshop/getShopServece', // 获取门店服务详情
+    addPersonShopService: this.root + '/myshop/addShopServeceType', // 添加门店服务
+    updatePersonShopService: this.root + '/myshop/updateShopServeceType', // 修改门店服务
+    removePersonShopService: this.root + '/myshop/delShopServeceType', // 删除门店服务
+
+    // 个人-门店服务订单
+    getPersonShopServiceOrderList: this.root + '/myshop/mallShopServiceOrderList', // 获取门店服务订单列表
+    getPersonShopServiceOrderInfo: this.root + '/myshop/getMallShopServiceOrder', // 获取门店服务订单详情
 
     // 财务管理
     getCloudpayVerificationList: this.root + '/finance/yftOrderVerificationList', // 获取云付通核验列表
@@ -170,7 +192,7 @@ export class ApiConfig {
     updateMallShopStatus: this.root + '/adminShop/updateMallShopStatus',//修改门店状态
     getMallShopServiceList: this.root + '/adminShop/mallShopServiceList',//获取门店服务列表
     getMallShopServiceOrderList: this.root + '/adminShop/mallShopServiceOrderList',//获取门店订单列表
-    getMallShopServiceOrder: this.root + '/adminShop/getMallShopServiceOrder',//获取门店订单详情
+    getMallShopServiceOrder: this.root + '/adminShop/getAdminShopServiceOrderInfo',//获取门店订单详情
 
     // 消息管理
     getMsgList: this.root + '/sysMsg/sysMsgList', // 获取消息列表

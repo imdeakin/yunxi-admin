@@ -41,10 +41,14 @@ import {
   OrderListComponent,
 
   // 门店管理
-  ShopApplyListComponent,
   ShopListComponent,
   ShopServerListComponent,
   ShopOrderListComponent,
+
+  // 个人门店
+  PShopListComponent,
+  PShopServerListComponent,
+  PShopOrderListComponent,
 
   // 财务管理
   CloudpayVerificationComponent,
@@ -98,7 +102,7 @@ const AdminRoutes: Routes = [
       {path: 'user-list/:memberId', component:myUserListComponent},
       {path: 'user-record', component: UserRecordComponent},
       {path: 'uplevel-order', component: UplevelOrderComponent},
-      {path: 'relation-list', component: RelationListComponent},    
+      {path: 'relation-list', component: RelationListComponent},
 
 
       // 合伙人管理
@@ -112,10 +116,17 @@ const AdminRoutes: Routes = [
       {path: 'order-list', component: OrderListComponent},
 
       // 门店管理
-      {path: 'shop-apply-list', component: ShopApplyListComponent},
       {path: 'shop-list', component: ShopListComponent},
       {path: 'shop-list/:shopId', component: ShopServerListComponent},
       {path: 'shop-order-list', component: ShopOrderListComponent},
+
+      // 门店管理
+      {path: 'pshop-list', component: PShopListComponent},
+      {path: 'pshop-list/:shopId', component: PShopServerListComponent},
+      {path: 'pshop-server-list', component: PShopServerListComponent},
+      {path: 'pshop-order-list', component: PShopOrderListComponent},
+
+      // 消息管理
       {path: 'msg-list', component: MsgListComponent},
       {path: 'feedback-list', component: FeedbackListComponent},
 

@@ -5,21 +5,21 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
-import {ShopFunction} from '../data-type/shop-function';
-import {ShopOrderList} from '../data-type/shop-order-list';
+import {PShopFunction} from '../data-type/pshop-function';
+import {PShopOrderList} from '../data-type/pshop-order-list';
 
 @Component({
-  selector: 'shop-order-list',
-  templateUrl: './shop-order-list.component.html',
-  styleUrls: ['./shop-order-list.component.css']
+  selector: 'pshop-order-list',
+  templateUrl: './pshop-order-list.component.html',
+  styleUrls: ['./pshop-order-list.component.css']
 })
-export class ShopOrderListComponent implements OnInit {
+export class PShopOrderListComponent implements OnInit {
   public title = '门店订单';
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList: ShopOrderList[] = [];
+  public tableList: PShopOrderList[] = [];
   public filterData = {
     sn: '',
     status: ''
@@ -27,7 +27,7 @@ export class ShopOrderListComponent implements OnInit {
 
   public modalData;
 
-  public shopFunction = ShopFunction;
+  public pshopFunction = PShopFunction;
 
   // 模态窗
   public modalShow: boolean = false;
@@ -37,7 +37,7 @@ export class ShopOrderListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.computeOnResize();
-    this.getAdminShopServiceOrderList();
+    this.getPersonShopServiceOrderList();
   }
 
   public computeOnResize() {
@@ -49,28 +49,26 @@ export class ShopOrderListComponent implements OnInit {
     });
   }
 
-  public getAdminShopServiceOrderList(curPageIndex?): void {
+  public getPersonShopServiceOrderList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getAdminShopServiceOrderList(
+    this.apiCall.getPersonShopServiceOrderList(
       this.filterData.sn,
       this.filterData.status,
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {
         this.tableList = list;
-        console.log(this.tableList);
         this.total = total;
       }
     );
   }
 
-  public getAdminShopServiceOrderInfo(shopServiceOrderId): void {
-    this.apiCall.getAdminShopServiceOrderInfo(
+  public getPersonShopServiceOrderInfo(shopServiceOrderId): void {
+    this.apiCall.getPersonShopServiceOrderInfo(
       shopServiceOrderId,
       (data) => {
-        console.log(data);
         this.modalData = data;
       }
     );
@@ -80,7 +78,7 @@ export class ShopOrderListComponent implements OnInit {
   public toggleModal(item?): void {
     this.modalShow = !this.modalShow;
     if (item) {
-      this.getAdminShopServiceOrderInfo(item.shop_service_order_id)
+      this.getPersonShopServiceOrderInfo(item.shop_service_order_id)
     }
     if (!this.modalShow) {
       this.modalData = null;

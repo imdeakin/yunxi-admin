@@ -338,6 +338,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
   // 保存商品轮播图
   public saveGoodsSlide(): void {
     if (this.curGoodsSlideList != this.oldGoodsSlideList) {
+
       let delList = this.originalGoodsSlideList;
       let addList = this.curGoodsSlideList;
 
@@ -374,6 +375,8 @@ export class GoodsListComponent implements OnInit, DoCheck {
         );
 
       }
+
+      this.oldGoodsSlideList = addList;
     }
 
     // 进入下一步
