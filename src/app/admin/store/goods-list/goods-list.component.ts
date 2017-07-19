@@ -450,6 +450,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
 
   // 获取类型参数值列表
   public getStoreGoodsTypeAttrValList(paramId) {
+    console.log(123);
     this.apiCall.getStoreGoodsTypeAttrValList(
       this.curGoodsTypeId,
       paramId,
@@ -568,7 +569,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
         for (let i = 0, len = arr.length; i < len; i++) {
           optionsArr.push(this.getStoreGoodsSKUAttrValOptions(arr[i].param_id))
         }
-        console.log(optionsArr)
         this.goodsSKUAttrValOptionsArr = optionsArr;
       }
     )
@@ -620,6 +620,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
     this.apiCall.getStoreGoodsSKU(
       skuId,
       (data) => {
+        console.log(data);
         this.editGoodsSKUModalData = data;
       }
     );
@@ -675,6 +676,8 @@ export class GoodsListComponent implements OnInit, DoCheck {
    * 编辑商品销售属性
    */
   public toggleEditGoodsSKUModal(skuId?): void {
+    console.log(this.goodsSKUList);
+    console.log(skuId);
     if (skuId) {
       this.getStoreGoodsSKU(skuId);
     }

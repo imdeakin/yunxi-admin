@@ -1,0 +1,12 @@
+<div class="city-picker-con">
+  <input [name]="name" value="{{addr}}" hidden>
+  <div class="city-picker-select city-picker-province">
+    <select-box [options]="provinceList" [index]="-1" [placeholder]="'选择'" [value]="provinceCode" (optionSelect)="setProvinceList($event)"></select-box>
+  </div>
+  <div class="city-picker-select city-picker-city" [class.hidden]="!cityList?.length">
+    <select-box [options]="cityList" [value]="cityCode" (optionSelect)="setCityList($event)"></select-box>
+  </div>
+  <div class="city-picker-select city-picker-district" [class.hidden]="!districtList?.length">
+    <select-box [options]="districtList" [value]="districtCode" (optionSelect)="setDistrictList($event)"></select-box>
+  </div>
+</div>

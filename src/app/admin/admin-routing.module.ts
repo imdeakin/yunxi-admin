@@ -49,6 +49,8 @@ import {
   PShopListComponent,
   PShopServerListComponent,
   PShopOrderListComponent,
+  PShopWithdrawListComponent,
+  PShopFlowlogListComponent,
 
   // 财务管理
   CloudpayVerificationComponent,
@@ -125,7 +127,9 @@ const AdminRoutes: Routes = [
       {path: 'pshop-list/:shopId', component: PShopServerListComponent},
       {path: 'pshop-server-list', component: PShopServerListComponent},
       {path: 'pshop-order-list', component: PShopOrderListComponent},
-
+      {path: 'pshop-withdraw-list',component:PShopWithdrawListComponent},
+      {path: 'pshop-flowlog-list',component:PShopFlowlogListComponent},
+      
       // 消息管理
       {path: 'msg-list', component: MsgListComponent},
       {path: 'feedback-list', component: FeedbackListComponent},

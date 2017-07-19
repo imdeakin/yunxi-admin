@@ -141,6 +141,14 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '门店订单',
           link: '/admin/pshop-order-list'
+        },
+        {
+          title:'门店体现记录',
+          link:'/admin/pshop-withdraw-list'
+        },
+        {
+          title:'门店流水',
+          link:'/admin/pshop-flowlog-list'
         }
       ]
     },

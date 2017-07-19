@@ -19,10 +19,10 @@
             <select-box [name]="filterData.partnerLevelId" [options]="partnerFunction.partnerLevelOptions"
                         (optionSelect)="filterData.partnerLevelId = $event"></select-box>
           </div>
-          <div class="input-group">
+          <!-- <div class="input-group">
             <label>城市</label>
             <city-picker [name]="filterData.regionId" (change)="filterData.regionId = $event"></city-picker>
-          </div>
+          </div> -->
           <div class="input-group">
             <label>状态</label>
             <select-box [name]="filterData.status" [options]="partnerFunction.partnerApplyStatusOptions"

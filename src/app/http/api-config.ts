@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://yx.51meets.com:8082'; // http://www.gzyueyun.com 本地192.168.3.5:8082http://yx.51meets.com
+  public server: string = 'http://192.168.3.125:8080'; // http://www.gzyueyun.com 本地192.168.3.125http://yx.51meets.com
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
@@ -162,17 +162,26 @@ export class ApiConfig {
     getPersonShopList: this.root + '/myshop/selectShopList', // 获取门店列表
     getPersonShopInfo: this.root + '/myshop/getShopListInfo', // 获取门店详情
     withdrawApply:this.root + '/myshop/withdrawApply',//提现
+    getMyAccountList:this.root + '/myshop/getMyAccountList',//获取我的账户列表
+    updateShopInfo:this.root + '/myshop/updateShopInfo',//编辑个人门店详情
 
     // 个人-门店服务
     getPersonShopServiceList: this.root + '/myshop/shopServeceList', // 获取门店服务列表
     getPersonShopServiceInfo: this.root + '/myshop/getShopServece', // 获取门店服务详情
     addPersonShopService: this.root + '/myshop/addShopServeceType', // 添加门店服务
-    updatePersonShopService: this.root + '/myshop/updateShopServeceType', // 修改门店服务
+    updatePersonShopService: this.root + '/myshop/updateAndInsertShopServece', // 修改和增加门店服务
     removePersonShopService: this.root + '/myshop/delShopServeceType', // 删除门店服务
+    getShopIdShopName:this.root + '/myshop/getShopIdShopName',//获取门店名字和id
+
+    //个人-门店服务体现记录
+    getShopWithdrawList:this.root + '/myshop/shopWithdrawList',
 
     // 个人-门店服务订单
     getPersonShopServiceOrderList: this.root + '/myshop/mallShopServiceOrderList', // 获取门店服务订单列表
     getPersonShopServiceOrderInfo: this.root + '/myshop/getMallShopServiceOrder', // 获取门店服务订单详情
+
+    //个人-门店流水
+    getStoreAccountFlowlogList:this.root + '/myshop/storeAccountFlowlogList',//门店流水
 
     // 财务管理
     getCloudpayVerificationList: this.root + '/finance/yftOrderVerificationList', // 获取云付通核验列表

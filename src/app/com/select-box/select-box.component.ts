@@ -18,7 +18,7 @@ export class SelectBoxComponent implements OnInit, DoCheck {
   @Input() public options: Option[];
   @Input() public first = {
     value: '',
-    text: '不限'
+    text: '请选择'
   };
   @Input() public index: number;
   @Input() public value: string;

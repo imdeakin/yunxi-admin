@@ -24,6 +24,7 @@
           <thead>
           <tr>
             <th>门店编号</th>
+            <th>所属门店</th>
             <th>服务名称</th>
             <th>服务价格</th>
             <th>是否上架</th>
@@ -35,6 +36,7 @@
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{item.shop_id}}</td>
+            <td>{{item.shop_name}}</td>
             <td>{{item.service_name}}</td>
             <td>{{item.yx_price}}</td>
             <td>{{shopFunction.getShopServerStatusText(item.on_sale)}}</td>
@@ -86,11 +88,11 @@
       </div>
       <div class="modal-detail-item">
         <label>封面</label>
-        <div class="value">{{dataModal.sn}}</div>
+           <div class="value"><img class="modal-show-img" src="{{dataModal.url}}" alt="图片"></div>   
       </div>
       <div class="modal-detail-item">
         <label>服务描述</label>
-        <div class="value">{{dataModal.sn}}</div>
+        <div class="value">{{dataModal.service_details}}</div>
       </div>
       <div class="modal-btn-group">
         <!-- <button type="submit" (click)="toggleEditModal()">保存</button> -->
@@ -107,7 +109,11 @@
   <div class="modal-con">
     <h3 class="modal-title" [class.hidden]="!dataModal.shop_service_id">编辑</h3>
     <h3 class="modal-title" [class.hidden]="dataModal.shop_service_id">增加</h3>
-    <form class="modal-form">
+    <form class="modal-form" (ngSubmit)="submitModal()">
+      <div class="modal-input-group">
+        <label>所属门店</label>
+        <select-box [options]="shopList" [value]="dataModal.shop_id" [placeholder]="'请选择'"  (optionSelect)="dataModal.shop_id = $event"></select-box>
+      </div>
       <div class="modal-input-group">
         <label>服务</label>
         <input type="text" name="service_name" [(ngModel)]="dataModal.service_name">
@@ -122,18 +128,21 @@
       </div>
       <div class="modal-input-group">
         <label>是否上架</label>
-        <select-box [options]="shopFunction.shopServerStatusOptions" first="{value:'',text:'请选择'}"></select-box>
+        <select-box [options]="shopFunction.shopServerStatusOptions" [value]="on_sale+''" [placeholder]="'请选择'"  (optionSelect)="dataModal.on_sale = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>封面</label>
-        <!-- <input type="text" name="price" value=""> -->
+        <img-upload [img]="{url:file.url}"
+                      [selectable]="false"
+                      (afterChange)="file = $event"></img-upload>
+        <!-- <div class=""><img src="{{dataModal.url}}" alt=""></div> -->
       </div>
       <div class="modal-input-group">
         <label>服务描述</label>
-         <textarea type="text" name="described" [(ngModel)]="dataModal.described"></textarea> 
+         <textarea type="text" name="described" [(ngModel)]="dataModal.service_details"></textarea> 
       </div>
       <div class="modal-btn-group">
-        <button type="submit" (click)="toggleEditModal()">保存</button>
+        <button type="submit">保存</button>
         <button type="submit" (click)="toggleEditModal()">关闭</button>
       </div>
     </form>

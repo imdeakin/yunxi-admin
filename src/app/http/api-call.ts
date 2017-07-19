@@ -1798,6 +1798,7 @@ export class ApiCall {
     });
   }
 
+
   /**
    * 个人-获取门店详情
    * @param userId 用户ID
@@ -1816,6 +1817,66 @@ export class ApiCall {
       failure: failure
     });
   }
+
+  /**
+   * 个人-门店获取我的账户
+   */ 
+
+  public getMyAccountList(shopId,adUserId,success,failure?):void{
+    this.apiCall({
+      url: this.apiConfig.paths.getMyAccountList,
+      data: {
+        shopId: shopId,
+        adUserId: adUserId
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-门店提现
+   */ 
+
+  public withdrawApply(shopId,adUserId,bankCardId,money,payPwd,success,failure?):void{
+     this.apiCall({
+      url: this.apiConfig.paths.withdrawApply,
+      data: {
+        shopId: shopId,
+        adUserId: adUserId,
+        bankCardId:bankCardId,
+        money:money,
+        payPwd:payPwd
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  /**
+   * 个人-门店编辑
+   */ 
+  public updateShopInfo(shopId,spokesMan,provinceCode,cityCode,areaCode,mobile,shopName,businessScope,detailedAddress,graphicIntroduction,openingHours,success,failure?):void{
+    this.apiCall({
+      url: this.apiConfig.paths.updateShopInfo,
+      data: {
+        shopId: shopId,
+        spokesMan: spokesMan,
+        provinceCode: provinceCode,
+        cityCode: cityCode,
+        areaCode: areaCode,
+        mobile:mobile,
+        shopName:shopName,
+        businessScope:businessScope,
+        detailedAddress:detailedAddress,
+        graphicIntroduction:graphicIntroduction,
+        openingHours:openingHours
+      },
+      success: success,
+      failure: failure
+    })
+  }
+
 
   /**
    * 个人-获取门店服务列表
@@ -1848,11 +1909,40 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public getPersonShopServiceInfo(shopServiceId, success, failure?): void {
+  public getPersonShopServiceInfo(shopServiceId,success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getPersonShopServiceInfo,
       data: {
-        shopServiceId: shopServiceId
+        shopServiceId: shopServiceId,
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
+  public getShopIdShopName(userId,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.getShopIdShopName,
+      data:{
+        userId:userId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  public updatePersonShopServiceInfo(shopId,shopServiceId,serviceName,marketPrice,yxPrice,onSale,fileId,serviceDetails,success, failure?): void {
+    this.apiCall({
+      url: this.apiConfig.paths.updatePersonShopService,
+      data: {
+        shopId:shopId,
+        shopServiceId: shopServiceId,
+        serviceName:serviceName,
+        marketPrice:marketPrice,
+        yxPrice:yxPrice,
+        onSale:onSale,
+        fileId:fileId,
+        serviceDetails:serviceDetails
       },
       success: success,
       failure: failure
@@ -1915,6 +2005,23 @@ export class ApiCall {
       failure: failure
     });
   }
+ 
+  //个人门店提现记录表
+  public getShopWithdrawList(userId,sn,status,curPageIndex,pageSize,success,failure?):void{
+     this.apiCall({
+      url: this.apiConfig.paths.getShopWithdrawList,
+      data: {
+        userId:userId,
+        index: curPageIndex,
+        pageSize: pageSize,
+        sn: sn,
+        status: status
+      },
+      success: success,
+      failure: failure
+    });
+  }
+
 
   /**
    * 个人-获取门店服务订单列表
@@ -1954,6 +2061,21 @@ export class ApiCall {
       success: success,
       failure: failure
     });
+  }
+
+  //个人-门店流水
+  public getStoreAccountFlowlogList(searchName,type,curPageIndex,pageSize,success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.getStoreAccountFlowlogList,
+      data:{
+        searchName:searchName,
+        type:type,
+        index:curPageIndex,
+        pageSize:pageSize
+      },
+      success:success,
+      failure:failure
+    })
   }
 
   public getCloudpayVerificationList(type, sn, curPageIndex: number, pageSize: number, success, failure?): void {

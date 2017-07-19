@@ -38,19 +38,9 @@ export class YoukaOrderComponent implements OnInit {
   };
   public youkaFunction = YoukaFunction;
 
-  public classifyOptions = [
-    {
-      value: '',
-      text: '所有'
-    }
-  ].concat(this.youkaFunction.youcaTaocanClassOptions);
+  public classifyOptions = this.youkaFunction.youcaTaocanClassOptions;
 
-  public tradeModeOptions = [
-    {
-      value: '',
-      text: '所有'
-    }
-  ].concat(this.youkaFunction.youcaTradeModeOptions);
+  public tradeModeOptions = this.youkaFunction.youcaTradeModeOptions;
 
   public select_active = {
     classify: true

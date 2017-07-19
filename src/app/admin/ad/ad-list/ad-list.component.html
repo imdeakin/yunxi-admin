@@ -12,11 +12,11 @@
           </div>
           <div class="input-group">
             <label>业务</label>
-            <select-box [options]="adFunction.adBusinessOptions" [name]="filterData.businessId" (optionSelect)="filterData.businessId = $event"></select-box>
+            <select-box [options]="adFunction.adBusinessOptions" [name]="filterData.businessId" [placeholder]="'选择'" (optionSelect)="filterData.businessId = $event"></select-box>
           </div>
           <div class="input-group">
             <label>广告位置</label>
-            <select-box [options]="adFunction.adPositionOptions" [name]="filterData.positionCode" (optionSelect)="filterData.positionCode = $event"></select-box>
+            <select-box [options]="adFunction.adPositionOptions" [name]="filterData.positionCode" [placeholder]="'选择'" (optionSelect)="filterData.positionCode = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
           <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleEditModal()">添加</a>

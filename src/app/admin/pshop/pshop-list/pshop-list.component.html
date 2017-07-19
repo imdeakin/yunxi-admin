@@ -7,7 +7,7 @@
       <div class="filter-bar">
         <form class="clearfix" (ngSubmit)="getPersonShopList(1)">
           <div class="input-group">
-            <label>门店账号</label>
+            <label>门店编号</label>
             <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
           </div>
           <div class="input-group">
@@ -22,8 +22,7 @@
         <table>
           <thead>
           <tr>
-            <th>门店账号</th>
-            <th>申请人</th>
+            <th>门店编号</th>
             <th>所在地区</th>
             <th>门店名称</th>
             <th>经营范围</th>
@@ -39,20 +38,19 @@
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{item.user_mobile}}</td>
-            <td>{{item.user_name}}</td>
             <td>{{item.region_name}}</td>
             <td>{{item.shop_name}}</td>
             <td>{{item.business_scope}}</td>
             <td>{{item.spokes_man}}</td>
             <td>{{item.mobile}}</td>
-            <td>{{'缺字段'}}</td>
+            <td>{{item.balance}}</td>
             <td>{{item.create_time}}</td>
             <td>{{shopFunction.getShopStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadDetailModal(item.shop_id)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditDetailModal(item.shop_id)">编辑</a>
-                <a class="table-btn" href="javascript:void(0);">提现</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleTakeMoneyModal(item.shop_id)">提现</a>
               </div>
             </td>
           </tr>
@@ -134,12 +132,8 @@
       <div class="modal-detail">
         <div class="modal-detail-content">
           <div class="modal-detail-item">
-            <label>申请账号</label>
-            <div class="value">{{shopDetail.user_mobile}}</div>
-          </div>
-          <div class="modal-detail-item">
-            <label>申请人</label>
-            <div class="value">{{shopDetail.user_name}}</div>
+            <label>门店编号</label>
+            <div class="value">{{shopDetail.sn}}</div>
           </div>
           <div class="modal-detail-item">
             <label>所属地区</label>
@@ -178,8 +172,8 @@
             <div class="value"><img class="modal-show-img" src="{{shopDetail.license_photo}}"></div>
           </div>
           <div class="modal-btn-group">
-            <button (click)="toggleReadShopBankModal()">查看银行卡信息</button>
-            <button (click)="toggleReadShopIdCardModal()">查看身份证信息</button>
+             <button (click)="toggleReadShopBankModal()">查看银行卡信息</button> 
+             <button (click)="toggleReadShopIdCardModal()">查看身份证信息</button> 
           </div>
           <div class="modal-btn-group">
             <button (click)="toggleReadDetailModal()">关闭</button>
@@ -203,16 +197,20 @@
       <div class="modal-detail">
         <div class="modal-detail-content">
           <div class="modal-detail-item">
-            <label>银行卡号</label>
+            <label>账号名</label>
+            <div class="value">{{shopDetail.account_name}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>卡号</label>
             <div class="value">{{shopDetail.card_number}}</div>
           </div>
           <div class="modal-detail-item">
-            <label>卡类型/发卡行</label>
-            <div class="value">{{shopFunction.getBankCardTypeText(shopDetail.card_type)}}</div>
+            <label>开户银行</label>
+            <div class="value">{{shopDetail.bank}}{{shopDetail.bank_branch}}</div>
           </div>
           <div class="modal-detail-item">
-            <label>预留号码</label>
-            <div class="value">{{shopDetail.account_mobile}}</div>
+            <label>开户支行</label>
+            <div class="value">{{shopDetail.bank}}{{shopDetail.bank_branch}}</div>
           </div>
         </div>
       </div>
@@ -273,55 +271,39 @@
       <h3 class="modal-title">门店详情</h3>
       <div class="modal-detail">
         <div class="modal-detail-content">
-          <form class="modal-form">
-          <div class="modal-input-group">
-            <label>申请账号</label>
-            <input type="text" name="user_mobile" [(ngModel)]="shopDetail.user_mobile">
-          </div>
-          <div class="modal-input-group">
-            <label>申请人</label>
-            <input type="text" name="user_name" [(ngModel)]="shopDetail.user_name">
-          </div>
+          <form class="modal-form" (ngSubmit)="updateShopInfo()">
           <div class="modal-input-group">
             <label>所属地区</label>
-            <input type="text" name="region_name" [(ngModel)]="shopDetail.region_name">
+            <city-pickers (change)="place = $event" [option]="valuePlace"></city-pickers>
           </div>
           <div class="modal-input-group">
-            <label>负责人</label>
+            <label>负责人<span style="color:red;">*</span></label>
             <input type="text" name="spokes_man" [(ngModel)]="shopDetail.spokes_man">
           </div>
           <div class="modal-input-group">
-            <label>联系电话</label>
+            <label>联系电话<span style="color:red;">*</span></label>
             <input type="text" name="mobile" [(ngModel)]="shopDetail.mobile">
           </div>
           <div class="modal-input-group">
-            <label>门店名称</label>
+            <label>门店名称<span style="color:red;">*</span></label>
             <input type="text" name="shop_name" [(ngModel)]="shopDetail.shop_name">
           </div>
           <div class="modal-input-group">
-            <label>经营范围</label>
+            <label>经营范围<span style="color:red;">*</span></label>
             <input type="text" name="business_scope" [(ngModel)]="shopDetail.business_scope">
           </div>
           <div class="modal-input-group">
-            <label>申请时间</label>
-            <input type="text" name="create_time" [(ngModel)]="shopDetail.create_time">
+            <label>详细地址<span style="color:red;">*</span></label>
+            <input type="text" name="detailed_address" [(ngModel)]="shopDetail.detailed_address">
           </div>
-          <!-- <div class="modal-input-group">
-            <label>状态</label>
-            <input type="text" name="create_time" [(ngModel)]="shopDetail.create_time">
-            <div class="value">{{shopFunction.getShopStatusText(shopDetail.status)}}</div>
-          </div> -->
-          <!-- <div class="modal-input-group">
-            <label>详细地址</label>
-            <div class="value">{{shopDetail.detailed_address}}</div>
-          </div> -->
-          <!-- <div class="modal-input-group">
-            <label>营业执照</label>
-            <div class="value"><img class="modal-show-img" src="{{shopDetail.license_photo}}"></div>
-          </div> -->
+            <div class="modal-input-group">
+            <label>营业时间<span style="color:red;">*</span></label>
+             <input type="text" name="opening_hours" [(ngModel)]="shopDetail.opening_hours">
+          </div>
           <div class="modal-btn-group">
-            <button (click)="toggleEditShopBankModal()">编辑银行卡信息</button>
-            <button (click)="toggleEditShopIdCardModal()">编辑身份证信息</button>
+            <button (click)="toggleEditShopDescribedModal()">编辑店铺描述</button>
+            <!-- <button (click)="toggleEditShopBankModal()">编辑银行卡信息</button> -->
+            <!-- <button (click)="toggleEditShopIdCardModal()">编辑身份证信息</button> -->
           </div>
           <div class="modal-btn-group">
             <button type="submit">保存</button>
@@ -329,6 +311,30 @@
           </div>
           </form>
         </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<!--门店-编辑店铺描述信息-->
+<div class="modal-wrapper edit-modal" [class.hidden]="!editShopDescribedShow">
+  <div class="modal-con edit-shop-bank-modal">
+    <div class="modal-close" (click)="editShopDescribedShow = !editShopDescribedShow">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+    <div class="modal-loading" *ngIf="!shopDetail">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <ng-template [ngIf]="shopDetail">
+      <div class="modal-detail">
+        <div class="modal-detail-content">
+            <div class="modal-input-group editor"> 
+            <label>店铺描述<span style="color:red;">*</span></label>
+             <ng2-editor [height]="360" [content]="shopDetail?.graphic_introduction"  (contentChange)=" shopDetail.graphic_introduction = $event"></ng2-editor>
+           </div> 
+        </div>
+      </div>
+      <div class="modal-btn-group" >
+        <button (click)="editShopDescribedShow = !editShopDescribedShow">返回</button>
       </div>
     </ng-template>
   </div>
@@ -401,5 +407,34 @@
         <button (click)="toggleEditShopIdCardModal()">关闭</button>
       </div>
     </ng-template>
+  </div>
+</div>
+<!--提现  -->
+<div class="modal-wrapper trueMoney" [class.hidden]="!TakeMoneyModalShow" *ngIf="myAccountData">
+  <div class="modal-con">
+    <h3 class="modal-title">编辑</h3>
+    <form class="modal-form" (ngSubmit)="withdrawApply()">
+       <div class="modal-detail-content">
+      <div class="modal-detail-item">
+        <label>卡号</label>
+        <div class="value">{{myAccountData.card_number}}</div>
+      </div>
+      <div class="modal-input-group">
+        <label>提现金额</label>
+        <input type="text" name="money" [(ngModel)]="tixianModal.money">
+      </div>
+      <div class="modal-input-group">
+        <label>支付密码</label>
+        <input type="text" name="price" [(ngModel)]="tixianModal.payPwd">
+      </div>
+      <div class="modal-btn-group">
+        <button type="submit">体现</button>
+        <button type="button" (click)="toggleTakeMoneyModal()">关闭</button>
+      </div>
+       </div>
+    </form>
+    <div class="modal-close" (click)="toggleTakeMoneyModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
   </div>
 </div>

@@ -18,10 +18,11 @@ import {
   InsurerComponent,
   WatchBoxComponent,
   EditorComponent,
-
   fileUploadComponent,
   ImgUploadComponent,
-  ImgUploadListComponent
+  ImgUploadListComponent,
+  CityPickersServer,
+  CityPickersComponent
 } from '../com';
 
 
@@ -70,6 +71,8 @@ import {
   PShopListComponent,
   PShopServerListComponent,
   PShopOrderListComponent,
+  PShopWithdrawListComponent,
+  PShopFlowlogListComponent,
 
   // 财务管理
   CloudpayVerificationComponent,
@@ -116,6 +119,7 @@ import {
     fileUploadComponent,
     ImgUploadComponent,
     ImgUploadListComponent,
+    CityPickersComponent,
 
     // 工作台
     BarGraphPageComponent,
@@ -162,6 +166,8 @@ import {
     PShopListComponent,
     PShopServerListComponent,
     PShopOrderListComponent,
+    PShopWithdrawListComponent,
+    PShopFlowlogListComponent,
 
     // 财务管理
     CloudpayVerificationComponent,
@@ -185,7 +191,7 @@ import {
     CarModelListComponent,
     CarBrandListComponent,
   ],
-  providers: [CityPickerServer]
+  providers: [CityPickerServer,CityPickersServer]
 })
 export class AdminModule {
 }

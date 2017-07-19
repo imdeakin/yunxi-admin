@@ -1,7 +1,7 @@
 .edit-modal .modal-con {
-  width: 460px;
+  width: 600px;
   height: 580px;
-  margin-left: -230px;
+  margin-left: -300px;
   margin-top: -290px;
 }
 
@@ -39,4 +39,12 @@
 .manager-table td{
   white-space:nowrap;
 }
-
+.editor{
+  font-size:16px;
+}
+.trueMoney .modal-con {
+  width: 500px;
+  height: 280px;
+  margin-left: -250px;
+  margin-top: -140px;
+}

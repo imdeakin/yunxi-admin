@@ -18,6 +18,23 @@ export class PShopFunction {
     }
   ];
 
+  // 门店提现选项组
+  public static shopMoneyStatusOptions = [
+    {
+      value: '1',
+      text: '待审核'
+    },
+    {
+      value: '2',
+      text: '通过'
+    },
+    {
+      value: '3',
+      text: '不通过'
+    }
+  ];
+
+
   // 门店服务状态选项组
   public static shopServerStatusOptions = [
     {
@@ -154,6 +171,37 @@ export class PShopFunction {
         break;
       default:
         text = '未知'
+    }
+    return text;
+  }
+
+  //提现到账记录
+  public static getCardTypeText(card_type):string{
+    let text:string;
+    switch(card_type){
+      case　1:
+        text = '储蓄卡';
+        break;
+      case 2:
+        text = '支付宝';
+        break;
+    }
+    return text;
+  }
+
+   //提现到账状态
+  public static getStatusText(status):string{
+    let text:string;
+    switch(status){
+      case 1:
+        text = '待审核';
+        break;
+      case 2:
+        text = '审核通过';
+        break;
+      case 3:
+        text = '审核不通过';
+        break;
     }
     return text;
   }

@@ -8,13 +8,6 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {SystemFunction} from '../data-type/system-function';
 import {ArticleList} from '../data-type/article-list';
 
-import 'tinymce';
-import 'tinymce/themes/modern';
-
-import 'tinymce/plugins/table';
-import 'tinymce/plugins/link';
-import 'tinymce/plugins/paste';
-
 declare let layer: any;
 
 @Component({
