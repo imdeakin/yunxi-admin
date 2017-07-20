@@ -2007,7 +2007,7 @@ export class ApiCall {
   }
  
   //个人门店提现记录表
-  public getShopWithdrawList(userId,sn,status,curPageIndex,pageSize,success,failure?):void{
+  public getShopWithdrawList(userId,sn,type,curPageIndex,pageSize,success,failure?):void{
      this.apiCall({
       url: this.apiConfig.paths.getShopWithdrawList,
       data: {
@@ -2015,7 +2015,7 @@ export class ApiCall {
         index: curPageIndex,
         pageSize: pageSize,
         sn: sn,
-        status: status
+        type: type
       },
       success: success,
       failure: failure

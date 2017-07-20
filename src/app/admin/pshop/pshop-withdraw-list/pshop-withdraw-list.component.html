@@ -12,7 +12,7 @@
           </div>
           <div class="input-group">
             <label>状态</label>
-            <select-box [options]="pshopFunction.shopMoneyStatusOptions" [name]="filterData.status" (optionSelect)="filterData.status = $event"></select-box>
+            <select-box [options]="pshopFunction.shopMoneyStatusOptions" (optionSelect)="filterData.type = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
@@ -22,13 +22,12 @@
           <thead>
           <tr>
             <th>订单编号</th>
-            <th>门店账号</th>
             <th>银行卡号</th>
             <th>支付类型</th>
             <th>门店名字</th>
             <th>提现金额</th>
             <th>提现时间</th>
-            <th>体现状态</th>
+            <th>提现状态</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -36,7 +35,6 @@
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{item.sn}}</td>
-            <td>{{item.account_name}}</td>
             <td>{{item.card_number}}</td>
             <td>{{pshopFunction.getCardTypeText(item.card_type)}}</td>
             <td>{{item.type_name}}</td>

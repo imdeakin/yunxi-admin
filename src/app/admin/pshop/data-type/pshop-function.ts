@@ -205,4 +205,18 @@ export class PShopFunction {
     }
     return text;
   }
+
+  //;流水账号类型
+  public static getAccountStatusText(status):string{
+    let text:string;
+    switch(status){
+      case 1:
+        text = "门店服务";
+        break;
+      case 2:
+        text = "商城";
+        break;
+      }
+       return text;
+  }
 }

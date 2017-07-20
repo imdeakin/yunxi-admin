@@ -22,7 +22,7 @@ export class PShopWithdrawListComponent implements OnInit {
   public userId;
   public filterData = {
     sn: '',
-    status: ''
+    type: ''
   };
 
   public modalData;
@@ -58,7 +58,7 @@ export class PShopWithdrawListComponent implements OnInit {
     this.apiCall.getShopWithdrawList(
       this.userId,
       this.filterData.sn,
-      this.filterData.status,
+      this.filterData.type,
       this.curPageIndex,
       this.perPageSize,
       (list, total) => {
