@@ -79,7 +79,6 @@ export class manualChargeComponent implements OnInit {
   }
 
   public updateWithdrawStatusList(item,status):void{
-    console.log(item,status);
     this.apiCall.updateWithdrawStatusList(item.withdraw_id,status,(data)=>{
         this.manualChargeList(1);
     })

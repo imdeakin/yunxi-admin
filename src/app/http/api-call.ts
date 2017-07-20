@@ -39,6 +39,17 @@ export class ApiCall {
     });
   }
 
+  public logout(success,failure?){
+    this.apiCall({
+      url:this.apiConfig.paths.logout,
+      data:{
+
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
   public getAdminInfo(admindId, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getAdminInfo,
@@ -1783,14 +1794,14 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public getPersonShopList(userId, mobile, status, curPageIndex, pageSize, success, failure?): void {
+  public getPersonShopList(userId, sn, status, curPageIndex, pageSize, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getPersonShopList,
       data: {
         index: curPageIndex,
         pageSize: pageSize,
         userId: userId,
-        mobile: mobile,
+        sn: sn,
         status: status
       },
       success: success,

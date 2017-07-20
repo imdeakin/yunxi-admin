@@ -25,7 +25,7 @@ export class PShopListComponent implements OnInit {
   public curPageIndex = 1;
   public tableList;
   public filterData = {
-    mobile: '',
+    sn: '',
     status: '',
   };
   public valuePlace = {
@@ -87,12 +87,12 @@ export class PShopListComponent implements OnInit {
     }
     this.apiCall.getPersonShopList(
       this.userId,
-      this.filterData.mobile,
+      this.filterData.sn,
       this.filterData.status,
       this.curPageIndex, this.perPageSize,
       (list, total) => {
         this.tableList = list;
-        console.log(this.tableList);
+        // console.log(this.tableList);
         this.total = total;
       }
     );

@@ -6,10 +6,10 @@
     <div class="content-wrapper">
       <div class="filter-bar">
         <form class="clearfix" (ngSubmit)="getPersonShopList(1)">
-          <div class="input-group">
+           <div class="input-group">
             <label>门店编号</label>
-            <input type="text" name="mobile" value="" [(ngModel)]="filterData.mobile">
-          </div>
+            <input type="text" name="sn" [(ngModel)]="filterData.sn">
+          </div> 
           <div class="input-group">
             <label>状态</label>
             <select-box [options]="shopFunction.shopStatusOptions" [name]="filterData.status"
@@ -37,7 +37,7 @@
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
-            <td>{{item.user_mobile}}</td>
+            <td>{{item.sn}}</td>
             <td>{{item.region_name}}</td>
             <td>{{item.shop_name}}</td>
             <td>{{item.business_scope}}</td>

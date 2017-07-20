@@ -17,45 +17,57 @@
         <table>
           <thead>
           <tr class="canweizhangThead">
+            <th>编号</th>
             <th>订单编号</th>
             <th>车牌号</th>
             <th>姓名</th>
             <th>手机号</th>
-            <th>违章笔数</th>
-            <th>处罚金额</th>
+            <!-- <th>违章笔数</th> -->
+            <th>罚款</th>
             <th>扣分</th>
             <th>服务费</th>
-            <th>云洗利润</th>
-            <th>状态</th>
-            <th>车行易保存订单状态</th>
-            <th>车行易订单状态</th>
+            <th>车行易</th>
+            <th>订单总额</th>
+            <th>实收金额</th>
+            <th>利润</th>
+            <!-- <th>云洗利润</th> -->
+            <!-- <th>状态</th> -->
+            <!-- <th>车行易保存订单状态</th> -->
+            <!-- <th>车行易订单状态</th>  -->
             <th>操作</th>
           </tr>
           </thead>
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex }; let i = index">
+            <td>{{i+1}}</td>
             <td>{{item.sn}}</td>
             <td>{{item.car_number}}</td>
             <td>{{item.name}}</td>
             <td>{{item.mobile}}</td>
-            <td>{{item.p_count}}</td>
-            <td>{{item.money}}</td>
+            <!-- <td>{{item.p_count}}</td> -->
+            <!-- <td>{{item.money}}</td> -->
             <td>{{item.punish_money}}</td>
             <td>{{item.punish_points}}</td>
             <td>{{item.service_fee}}</td>
-            <td>{{getWeiZhangfilterText(item.status)}}</td>
-            <td>{{getweiZhanghandleStatusText(item.handle_status)}}</td>
-            <td>{{item.cxy_pay_status}}</td>
+            <td>{{item.cxy_service_fee}}</td>
+            <td>{{item.money}}</td>
+            <td>{{item.actual_money}}</td>
+            <td>{{item.profit_money}}</td>
+            <!-- <td>{{getWeiZhangfilterText(item.status)}}</td> -->
+            <!-- <td>{{getweiZhanghandleStatusText(item.handle_status)}}</td> -->
+            <!-- <td>{{item.cxy_pay_status}}</td> -->
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=0'></a>
+                <a class="table-btn" href="javascript:void(0);">查看</a>
+                <a class="table-btn" href="javascript:void(0);">修改</a>
+                <!-- <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=0'></a>
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1'
                    (click)="toggleEditModal(item)">办理</a>
                 <a class="table-btn" href="javascript:void(0);"
                    [hidden]="item.cxy_pay_status !=='' || item.handle_status !==0 "
                    (click)="comfirmCxyPayOrder(item.order_id)">确认支付</a>
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3'>确认</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3'>确认</a> -->
               </div>
             </td>
           </tr>
@@ -68,7 +80,7 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]='!detailPages' *ngIf="need_data">
+<!-- <div class="modal-wrapper" [class.hidden]='!detailPages' *ngIf="need_data">
   <div class="content"  [style.height]="contentHeight + 'px'">
     <div class="modal-con">
       <form class="modal-form">
@@ -193,4 +205,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

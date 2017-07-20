@@ -27,6 +27,7 @@ export class PShopServerListComponent implements OnInit {
   public curPageIndex = 1;
   public tableList: PShopServerList[];
   public on_sale;
+  public shop_id;
   public filterData = {
     serviceName: '',
     onSale: '',
@@ -99,7 +100,8 @@ export class PShopServerListComponent implements OnInit {
     this.apiCall.getPersonShopServiceInfo(item.shop_service_id,(data)=>{
         this.dataModal = this.funcServer.deepCopy(data[0]);
         this.file.url = this.dataModal.url;
-        this.on_sale = this.dataModal.url;
+        this.on_sale = this.dataModal.on_sale;
+        this.shop_id = this.dataModal.shop_id;
     })
   }
 
@@ -165,6 +167,8 @@ export class PShopServerListComponent implements OnInit {
             url:'',
             file_id:'',
         }
+        this.on_sale = '';
+        this.shop_id = '';
     }
   }
 

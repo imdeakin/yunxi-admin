@@ -5,13 +5,14 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://192.168.3.125:8080'; // http://www.gzyueyun.com 本地192.168.3.125http://yx.51meets.com
+  public server: string = 'http://yx.51meets.com:8082'; // http://www.gzyueyun.com 本地192.168.3.125http://yx.51meets.com
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
     login: this.root + '/adUser/login', // 登录
+    logout:this.root + '/adUser/logout',//退出
 
-    getAdminInfo: this.root + '/system/adminInfo', // 获取管理员信息
+    getAdminInfo: this.root + '/adUser/adminInfo', // 获取管理员信息
     getSalesInfo: this.root + '/system/getSalesInfo', // 获取销售信息
 
     // 油卡管理

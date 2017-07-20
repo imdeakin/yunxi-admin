@@ -82,12 +82,46 @@
 
 .tool-btn {
     float: left;
-    padding: 0 18px;
+    padding: 0 10px;
+}
+
+.tool-btn .icon-font:hover{
+  color:#009be8;
 }
 
 .tool-btn .icon-font {
     font-size: 20px;
     color: #898989;
+}
+.tool-btns a{
+    position: relative;
+}
+.tool-btns a .tool-exit::before{
+    content:'';
+    position: absolute;
+    top:0;
+    left:-8px;
+    width: 0;
+    height: 0;
+    line-height: 38px;
+    border-top: 4px solid transparent;
+    border-right: 8px solid #009be8;
+    border-bottom: 4px solid transparent;
+}
+.tool-btns a .tool-exit{
+    display: none; 
+    /* display: inline-block; */
+    width:48px;
+    height:38px;
+    border-radius: 3px;
+    background:#009be8;
+    color:#eee;
+    text-align: center;
+    box-shadow:3px 3px 4px #999;
+}
+.tool-btns a:hover .tool-exit{
+    display: inline-block;
+
 }
 
 

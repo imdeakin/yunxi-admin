@@ -60,6 +60,7 @@
 <!--查看  -->
 <div class="modal-wrapper edit-modal" [class.hidden]="!toggleReadshow" *ngIf="dataModal">
   <div class="modal-con">
+    
     <h3 class="modal-title">编辑</h3>
     <div class="modal-detail-content">
       <div class="modal-detail-item">
@@ -84,7 +85,7 @@
       </div>
       <div class="modal-detail-item">
         <label>是否上架</label>
-        <div class="value">{{shopFunction.getShopServerStatusText(dataModal.on_sale)}}</div>
+        <div class="value">{{shopFunction.getShopServerStatusText(on_sale)}}</div>
       </div>
       <div class="modal-detail-item">
         <label>封面</label>
@@ -105,14 +106,18 @@
   </div>
 </div>
 <!--编辑  -->
-<div class="modal-wrapper edit-modal" [class.hidden]="!toggleEditshow" *ngIf="dataModal">
+<div class="modal-wrapper edit-modal" [class.hidden]="!toggleEditshow">
   <div class="modal-con">
+    <div class="modal-loading" *ngIf="!dataModal">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    <ng-template [ngIf]="dataModal">
     <h3 class="modal-title" [class.hidden]="!dataModal.shop_service_id">编辑</h3>
     <h3 class="modal-title" [class.hidden]="dataModal.shop_service_id">增加</h3>
     <form class="modal-form" (ngSubmit)="submitModal()">
       <div class="modal-input-group">
         <label>所属门店</label>
-        <select-box [options]="shopList" [value]="dataModal.shop_id" [placeholder]="'请选择'"  (optionSelect)="dataModal.shop_id = $event"></select-box>
+        <select-box [options]="shopList" [value]="shop_id+''" [placeholder]="'请选择'"  (optionSelect)="dataModal.shop_id = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>服务</label>
@@ -128,7 +133,7 @@
       </div>
       <div class="modal-input-group">
         <label>是否上架</label>
-        <select-box [options]="shopFunction.shopServerStatusOptions" [value]="on_sale+''" [placeholder]="'请选择'"  (optionSelect)="dataModal.on_sale = $event"></select-box>
+        <select-box [options]="shopFunction.shopServerStatusOptions" [value]="on_sale + ''" [placeholder]="'请选择'"  (optionSelect)="dataModal.on_sale = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>封面</label>
@@ -149,5 +154,6 @@
     <div class="modal-close" (click)="toggleEditModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
+    </ng-template>
   </div>
 </div>

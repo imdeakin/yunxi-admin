@@ -15,7 +15,7 @@ import { ApiConfig } from '../../../http/api-config';
   styleUrls: ['./canweizhang.component.css']
 })
 export class canWeizhangComponent implements OnInit {
-  public title = '可办理违章';
+  public title = '线上自助办理';
   public cantype = '1';//可办理类型
   public total = 0;
   public contentHeight = 0;
@@ -121,6 +121,7 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
     }
     this.apiCall.getCanWeiZhangList(this.modalData.searchName,this.cantype,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
+      console.log(this.tableList);
       this.total = total;
     });
   }

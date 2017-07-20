@@ -13,7 +13,7 @@ import {Router,Route, NavigationEnd, ActivatedRoute} from '@angular/router';
   styleUrls: ['./cantweizhang.component.css']
 })
 export class cantWeizhangComponent implements OnInit {
-  public title = '不可办理违章';
+  public title = '不支持线上自助办理';
   public cantType = '2';
   public total = 0;
   public contentHeight = 0;
@@ -69,6 +69,7 @@ export class cantWeizhangComponent implements OnInit {
     }
     this.apiCall.getCantWeiZhangList(this.modalData.searchName,this.cantType,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
+      console.log(this.tableList);
       this.total = total;
     });
   }
