@@ -1,14 +1,12 @@
-.manager-table tbody td{
-  padding:0;
-}
 .modal-con {
-  width: 460px;
+  width: 500px;
   height: 520px;
-  margin-left: -230px;
+  margin-left: -250px;
   margin-top: -260px;
 }
 .manager-table{
   /*overflow-y: hidden;  */
+  /*overflow-x: scroll;*/
   overflow-x: scroll;
   margin:0;
 }
@@ -17,6 +15,7 @@
 }
 .manager-table td{
   white-space:nowrap;
+  padding:0 6px;
 }
 .weizhangListInfo td{
   color:#009be8;

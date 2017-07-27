@@ -64,7 +64,6 @@ export class YoukaBindComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    console.log(this.filterData.mobile);
     this.apiCall.getYoukaBindList(this.filterData.oilCard,this.filterData.mobile,this.filterData.userName, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;

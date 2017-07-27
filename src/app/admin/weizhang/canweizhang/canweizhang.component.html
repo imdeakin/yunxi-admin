@@ -18,10 +18,10 @@
           <thead>
           <tr class="canweizhangThead">
             <th>编号</th>
-            <th>订单编号</th>
-            <th>车牌号</th>
-            <th>姓名</th>
-            <th>手机号</th>
+            <!-- <th>订单编号</th> -->
+            <!-- <th>车牌号</th> -->
+            <!-- <th>姓名</th> -->
+            <!-- <th>手机号</th> -->
             <!-- <th>违章笔数</th> -->
             <th>罚款</th>
             <th>扣分</th>
@@ -32,19 +32,32 @@
             <th>利润</th>
             <!-- <th>云洗利润</th> -->
             <!-- <th>状态</th> -->
-            <!-- <th>车行易保存订单状态</th> -->
-            <!-- <th>车行易订单状态</th>  -->
+             <th>车行易保存订单状态</th> 
+             <th>车行易订单状态</th>  
+            <th>状态</th>
             <th>操作</th>
           </tr>
           </thead>
-          <tbody>
-          <tr
-            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex }; let i = index">
+          <tbody *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex,totalItems: total}; let i = index">
+            <tr class="weizhangListInfo">
+              <td colspan="2">订单编号:{{item.sn}}</td>
+              <td colspan="2">车牌号:{{item.car_number}}</td>
+              <td>姓名:{{item.name}}</td>
+              <td colspan="2">手机号:{{item.mobile}}</td>
+              <td>车架号:{{item.frame_number}}</td>
+              <td>发动机:{{item.engine_number}}</td>
+              <td colspan="2">下单时间:{{item.create_time}}</td>
+              <td>
+                <!-- <a href="javacript:void(0)" class="close-btn" [class.hidden]="item.status !== 1">订单成功</a> -->
+                <a href="javacript:void(0)" class="close-btn" [class.hidden]="item.status !== 0" (click)="verificationConfirm(item.order_id)">关闭订单</a>
+              </td>
+            </tr>
+            <tr>
             <td>{{i+1}}</td>
-            <td>{{item.sn}}</td>
-            <td>{{item.car_number}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.mobile}}</td>
+            <!-- <td>{{item.sn}}</td> -->
+            <!-- <td>{{item.car_number}}</td> -->
+            <!-- <td>{{item.name}}</td> -->
+            <!-- <td>{{item.mobile}}</td> -->
             <!-- <td>{{item.p_count}}</td> -->
             <!-- <td>{{item.money}}</td> -->
             <td>{{item.punish_money}}</td>
@@ -54,33 +67,35 @@
             <td>{{item.money}}</td>
             <td>{{item.actual_money}}</td>
             <td>{{item.profit_money}}</td>
-            <!-- <td>{{getWeiZhangfilterText(item.status)}}</td> -->
-            <!-- <td>{{getweiZhanghandleStatusText(item.handle_status)}}</td> -->
-            <!-- <td>{{item.cxy_pay_status}}</td> -->
+             <!-- <td>{{getWeiZhangfilterText(item.status)}}</td>  -->
+            <td>{{getweiZhanghandleStatusText(item.handle_status)}}</td> 
+            <td>{{getweiZhangCxyPayStatusText(item.cxy_pay_status)}}</td> 
+            <td>{{getWeiZhangfilterText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);">查看</a>
-                <a class="table-btn" href="javascript:void(0);">修改</a>
-                <!-- <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=0'></a>
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1'
-                   (click)="toggleEditModal(item)">办理</a>
-                <a class="table-btn" href="javascript:void(0);"
-                   [hidden]="item.cxy_pay_status !=='' || item.handle_status !==0 "
-                   (click)="comfirmCxyPayOrder(item.order_id)">确认支付</a>
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3'>确认</a> -->
+                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/weizhanginfo/' + item.order_id">查看详情</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status != 0" (click)="togglePriceModal(item)">修改</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status !=1' (click)="toggleEditModal(item)">办理</a>
+                <a class="table-btn" href="javascript:void(0);" [hidden]="item.cxy_pay_status !=='' || item.handle_status !==0 "(click)="comfirmCxyPayOrder(item.order_id)">确认支付</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3'>确认</a>
               </div>
             </td>
           </tr>
           </tbody>
+         <tbody>
+            <tr>
+              <td colspan="9"></td>
+            </tr>
+         </tbody>
         </table>
            <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls *ngIf="tableList?.length" (pageChange)="getCanWeiZhangList($event)" previousLabel="上一页"
+          <pagination-controls [class.hidden]="!tableList?.length" (pageChange)="getCanWeiZhangList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>
 </div>
-<!-- <div class="modal-wrapper" [class.hidden]='!detailPages' *ngIf="need_data">
+ <div class="modal-wrapper" [class.hidden]='!detailPages' *ngIf="need_data">
   <div class="content"  [style.height]="contentHeight + 'px'">
     <div class="modal-con">
       <form class="modal-form">
@@ -205,4 +220,29 @@
       </div>
     </div>
   </div>
-</div> -->
+</div> 
+<div class="modal-wrapper" [class.hidden]='!priceModalShow'>
+  <div class="content"  [style.height]="contentHeight + 'px'">
+    <div class="modal-con priceModal">
+      <ng-template [ngIf]="!afterUpdate">
+        <form class="modal-form" (ngSubmit)="updateOrderMoney()">
+          <h3 class="modal-title">修改价格</h3>
+          <div class="modal-input-group">
+            <label>订单总额</label>
+            <input type="text" name="totalPrice" [(ngModel)]="totalPrice">
+          </div>
+          <div class="modal-btn-group">
+            <button type="submit">保存</button>
+            <button type="button" (click)="togglePriceModal()">关闭</button>
+          </div>
+        </form>
+      </ng-template>
+      <div class="modal-close" (click)="togglePriceModal()">
+        <i class="icon-font">&#xe6e9;</i>
+      </div>
+      <div class="modal-loading" *ngIf="afterUpdate">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+    </div>
+  </div>
+</div> 

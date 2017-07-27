@@ -10,6 +10,7 @@
             <label>订单类型</label>
             <select-box [options]="financeFunction.cloudpayOrderTypeOptions" [name]="filterData.type"
                         [first]="false"
+                        [value]="filterData.type"
                         (optionSelect)="filterData.type = $event"></select-box>
           </div>
           <div class="input-group">

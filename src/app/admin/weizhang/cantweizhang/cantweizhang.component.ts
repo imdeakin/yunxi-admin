@@ -1,11 +1,14 @@
 /**
- * Created by Deakin on 2017/5/8 0008.
+ * Created by Kun on 2017/7/23 0008.
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {weiZhangFunction } from '../date-type/weizhang-function';
 import {Router,Route, NavigationEnd, ActivatedRoute} from '@angular/router';
+
+declare let layer: any;
+declare var $:any;
 
 @Component({
   selector: 'cantweizhang',
@@ -22,13 +25,16 @@ export class cantWeizhangComponent implements OnInit {
   public tableList = [
 
   ];
+  public profit_money;
+  public trueMoney;
   public toogleModal :boolean = false;
-  public modalData = {
+  public filter = {
       orderId:'',
       punishMoney:0,
       serviceFee:0,
       searchName:''
   }
+  public modalData;
   
   private selDate: string = '';
   private minDate: string = '1970/01/01';
@@ -44,6 +50,10 @@ export class cantWeizhangComponent implements OnInit {
   public ngOnInit(): void {
     this.computeOnResize();
     this.getCantWeiZhangList();
+     $(function(){
+       console.log()
+      $('.ng2-pagination').css({'position':'relative'});
+    })
   }
 
   public computeOnResize() {
@@ -67,7 +77,7 @@ export class cantWeizhangComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getCantWeiZhangList(this.modalData.searchName,this.cantType,this.curPageIndex, this.perPageSize, (list, total) => {
+    this.apiCall.getCantWeiZhangList(this.filter.searchName,this.cantType,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       console.log(this.tableList);
       this.total = total;
@@ -76,7 +86,7 @@ export class cantWeizhangComponent implements OnInit {
 
   //受理不可办理
   public setOrderMoneyAndServiceFee():void{
-      this.apiCall.setOrderMoneyAndServiceFee(this.modalData.orderId,this.modalData.punishMoney,this.modalData.serviceFee,(data)=>{
+      this.apiCall.setOrderMoneyAndServiceFee(this.modalData.order_id,this.modalData.punish_money,this.modalData.punish_points,this.modalData.service_fee,this.modalData.money,this.modalData.cxy_service_fee,(data)=>{
           this.toggleEditModal();
           this.getCantWeiZhangList();
       })
@@ -100,24 +110,20 @@ export class cantWeizhangComponent implements OnInit {
   public toggleEditModal(item?){
       this.toogleModal = !this.toogleModal;
       if(item){
-          this.modalData ={
-            orderId:item.order_id,
-            punishMoney:this.modalData.punishMoney,
-            serviceFee:this.modalData.serviceFee,
-            searchName:''
-          }
+          this.modalData = this.funcServer.deepCopy(item);
+          // this.modalData ={
+          //   orderId:item.order_id,
+          //   punishMoney:this.modalData.punishMoney,
+          //   serviceFee:this.modalData.serviceFee,
+          //   searchName:''
+          // }
       }else{
-         this.modalData ={
-            orderId:'',
-            punishMoney:0,
-            serviceFee:0,
-            searchName:''
-          }
+         this.modalData = this.funcServer.emptyObj(this.modalData);
       } 
   }
 
   public modalSubmit(){
-      if(this.modalData.orderId){
+      if(this.modalData.order_id){
           this.setOrderMoneyAndServiceFee()
       }else{
           this.toggleEditModal();
@@ -136,5 +142,10 @@ export class cantWeizhangComponent implements OnInit {
 
   public bink(orderId:string){
     this.router.navigateByUrl('/admin/cloudpay-verification-list/123456/abc/cas')
+  }
+
+  public sloveTrunc(data):number{
+    let text  = Math.ceil(data);
+    return text;
   }
 }

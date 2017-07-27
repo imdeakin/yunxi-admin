@@ -304,14 +304,14 @@ export class ApiCall {
    * @param pageSize 每页显示多少条
    */
 
-  public getCanWeiZhangList(searchName: string, type: string, index: number, pageSize: number, success, failure?): void {
+  public getCanWeiZhangList(searchName: string, type: string, curPageIndex: number, perPageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getCanWeizhangList,
       data: {
         searchName: searchName,
         type: type,
-        index: index,
-        pageSize: pageSize
+        index: curPageIndex,
+        pageSize: perPageSize
       },
       success: success,
       failure: failure
@@ -358,7 +358,6 @@ export class ApiCall {
 
   //保存订单信息
   public postPeccancyManage(orderId: string, orderConfig, success, failure?): void {
-    // console.log(orderConfig)
     this.apiCall({
       url: this.apiConfig.paths.postPeccancyManage,
       data: {
@@ -367,6 +366,75 @@ export class ApiCall {
       },
       success: success,
       failure: failure
+    })
+  }
+
+  //修改订单价格状态
+  public updateOrderMoney(orderId,money,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.updateOrderMoney,
+      data:{
+        orderId:orderId,
+        money:money
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //关闭订单
+  public closeOrder(orderId,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.closeOrder,
+      data:{
+        orderId:orderId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //违章详情
+  public peccancyDetailsList(searchName,orderId,index,pageSize,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.peccancyDetailsList,
+      data:{
+        searchName:searchName,
+        orderId:orderId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //增加违章
+  public addPeccancy(orderId,peccancyId,punishMoney,punishPoints,peccancyDate,address,punishReason,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.addPeccancy,
+       data:{
+        orderId:orderId,
+        peccancyId:peccancyId,
+        punishMoney:punishMoney,
+        punishPoints:punishPoints,
+        peccancyDate:peccancyDate,
+        address:address,
+        punishReason:punishReason
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //删除违章接口
+  public delPeccancy(orderId,peccancyId,success,failure?):void{
+     this.apiCall({
+      url:this.apiConfig.paths.delPeccancy,
+       data:{
+        orderId:orderId,
+        peccancyId:peccancyId,
+      },
+      success:success,
+      failure:failure
     })
   }
 
@@ -381,14 +449,16 @@ export class ApiCall {
     })
   }
 
-  public setOrderMoneyAndServiceFee(orderId: string, punishMoney: number, serviceFee: number, success, failure?): void {
-    console.log(orderId, punishMoney, serviceFee)
+  public setOrderMoneyAndServiceFee(orderId: string, punishMoney: number, punishPoints ,serviceFee: number, money, cxyServiceFee,success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.setOrderMoneyAndServiceFee,
       data: {
         orderId: orderId,
         punishMoney: punishMoney,
-        serviceFee: serviceFee
+        punishPoints:punishPoints,
+        serviceFee: serviceFee,
+        money: money,
+        cxyServiceFee:cxyServiceFee,
       },
       success: success,
       failure: failure

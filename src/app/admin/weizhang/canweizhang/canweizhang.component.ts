@@ -1,5 +1,5 @@
 /**
- * Created by Deakin on 2017/5/8 0008.
+ * Created by Kun on 2017/7/20 0008.
  */
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
@@ -8,6 +8,9 @@ import { weiZhangFunction } from '../date-type/weizhang-function';
 // import { FileUploadModule } from 'ng2-file-upload';
 // import {FileUploader} from "ng2-file-upload";
 import { ApiConfig } from '../../../http/api-config';
+
+declare let layer: any;
+declare var $:any;
 
 @Component({
   selector: 'canweizhang',
@@ -22,11 +25,14 @@ export class canWeizhangComponent implements OnInit {
   public perPageSize = 1;
   public curPageIndex = 1;
   public youkaFunction = weiZhangFunction;
-  public tableList = [
-  ];
+  public tableList = [];
 
   public detailPages:boolean = false;
+  public priceModalShow:boolean = false;
+  public afterUpdate:boolean = false;
   public need_data;
+  public totalPrice;
+  public orderId;
   public modalData = {
       orderId:'',
       carNumber:'',
@@ -78,6 +84,9 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
   public ngOnInit(): void {
     this.computeOnResize();
     this.getCanWeiZhangList();
+    $(function(){
+      $('.ng2-pagination').css({'position':'relative'});
+    })
   }
 
   public computeOnResize() {
@@ -234,6 +243,52 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
     this.apiCall.postPeccancyMsg(carNumber,(data)=>{
         console.log(data);
     })
+  }
+
+  //修改价格接口
+  public updateOrderMoney(){
+    this.afterUpdate = !this.afterUpdate;
+    this.apiCall.updateOrderMoney(this.orderId,this.totalPrice,(code)=>{
+        this.afterUpdate = !this.afterUpdate; 
+        this.togglePriceModal();
+        this.getCanWeiZhangList();
+    })
+  }
+
+  //修改价格模块
+  public togglePriceModal(item?):void{
+    this.priceModalShow = !this.priceModalShow;
+    if(item){
+      this.orderId = item.order_id;
+    }
+    if(!this.priceModalShow){
+      this.totalPrice = '';
+      this.orderId = '';
+    }
+  }
+
+  //关闭订单
+  public closeOrder(orderId):void{
+    this.apiCall.closeOrder(orderId,(data)=>{
+        this.getCanWeiZhangList();
+    })
+  }
+
+  public verificationConfirm(orderId): void {
+    let index = layer.confirm(
+      '请确认关闭订单',
+      {
+        title: '是否确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.closeOrder(orderId);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
   }
 }
 

@@ -8,7 +8,7 @@
         <form class="clearfix">
           <div class="input-group">
             <label>姓名/手机/订单编号</label>
-            <input type="text" name="account" [(ngModel)]="modalData.searchName">
+            <input type="text" name="account" [(ngModel)]="filter.searchName">
           </div>
           <button class="text-btn text-sub" type="submit" (click)="getCantWeiZhangList(1)">搜索</button>
         </form>
@@ -18,12 +18,12 @@
           <thead>
           <tr>
             <th>编号</th>
-            <th>订单编号</th>
-            <th>车牌号</th>
-            <th>车架号</th>
-            <th>发动机</th>
-            <th>姓名</th>
-            <th>手机号</th>
+            <!-- <th>订单编号</th> -->
+            <!-- <th>车牌号</th> -->
+            <!-- <th>车架号</th> -->
+            <!-- <th>发动机</th> -->
+            <!-- <th>姓名</th> -->
+            <!-- <th>手机号</th> -->
             <th>罚款</th>
             <th>扣分</th>
             <th>服务费</th>
@@ -34,60 +34,103 @@
             <!-- <th>违章笔数</th> -->
             <!-- <th>处罚金额(含手续费)</th>
             <th>云洗利润</th> -->
-            <!-- <th>状态</th> -->
+            <th>状态</th> 
             <th>操作</th>
           </tr>
           </thead>
-          <tbody>
-          <tr
-            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex }; let i = index">
+          <tbody *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex ,totalItems: total}; let i = index">
+            <tr class="weizhangListInfo">
+              <td colspan="2">订单编号:{{item.sn}}</td>
+              <td>车牌号:{{item.car_number}}</td>
+              <td>姓名:{{item.name}}</td>
+              <td>手机号:{{item.mobile}}</td>
+              <td>车架号:{{item.frame_number}}</td>
+              <td>发动机:{{item.engine_number}}</td>
+              <td colspan="2">下单时间:{{item.create_time}}</td>
+               <td>
+                <!-- <a href="javacript:void(0)" class="close-btn" [class.hidden]="item.status !== 1">订单成功</a> -->
+                <a href="javacript:void(0)" class="close-btn" [class.hidden]="item.status !== 0 && item.status != -2" (click)="verificationConfirm(item.order_id)">关闭订单</a>
+              </td>
+            </tr>
+            <tr>
               <td>{{i+1}}</td>
-              <td>{{item.sn}}</td>
-              <td>{{item.car_number}}</td>
+              <!-- <td>{{item.sn}}</td> -->
+              <!-- <td>{{item.car_number}}</td>
               <td>{{item.frame_number}}</td>
               <td>{{item.engine_number}}</td>
               <td>{{item.name}}</td>
-              <td>{{item.mobile}}</td>
+              <td>{{item.mobile}}</td> -->
               <td>{{item.punish_money}}</td>
               <td>{{item.punish_points}}</td>
               <td>{{item.service_fee}}</td>
               <td>{{item.cxy_service_fee}}</td>
               <td>{{item.money}}</td>
               <td>{{item.actual_money}}</td>
-              <td>{{item.actual_money}}</td>
+              <td>{{item.profit_money}}</td>
+              <td>{{getWeiZhangfilterText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=-2' (click)="toggleEditModal(item)">查看</a>
+                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/cantweizhanginfo/' + item.order_id">违章详情</a>
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=-2' (click)="toggleEditModal(item)">受理</a>
-                <!-- <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=-2' (click)="toggleEditModal(item)">受理</a>
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=0'></a>
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1' (click)="comfirmOrderOfDoing(item.order_id)">办理</a>
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3' (click)="bink(item.order_id)">确认</a>
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=4' (click)="comfirmOrderOfFinish(item.order_id)">完成</a> -->
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!= 0' (click)="toggleEditModal(item)">修改</a>
+                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1' (click)="comfirmOrderOfDoing(item.order_id)">办理</a> 
+                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3' [routerLink]="'/admin/cloudpay-verification-list/' + item.sn">确认</a> 
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=4' (click)="comfirmOrderOfFinish(item.order_id)">完成</a> 
               </div>
             </td>
           </tr>
           </tbody>
+          <tbody>
+            <tr>
+              <td colspan="9"></td>
+            </tr>
+         </tbody>
         </table>
            <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls *ngIf="tableList?.length" (pageChange)="getCantWeiZhangList($event)" previousLabel="上一页"
+           <pagination-controls [class.hidden]="!tableList?.length" (pageChange)="getCantWeiZhangList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
     </div>
   </div>
 </div>
- <div class="modal-wrapper" [class.hidden]='!toogleModal'>
+ <div class="modal-wrapper" [class.hidden]='!toogleModal' *ngIf="modalData">
   <div class="content" [style.height]="contentHeight + 'px'" >
        <div class="modal-con">
-        <h3 class="modal-title">确认价格</h3>
+        <h3 class="modal-title" [class.hidden]="modalData.status != -2">办理</h3>
+        <h3 class="modal-title" [class.hidden]="modalData.status != 0">修改</h3>
         <form class="modal-form" (ngSubmit)="modalSubmit()">
-          <div class="modal-input-group">
-              <label>违章办理所需价格：</label>
-              <input type="text" name="punishMoney" [(ngModel)]="modalData.punishMoney">
-          </div>
-          <div class="modal-input-group">
-              <label>云洗利润服务费：</label>
-              <input type="text" name="CardNo" [(ngModel)]="modalData.serviceFee">
+          <div class="modal-detail-content">
+            <div class="modal-input-group">
+                <label>总罚款：</label>
+                <input type="text" name="punishMoney" [(ngModel)]="modalData.punish_money">
+            </div>
+            <div class="modal-input-group">
+                <label>总扣分：</label>
+                <input type="text" name="punish_points" [(ngModel)]="modalData.punish_points">
+            </div>
+            <div class="modal-input-group">
+                <label>服务费：</label>
+                <input type="text" name="service_fee" [(ngModel)]="modalData.service_fee">
+            </div>
+            <div class="modal-input-group">
+                <label>车行易：</label>
+                <input type="text" name="cxy_service_fee" [(ngModel)]="modalData.cxy_service_fee">
+            </div>
+            <div class="modal-input-group">
+                <label>订单总额：</label>
+                <!-- <div class="value">{{(modalData.punish_money+modalData.cxy_service_fee)*1.2}}</div> -->
+                  <input type="text" name="money" [(ngModel)]="modalData.money">  
+            </div>
+            <div class="modal-detail-item">
+                <label>实收金额：</label>
+                 <div class="value">{{sloveTrunc(modalData.money*1.2*0.85)}}</div> 
+                 <!-- <input type="text" name="actual_money" [(ngModel)]="modalData.actual_money" disabled="disabled">  -->
+            </div>
+            <div class="modal-detail-item">
+                <label>利润：</label>
+                 <div class="value">{{sloveTrunc(modalData.money*1.2*0.85-modalData.punish_money-modalData.cxy_service_fee)}}</div> 
+                <!-- <input type="text" name="profit_money" [(ngModel)]="modalData.profit_money" disabled="disabled"> -->
+            </div>
           </div>
           <div class="modal-btn-group">
             <button type="submit">确定</button>

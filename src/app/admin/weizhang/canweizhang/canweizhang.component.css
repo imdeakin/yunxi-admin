@@ -1,3 +1,6 @@
+.manager-table thead th{
+  padding:0 2px;
+}
 .manager-table tbody td{
   padding:0 2px;
 }
@@ -19,7 +22,6 @@
 }
 
 .modal-form .modal-input-group{
-    width:440px;
     padding-bottom:10px;
 }
 
@@ -76,7 +78,7 @@
 .manager-table{
   /* height:480px; */
   /*overflow-y: hidden;  */
-  overflow-x: scroll; 
+  overflow-y: scroll;  
   margin:0;
 }
 .manager-table th{
@@ -84,4 +86,29 @@
 }
 .manager-table td{
   white-space:nowrap;
+}
+.weizhangListInfo td{
+  color:#009be8;
+}
+.priceModal{
+  width: 320px;
+  height: 220px;
+  margin-left: -160px;
+  margin-top: -110px;
+  overflow:hidden;
+}
+
+.priceModal .modal-form{
+  width: 100%;
+}
+.priceModal .modal-form .modal-input-group{
+  width: 100%;
+}
+.modal-input-group input{
+  width: 50%;
+}
+.close-btn{
+  padding:4px;
+  background: #009be8;
+  color:#eee;
 }

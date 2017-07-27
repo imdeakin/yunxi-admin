@@ -68,6 +68,9 @@ export class weiZhangFunction{
       case 6:
         text = '已失效';
         break;
+      case 7:
+        text = '关闭订单';
+        break;
     }
     return text;
   }

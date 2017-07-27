@@ -3,3 +3,5 @@
  */
 export * from './canweizhang';
 export * from './cantweizhang';
+export * from './weizhangInfo';
+export * from './cantweizhangInfo';

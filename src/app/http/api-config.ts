@@ -35,9 +35,14 @@ export class ApiConfig {
     postPeccancyMsg: this.root + '/peccancyManage/sendVcode',//发送短信验证码接口
     postPeccancyManage: this.root + '/peccancyManage/saveOrder',//管理
     comfirmCxyPayOrder: this.root + '/peccancyManage/comfirmCxyPayOrder',//确认可支付接口
-    setOrderMoneyAndServiceFee: this.root + '/peccancyManage/setOrderMoneyAndServiceFee',//设置不可办理订单的办理违章所需价格和云洗利润服务费
+    setOrderMoneyAndServiceFee: this.root + '/peccancyManage/updateOrderInfo',//设置不可办理订单的办理违章所需价格和云洗利润服务费
     comfirmOrderOfDoing: this.root + '/peccancyManage/comfirmOrderOfDoing',//办理不可支付订单
     comfirmOrderOfFinish: this.root + '/peccancyManage/comfirmOrderOfFinish',//确认不可支付订单
+    updateOrderMoney:this.root + '/peccancyManage/updateOrderMoney',//修改订单价格
+    closeOrder:this.root + '/peccancyManage/closeOrder',//关闭订单
+    peccancyDetailsList:this.root + '/peccancyManage/peccancyDetailsList',//违章详情列表
+    addPeccancy:this.root + '/peccancyManage/addOrModPeccancy',//增加处罚
+    delPeccancy:this.root + '/peccancyManage/delPeccancy',//删除接口
 
     // 车险管理
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表

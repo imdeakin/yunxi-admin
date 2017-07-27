@@ -143,7 +143,7 @@ export class AccordionNavComponent implements OnInit {
           link: '/admin/pshop-order-list'
         },
         {
-          title:'门店体现记录',
+          title:'门店提现记录',
           link:'/admin/pshop-withdraw-list'
         },
         {

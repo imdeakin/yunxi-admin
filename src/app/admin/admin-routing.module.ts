@@ -11,6 +11,8 @@ import {
   // 违章管理
   canWeizhangComponent,
   cantWeizhangComponent,
+  WeiZhangeInfoComponent,
+  CantWeiZhangeInfoComponent,
 
   // 油卡管理
   YoukaTaocanComponent,
@@ -85,9 +87,10 @@ const AdminRoutes: Routes = [
       {path: 'workbench', component: WorkbenchPageComponent},
 
       // 违章管理
-      {path:'canweizhang',component:canWeizhangComponent},
-      {path:'cantweizhang',component:cantWeizhangComponent},
-
+      {path: 'canweizhang',component:canWeizhangComponent},
+      {path: 'cantweizhang',component:cantWeizhangComponent},
+      {path: 'weizhanginfo/:orderId',component:WeiZhangeInfoComponent},
+      {path: 'cantweizhanginfo/:orderId',component:CantWeiZhangeInfoComponent},
 
       // 油卡管理
       {path: 'youka-taocan', component: YoukaTaocanComponent},
@@ -98,7 +101,7 @@ const AdminRoutes: Routes = [
 
       // 车险管理
       {path: 'insurance-order-list', component: InsuranceOrderListPageComponent},
-       {path:'car-protect-list',component:CarProtectComponent},
+      {path:'car-protect-list',component:CarProtectComponent},
       // 会员管理
       {path: 'user-list', component: UserListComponent},
       {path: 'user-list/:memberId', component:myUserListComponent},
@@ -135,6 +138,7 @@ const AdminRoutes: Routes = [
       {path: 'feedback-list', component: FeedbackListComponent},
 
       // 财务管理
+      {path: 'cloudpay-verification-list/:sn', component: CloudpayVerificationComponent},
       {path: 'cloudpay-verification-list', component: CloudpayVerificationComponent},
       {path: 'cloudpay-verification-history-list', component: CloudpayVerificationHistoryComponent},
       {path: 'recharge-list', component: RechargeListComponent},

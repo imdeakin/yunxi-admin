@@ -6,8 +6,8 @@ import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {FinanceFunction} from '../data-type/finance-function';
 import {CloudpayVerificationList} from '../data-type/cloudpay-verification-list';
-import {ActivatedRoute} from '@angular/router'
-import { AdminFunc } from '../../../serv/admin.server';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import {AdminFunc } from '../../../serv/admin.server';
 
 declare let layer: any;
 
@@ -57,9 +57,16 @@ export class CloudpayVerificationComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.activatedRoute.params
+    .map((params:Params)=> params['sn'])
+    .subscribe((sn)=>{
+      if(sn){
+         this.filterData.sn = sn;
+         this.filterData.type =  2;
+      }
+    })
     this.computeOnResize();
     this.getCloudpayVerificationList();
-    this.urlData();
   }
 
   public computeOnResize() {
@@ -69,16 +76,6 @@ export class CloudpayVerificationComponent implements OnInit {
       this.contentHeight = this.funcServer.getContentHeight(this.elRef);
       this.perPageSize = this.funcServer.getPerPageSize(this.contentHeight);
     });
-  }
-
-  public urlData():void{
-      this.activatedRoute.queryParams.subscribe(
-        (queryParams:any) =>{
-          if(queryParams){
-              console.log(queryParams);
-          }
-        }
-      )
   }
 
   public getCloudpayVerificationList(curPageIndex?): void {

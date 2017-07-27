@@ -142,7 +142,6 @@ export class UserListComponent implements OnInit {
     }
     this.apiCall.getUserList(this.filterData.mobile, this.filterData.level, this.filterData.regionId, this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-      console.log(this.tableList);
       this.total = total;
     });
   }

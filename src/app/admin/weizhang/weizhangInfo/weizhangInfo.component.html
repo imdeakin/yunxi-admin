@@ -1,0 +1,65 @@
+<div class="manager-page">
+  <div class="header">
+    <h3>{{title}}<s></s></h3>
+  </div>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="content-wrapper">
+      <div class="filter-bar">
+        <form class="clearfix" (ngSubmit)="getMyMemberList(1)">
+          <!-- <div class="input-group">
+            <label>层级</label>
+            <select-box [options]="usersFunction.uplevelTopClassOptions" [name]="filterData.level"
+                        (optionSelect)="filterData.level = $event"></select-box>
+          </div>
+          <div class="input-group">
+            <label>等级</label>
+            <select-box [options]="usersFunction.userLevelOptions" [name]="filterData.memberLevel"
+                        (optionSelect)="filterData.memberLevel = $event"></select-box>
+          </div> -->
+           <!-- <button class="text-btn text-sub" type="submit">搜索</button>  -->
+        </form>
+      </div>
+      <div class="manager-table">
+        <table>
+           <tbody>
+            <tr *ngIf="dataList" class="weizhangListInfo">
+                <td>订单编号:{{dataList.sn}}</td>
+                <td>车牌号:{{dataList.car_number}}</td>
+                <td>姓名:{{dataList.name}}</td>
+                <td>手机号:{{dataList.mobile}}</td>
+                <td>车架号:{{dataList.frame_number}}</td>
+                <td>发动机:{{dataList.engine_number}}</td>
+                <td>下单时间:{{dataList.create_time}}</td>
+              </tr> 
+          </tbody>
+        </table>
+        <table>
+          <thead>
+          <tr>
+            <th>违章编号</th>
+            <th>罚款</th>
+            <th>扣分</th>
+            <th>违章时间</th>
+            <th>违章发生地点</th>
+            <th>处罚原因</th>
+          </tr>
+          </thead>
+          <tbody>
+           <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{item.sn}}</td>
+            <td>{{item.punish_money}}</td>
+            <td>{{item.punish_points}}</td>
+            <td>{{item.peccancy_date}}</td>
+            <td>{{item.address}}</td>
+            <td>{{item.punish_reason}}</td>
+          </tr> 
+          </tbody>
+        </table>
+        <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
+        <pagination-controls (pageChange)="getMyMemberList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
