@@ -1,0 +1,28 @@
+.chart-btns{
+    margin: 20px 0;
+    vertical-align: middle;
+}
+.chart-btn{
+    font-size: 14px;
+    margin-right: 10px;
+    background: #009be8;
+    border: none;
+    padding:4px;
+    color:#eee;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+.chart-time{
+    margin:0 10px;
+    position: relative;
+    display: inline-block;
+}
+.chart-time label{
+    white-space: nowrap;
+    display: inline-block;
+    padding:0 2px;
+}
+.chart-time input{
+    border-radius: 30px;
+    height:27px;
+}

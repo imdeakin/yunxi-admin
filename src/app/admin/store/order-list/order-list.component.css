@@ -4,3 +4,135 @@
   margin-left: -230px;
   margin-top: -200px;
 }
+.readModal{
+  width: 1100px;
+  height: 600px;
+  margin-left: -550px;
+  margin-top: -300px;
+  overflow-y: scroll;
+}
+.modal-detail-right{
+  margin:0 10px;
+  width:46%;
+  float:right;
+}
+.modal-detail-left{
+  margin:0 10px;
+  margin-left:0;
+  width:46%;
+  float:left;
+}
+.modal-detail-title{
+  font-size:18px;
+  color:#009be8;
+  padding:6px 0;
+  margin:6px 0;
+  border-bottom: 4px solid #009be8;
+}
+.modal-btn-group{
+  overflow: hidden;
+  clear:both;
+}
+.modal-detail-li{
+  font-size: 16px;
+  list-style-type: none;
+  vertical-align: middle;
+  height:80px;
+  /* line-height: 50px; */
+  margin: 10px 0;
+}
+.modal-detail-li-title{
+  font-size: 16px;
+  list-style-type: none;
+  vertical-align: middle;
+  /* line-height: 50px; */
+  margin: 10px 0;
+}
+.imgList{
+  display:inline-block;
+  width:80px;
+}
+.item_content img{
+  width:100%;
+  height:80px;
+}
+.modal-detail-li .item_content,.modal-detail-li-title .item_content{
+  display: inline-block;
+  width:20%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  margin:0 6px;
+  text-align: center;
+}
+.modal-detail-li .item_li_text{
+  height:80px;
+  line-height: 80px;
+}
+.manager-table{
+  /*overflow-y: hidden;  */
+  overflow-x: scroll;
+  margin:0;
+}
+.manager-table th{
+  white-space:nowrap;
+}
+.manager-table td{
+  white-space:nowrap;
+}
+.order-list{
+  width: 1000px;
+  height: 400px;
+  margin-left: -500px;
+  margin-top: -200px;
+  overflow-y: scroll;
+}
+.modal-input-groups{
+    position: relative;
+    color: #818181;
+    font-size: 0;
+    padding-bottom: 20px;
+    clear:both;
+}
+.modal-input-groups  .modal-input-item{
+    width:36%;
+    display: inline-block;
+}
+.modal-input-groups label {
+    display: inline-block;
+    width: 24%;
+    font-size: 16px;
+    line-height: 26px;
+    vertical-align: top;
+}
+.modal-input-groups input {
+    /* float: right; */
+    display: inline-block;
+    width: 60%;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 0 12px;
+    border: 1px solid #b6b6b6;
+    border-radius: 13px;
+}
+.modal-input-groups button{
+  background: #fff;
+  border:none;
+  color:#009be8;
+  border: 1px solid #009be8;
+  padding:6px;
+  font-size: 14px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.modal-detail-item table{
+  width:100%;
+  border:1px solid #ddd;
+}
+.modal-detail-item table th{
+  border:1px solid #ddd;
+}
+.modal-detail-item table td{
+  text-align: center;
+  border:1px solid #ddd;
+}

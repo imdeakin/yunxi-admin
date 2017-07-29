@@ -1616,6 +1616,17 @@ export class ApiCall {
       failure: failure
     });
   }
+  
+  public getDeliveryMallOrderDetails(orderId,success,failure?):void{
+     this.apiCall({
+      url: this.apiConfig.paths.getDeliveryMallOrderDetails,
+      data: {
+        orderId: orderId
+      },
+      success: success,
+      failure: failure
+    });
+  }
 
   public getStoreExpressList(orderDetailsIds, expressId, waybillNumber, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
@@ -1630,6 +1641,18 @@ export class ApiCall {
       success: success,
       failure: failure
     });
+  }
+
+  //获取商品订单详情
+  public getMallOrderDetails(orderId,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.getMallOrderDetails,
+      data:{
+        orderId:orderId
+      },
+      success:success,
+      failure:failure
+    })
   }
 
   /**
@@ -2145,7 +2168,7 @@ export class ApiCall {
   }
 
   //个人-门店流水
-  public getStoreAccountFlowlogList(searchName,type,curPageIndex,pageSize,success,failure?){
+  public getStoreAccountFlowlogList(searchName,type,curPageIndex,pageSize,success,failure?):void{
     this.apiCall({
       url:this.apiConfig.paths.getStoreAccountFlowlogList,
       data:{
@@ -2158,6 +2181,21 @@ export class ApiCall {
       failure:failure
     })
   }
+
+  //个人-查看利益
+  public getIncomeStatistics(shopId,startDate,endDate,success,failure?):void{
+      this.apiCall({
+      url:this.apiConfig.paths.getIncomeStatistics,
+      data:{
+        shopId:shopId,
+        startDate:startDate,
+        endDate:endDate
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
 
   public getCloudpayVerificationList(type, sn, curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({

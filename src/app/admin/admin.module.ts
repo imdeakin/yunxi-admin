@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 import {AdminRoutingModule} from './admin-routing.module';
 import {Ng2PaginationModule} from "ng2-pagination";
 import {AdminComponent} from './admin.component';
-
+import {ChartModule} from 'angular2-highcharts'
 
 import {
   HeadBarComponent,
@@ -22,7 +22,8 @@ import {
   ImgUploadComponent,
   ImgUploadListComponent,
   CityPickersServer,
-  CityPickersComponent
+  CityPickersComponent,
+  Chart
 } from '../com';
 
 
@@ -105,7 +106,8 @@ import {
     FormsModule,
     HttpModule,
     AdminRoutingModule,
-    Ng2PaginationModule
+    Ng2PaginationModule,
+    ChartModule.forRoot(require('highcharts'))
   ],
   declarations: [
     AdminComponent,
@@ -122,7 +124,7 @@ import {
     ImgUploadComponent,
     ImgUploadListComponent,
     CityPickersComponent,
-
+    Chart,
     // 工作台
     BarGraphPageComponent,
     WorkbenchPageComponent,

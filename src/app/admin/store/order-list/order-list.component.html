@@ -48,6 +48,8 @@
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal(item)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggeleOrderModal(item)" [class.hidden]="item.status != 2">发货</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)" [class.hidden]="item.status != 3">签收</a>
               </div>
             </td>
           </tr>
@@ -57,6 +59,71 @@
         <pagination-controls (pageChange)="getStoreOrderList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper" [class.hidden]="!orderListShow" *ngIf="orderListDate">
+  <div class="modal-con order-list">
+    <h3 class="modal-title">编辑</h3>
+    <form class="modal-form" (ngSubmit)="editSubmit()">
+      <div class="modal-detail-left">
+        <div class="modal-input-group">
+          <label>订单编号</label>
+          <div class="text">{{orderListDate.sn}}</div>
+        </div>
+        <div class="modal-input-group">
+          <label>收货地址</label>
+           <div class="text">{{orderListDate.address}}</div>
+        </div>
+      </div>
+      <div class="modal-detail-right">
+        <div class="modal-input-group">
+          <label>收货人</label>
+          <div class="text">{{orderListDate.contact}}</div>
+        </div>
+        <div class="modal-input-group">
+          <label>收货人电话</label>
+          <div class="text">{{orderListDate.mobile}}</div>
+        </div>
+      </div>
+      <div class="modal-input-groups">
+        <div class="modal-input-item">
+          <label>快递公司</label>
+          <input type="text" name="price" value="" [(ngModel)]="editModalData.price">
+        </div>
+        <div class="modal-input-item">
+          <label>快递单号</label>
+          <input type="text" name="price" value="" [(ngModel)]="editModalData.price">
+        </div>
+        <button type="button" (click)="toggeleOrderModal()">添加快递单号</button>
+      </div>
+        <div class="modal-detail-item">
+         <table>
+           <thead>
+             <tr>
+               <th>商品名</th>
+               <th>数量</th>
+               <th>快递公司</th>
+               <th>快递单号</th>                               
+            </tr>
+           </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+            </tr>
+          </tbody>
+         </table>
+        </div>
+      <div class="modal-btn-group">
+        <button type="submit">保存</button>
+        <button type="button" (click)="toggeleOrderModal()">关闭</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggeleOrderModal()">
+      <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
 </div>
@@ -97,40 +164,95 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!readModalShow">
-  <div class="modal-con">
-    <h3 class="modal-title">详情</h3>
-    <form class="modal-form">
-      <div class="modal-input-group">
-        <label>订单编号</label>
-        <div class="text">{{readModalData.sn}}</div>
+<div class="modal-wrapper" [class.hidden]="!readModalShow" *ngIf="readModalData">
+  <div class="modal-con readModal">
+    <h3 class="modal-title">订单详情</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+        <div class="modal-detail-left">
+          <div class="modal-detail-item">
+            <label>订单编号</label>
+            <div class="value">{{readModalData.sn}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>买家账号</label>
+            <div class="value">{{readModalData.mobile}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>下单时间</label>
+            <div class="value">{{readModalData.create_time}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>状态</label>
+            <div class="value">{{storeFunction.getPayTypeText(readModalData.trade_mode)}}</div>
+          </div>
+          <div class="modal-detail-title">
+            付款信息
+          </div>
+          <div class="modal-detail-item">
+            <label>支付账号</label>
+            <div class="value">{{readModalData.create_time}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>支付方式</label>
+            <div class="value">{{storeFunction.getOrderStatusText(readModalData.status)}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>支付金额</label>
+            <div class="value">{{readModalData.actual_price}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>支付时间</label>
+            <div class="value">{{readModalData.pay_time}}</div>
+          </div>
+          <div class="modal-detail-title">
+            收货信息
+          </div>
+          <div class="modal-detail-item">
+            <label>收货人</label>
+            <div class="value">{{readModalData.contact}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>收货地址</label>
+            <div class="value">{{readModalData.address}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label>收货人电话</label>
+            <div class="value">{{readModalData.mobile}}</div>
+          </div>
+        </div>
+        <div class="modal-detail-right">
+          <div class="modal-detail-title">
+            商品明细
+          </div>
+          <ul style="padding:0;">
+            <li class="modal-detail-li-title">
+              <div class="item_content">图片</div><span class="item_content">商品名称</span><span class="item_content">价格</span><span class="item_content">数量</span></li>
+            <li class="modal-detail-li" *ngFor="let item of readModalData.order_details; let i = index">
+              <div class="item_content"><img [src]="item.good_img" alt=""></div><span class="item_content item_li_text">{{item.goods_name}}</span>
+              <span
+                class="item_content item_li_text">￥{{item.price}}</span><span class="item_content item_li_text">{{item.number}}</span></li>
+          </ul>
+          <div class="modal-detail-item">
+            <label></label>
+            <div class="value">商品总额:{{readModalData.mobile}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label></label>
+            <div class="value">运费:{{readModalData.mobile}}</div>
+          </div>
+          <div class="modal-detail-item">
+            <label></label>
+            <div class="value">总金额:{{readModalData.mobile}}</div>
+          </div>
+        </div>
+        <div class="modal-btn-group">
+          <button (click)="toggleReadModal()">关闭</button>
+        </div>
       </div>
-      <div class="modal-input-group">
-        <label>订单金额</label>
-        <input type="text" name="price" value="" [(ngModel)]="readModalData.price">
+      <div class="modal-close" (click)="toggleReadModal()">
+        <i class="icon-font">&#xe6e9;</i>
       </div>
-      <div class="modal-input-group">
-        <label>运费</label>
-        <input type="text" name="freight" value="" [(ngModel)]="readModalData.freight">
-      </div>
-      <div class="modal-input-group">
-        <label>收货人</label>
-        <input type="text" name="consignee" value="" [(ngModel)]="readModalData.consignee">
-      </div>
-      <div class="modal-input-group">
-        <label>收货人电话</label>
-        <input type="text" name="mobile" value="" [(ngModel)]="readModalData.mobile">
-      </div>
-      <div class="modal-input-group">
-        <label>收货地址</label>
-        <input type="text" name="address" value="" [(ngModel)]="readModalData.address">
-      </div>
-      <div class="modal-btn-group">
-        <button (click)="toggleReadModal()">关闭</button>
-      </div>
-    </form>
-    <div class="modal-close" (click)="toggleReadModal()">
-      <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
-</div>
+

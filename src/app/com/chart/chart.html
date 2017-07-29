@@ -1,0 +1,33 @@
+<div class="chart-income">
+    <div style="font-size:14px;text-align:right;">请选择开始到结束不超过30天以内的日期</div>
+    <div class="chart-btns">
+        <button type="button" class="chart-btn" (click)="compareDate(sevenDayStart,sevenDayEnd,1)">最近7天</button>
+        <button type="button" class="chart-btn" (click)="compareDate(MonthStart,MonthEnd,2)">最近1个月</button>
+        <div class="chart-time">
+            <label>开始日期</label>
+             <input type='text' value={{selDate}} (change)="setInputDate($event)"/>
+             <date-picker
+               [value]="value"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               [disableDays]="disableDays"
+               [toContainPrevMonth]="toContainPrevMonth"
+               [toContainNextMonth]="toContainNextMonth"
+               (selectedDate)='setDate($event)'></date-picker>
+        </div>
+        <div class="chart-time">
+            <label>结束日期</label>
+            <input type='text' value={{selDate2}} (change)="setInputDate2($event)"/>
+            <date-picker
+               [value]="value2"
+               [minDate]="minDate2"
+               [maxDate]="maxDate2"
+               [disableDays]="disableDays2"
+               [toContainPrevMonth]="toContainPrevMonth2"
+               [toContainNextMonth]="toContainNextMonth2"
+               (selectedDate)='setDate2($event)'></date-picker>
+        </div>
+       <button type="button" class="chart-btn" (click)="compareDate(selDate,selDate2)">搜索</button>
+    </div>
+    <chart [options]="options"></chart>    
+</div>  

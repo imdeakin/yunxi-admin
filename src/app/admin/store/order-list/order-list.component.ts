@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {OrderList} from '../data-type/order-list';
 import {StoreFunction} from '../data-type/store-function';
 
+declare let layer: any;
+
 @Component({
   selector: 'order-list',
   templateUrl: './order-list.component.html',
@@ -38,15 +40,10 @@ export class OrderListComponent implements OnInit {
     address: ''
   };
   public readModalShow: boolean = false;
-  public readModalData = {
-    orderId: '',
-    sn: '',
-    price: '',
-    freight: '',
-    consignee: '',
-    mobile: '',
-    address: ''
-  };
+  public readModalData;
+
+  public orderListShow: boolean = false;
+  public orderListDate;
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -113,18 +110,69 @@ export class OrderListComponent implements OnInit {
     );
   }
 
+  public getMallOrderDetails(orderId):void{
+    this.apiCall.getMallOrderDetails(
+      orderId,
+      (data)=>{
+         this.readModalData = this.funcServer.deepCopy(data);
+         console.log(this.readModalData);
+      }
+    )
+  }
+
+  //获取发货订单详情
+  public getDeliveryMallOrderDetails(orderId):void{
+    this.apiCall.getDeliveryMallOrderDetails(orderId,(data)=>{
+      this.orderListDate = data;
+      console.log(this.orderListDate);
+    })
+  }
+
+  //获取物流列表
+  // public updateStoreOrderExpress():void{
+  //   this.apiCall.updateStoreOrderExpress(orderDetailsIds, expressId, waybillNumber,(data)=>{
+
+  //   })
+  // }
+    public toggeleOrderModal(item?):void{
+      this.orderListShow = !this.orderListShow;
+          if(item){
+            this.getDeliveryMallOrderDetails(item.order_id);
+          }
+          if(!this.orderListShow){
+            this.orderListDate = '';
+          }
+    }
+
+
+  //签收订单
+  public signStoreOrder(orderId):void{
+    this.apiCall.signStoreOrder(orderId,(data)=>{
+
+    })
+  }
+
   public toggleReadModal(item?): void {
     if (item) {
-      this.readModalData = {
-        orderId: item.order_id,
-        sn: item.sn,
-        price: item.total_price,
-        freight: item.freight,
-        consignee: item.contact,
-        mobile: item.contact_mobile,
-        address: item.address
-      }
+      this.getMallOrderDetails(item.order_id);
     }
     this.readModalShow = !this.readModalShow;
+  }
+
+    public verificationConfirm(orderId): void {
+    let index = layer.confirm(
+      '请确认订单是否签收',
+      {
+        title: '是否确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.signStoreOrder(orderId);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
   }
 }

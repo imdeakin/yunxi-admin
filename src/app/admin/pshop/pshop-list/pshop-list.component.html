@@ -16,6 +16,7 @@
                         (optionSelect)="filterData.status = $event"></select-box>
           </div>
           <button class="text-btn text-sub" type="submit">搜索</button>
+          
         </form>
       </div>
       <div class="manager-table">
@@ -51,6 +52,7 @@
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadDetailModal(item.shop_id)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditDetailModal(item.shop_id)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleTakeMoneyModal(item.shop_id)">提现</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleChartModal(item.shop_id)">查看流水</a>
               </div>
             </td>
           </tr>
@@ -434,6 +436,23 @@
        </div>
     </form>
     <div class="modal-close" (click)="toggleTakeMoneyModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper" [class.hidden]="!chartShow">
+  <div class="modal-con chart">
+    <h3 class="modal-title">查看流水</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+        <div class="modal-detail-item">
+            <chart-income [shopId]="shopId"></chart-income>
+        </div>
+    </div>
+    <div class="modal-btn-group">
+      <button (click)="toggleChartModal()">关闭</button>
+    </div>
+    <div class="modal-close" (click)="toggleChartModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>

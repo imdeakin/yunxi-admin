@@ -31,6 +31,7 @@ export class PShopFlowlogListComponent implements OnInit {
 
   // 模态窗
   public modalShow: boolean = false;
+  public chartShow: boolean = false;
 
   constructor(private elRef: ElementRef, private apiCall: ApiCall, public funcServer: FuncServer, public cityPickerServer: CityPickerServer) {
       // this.userId = adminFunc.getAdminId();
@@ -86,5 +87,9 @@ export class PShopFlowlogListComponent implements OnInit {
     if (!this.modalShow) {
       this.modalData = null;
     }
+  }
+
+  public toggleChartModal():void{
+    this.chartShow = !this.chartShow;
   }
 }

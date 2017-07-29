@@ -24,6 +24,7 @@ export class PShopListComponent implements OnInit {
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList;
+  public shopId;
   public filterData = {
     sn: '',
     status: '',
@@ -47,6 +48,7 @@ export class PShopListComponent implements OnInit {
   public editShopBankModalShow: boolean = false; // 编辑门店银行卡详情的显示状态
   public editShopIdCardModalShow: boolean = false; // 编辑门店身份证详情的显示状态
   public TakeMoneyModalShow:boolean = false;//获取我的账户信息
+  public chartShow: boolean = false;//查看流水
 
   public shopDetail; // 门店详情数据
   public myAccountData;//我的账户详情
@@ -212,6 +214,18 @@ export class PShopListComponent implements OnInit {
         money:'',
         payPwd:''
       }
+    }
+  }
+
+  //查看流水
+   public toggleChartModal(shopId?):void{
+    this.chartShow = !this.chartShow;
+    if(shopId){
+      console.log(shopId);
+      this.shopId = shopId;
+    }
+    if(!this.chartShow){
+      this.shopId = '';
     }
   }
 }

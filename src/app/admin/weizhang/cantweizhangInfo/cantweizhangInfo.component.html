@@ -17,7 +17,7 @@
                         (optionSelect)="filterData.memberLevel = $event"></select-box>
           </div> -->
           <!-- <button class="text-btn text-sub" type="submit">搜索</button> -->
-          <button class="text-btn text-sub close-btn" type="button" (click)="addtoggleModal()">添加违章记录</button> 
+          <button class="text-btn text-sub close-btn" type="button" (click)="addtoggleModal()" *ngIf="dataList" [class.hidden]="dataList.status != -2 && dataList.status != 0">添加违章记录</button> 
         </form>
       </div>
       <div class="manager-table">

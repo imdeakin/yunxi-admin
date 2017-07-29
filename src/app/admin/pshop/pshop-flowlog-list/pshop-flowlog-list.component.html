@@ -22,6 +22,7 @@
           <thead>
           <tr>
             <th>下单用户名</th>
+            <th>门店名字</th>
             <th>消费类型</th>
             <th>收入</th>
             <th>支出</th>
@@ -35,6 +36,7 @@
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
             <td>{{item.nick_name}}</td>
+            <td>{{item.shop_name}}</td>
             <td>{{pshopFunction.getAccountStatusText(item.account_type)}}</td>
             <td>{{item.income}}</td>
             <td>{{item.payment}}</td>
@@ -102,6 +104,23 @@
       <button (click)="toggleModal()">关闭</button>
     </div>
     <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper" [class.hidden]="!chartShow">
+  <div class="modal-con chart">
+    <h3 class="modal-title">查看流水</h3>
+    <div class="modal-detail">
+      <div class="modal-detail-content">
+        <div class="modal-detail-item">
+            <chart-income></chart-income>
+        </div>
+    </div>
+    <div class="modal-btn-group">
+      <button (click)="toggleChartModal()">关闭</button>
+    </div>
+    <div class="modal-close" (click)="toggleChartModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>

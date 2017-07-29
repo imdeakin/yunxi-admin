@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://yx.51meets.com:8082'; // http://www.gzyueyun.com 本地192.168.3.125http://yx.51meets.com
+  public server: string = 'http://yx.51meets.com'; // http://www.gzyueyun.com 本地192.168.3.125http://yx.51meets.com
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
@@ -141,6 +141,8 @@ export class ApiConfig {
     signStoreOrder: this.root + '/marketManage/mallOrderSign', // 签收订单
     updateStoreOrderExpress: this.root + '/marketManage/updateOrderExpress', // 修改订单物流信息
     getStoreExpressList: this.root + '/marketManage/getExpressList', // 获取物流列表
+    getMallOrderDetails:this.root + '/marketManage/mallOrderDetails',//获取商品订单详情
+    getDeliveryMallOrderDetails:this.root + '/marketManage/deliveryMallOrderDetails',//发货获取商品订单详情
 
     /*
      * 门店管理
@@ -188,6 +190,9 @@ export class ApiConfig {
 
     //个人-门店流水
     getStoreAccountFlowlogList:this.root + '/myshop/storeAccountFlowlogList',//门店流水
+
+    //个人-查看收益
+    getIncomeStatistics:this.root + '/myshop/getIncomeStatistics',//查看收益
 
     // 财务管理
     getCloudpayVerificationList: this.root + '/finance/yftOrderVerificationList', // 获取云付通核验列表

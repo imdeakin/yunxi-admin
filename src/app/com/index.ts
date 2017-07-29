@@ -12,3 +12,4 @@ export * from './watch-box';
 export * from './editor';
 export * from './ng2-file-upload';
 export * from './city-pickers';
+export * from './chart';
