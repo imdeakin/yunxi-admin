@@ -257,17 +257,43 @@ export class ApiCall {
     })
   }
 
-  public getInsuranceOrderList(searchName, regionId, curPageIndex: number, pageSize: number, success, failure?): void {
+  public getInsuranceOrderList(searchName,type,curPageIndex: number, pageSize: number, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.getInsuranceOrderList,
       data: {
         index: curPageIndex,
         pageSize: pageSize,
-        searchName: searchName
+        searchName: searchName,
+        type:type
       },
       success: success,
       failure: failure
     });
+  }
+
+  public getInsuranceOrderDetails(insuranceOrderId,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.getInsuranceOrderDetails,
+      data:{
+        insuranceOrderId:insuranceOrderId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //车险快递
+  public updateExpress(insuranceOrderId,expressId,waybillNumber,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.updateExpress,
+      data:{
+        insuranceOrderId:insuranceOrderId,
+        expressId:expressId,
+        waybillNumber:waybillNumber
+      },
+      success:success,
+      failure:failure
+    })
   }
 
   public getUserList(mobile, level, regionId, curPageIndex: number, pageSize: number, success, failure?): void {
@@ -1578,12 +1604,13 @@ export class ApiCall {
     });
   }
 
-  public updateStoreOrder(orderId, actualPrice, contact, mobile, address, success, failure?): void {
+  public updateStoreOrder(orderId, freight,totalPrice, contact, mobile, address, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateStoreOrder,
       data: {
         orderId: orderId,
-        actualPrice: actualPrice,
+        freight: freight,
+        totalPrice: totalPrice,
         contact: contact,
         mobile: mobile,
         address: address
@@ -1591,6 +1618,18 @@ export class ApiCall {
       success: success,
       failure: failure
     });
+  }
+
+  //获取物流信息列表
+  public getExpressList(success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.getExpressList,
+      data:{
+
+      },
+      success:success,
+      failure:failure
+    })
   }
 
   public signStoreOrder(orderId, success, failure?): void {

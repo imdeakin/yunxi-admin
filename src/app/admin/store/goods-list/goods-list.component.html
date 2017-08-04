@@ -266,7 +266,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let item of goodsSKUList">
-          <td *ngFor="let attr of goodsSKUAttrList;">{{getStoreGoodsSKUAttrValueName(attr.param_id)}}</td>
+           <td *ngFor="let attr of goodsSKUAttrList;">{{getStoreGoodsSKUAttrValueName(attr.param_id)}}</td> 
           <!-- <td>{{item.sku_id}}</td> -->
           <td>{{item.price}}</td>
           <td>{{item.inventory}}</td>
@@ -305,7 +305,7 @@
             <select-box
               [options]="goodsSKUAttrValOptionsArr[i]"
               [first]="{value:'',text:'请选择'}"
-              (optionSelect)="goodsSKUAttrValChange($event,item.param_id)"></select-box>
+              ></select-box>
           </ng-template>
         </div>
         <div class="modal-btn-group">

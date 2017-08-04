@@ -1,0 +1,151 @@
+<div class="manager-page">
+  <div class="header">
+    <h3>{{title}}<s></s></h3>
+  </div>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="content-wrapper">
+      <div class="filter-bar">
+        <form class="clearfix" (ngSubmit)="getRegionRecommendInsurerList(1)">
+          <!-- <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleAddModal()">添加</a> -->
+        </form>
+      </div>
+      <div class="manager-table">
+        <table>
+          <thead>
+          <tr>
+            <th>编号</th>
+            <th>订单名称</th>            
+            <th>车主号码</th>
+            <th>订单总额</th>
+            <th>实收金额</th>
+            <th>返点</th>
+            <th>利润</th>
+            <th>下单时间</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{item.sn}}</td>
+            <td>{{item.mobile}}</td>
+            <td>{{item.total_price}}</td>
+            <td>{{item.true_price}}</td>
+            <td>{{item.back_points}}</td>
+            <td>{{item.profit}}</td>
+            <td>{{item.create_time}}</td>
+            <td>{{systemFunction.getInsuranceOrderStatusText(item.status)}}</td>
+            <td>
+              <div class="table-btns">
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">关闭订单</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item.insurance_order_id)">查看</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="expressModal(item.insurance_order_id)">快递</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.recommend_insurer_id)">修改</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
+        <pagination-controls (pageChange)="getRegionRecommendInsurerList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<!--编辑窗-->
+<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
+  <div class="modal-con check-con">
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
+      <div class="modal-detail-content">
+        <h3 class="modal-h3-title">车主信息</h3>
+        <div class="modal-detail-item">
+          <label>车主姓名</label>
+          <div class="value">{{modalData.name}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>车主身份证</label>
+          <div class="value">{{modalData.id_card}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>车主手机号码</label>
+          <div class="value">{{modalData.mobile}}</div>
+        </div>
+        <h3 class="modal-h3-title">车辆信息</h3>
+        <div class="modal-detail-item">
+          <label>车牌号码</label>
+          <div class="value">{{modalData.car_number}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>品牌型号</label>
+          <div class="value">{{modalData.car_brand_name}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>车架号</label>
+          <div class="value">{{modalData.frame_no}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>发动机号</label>
+          <div class="value">{{modalData.engine_no}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>登记日期</label>
+          <div class="value">{{modalData.register_date}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label class="modal-h3">商业险</label>
+          <div class="value">{{modalData.bi_premium}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>生效日期</label>
+          <div class="value">{{modalData.bi_begin_date}}</div>
+        </div>
+         <div class="modal-detail-item">
+          <label class="modal-h3">交强险</label>
+          <div class="value">{{modalData.ci_premium}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>生效日期</label>
+          <div class="value">{{modalData.ci_begin_date}}</div>
+        </div>
+         <div class="modal-detail-item">
+          <label class="modal-h3">车船税</label>
+          <div class="value">{{modalData.carship_tax}}</div>
+        </div>
+        <div class="modal-btn-group">
+          <button type="submit">保存</button>
+        </div>
+        </div>
+    </form>
+    <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper " [class.hidden]="!expressShow" *ngIf="expressList">
+  <div class="modal-con express-con">
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
+      <div class="modal-detail-content">
+        <h3 class="modal-h3-title">快递</h3>
+        <div class="modal-input-group">
+          <label>快递公司</label>
+          <select-box [options]="expressList" (optionSelect)="expressId = $event"></select-box>
+        </div>
+        <div class="modal-input-group">
+          <label>快递单号</label>
+         <input type="text" name="waybillNumber" [(ngModel)]="waybillNumber">
+        </div>
+        <div class="modal-btn-group">
+          <button type="submit">保存</button>
+          <button type="button" (click)="expressModal()">关闭</button>
+        </div>
+        
+        </div>
+    </form>
+    <div class="modal-close" (click)="expressModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>

@@ -9,8 +9,8 @@ declare let layer: any;
     templateUrl:'./chart.html',
     styleUrls:['./chart.css']
 })
-export class Chart implements OnInit,DoCheck{
-    @Input() shopId:string = '';
+export class ChartComponent implements OnInit,DoCheck{
+    @Input() public shopId:string = '';
     public sevenDayStart;
     public sevenDayEnd;
     public MonthStart;
@@ -19,13 +19,13 @@ export class Chart implements OnInit,DoCheck{
     public oldShopId;
     public dateEle;
     // 日期时间
-    private selDate: string = '';
-    private minDate: string = '1970/01/01';
-    private maxDate: string = '9999/12/31';
-    private disableDays: number[] = [-1, 7];    //For Sunday and Saturday
-    private toContainPrevMonth: boolean = false;
-    private toContainNextMonth: boolean = false;
-    private value: string = '';
+    public selDate: string = '';
+    public minDate: string = '1970/01/01';
+    public maxDate: string = '9999/12/31';
+    public disableDays: number[] = [-1, 7];    //For Sunday and Saturday
+    public toContainPrevMonth: boolean = false;
+    public toContainNextMonth: boolean = false;
+    public value: string = '';
     public setInputDate(event) {
         this.value = event.target.value;
     }
@@ -34,13 +34,13 @@ export class Chart implements OnInit,DoCheck{
     }
 
     // 日期时间
-    private selDate2: string = '';
-    private minDate2: string = '1970/01/01';
-    private maxDate2: string = '9999/12/31';
-    private disableDays2: number[] = [-1, 7];    //For Sunday and Saturday
-    private toContainPrevMonth2: boolean = false;
-    private toContainNextMonth2: boolean = false;
-    private value2: string = '';
+    public selDate2: string = '';
+    public minDate2: string = '1970/01/01';
+    public maxDate2: string = '9999/12/31';
+    public disableDays2: number[] = [-1, 7];    //For Sunday and Saturday
+    public toContainPrevMonth2: boolean = false;
+    public toContainNextMonth2: boolean = false;
+    public value2: string = '';
     public setInputDate2(event) {
         this.value2 = event.target.value;
     }
@@ -59,7 +59,7 @@ export class Chart implements OnInit,DoCheck{
         this.MonthEnd = this.byMonth2()[0];
 
         this.dateEle = this.elementRef.nativeElement.querySelectorAll('#openDate');
-        console.log(this.dateEle);
+
     }
 
     public ngDoCheck():void{
@@ -135,17 +135,20 @@ export class Chart implements OnInit,DoCheck{
     /**
      * 比较日期是否符合搜索条件
      */
-    public compareDate(startTime,endTime,type):void{
+    public compareDate(startTime,endTime,type?):void{
+        if(!startTime&&!endTime){
+            return;
+        }
         let startDate = new Date(startTime);
         let endDate = new Date(endTime);
         let timeLimit = startDate.getTime() + 30*24*60*60*1000;
         if( endDate.getTime() > timeLimit){
             layer.msg('结束时间超过30天了，请重新选择');
-            return 
+            return; 
         }
         if(startDate.getTime() > endDate.getTime()){
             layer.msg('开始日期必需早于结束时间，请重新选择');
-            return 
+            return;
         }
         if(this.selDate && this.selDate2 && !type){
             this.dateEle.forEach(element => {

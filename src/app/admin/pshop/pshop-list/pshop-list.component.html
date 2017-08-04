@@ -261,7 +261,7 @@
 </div>
 <!--门店详情-编辑基本信息-->
 <div class="modal-wrapper edit-modal"
-     [class.hidden]="!editShopDetailModalShow || editShopBankModalShow || editShopIdCardModalShow">
+     [class.hidden]="!editShopDetailModalShow ">
   <div class="modal-con edit-shop-detail-modal">
     <div class="modal-close" (click)="toggleEditDetailModal()">
       <i class="icon-font">&#xe6e9;</i>
@@ -303,13 +303,13 @@
              <input type="text" name="opening_hours" [(ngModel)]="shopDetail.opening_hours">
           </div>
           <div class="modal-btn-group">
-            <button (click)="toggleEditShopDescribedModal()">编辑店铺描述</button>
+            <button type="button" (click)="toggleEditShopDescribedModal()">编辑店铺描述</button>
             <!-- <button (click)="toggleEditShopBankModal()">编辑银行卡信息</button> -->
             <!-- <button (click)="toggleEditShopIdCardModal()">编辑身份证信息</button> -->
           </div>
           <div class="modal-btn-group">
             <button type="submit">保存</button>
-            <button (click)="toggleEditDetailModal()">关闭</button>
+            <button type="button" (click)="toggleEditDetailModal()">关闭</button>
           </div>
           </form>
         </div>
@@ -336,7 +336,7 @@
         </div>
       </div>
       <div class="modal-btn-group" >
-        <button (click)="editShopDescribedShow = !editShopDescribedShow">返回</button>
+        <button type="button" (click)="toggleEditShopDescribedModal()">返回</button>
       </div>
     </ng-template>
   </div>

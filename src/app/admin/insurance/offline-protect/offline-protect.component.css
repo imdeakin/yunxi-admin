@@ -1,0 +1,23 @@
+.modal-con {
+  width: 600px;
+  height: 600px;
+  margin-left: -300px;
+  margin-top: -300px;
+}
+.check-con{
+   overflow-y:scroll;
+}
+.modal-h3-title{
+  color:#009be8;
+  border-bottom:4px #009be8 solid;
+  margin:20px 0;
+}
+.modal-h3{
+  color:#009be8;
+}
+.express-con{
+  width:400px;
+  height: 260px;
+  margin-left: -150px;
+  margin-top: -130px;
+}

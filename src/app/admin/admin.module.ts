@@ -5,7 +5,18 @@ import {HttpModule} from '@angular/http';
 import {AdminRoutingModule} from './admin-routing.module';
 import {Ng2PaginationModule} from "ng2-pagination";
 import {AdminComponent} from './admin.component';
-import {ChartModule} from 'angular2-highcharts'
+import {ChartModule} from 'angular2-highcharts';
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+
+declare var require:any;
+
+ export function highchartsFactory() {
+      const hc = require('highcharts');
+      const dd = require('highcharts/modules/drilldown');
+      dd(hc);
+
+      return hc;
+    }
 
 import {
   HeadBarComponent,
@@ -23,7 +34,7 @@ import {
   ImgUploadListComponent,
   CityPickersServer,
   CityPickersComponent,
-  Chart
+  ChartComponent
 } from '../com';
 
 
@@ -48,6 +59,8 @@ import {
   // 车险管理
   InsuranceOrderListPageComponent,
   CarProtectComponent,
+  OnlineProtectComponent,
+  OfflineProtectComponent,
 
   // 会员管理
   UserListComponent,
@@ -107,7 +120,7 @@ import {
     HttpModule,
     AdminRoutingModule,
     Ng2PaginationModule,
-    ChartModule.forRoot(require('highcharts'))
+    ChartModule
   ],
   declarations: [
     AdminComponent,
@@ -124,7 +137,7 @@ import {
     ImgUploadComponent,
     ImgUploadListComponent,
     CityPickersComponent,
-    Chart,
+    ChartComponent,
     // 工作台
     BarGraphPageComponent,
     WorkbenchPageComponent,
@@ -145,6 +158,8 @@ import {
     // 车险管理
     InsuranceOrderListPageComponent,
     CarProtectComponent,
+    OnlineProtectComponent,
+    OfflineProtectComponent,
 
     // 会员管理
     UserListComponent,
@@ -197,7 +212,11 @@ import {
     CarModelListComponent,
     CarBrandListComponent,
   ],
-  providers: [CityPickerServer,CityPickersServer]
+  providers: [CityPickerServer,CityPickersServer, 
+        {
+          provide: HighchartsStatic,
+          useFactory: highchartsFactory
+        }]
 })
 export class AdminModule {
 }

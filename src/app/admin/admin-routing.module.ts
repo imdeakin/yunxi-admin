@@ -24,6 +24,8 @@ import {
   // 车险管理
   InsuranceOrderListPageComponent,
   CarProtectComponent,
+  OnlineProtectComponent,
+  OfflineProtectComponent,
 
   // 会员管理
   UserListComponent,
@@ -102,6 +104,9 @@ const AdminRoutes: Routes = [
       // 车险管理
       {path: 'insurance-order-list', component: InsuranceOrderListPageComponent},
       {path:'car-protect-list',component:CarProtectComponent},
+      {path:'online-protect',component:OnlineProtectComponent},
+      {path:'offline-protect',component:OfflineProtectComponent},
+
       // 会员管理
       {path: 'user-list', component: UserListComponent},
       {path: 'user-list/:memberId', component:myUserListComponent},

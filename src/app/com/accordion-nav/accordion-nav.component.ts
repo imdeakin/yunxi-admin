@@ -64,6 +64,14 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '推荐的保险公司',
           link: '/admin/car-protect-list'
+        },
+        {
+          title:'线上自助成功投保',
+          link:'/admin/online-protect'
+        },
+        {
+          title:'线下自助成功投保',
+          link:'/admin/offline-protect'
         }
       ]
     },

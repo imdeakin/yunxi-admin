@@ -46,6 +46,8 @@ export class ApiConfig {
 
     // 车险管理
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表
+    getInsuranceOrderDetails:this.root + '/insurancemanage/insuranceOrderDetails',//获取车险详情
+    updateExpress:this.root + '/insurancemanage/updateExpress',//车险快递
 
     //推荐车险管理
     getregionRecommendInsurerList: this.root + '/system/regionRecommendInsurerList',//推荐车险管理列表
@@ -143,6 +145,7 @@ export class ApiConfig {
     getStoreExpressList: this.root + '/marketManage/getExpressList', // 获取物流列表
     getMallOrderDetails:this.root + '/marketManage/mallOrderDetails',//获取商品订单详情
     getDeliveryMallOrderDetails:this.root + '/marketManage/deliveryMallOrderDetails',//发货获取商品订单详情
+    getExpressList:this.root + '/marketManage/getExpressList',//获取物流信息
 
     /*
      * 门店管理

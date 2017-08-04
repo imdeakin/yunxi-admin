@@ -536,6 +536,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
     this.apiCall.getStoreGoodsSKUList(
       this.curGoodsId,
       (list) => {
+        console.log(list);
         this.goodsSKUList = list;
       }
     )
@@ -549,6 +550,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
       this.curGoodsTypeId,
       '1',
       (list) => {
+        console.log(list);
         this.goodsSKUAttrList = list;
 
         // 获取所有的参数值列表
@@ -569,6 +571,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
         for (let i = 0, len = arr.length; i < len; i++) {
           optionsArr.push(this.getStoreGoodsSKUAttrValOptions(arr[i].param_id))
         }
+        console.log(optionsArr);
         this.goodsSKUAttrValOptionsArr = optionsArr;
       }
     )
@@ -598,7 +601,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
         valueId = list[i].valueId;
       }
     }
-    console.log(valueId);
     return valueId;
   }
 
@@ -621,6 +623,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
       skuId,
       (data) => {
         console.log(data);
+        alert(data);
         this.editGoodsSKUModalData = data;
       }
     );
@@ -628,7 +631,10 @@ export class GoodsListComponent implements OnInit, DoCheck {
 
   // 改变SKU参数值
   public goodsSKUAttrValChange(valueId, paramId) {
+    console.log(valueId,paramId);
+    console.log(this.editGoodsSKUModalData);
     let list = this.editGoodsSKUModalData.sku_arr_json;
+    console.log(list);
     for (let i = 0, len = list.length; i < len; i++) {
       if (list[i].param_id === paramId) {
         list[i].value_id = valueId;
@@ -676,8 +682,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
    * 编辑商品销售属性
    */
   public toggleEditGoodsSKUModal(skuId?): void {
-    console.log(this.goodsSKUList);
-    console.log(skuId);
     if (skuId) {
       this.getStoreGoodsSKU(skuId);
     }

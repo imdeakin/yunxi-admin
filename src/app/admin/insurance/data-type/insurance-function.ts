@@ -80,11 +80,14 @@ export class InsuranceFunction {
     }
   ];
 
-  public static getInsuranceOrderStatusText(code: number): string {
+  public static getInsuranceOrderStatusText(code): string {
     let text = '';
     switch (code) {
       case -1:
-        text = '加入购物车';
+        text = '关闭订单';
+        break;
+      case 0:
+        text = '待处理';
         break;
       case 2:
         text = '核保失败';

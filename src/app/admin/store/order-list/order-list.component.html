@@ -29,7 +29,7 @@
             <th>订单状态</th>
             <th>支付方式</th>
             <th>支付时间</th>
-            <th>物流单号</th>
+            <!-- <th>物流单号</th> -->
             <th>操作</th>
           </tr>
           </thead>
@@ -43,13 +43,12 @@
             <td>{{storeFunction.getOrderStatusText(item.status)}}</td>
             <td>{{storeFunction.getPayTypeText(item.trade_mode)}}</td>
             <td>{{item.pay_time || "/"}}</td>
-            <td>{{item.waybill_number}}</td>
+            <!-- <td>{{item.waybill_number}}</td> -->
             <td>
               <div class="table-btns">
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal(item)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggeleOrderModal(item)" [class.hidden]="item.status != 2">发货</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleEditModal(item)" [class.hidden]="item.status != 3">签收</a>
               </div>
             </td>
           </tr>
@@ -64,43 +63,49 @@
 </div>
 <div class="modal-wrapper" [class.hidden]="!orderListShow" *ngIf="orderListDate">
   <div class="modal-con order-list">
-    <h3 class="modal-title">编辑</h3>
+    <h3 class="modal-title">发货</h3>
     <form class="modal-form" (ngSubmit)="editSubmit()">
+      <div class="modal-detail-content">
       <div class="modal-detail-left">
-        <div class="modal-input-group">
+        <div class="modal-detail-item">
           <label>订单编号</label>
-          <div class="text">{{orderListDate.sn}}</div>
+          <div class="value">{{orderListDate.sn}}</div>
         </div>
-        <div class="modal-input-group">
+        <div class="modal-detail-item">
           <label>收货地址</label>
-           <div class="text">{{orderListDate.address}}</div>
+           <div class="value">{{orderListDate.address}}</div>
         </div>
       </div>
       <div class="modal-detail-right">
-        <div class="modal-input-group">
+        <div class="modal-detail-item">
           <label>收货人</label>
-          <div class="text">{{orderListDate.contact}}</div>
+          <div class="value">{{orderListDate.contact}}</div>
         </div>
-        <div class="modal-input-group">
+        <div class="modal-detail-item">
           <label>收货人电话</label>
-          <div class="text">{{orderListDate.mobile}}</div>
+          <div class="value">{{orderListDate.mobile}}</div>
         </div>
       </div>
       <div class="modal-input-groups">
-        <div class="modal-input-item">
+        <div class="modal-input-group">
           <label>快递公司</label>
-          <input type="text" name="price" value="" [(ngModel)]="editModalData.price">
+           <select-box *ngIf="expressList" [options]="expressList" (optionSelect)="orderData.expressId = $event"></select-box> 
+          <!-- <input type="text" name="price" value="" [(ngModel)]="editModalData.price"> -->
         </div>
-        <div class="modal-input-item">
+        <div class="modal-input-group">
           <label>快递单号</label>
-          <input type="text" name="price" value="" [(ngModel)]="editModalData.price">
+          <input type="text" name="waybillNumber" [(ngModel)]="orderData.waybillNumber">
         </div>
-        <button type="button" (click)="toggeleOrderModal()">添加快递单号</button>
+        <button type="button" (click)="updateStoreOrderExpress()">添加快递单号</button>
       </div>
-        <div class="modal-detail-item">
+        <div class="modal-detail-item" style="font-size:16px;">
          <table>
            <thead>
              <tr>
+               <th>
+                  <span>全选<input class="allSelect" [checked]="allChecked" type="checkbox" style="display:inline-block;width:20%;" (click)="allCheck()"></span>
+                  <!-- <span>全不选<input class="allSelect" [checked]="allChecked" type="checkbox" style="display:inline-block;width:20%;" (click)="allNotCheck()"></span> -->
+              </th>
                <th>商品名</th>
                <th>数量</th>
                <th>快递公司</th>
@@ -108,19 +113,22 @@
             </tr>
            </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
+            <tr *ngFor="let item of orderListDate.order_details; let i = index">
+              <td><input type="checkbox" (click)="clickItem($event,item.order_details_id)" class="check-box"></td>
+              <td>{{item.goods_name}}</td>
+              <td>{{item.number}}</td>
+              <td>{{item.express_name}}</td>
+              <td>{{item.waybill_number}}</td>
+              <!-- <td>{{orderDetailsIds}}</td> -->
             </tr>
           </tbody>
          </table>
         </div>
       <div class="modal-btn-group">
-        <button type="submit">保存</button>
+        <!-- <button type="submit">保存</button> -->
         <button type="button" (click)="toggeleOrderModal()">关闭</button>
       </div>
+    </div>
     </form>
     <div class="modal-close" (click)="toggeleOrderModal()">
       <i class="icon-font">&#xe6e9;</i>
@@ -235,15 +243,15 @@
           </ul>
           <div class="modal-detail-item">
             <label></label>
-            <div class="value">商品总额:{{readModalData.mobile}}</div>
+            <div class="value">商品总额:{{allPrice}}</div>
           </div>
           <div class="modal-detail-item">
             <label></label>
-            <div class="value">运费:{{readModalData.mobile}}</div>
+            <div class="value">运费:{{allFreight}}</div>
           </div>
           <div class="modal-detail-item">
             <label></label>
-            <div class="value">总金额:{{readModalData.mobile}}</div>
+            <div class="value">总金额:{{allMoney}}</div>
           </div>
         </div>
         <div class="modal-btn-group">

@@ -1,14 +1,16 @@
 /**
  * Created by Deakin on 2017/5/8 0008.
  */
-import {Component, ElementRef, OnInit} from '@angular/core';
+import { Component, ElementRef, OnInit, DoCheck } from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {CityPickerServer} from '../../../com/city-picker';
-import {OrderList} from '../data-type/order-list';
+import { OrderList } from '../data-type/order-list';
 import {StoreFunction} from '../data-type/store-function';
+import { element } from 'protractor';
 
 declare let layer: any;
+declare var $:any;
 
 @Component({
   selector: 'order-list',
@@ -17,11 +19,19 @@ declare let layer: any;
 })
 export class OrderListComponent implements OnInit {
   public title = '订单管理';
+  public dateEle;
+  public allEle;
   public contentHeight = 0;
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList: OrderList[];
+  public allPrice = 0;
+  public allFreight = 0;
+  public allMoney = 0;
+  public waybillNumber;
+  public expressList = [];
+  public orderDetailsIds = [];
   public filterData = {
     sn: '',
     status: ''
@@ -39,16 +49,26 @@ export class OrderListComponent implements OnInit {
     mobile: '',
     address: ''
   };
+
+  //订单数据模块
+  public orderData = {
+    orderDetailsIds:'',
+    expressId:'',
+    waybillNumber:''
+  }
+
   public readModalShow: boolean = false;
   public readModalData;
 
   public orderListShow: boolean = false;
   public orderListDate;
 
+  public allChecked:boolean = false;
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
               private funcServer: FuncServer,
-              public cityPickerServer: CityPickerServer) {
+              public cityPickerServer: CityPickerServer,
+              private elementRef:ElementRef) {
   }
 
   public ngOnInit(): void {
@@ -99,13 +119,14 @@ export class OrderListComponent implements OnInit {
   public editSubmit(): void {
     this.apiCall.updateStoreOrder(
       this.editModalData.orderId,
-      parseFloat(this.editModalData.price) + parseFloat(this.editModalData.freight),
+      parseFloat(this.editModalData.freight),
+      parseFloat(this.editModalData.price),
       this.editModalData.consignee,
       this.editModalData.mobile,
       this.editModalData.address,
-      (list, total) => {
-        this.tableList = list;
-        this.total = total;
+      (data) => {
+        this.toggleEditModal();
+        this.getStoreOrderList(1);
       }
     );
   }
@@ -115,7 +136,11 @@ export class OrderListComponent implements OnInit {
       orderId,
       (data)=>{
          this.readModalData = this.funcServer.deepCopy(data);
-         console.log(this.readModalData);
+         this.readModalData.order_details.forEach(element => {
+           this.allPrice = this.allPrice + element.number * element.price;
+           this.allFreight = this.allFreight + element.freight;
+           this.allMoney = this.allPrice + element.number * element.price + element.freight;
+         });
       }
     )
   }
@@ -124,23 +149,105 @@ export class OrderListComponent implements OnInit {
   public getDeliveryMallOrderDetails(orderId):void{
     this.apiCall.getDeliveryMallOrderDetails(orderId,(data)=>{
       this.orderListDate = data;
-      console.log(this.orderListDate);
     })
   }
 
   //获取物流列表
-  // public updateStoreOrderExpress():void{
-  //   this.apiCall.updateStoreOrderExpress(orderDetailsIds, expressId, waybillNumber,(data)=>{
+  public getExpressList():void{
+    this.apiCall.getExpressList((data)=>{
+         data.forEach(element => {
+           this.expressList.push({
+              value:element.express_id,
+              text:element.express_name
+            })
+      });
+    })
+  }
 
-  //   })
+  //勾选
+  public clickItem(e,item):void{
+    console.log(item);
+    let checkbox = e.target;
+    let action = (checkbox.checked ? 'add':'remove');
+    this.updateSelected(action,item);
+    console.log(this.orderDetailsIds);
+  }
+
+  public updateSelected(action,item):void{
+    if(action == 'add' && this.orderDetailsIds.findIndex(value => value == item) ==-1){
+      this.orderDetailsIds.push(item);
+    }
+    if(action == 'remove' && this.orderDetailsIds.findIndex(value => value == item) != -1){
+      this.orderDetailsIds.splice(this.orderDetailsIds.findIndex(value => value == item), 1)
+    }
+  }
+
+  public allCheck():void{
+      this.dateEle = this.elementRef.nativeElement.querySelectorAll('.check-box');
+      this.allEle = this.elementRef.nativeElement.querySelector('.allSelect');
+      console.log(this.allEle.checked);
+      if(this.allEle.checked){
+        this.dateEle.forEach(element => {
+          element.click();
+          this.allChecked = !this.allChecked;
+          element.checked = true;
+        }); 
+      }else{
+         this.dateEle.forEach(element => {
+          this.allChecked = !this.allChecked;
+          element.checked = false;
+          this.orderDetailsIds = [];
+        }); 
+      }
+  }
+  
+  //  public allNotCheck():void{
+  //     this.dateEle = this.elementRef.nativeElement.querySelectorAll('.check-box')
+  //     console.log(this.dateEle);
+  //     this.dateEle.forEach(element => {
+  //       this.allChecked = false;
+  //       element.checked = false;
+  //     });
+  //     console.log(this.allChecked);
   // }
-    public toggeleOrderModal(item?):void{
+
+  public isCheck(item){
+    console.log(this.orderDetailsIds.findIndex(value => value == item) > 0);
+    return this.orderDetailsIds.findIndex(value => value == item) > 0;
+  }
+
+  //修改订单详情
+  public updateStoreOrderExpress():void{
+    this.orderData.orderDetailsIds = this.orderDetailsIds.join(",");
+    this.apiCall.updateStoreOrderExpress(this.orderData.orderDetailsIds,this.orderData.expressId,this.orderData.waybillNumber,(data)=>{
+      this.getDeliveryMallOrderDetails(this.orderListDate.order_id);
+      this.orderDetailsIds = [];
+      this.orderData.waybillNumber = '';
+      this.allEle = this.elementRef.nativeElement.querySelector('.allSelect');
+      this.allEle.checked = false;
+    },(data)=>{
+      console.log(data);
+      if(!this.orderData.orderDetailsIds){
+        layer.msg('请选择要修改的商品');
+      }
+      else if(!this.orderData.waybillNumber){
+        layer.msg('请填写快递单号');
+      }
+    })
+  }
+
+  public toggeleOrderModal(item?):void{
       this.orderListShow = !this.orderListShow;
           if(item){
+            this.getExpressList();
             this.getDeliveryMallOrderDetails(item.order_id);
           }
           if(!this.orderListShow){
             this.orderListDate = '';
+            this.allPrice = 0;
+            this.allFreight = 0;
+            this.allMoney = 0;
+            this.expressList = [];
           }
     }
 
