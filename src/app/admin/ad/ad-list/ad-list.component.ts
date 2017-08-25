@@ -142,11 +142,35 @@ export class AdListComponent implements OnInit {
     );
   }
 
-  public modalSubmit(): void {
-    if (this.editModalData.ad_id) {
-      this.updateAd();
-    } else {
-      this.addAd();
+  public modalSubmit(theForm): void {
+    let submit = false;
+    for(let key in theForm.controls){
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!this.editModalData.business_id){
+      layer.msg(`请选择业务`);
+      submit = true;
+    }else if(!this.editModalData.is_show){
+      layer.msg(`请选择是否可见`);
+      submit = true;
+    }else if(!this.editModalData.position_code){
+      layer.msg(`请选择广告位置`);
+      submit = true;
+    }else if(!this.fileModalData.url){
+      layer.msg(`请上传图片`);
+      submit = true;
+    }
+
+    if(!submit){
+      if (this.editModalData.ad_id) {
+        this.updateAd();
+      } else {
+        this.addAd();
+      }
     }
   }
 

@@ -151,11 +151,22 @@ export class BrandListComponent implements OnInit {
     )
   }
 
-  public modalSubmit(): void {
-    if (this.modalData.goods_brand_id) { // 编辑
-      this.updateStoreGoodsBrandInfo();
-    } else { // 添加
-      this.addStoreGoodsBrandInfo();
+  public modalSubmit(theForm): void {
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
+        if (this.modalData.goods_brand_id) { // 编辑
+          this.updateStoreGoodsBrandInfo();
+        } else { // 添加
+          this.addStoreGoodsBrandInfo();
+        }
     }
   }
 }

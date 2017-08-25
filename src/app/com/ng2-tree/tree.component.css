@@ -1,0 +1,61 @@
+.treelists-content{
+    position: relative;
+    list-style-type: none;
+    margin:8px 0;
+}
+.treelists-content span{
+    margin-left:30px;
+}
+.checkbox{
+    position: absolute;
+     /* top:10px;  */
+    left:0;
+
+    width: 20px;
+    height: 20px;
+    border: 2px solid #009be8;
+    display: inline-block;
+    cursor: pointer;
+}
+.checkbox .checkbox-min{
+    width:10px;
+    height:10px;
+    background: #009be8;
+    margin:3px auto;
+    border-radius: 50%;
+}
+.checkbox .checkbox-all{
+    width:10px;
+    height:10px;
+    background: #009be8;
+    margin:3px auto;
+}
+.btn-list{
+    margin-left:26px;
+    background: none;
+    border:0;
+    transition: all ease 2s;
+    position: relative;
+    width:160px;
+    background: #009be8;
+    color:#eee;
+    border-radius: 2px;
+}
+.remove-btn{
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+}
+.remove-btn::before{
+    content: '';
+    width:0;
+    height:2px;
+    background: #009be8;
+    position: absolute;
+    bottom:0;
+    left:0;
+    transition: all ease 0.3s;
+}
+.remove-btn:hover::before {
+    width:100%;
+}

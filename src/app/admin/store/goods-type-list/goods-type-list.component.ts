@@ -85,6 +85,18 @@ export class GoodsTypeListComponent implements OnInit {
     });
   }
 
+  //显示父节点
+  public goodsIdOptions(pGoodsId):string{
+    let text = '';
+    let goodTypleList = this.tableList;
+    for(let i = 0;i<goodTypleList.length;i++){
+      if(pGoodsId == goodTypleList[i].goods_type_id){
+        text = goodTypleList[i].type_name;
+      }
+    }
+    return text
+  }
+
   public getStoreGoodsTypeList(curPageIndex?): void {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
@@ -112,6 +124,19 @@ export class GoodsTypeListComponent implements OnInit {
     this.goodsTypeOptions = arr;
   }
 
+  public submitCheck(curGoodsTypeId):void{
+    let arrList = this.tableList;
+    let number;
+    console.log(arrList.length);
+    for(let i = 0;i<arrList.length;i++){
+      if(curGoodsTypeId == arrList[i].goods_type_id){
+        number = arrList[i].level + 1;
+        break;
+      }
+    }
+    this.modalData.level = String(number);
+  }
+
   // 模态窗
 
   /*
@@ -132,6 +157,7 @@ export class GoodsTypeListComponent implements OnInit {
       };
       this.updateGoodsTypeOptions(item.goods_type_id);
     }
+     this.updateGoodsTypeOptions();
     this.editTypeModalShow = !this.editTypeModalShow;
     if (!this.editTypeModalShow) {
       this.modalData = this.funcServer.emptyObj(this.modalData);
@@ -167,21 +193,41 @@ export class GoodsTypeListComponent implements OnInit {
     );
   }
 
-  public editSubmit(): void {
-    if (this.modalData.goods_type_id) {
-      this.editGoodsType();
-    } else {
-      this.addGoodsType();
+  public editSubmit(theForm): void {
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
+      this.submitCheck(this.modalData.p_goods_type_id);
+      if (this.modalData.goods_type_id) {
+        this.editGoodsType();
+      } else {
+        this.addGoodsType();
+      }
     }
   }
 
   public removeGoodsType(goodsTypeId): void {
-    this.apiCall.removeStoreGoodsTypeInfo(
+    let index = layer.confirm('确定删除吗？', ['确定', '取消'],
+      () => {
+        this.apiCall.removeStoreGoodsTypeInfo(
       goodsTypeId,
       (data) => {
         this.getStoreGoodsTypeList(1);
-      }
-    );
+         layer.close(index);
+      },
+          () => {
+            layer.msg("删除失败");
+            layer.close(index);
+          }
+        )
+      });
   }
 
   /*
@@ -272,11 +318,22 @@ export class GoodsTypeListComponent implements OnInit {
     );
   }
 
-  public editTypeAttrSubmit(): void {
-    if (this.editTypeAttrModalData.param_id) {
-      this.editTypeAttr();
-    } else {
-      this.addTypeAttr();
+  public editTypeAttrSubmit(theForm): void {
+    let submit = false;
+    for(let key in theForm.controls){
+      if(theForm.controls[key].errors){
+        console.log(theForm.controls[key].errors)
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
+      if (this.editTypeAttrModalData.param_id) {
+        this.editTypeAttr();
+      } else {
+        this.addTypeAttr();
+      }
     }
   }
 
@@ -302,6 +359,7 @@ export class GoodsTypeListComponent implements OnInit {
           () => {
             layer.msg("删除成功");
             this.getStoreGoodsTypeAttrList();
+            this.getStoreGoodsTypeAttrValList();
             layer.close(index);
           },
           () => {
@@ -368,12 +426,22 @@ export class GoodsTypeListComponent implements OnInit {
     );
   }
 
-  public editTypeAttrValSubmit(): void {
-    if (this.editTypeAttrValModalData.value_id) {
-      this.editTypeAttrVal();
-    } else {
-      this.addTypeAttrVal();
+  public editTypeAttrValSubmit(theForm): void {
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
     }
-  }
-
+    if(!submit){
+      if (this.editTypeAttrValModalData.value_id) {
+          this.editTypeAttrVal();
+        } else {
+          this.addTypeAttrVal();
+        }
+      }
+    }
 }

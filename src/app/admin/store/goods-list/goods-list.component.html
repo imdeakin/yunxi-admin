@@ -7,7 +7,7 @@
       <div class="filter-bar">
         <form class="clearfix" (ngSubmit)="getStoreGoodsList(1)">
           <div class="input-group">
-            <label>商品编辑</label>
+            <label>商品编号</label>
             <input type="text" name="title" value="" [(ngModel)]="filterData.sn">
           </div>
           <div class="input-group">
@@ -80,28 +80,30 @@
       <h3 class="modal-title" [class.hidden]="editBaseInfoModalData.goods_id">添加商品信息</h3>
       <form class="modal-form">
         <div class="modal-input-group">
-          <label>类型</label>
+          <label>类型<span style="color:red;">*</span></label>
           <select-box [options]="storeGoodsTypeOptions"
                       [first]="{value:'',text:'请选择'}"
                       [value]="editBaseInfoModalData.goods_type_id"
                       (optionSelect)="editBaseInfoModalData.goods_type_id = $event"></select-box>
         </div>
         <div class="modal-input-group">
-          <label>品牌</label>
+          <label>品牌<span style="color:red;">*</span></label>
           <select-box [options]="storeGoodsBrandOptions"
                       [value]="editBaseInfoModalData.goods_brand_id"
                       (optionSelect)="editBaseInfoModalData.goods_brand_id = $event"></select-box>
         </div>
         <div class="modal-input-group">
           <label>商品标题</label>
-          <input type="text" name="businessName" [(ngModel)]="editBaseInfoModalData.business_name">
+          <input type="text" name="businessName" [(ngModel)]="editBaseInfoModalData.business_name" #businessName="ngModel" required>
+          <p *ngIf="businessName.errors?.required" class="validate">必填</p>
         </div>
         <div class="modal-input-group">
           <label>商品产地</label>
-          <input type="text" name="producer" [(ngModel)]="editBaseInfoModalData.producer">
+          <input type="text" name="producer" [(ngModel)]="editBaseInfoModalData.producer" #producer="ngModel" required>
+          <p *ngIf="producer.errors?.required" class="validate">必填</p>
         </div>
         <div class="modal-input-group">
-          <label>上架状态</label>
+          <label>上架状态<span style="color:red;">*</span></label>
           <select-box [options]="storeFunction.goodsStatusOptions"
                       [first]="{value:'',text:'请选择'}"
                       [value]="editBaseInfoModalData.on_sale + ''"
@@ -109,7 +111,24 @@
         </div>
         <div class="modal-input-group">
           <label>运费</label>
-          <input type="text" name="freight" [(ngModel)]="editBaseInfoModalData.freight">
+          <input type="text" name="freight" [(ngModel)]="editBaseInfoModalData.freight" #freight="ngModel" validateNumber>
+          <p *ngIf="freight.errors?.validateNumber" class="validate">请填写数字</p>
+        </div>
+         <div class="modal-input-group">
+          <label>推荐位置</label>
+            <select-box [options]="storeFunction.isRecommendOptions"
+                      [value]="editBaseInfoModalData.is_recommend + ''"
+                      (optionSelect)="editBaseInfoModalData.is_recommend = $event"></select-box>
+        </div>
+         <div class="modal-input-group">
+          <label>排序</label>
+          <input type="text" name="sort" [(ngModel)]="editBaseInfoModalData.sort">
+        </div>
+         <div class="modal-input-group">
+          <label>推荐图片</label>
+          <img-upload [img]="{url:file.url}"
+                      [selectable]="false"
+                      (afterChange)="file = $event"></img-upload>
         </div>
         <div class="modal-input-group">
           <label>商品描述</label>
@@ -221,7 +240,7 @@
           <label>参数名称</label>
           <select-box
             [options]="goodsTypeAttrOptions"
-            [first]="{value:'',text:'请选择'}"
+            [first]="{value:'-1',text:'请选择'}"
             [value]="editGoodsAttrModalData.param_id"
             (optionSelect)="goodsTypeAttrChange($event)"></select-box>
         </div>
@@ -229,7 +248,7 @@
           <label>参数值</label>
           <select-box
             [options]="goodsTypeAttrValOptions"
-            [first]="{value:'',text:'暂无'}"
+            [first]="{value:'',text:'请选择'}"
             [value]="editGoodsAttrModalData.value_id"
             (optionSelect)="editGoodsAttrModalData.value_id = $event"></select-box>
         </div>
@@ -266,13 +285,16 @@
         </thead>
         <tbody>
         <tr *ngFor="let item of goodsSKUList">
-           <td *ngFor="let attr of goodsSKUAttrList;">{{getStoreGoodsSKUAttrValueName(attr.param_id)}}</td> 
+           <!-- <ng-template [ngIf]="editGoodsSKUModalData.sku_arr_json?.length"> -->
+              <!-- <td *ngFor="let attr of goodsSKUAttrList;">{{getStoreGoodsSKUAttrValueName(attr.param_id,item.sku_id)}}</td> -->
+            <!-- </ng-template> -->
           <!-- <td>{{item.sku_id}}</td> -->
+          <td *ngFor="let attr of item.sku_arr_json">{{attr.value}}</td>
           <td>{{item.price}}</td>
           <td>{{item.inventory}}</td>
           <td>{{item.sales_volume}}</td>
           <td>
-            <a href="javascript:void(0)" class="ctrl-btn" (click)="toggleEditGoodsSKUModal(item.sku_id)">编辑</a>
+            <a href="javascript:void(0)" class="ctrl-btn" (click)="toggleEditGoodsSKUModal(item.sku_id,item.sku_arr_json)">编辑</a>
             <a href="javascript:void(0)" class="ctrl-btn" (click)="removeGoodsSKU(item.sku_id)">删除</a>
           </td>
         </tr>
@@ -302,11 +324,45 @@
         <div class="modal-input-group" *ngFor="let item of goodsSKUAttrList;let i = index;">
           <label>{{item.name}}：</label>
           <ng-template [ngIf]="goodsSKUAttrValOptionsArr?.length">
+            <!-- <span *ngFor="let attr of skuArrJson;let i = index">  -->
             <select-box
               [options]="goodsSKUAttrValOptionsArr[i]"
               [first]="{value:'',text:'请选择'}"
+              [value]="editGoodsSKUModalData.sku_arr_json[i]?.value_id || ''"
+              (optionSelect)="goodsSKUAttrValChange($event,item.param_id)"
               ></select-box>
+             <!-- </span>  -->
           </ng-template>
+        </div>
+        <div class="modal-input-group">
+          <label>图片：</label>
+          <img-upload [img]="{url:editGoodsSKUModalData?.url}"
+                      [selectable]="false"
+                      (afterChange)="file = $event"></img-upload>   
+        </div>
+        <div class="modal-input-group">
+          <label>外部编号：</label>
+          <input type="text" name="outer_code" [(ngModel)]="editGoodsSKUModalData.outer_code">
+        </div>
+        <div class="modal-input-group">
+          <label>产品编号：</label>
+          <input type="text" name="product_code" [(ngModel)]="editGoodsSKUModalData.product_code">
+        </div>
+        <div class="modal-input-group">
+          <label>原价：</label>
+          <input type="text" name="original_price" [(ngModel)]="editGoodsSKUModalData.original_price">
+        </div>
+        <div class="modal-input-group">
+          <label>价格：</label>
+          <input type="text" name="price" [(ngModel)]="editGoodsSKUModalData.price">
+        </div>
+        <div class="modal-input-group">
+          <label>库存：</label>
+          <input type="text" name="inventory" [(ngModel)]="editGoodsSKUModalData.inventory">
+        </div>
+        <div class="modal-input-group">
+          <label>销量：</label>
+          <input type="text" name="salesVolume" [(ngModel)]="editGoodsSKUModalData.sales_volume">
         </div>
         <div class="modal-btn-group">
           <button type="submit">保存</button>

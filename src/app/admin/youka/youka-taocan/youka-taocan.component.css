@@ -1,6 +1,9 @@
 .modal-con {
-  width: 460px;
+  width: 480px;
   height: 600px;
   margin-left: -230px;
   margin-top: -300px;
+}
+.modal-input-group{
+  padding-bottom:10;
 }

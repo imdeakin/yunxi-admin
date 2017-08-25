@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
     let account = this.formData.account;
     let psw = this.rc4Server.encrypt(this.formData.password);
     this.apiCall.login(account, psw, (data) => {
+      console.log(data);
       this.saveLoginInfo();
       this.adminFunc.saveAdminInfo(data);
       this.router.navigateByUrl('/admin/workbench');
@@ -49,9 +50,10 @@ export class LoginComponent implements OnInit {
   }
 
   public saveLoginInfo(): void {
+    console.log(this.remember);
     if (this.remember) {
       let loginInfo = this.rc4Server.encrypt(this.formData);
-      Cookies.set(this.loginInfoKey, loginInfo, {expires: 7});
+      Cookies.set(this.loginInfoKey, loginInfo, {expires: 24*60*60*7});
     } else {
       Cookies.set(this.loginInfoKey, '', {expires: -1});
     }

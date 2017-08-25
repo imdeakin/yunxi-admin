@@ -21,22 +21,13 @@ export class YoukaRecordComponent implements OnInit {
   public tableList: YoukaRecord[];
   public youkaFunction = YoukaFunction;
 
-  public modalData ={
-      oilCard:'',
-      sn:'',
-      tradeCode:'',
-      name:'',
-      totalPeriods:'',
-      usedPeriods:'',
-      payTime:'',
-      createTime:'',
-      payMoney:'',
-      price:'',
-      described:'',
-      type:'',
-      status:'',
-      nowData:'',
-      searchData:''
+  public modalData;
+
+  public filter ={
+    oilCard:'',
+    sn:'',
+    nowData:'',
+    searchData:'',
   }
 
   // 模态窗
@@ -62,19 +53,18 @@ export class YoukaRecordComponent implements OnInit {
   public selectValue():void{
       this.getYoukaSelectOptions();
       this.getYoukaRecordList(1);
-      this.modalData.oilCard = '';
-      this.modalData.sn = '';
+      this.filter.oilCard = '';
+      this.filter.sn = '';
   }
 
    //匹配油卡搜索查询
   public getYoukaSelectOptions():void{
-    console.log(this.modalData);
-      switch(this.modalData.nowData){
+      switch(this.filter.nowData){
         case 'oilCard':
-          this.modalData.oilCard = this.modalData.searchData;
+          this.filter.oilCard = this.filter.searchData;
           break;
         case 'sn':
-          this.modalData.sn = this.modalData.searchData;
+          this.filter.sn = this.filter.searchData;
           break;
       }
   }
@@ -86,8 +76,7 @@ export class YoukaRecordComponent implements OnInit {
     if (curPageIndex) {
       this.curPageIndex = curPageIndex;
     }
-    this.apiCall.getYoucardOrderReturnList(this.modalData.oilCard,this.modalData.sn,this.curPageIndex, this.perPageSize, (list, total) => {
-      console.log(list);
+    this.apiCall.getYoucardOrderReturnList(this.filter.oilCard,this.filter.sn,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
       this.total = total;
     });
@@ -104,23 +93,7 @@ export class YoukaRecordComponent implements OnInit {
   public getCardOrderReturn(item:string){
     var thisData = '';
       this.apiCall.getCardOrderReturn(item,(data)=>{
-        this.modalData ={
-          oilCard:data.oil_card,
-          sn:data.sn,
-          tradeCode:data.trade_code,
-          name:data.name,
-          totalPeriods:data.total_periods,
-          usedPeriods:data.used_periods,
-          payTime:data.pay_time,
-          createTime:data.create_time,
-          payMoney:data.pay_money,
-          price:data.price,
-          described:data.described,
-          type:data.type,
-          status:data.status,
-          nowData:'',
-          searchData:''
-        }
+        this.modalData = data;
       })
       return thisData;
   }
@@ -130,24 +103,9 @@ export class YoukaRecordComponent implements OnInit {
     this.modalShow = !this.modalShow;
     if(item){
       this.getCardOrderReturn(item)
-    }else{
-      this.modalData ={
-          oilCard:'',
-          sn:'',
-          tradeCode:'',
-          name:'',
-          totalPeriods:'',
-          usedPeriods:'',
-          payTime:'',
-          createTime:'',
-          payMoney:'',
-          price:'',
-          described:'',
-          type:'',
-          status:'',
-          nowData:'',
-          searchData:''
-      }
+    }
+    if(!this.modalShow){
+      this.modalData = null;
     }
   }
 }

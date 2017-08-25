@@ -5,9 +5,8 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import { weiZhangFunction } from '../date-type/weizhang-function';
-// import { FileUploadModule } from 'ng2-file-upload';
-// import {FileUploader} from "ng2-file-upload";
 import { ApiConfig } from '../../../http/api-config';
+import { NumberValidator } from '../../../com/ng-validate/number.validate';
 
 declare let layer: any;
 declare var $:any;
@@ -130,7 +129,6 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
     }
     this.apiCall.getCanWeiZhangList(this.modalData.searchName,this.cantype,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-      console.log(this.tableList);
       this.total = total;
     });
   }
@@ -138,7 +136,6 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
 
   public getCanWeizhangData(item):void{
     this.apiCall.getCanWeiZhangData(item.order_id,(data)=>{
-        console.log(data);
         this.fromModal(data)
     })
   }
@@ -224,10 +221,13 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
       DriverSecondUrl:this.modalData.DriverSecondUrl,
       VerifyCode:this.modalData.VerifyCode
     };
-    console.log(this.orderConfig);
     this.apiCall.postPeccancyManage(this.modalData.orderId,JSON.stringify(this.orderConfig),(data)=>{
         this.toggleEditModal();
         this.getCanWeiZhangList(1);
+    },(data,message)=>{
+      // if(data == 33){
+             layer.msg(message);
+      // }
     })
   }
 
@@ -241,18 +241,28 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
   //发送短信
   public sendMsg(carNumber){
     this.apiCall.postPeccancyMsg(carNumber,(data)=>{
-        console.log(data);
     })
   }
 
   //修改价格接口
-  public updateOrderMoney(){
-    this.afterUpdate = !this.afterUpdate;
-    this.apiCall.updateOrderMoney(this.orderId,this.totalPrice,(code)=>{
-        this.afterUpdate = !this.afterUpdate; 
-        this.togglePriceModal();
-        this.getCanWeiZhangList();
-    })
+  public updateOrderMoney(theForm){
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
+        this.afterUpdate = !this.afterUpdate;
+        this.apiCall.updateOrderMoney(this.orderId,this.totalPrice,(code)=>{
+            this.afterUpdate = !this.afterUpdate; 
+            this.togglePriceModal();
+            this.getCanWeiZhangList();
+        })
+    }
   }
 
   //修改价格模块
@@ -260,6 +270,7 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
     this.priceModalShow = !this.priceModalShow;
     if(item){
       this.orderId = item.order_id;
+      this.totalPrice = item.money;
     }
     if(!this.priceModalShow){
       this.totalPrice = '';
@@ -272,6 +283,11 @@ constructor(private elRef: ElementRef,private apiConfig:ApiConfig, private apiCa
     this.apiCall.closeOrder(orderId,(data)=>{
         this.getCanWeiZhangList();
     })
+  }
+
+  public sloveTrunc(data):number{
+    let text  = Math.ceil(data);
+    return text;
   }
 
   public verificationConfirm(orderId): void {

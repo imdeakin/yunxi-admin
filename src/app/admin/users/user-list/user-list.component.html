@@ -50,8 +50,8 @@
             <td>{{usersFunction.isBlackOptions(item.is_black)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.is_black != 0" (click)="forbiddenModal(item)">禁用</a>                                
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.is_black != 1" (click)="verificationConfirm(1,item)">解除</a>                                
+                 <!-- <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.is_black != 0" (click)="forbiddenModal(item)">禁用</a>                                   -->
+                 <!-- <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.is_black != 1" (click)="verificationConfirm(1,item)">解除</a>                                  -->
                 <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/user-list/' + item.member_id">下级</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleSpreadModal(item.user_id,1)">推广</a>
@@ -90,7 +90,7 @@
           </div>
            <div class="modal-input-group time">
             <label>生日</label>
-             <input type='text' value={{selDate}} (change)="setInputDate($event)"/>
+             <input type='text' disabled="disabled" value={{selDate}} (change)="setInputDate($event)"/>
              <date-picker
                [value]="value"
                [minDate]="minDate"
@@ -106,7 +106,7 @@
           </div>
            <div class="modal-detail-item">
             <label>会员等级</label>
-            <div class="value">{{modalData.member_level_name}}</div>
+            <div class="value">{{modalData.member_level}}</div>
           </div> 
         </div>
         <div class="modal-half modal-half-right">
@@ -203,7 +203,7 @@
 <!-- 充值 -->
 <div class="modal-wrapper" [class.hidden]="!rechargeShow">
   <div class="modal-con">
-    <form class="modal-form" (ngSubmit)="recharge()">
+    <form class="modal-form" #updatedForm="ngForm" (ngSubmit)="recharge(updatedForm)">
     <h3 class="modal-title">会员充值</h3>
     <div class="modal-detail">
       <div class="modal-detail-content">
@@ -222,7 +222,9 @@
             </div>
             <div class="modal-input-group">
               <label>充值数目</label>
-            <input type="text" name="quota"  [(ngModel)]="rechargeModal.quota">
+              <input type="text" name="quota"  [(ngModel)]="rechargeModal.quota" #quota="ngModel" required validateNumber>
+              <p *ngIf="quota.errors?.required" class="validate">必填</p>
+              <p *ngIf="quota.errors?.validateNumber" class="validate">请填写数字</p>
             </div>
             <div class="modal-input-group">
               <label>备注</label>
@@ -239,8 +241,10 @@
               <select-box [options]="usersFunction.userStatusChangeOptions" [first]="{value:'',text:'请选择'}" [value]="rechargeModal.change" (optionSelect)="rechargeModal.change = $event"></select-box>
             </div>
             <div class="modal-input-group">
-              <label>充值数目</label>
-            <input type="text" name="quota"  [(ngModel)]="rechargeModal.quota">
+             <label>充值数目</label>
+             <input type="text" name="quota"  [(ngModel)]="rechargeModal.quota" #quota="ngModel" required validateNumber>
+             <p *ngIf="quota.errors?.required" class="validate">必填</p>
+             <p *ngIf="quota.errors?.validateNumber" class="validate">请填写数字</p>
             </div>
             <div class="modal-input-group" >
               <label>备注</label>
@@ -268,7 +272,7 @@
       <div class="modal-detail-content">
             <div class="modal-input-group time">
              <label>禁用直到日期</label>
-             <input type='text' value={{selDate2}} (change)="setInputDate2($event)"/>
+             <input type='text' value={{selDate2}} (change)="setInputDate2($event)" disabled="disabled"/>
              <date-picker
                [value]="value2"
                [minDate]="minDate2"

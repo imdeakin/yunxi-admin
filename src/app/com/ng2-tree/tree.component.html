@@ -1,0 +1,27 @@
+<div class="modal-loading" *ngIf="roleList.length == 0">
+      <i class="icon-font">&#xe64b;</i>
+</div>
+<ul>
+  <li class="treelists-content" *ngFor="let item of roleList;let i = index">
+    <div class="checkbox" (click)="allCheck(item,i)" *ngIf="allCheckOption">
+      <div class="checkbox-all" [class.hidden]="!checkList[i].auth_tag"></div>
+    </div>  
+    <button md-button class="btn-list">
+       <span>{{item.name}}</span>
+       <i class="icon-font arrow-up" *ngIf="activeShowList[i] && item.menu_list">&#xe731;</i>
+       <i class="icon-font arrow-down" *ngIf="!activeShowList[i] && item.menu_list">&#xe733;</i>
+    </button>
+      <span [class.hidden]="!checkList[i].auth_tag" (click)="AllverificationConfirm(checkList[i])" style="color:#009be8;border:1px solid #009be8;padding:2px;" class="remove-btn">全部移除</span>
+    <!--调用组件本身并 传值给下级: [treelists]="item.items"-->
+    <ul>
+      <li class="treelists-content" *ngFor="let child of item.menu_list;let n = index">
+          <div class="checkbox" (click)="itemCheck(i,n,child,$event)">
+               <!-- <div class="checkbox-min" hidden></div>    -->
+                  <div class="checkbox-all" [class.hidden]="!checkList[i].menu_list[n]?.auth_tag"></div>
+          </div>
+          <span>{{child.name}}</span>
+          <span [class.hidden]="!checkList[i].menu_list[n]?.auth_tag" (click)="verificationConfirm(checkList[i].menu_list[n].role_auth_id)" style="color:#009be8;" class="remove-btn">移除权限</span> 
+      </li>
+    </ul>
+  </li>
+</ul>

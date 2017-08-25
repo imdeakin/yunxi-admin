@@ -138,30 +138,37 @@
 <div class="modal-wrapper" [class.hidden]="!editModalShow">
   <div class="modal-con">
     <h3 class="modal-title">编辑</h3>
-    <form class="modal-form" (ngSubmit)="editSubmit()">
+    <form class="modal-form" #updateForm="ngForm" (ngSubmit)="editSubmit(updateForm)">
       <div class="modal-input-group">
         <label>订单编号</label>
         <div class="text">{{editModalData.sn}}</div>
       </div>
       <div class="modal-input-group">
         <label>订单金额</label>
-        <input type="text" name="price" value="" [(ngModel)]="editModalData.price">
+        <input type="text" name="price" value="" [(ngModel)]="editModalData.price" #price="ngModel" required validateNumber>
+        <p *ngIf="price.errors?.required" class="validate">必填</p>
+        <p *ngIf="price.errors?.validateNumber" class="validate">请填写数字</p>
       </div>
       <div class="modal-input-group">
         <label>运费</label>
-        <input type="text" name="freight" value="" [(ngModel)]="editModalData.freight">
+        <input type="text" name="freight" value="" [(ngModel)]="editModalData.freight" #freight="ngModel" required validateNumber>
+        <p *ngIf="freight.errors?.required" class="validate">必填</p>
+        <p *ngIf="freight.errors?.validateNumber" class="validate">请填写数字</p>
       </div>
       <div class="modal-input-group">
         <label>收货人</label>
-        <input type="text" name="consignee" value="" [(ngModel)]="editModalData.consignee">
+        <input type="text" name="consignee" value="" [(ngModel)]="editModalData.consignee" #consignee="ngModel" required>
+        <p *ngIf="consignee.errors?.required" class="validate">必填</p>
       </div>
       <div class="modal-input-group">
         <label>收货人电话</label>
-        <input type="text" name="mobile" value="" [(ngModel)]="editModalData.mobile">
+        <input type="text" name="mobile" value="" [(ngModel)]="editModalData.mobile" #mobile="ngModel" required>
+        <p *ngIf="mobile.errors?.required" class="validate">必填</p>
       </div>
       <div class="modal-input-group">
         <label>收货地址</label>
-        <input type="text" name="address" value="" [(ngModel)]="editModalData.address">
+        <input type="text" name="address" value="" [(ngModel)]="editModalData.address" #address="ngModel" required>
+        <p *ngIf="address.errors?.required" class="validate">必填</p>
       </div>
       <div class="modal-btn-group">
         <button type="submit">保存</button>

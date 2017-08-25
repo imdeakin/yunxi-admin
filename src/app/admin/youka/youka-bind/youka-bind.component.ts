@@ -6,6 +6,9 @@ import {ApiCall} from '../../../http/api-call';
 import {YoukaBind} from '../data-type/youka-bind';
 import {YoukaFunction} from '../data-type/youka-function';
 import {FuncServer} from '../../../serv/func.server';
+import { NumberValidator } from '../../../com/ng-validate/number.validate';
+import {NgForm} from "@angular/forms";
+
 
 declare let layer: any;
 
@@ -124,9 +127,20 @@ export class YoukaBindComponent implements OnInit {
       }
   }
 
-  public modalSubmit():void{
-    if(this.modalData.oil_card_id)
+  public modalSubmit(theForm:NgForm):void{
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg('填写错误，请按照指示填写')
+        submit = true;
+        break;
+      }
+    }
+
+    if(!submit && this.modalData.oil_card_id){
       this.updateOilBound();
+    }
   }
 
   public verificationConfirm(oil_card_id): void {

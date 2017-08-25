@@ -21,26 +21,32 @@
         <table>
           <thead>
           <tr>
+            <th>序号</th>
             <th>合伙人姓名</th>
             <th>合伙人编号</th>
             <th>用户账号</th>
             <th>地区</th>
             <th>合伙人级别</th>
             <th>生效日期</th>
+            <th>是否禁用</th>
             <th>操作</th>
           </tr>
           </thead>
           <tbody>
           <tr
             *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{i+1}}</td>
             <td>{{item.partner_name}}</td>
             <td>{{item.partner_code}}</td>
             <td>{{item.mobile}}</td>
             <td>{{item.region_name}}</td>
             <td>{{item.partner_level}}</td>
             <td>{{item.effect_time}}</td>
+            <td>{{partnerFunction.isBlack(item.status)}}</td>
             <td>
               <div class="table-btns">
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status != -1" (click)="verificationConfirm(item,1)">启用</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status != 1" (click)="verificationConfirm(item,-1)">禁用</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">查看</a>
               </div>
             </td>

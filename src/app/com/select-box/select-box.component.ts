@@ -23,6 +23,7 @@ export class SelectBoxComponent implements OnInit, DoCheck {
   @Input() public index: number;
   @Input() public value: string;
   @Input() public text: string;
+  @Input() public disabledBan:boolean = true;
 
   public active: boolean = false;
   public curOption: Option;
@@ -163,6 +164,10 @@ export class SelectBoxComponent implements OnInit, DoCheck {
   }
 
   public clickInput(): void {
-    this.active = !this.active;
+    if(!this.disabledBan){
+        return
+    }else{
+       this.active = !this.active;
+    }
   }
 }

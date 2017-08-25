@@ -126,7 +126,7 @@
             <label>经办人</label>
             <div class="value">{{readModalData.handler}}</div>
           </div>
-          <div class="modal-detail-item">
+          <div class="modal-detail-item" hidden>
             <label>合同编号</label>
             <div class="value">{{readModalData.agreement_code}}</div>
           </div>
@@ -224,7 +224,7 @@
           </div>
         </div>
         <div class="modal-half modal-half-right">
-          <div class="modal-input-group">
+          <div class="modal-input-group" hidden>
             <label>合同编号</label>
             <input type="text" name="agreement_code" [(ngModel)]="readModalData.agreement_code">
           </div>
@@ -242,7 +242,8 @@
           </div>
           <div class="modal-input-group" [class.hidden]="readModalData.status !=2">
             <label>复核意见</label>
-            <textarea name="review" [(ngModel)]="readModalData.review"></textarea>
+            <textarea name="review" [(ngModel)]="readModalData.review" #review="ngModel" required></textarea>
+            <p *ngIf="review.errors?.required" class="validate">必填</p>
           </div>
         </div>
       </div>

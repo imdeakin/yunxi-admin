@@ -97,13 +97,13 @@ export class AdFunction {
   }
 
   //  广告业务
-  public static getAdBusinessText(code: number): string {
+  public static getAdBusinessText(code: string): string {
     let text: string;
     switch (code) {
-      case 1:
+      case '1':
         text = '门店';
         break;
-      case 2:
+      case '2':
         text = '商城';
         break;
       default:

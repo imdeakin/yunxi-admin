@@ -1,0 +1,108 @@
+<div class="manager-page">
+  <div class="header">
+    <h3>{{title}}<s></s></h3>
+  </div>
+  <div class="content" [style.height]="contentHeight + 'px'">
+    <div class="content-wrapper">
+      <div class="filter-bar">
+        <form class="clearfix" (ngSubmit)="getRoleList(1)">
+          <div class="input-group">
+            <label>{{title}}</label>
+            <input type="text" name="roleName" value="" [(ngModel)]="filterData.roleName">
+          </div>
+          <button class="text-btn text-sub" type="submit">搜索</button>
+          <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleModal()">添加</a>
+        </form>
+      </div>
+      <div class="manager-table">
+        <table>
+          <thead>
+          <tr>
+            <th>序号</th>
+            <th>类目</th>
+            <th>创建时间</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            *ngFor="let item of tableList | paginate: { itemsPerPage: perPageSize, currentPage: curPageIndex, totalItems: total }; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.create_time}}</td>
+            <td>
+              <div class="table-btns">
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item)">删除</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleRoleModal(item)">分配权限</a>
+                <!-- <a class="table-btn" href="javascript:void(0);" (click)="toggleRemoveRoleModal(item)">移除权限</a> -->
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
+        <pagination-controls (pageChange)="getRoleList($event)" previousLabel="上一页"
+                             nextLabel="下一页"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-wrapper" [class.hidden]="!modalShow">
+  <div class="modal-con">
+    <h3 class="modal-title" [class.hidden]="modalData.role_id">添加</h3>
+    <h3 class="modal-title" [class.hidden]="!modalData.role_id">编辑</h3>
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
+      <div class="modal-input-group">
+        <label>角色名字</label>
+        <input type="text" name="role_name" [(ngModel)]="modalData.name">
+      </div>
+       <div class="modal-btn-group">
+        <button type="submit">保存</button>
+        <button type="button" (click)="toggleModal()">关闭</button>
+      </div>
+    </form>
+    <div class="modal-close" (click)="toggleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<!--角色分配权限列表  -->
+<div class="modal-wrapper" [class.hidden]="!modalRoleShow">
+  <div class="modal-con role-con">
+    <h3 class="modal-title" [class.hidden]="modalData.role_id">添加角色权限</h3>
+    <ng-template [ngIf]="modalData.role_id">
+    <form class="modal-form">
+     <app-tree [getRoleId]="modalData.role_id"></app-tree>
+       <div class="modal-btn-group">
+        <button type="button" (click)="toggleRoleModal()">关闭</button>
+      </div>
+    </form>
+    </ng-template>
+    <div class="modal-close" (click)="toggleRoleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+
+<!--角色分移除限列表  -->
+<!-- <div class="modal-wrapper" [class.hidden]="!modalRemoveRoleShow ">
+  <div class="modal-con role-con">
+    <h3 class="modal-title" [class.hidden]="modalData.role_id">移除角色权限</h3>
+    <ng-template [ngIf]="roleList && modalData.role_id">
+    <form class="modal-form">
+     <app-tree [treelists]="roleList" [getRoleId]="modalData.role_id" [checkedLists]="checkList"></app-tree>
+       <div class="modal-btn-group">
+        <button type="submit">保存</button>
+        <button type="button" (click)="toggleRemoveRoleModal()">关闭</button>
+      </div>
+    </form>
+    </ng-template>
+    <div class="modal-close" (click)="toggleRemoveRoleModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+    <div class="modal-loading" *ngIf="roleList.length == 0">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
+  </div>
+</div> -->

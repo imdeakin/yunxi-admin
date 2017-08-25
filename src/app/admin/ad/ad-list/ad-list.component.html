@@ -66,10 +66,11 @@
   <div class="modal-con">
     <h3 class="modal-title" [class.hidden]="editModalData.ad_id">添加</h3>
     <h3 class="modal-title" [class.hidden]="!editModalData.ad_id">编辑</h3>
-    <form class="modal-form" (ngSubmit)="modalSubmit()">
+    <form class="modal-form" #updateForm="ngForm" (ngSubmit)="modalSubmit(updateForm)">
       <div class="modal-input-group">
         <label>标题</label>
-        <input type="text" name="title" [(ngModel)]="editModalData.title">
+        <input type="text" name="title" [(ngModel)]="editModalData.title" #title="ngModel" required>
+        <p *ngIf="title.errors?.required" class="validate">必填</p>
       </div>
       <div class="modal-input-group">
         <label>业务</label>
@@ -84,14 +85,15 @@
                     (optionSelect)="editModalData.is_show = $event"></select-box>
       </div>
       <div class="modal-input-group">
-        <label>广告位置编码</label>
+        <label>广告位置</label>
         <select-box [options]="adFunction.adPositionOptions"
                     [value]="editModalData.position_code"
                     (optionSelect)="editModalData.position_code = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>排序</label>
-        <input type="text" name="sort" [(ngModel)]="editModalData.sort">
+        <input type="text" name="sort" [(ngModel)]="editModalData.sort" #sort="ngModel" required> 
+        <p *ngIf="sort.errors?.required" class="validate">必填</p>
       </div>
       <div class="modal-input-group">
         <label>图片</label>

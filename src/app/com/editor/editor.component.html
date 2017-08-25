@@ -51,7 +51,10 @@
         <div class="drop drop-image" [class.hidden]="!imageUrlShow">
           <strong>插入图片</strong>
           <i class="fa fa-chevron-up quit" (click)="imageUrlShow = !imageUrlShow"></i>
-          <input placeholder="图片地址" type="text" name="imageUrl" [(ngModel)]="imageUrl"/>
+          <!-- <input placeholder="图片地址" type="text" name="imageUrl" [(ngModel)]="imageUrl"/> -->
+          <img-upload [img]="{url:imageUrl}"
+                      [selectable]="false"
+                      (afterChange)="imageUrl = $event.url"></img-upload>
           <div class="btn" (click)="editor.insertImage(imageUrl);imageUrlShow = !imageUrlShow;">插入</div>
         </div>
       </div>

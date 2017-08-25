@@ -57,14 +57,14 @@ export class AccordionNavComponent implements OnInit {
     {
       title: '车险管理',
       items: [
-        {
-          title: '车险订单',
-          link: '/admin/insurance-order-list'
-        },
-        {
-          title: '推荐的保险公司',
-          link: '/admin/car-protect-list'
-        },
+        // {
+        //   title: '车险订单',
+        //   link: '/admin/insurance-order-list'
+        // },
+        // {
+        //   title: '推荐的保险公司',
+        //   link: '/admin/car-protect-list'
+        // },
         {
           title:'线上自助成功投保',
           link:'/admin/online-protect'
@@ -132,6 +132,10 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '门店订单',
           link: '/admin/shop-order-list'
+        },
+        {
+          title: '经营范围',
+          link: '/admin/shop-range'
         }
       ]
     },
@@ -212,6 +216,10 @@ export class AccordionNavComponent implements OnInit {
         {
           title: '管理员',
           link: '/admin/admin-list'
+        },
+        {
+          title: '角色管理',
+          link: '/admin/role-list'
         },
         {
           title: '文案管理',

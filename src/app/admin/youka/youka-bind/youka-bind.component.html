@@ -56,18 +56,21 @@
 <div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
      <h3 class="modal-title" [class.hidden]="!modalData.oilPackageId">编辑</h3>
-    <form class="modal-form" (ngSubmit)="modalSubmit()">
+    <form class="modal-form" #updateForm="ngForm" (ngSubmit)="modalSubmit(updateForm)">
       <div class="modal-input-group">
         <label>油卡类型</label>
         <select-box [options]="youkaFunction.youcaTaocanTypeOptions" [value]="modalData.type +''" (optionSelect)="modalData.type = $event"></select-box>
       </div>
       <div class="modal-input-group">
         <label>姓名</label>
-        <input type="text" name="name" [(ngModel)]="modalData.user_name">
+        <input type="text" name="user_name" [(ngModel)]="modalData.user_name" #user_name="ngModel" required>
+        <p *ngIf="user_name.errors?.required" class="validate">必填</p>
       </div>
       <div class="modal-input-group">
         <label>油卡卡号</label>
-        <input type="text" name="oil_card" [(ngModel)]="modalData.oil_card">
+        <input type="text" name="oil_card" [(ngModel)]="modalData.oil_card" #oil_card="ngModel" required validateNumber>
+         <p *ngIf="oil_card.errors?.required" class="validate">必填</p>
+         <p *ngIf="oil_card.errors?.validateNumber" class="validate">请填写数字</p>
       </div>
       <div class="modal-btn-group">
         <button type="submit">保存</button>

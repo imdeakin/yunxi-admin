@@ -75,4 +75,17 @@ export class PartnerFunction {
     return text;
   }
 
+    // 合伙人申请状态
+  public static isBlack(code): string {
+    let text: string;
+    switch (code) {
+      case 1:
+        text = '启用';
+        break;
+      case -1:
+        text = '禁用';
+    }
+    return text;
+  }
+
 }

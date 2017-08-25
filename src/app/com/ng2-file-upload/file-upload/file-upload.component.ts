@@ -3,11 +3,14 @@
  */
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 
+declare let layer: any;
+
 @Component({
   selector: 'file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.css']
 })
+
 
 export class fileUploadComponent {
   @Output() public fileChange: EventEmitter<object> = new EventEmitter();
@@ -30,6 +33,10 @@ export class fileUploadComponent {
 
   public onChange(fileInput): void {
     this.file = fileInput.files[0];
-    this.fileChange.emit(this.file);
+    if(this.file.size < 1024*1024){
+       this.fileChange.emit(this.file);
+    }else{
+      layer.msg('请上传小于1M的图片')
+    }
   }
 }

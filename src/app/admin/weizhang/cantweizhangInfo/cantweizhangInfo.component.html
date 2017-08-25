@@ -17,7 +17,7 @@
                         (optionSelect)="filterData.memberLevel = $event"></select-box>
           </div> -->
           <!-- <button class="text-btn text-sub" type="submit">搜索</button> -->
-          <button class="text-btn text-sub close-btn" type="button" (click)="addtoggleModal()" *ngIf="dataList" [class.hidden]="dataList.status != -2 && dataList.status != 0">添加违章记录</button> 
+          <button class="text-sub close-btn" style="color:#eee;" type="button" (click)="addtoggleModal()" *ngIf="dataList" [class.hidden]="dataList.status != -2 && dataList.status != 0">添加违章记录</button> 
         </form>
       </div>
       <div class="manager-table">
@@ -76,29 +76,36 @@
        <div class="modal-con">
         <h3 class="modal-title" [class.hidden]="modalData.peccancy_id">添加违章记录</h3>
         <h3 class="modal-title" [class.hidden]="!modalData.peccancy_id">修改</h3>
-        <form class="modal-form" (ngSubmit)="modalSubmit()">
+        <form  class="modal-form" #updateForm="ngForm" (ngSubmit)="modalSubmit(updateForm)">
           <div class="modal-detail-content">
             <div class="modal-input-group">
                 <label>罚款：</label>
-                <input type="text" name="punishMoney" [(ngModel)]="modalData.punish_money">
+                <input type="text" name="punishMoney" [(ngModel)]="modalData.punish_money" #punishMoney="ngModel" required validateNumber>
+                <p *ngIf="punishMoney.errors?.required" class="validate">必填</p>
+                <p *ngIf="punishMoney.errors?.validateNumber" class="validate">请填写数字</p>
             </div>
             <div class="modal-input-group">
                 <label>扣分：</label>
-                <input type="text" name="punishPoints" [(ngModel)]="modalData.punish_points">
+                <input type="text" name="punishPoints" [(ngModel)]="modalData.punish_points" #punishPoints="ngModel" required validateNumber>
+                <p *ngIf="punishPoints.errors?.required" class="validate">必填</p>
+                <p *ngIf="punishPoints.errors?.validateNumber" class="validate">请填写数字</p>
             </div>
             <div class="modal-input-group">
                 <label>时间：</label>
-                <input type="text" name="peccancyDate" [(ngModel)]="modalData.peccancy_date">
+                <input type="text" name="peccancyDate" [(ngModel)]="modalData.peccancy_date" #peccancyDate="ngModel" required>
                 <div style="font-size:14px;float:right;">时间格式例子:2017-03-07 12:12:12</div>
+                <p *ngIf="peccancyDate.errors?.required" class="validate">必填</p>
+                <!-- <p *ngIf="peccancyDate.errors?.validateDate" class="validate">时间格式错误</p> -->
             </div>
             <div class="modal-input-group">
                 <label>地点：</label>
-                <input type="text" name="address" [(ngModel)]="modalData.address">
+                <input type="text" name="address" [(ngModel)]="modalData.address" #address="ngModel" required>
+                <p *ngIf="address.errors?.required" class="validate">必填</p>
             </div>
             <div class="modal-input-group">
                 <label>处罚原因：</label>
-                <textarea type="text" name="punishReason" [(ngModel)]="modalData.punish_reason"> 
-                </textarea> 
+                <textarea type="text" name="punishReason" [(ngModel)]="modalData.punish_reason" #punishReason="ngModel" required></textarea> 
+                <p *ngIf="punishReason.errors?.required" class="validate">必填</p> 
             </div>
           </div>
           <div class="modal-btn-group">

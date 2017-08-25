@@ -11,7 +11,7 @@ import {ApiCall} from '../../http/api-call'
 export class InsurerComponent implements OnInit,DoCheck{
     @Output() public change:EventEmitter<any> = new EventEmitter();
     @Input() public name:string;
-    @Input() public value:string;
+    @Input() public code:string;
     public insurerList:Option[];
     public insurerData=[];
     public insurerID;
@@ -19,13 +19,14 @@ export class InsurerComponent implements OnInit,DoCheck{
     public oldInsurerName;
     public InsurerName;
 
-    public oldValue = this.value;
+    public oldcode = "LIHI";
     constructor(private apicall:ApiCall){
 
     }
 
     public ngOnInit():void{
         this.insurerList = this.getInsurerOption();
+        // this.oldcode = this.code;
     }
 
     public ngDoCheck():void{
@@ -33,6 +34,10 @@ export class InsurerComponent implements OnInit,DoCheck{
             this.updateProvinceID();
             this.change.emit(this.insurerID)
         }
+        // if(this.oldcode !== this.code){
+        //     console.log(1);
+        //     this.oldcode = this.code
+        // }
     }
 
     public getInsurerOption():Option[]{
@@ -41,7 +46,7 @@ export class InsurerComponent implements OnInit,DoCheck{
             this.insurerData = data;
             for(let key in this.insurerData){
                 Options.push({
-                    value:this.insurerData[key].insurer_id,
+                    value:this.insurerData[key].code,
                     text:this.insurerData[key].name
                 })
             }

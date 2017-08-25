@@ -85,7 +85,7 @@ export class ApiCall {
   }
 
   //编辑油卡套餐
-  public updateYoukaTaocanList(oilPackageId: string, classify: string, payMoney: number, amount: number, eachs: number, type: number, oilCardType: number, needPoints: number, described: string, success, failure?): void {
+  public updateYoukaTaocanList(oilPackageId: string, classify: string, payMoney: number, amount: number, eachs: number, type: string, oilCardType, needPoints: number, described: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateYoukaTaocanList,
       data: {
@@ -105,7 +105,7 @@ export class ApiCall {
   }
 
   //增加油卡套餐
-  public addYoukaTaocanList(classify: string, payMoney: number, amount: number, eachs: number, type: number, oilCardType: number, needPoints: number, described: string, success, failure?): void {
+  public addYoukaTaocanList(classify: string, payMoney: number, amount: number, eachs: number, type: string, oilCardType, needPoints: number, described: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addYoukaTaocanList,
       data: {
@@ -220,10 +220,11 @@ export class ApiCall {
   }
 
   //油卡返还
-  public YouCardOrderReturn(chargeOrderId: string, success, failure?): void {
+  public YouCardOrderReturn(adminId,chargeOrderId: string, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.YouCardOrderReturn,
       data: {
+        adminId:adminId,
         chargeOrderId: chargeOrderId,
       },
       success: success,
@@ -290,6 +291,74 @@ export class ApiCall {
         insuranceOrderId:insuranceOrderId,
         expressId:expressId,
         waybillNumber:waybillNumber
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //关闭订单
+  public closeInsuranceOrder(insuranceOrderId,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.closeInsuranceOrder,
+      data:{
+        insuranceOrderId:insuranceOrderId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //修改价格
+  public updateInsuranceOrderMoney(insuranceOrderId,money,actualMoney,rebate,profit,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.updateInsuranceOrderMoney,
+      data:{
+        insuranceOrderId:insuranceOrderId,
+        money:money,
+        actualMoney:actualMoney,
+        rebate:rebate,
+        profit:profit,
+      },
+      success:success,
+      failure:failure
+    })
+
+  }
+
+  //修改车险详情
+  public updateInsuranceOrder(
+    insuranceOrderId,
+    idCardFront,
+    idCardBack,
+    drivingLicense,
+    drivingLicenseCopy,
+    lastYearPolicy,
+    insurerCode,
+    ciPremium,
+    carshipTax,
+    coverageList,
+    biPremium,
+    ciBeginDate,
+    biBeginDate,
+    success,
+    failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.updateInsuranceOrder,
+      data:{
+        insuranceOrderId:insuranceOrderId,
+        idCardFront:idCardFront,
+        idCardBack:idCardBack,
+        drivingLicense:drivingLicense,
+        drivingLicenseCopy:drivingLicenseCopy,
+        lastYearPolicy:lastYearPolicy,
+        insurerCode:insurerCode,
+        ciPremium:ciPremium,
+        carshipTax:carshipTax,
+        coverageList:coverageList,
+        biPremium:biPremium,
+        ciBeginDate:ciBeginDate,
+        biBeginDate:biBeginDate,
       },
       success:success,
       failure:failure
@@ -744,6 +813,19 @@ export class ApiCall {
     });
   }
 
+  //合伙人启用禁用
+  public disableOrStart(partnerId,status,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.disableOrStart,
+      data:{
+        partnerId:partnerId,
+        status:status
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
   /*
    * 商城管理
    */
@@ -858,7 +940,7 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public addStoreGoodsInfo(goodsId, goodsTypeId, goodsBrandId, businessName, producer, described, freight, onSale, success, failure?): void {
+  public addStoreGoodsInfo(goodsId, goodsTypeId, goodsBrandId, businessName, producer, described, freight, onSale, isRecommend, recommendFileId,sort,success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.addStoreGoodsInfo,
       data: {
@@ -869,7 +951,10 @@ export class ApiCall {
         producer: producer,
         described: described,
         freight: freight,
-        onSale: onSale
+        onSale: onSale,
+        isRecommend:isRecommend,
+        recommendFileId:recommendFileId,
+        sort:sort
       },
       success: success,
       failure: failure
@@ -1461,10 +1546,11 @@ export class ApiCall {
    * @param success
    * @param failure
    */
-  public updateStoreGoodsSKU(goodsId, outerCode, productCode, originalPrice, price, inventory, salesVolume, fileId, skuArrJson, success, failure?): void {
+  public updateStoreGoodsSKU(skuId ,goodsId, outerCode, productCode, originalPrice, price, inventory, salesVolume, fileId, skuArrJson, success, failure?): void {
     this.apiCall({
       url: this.apiConfig.paths.updateStoreGoodsSKU,
       data: {
+        skuId:skuId,
         goodsId: goodsId,
         outerCode: outerCode,
         productCode: productCode,
@@ -1914,6 +2000,57 @@ export class ApiCall {
       success: success,
       failure: failure
     });
+  }
+
+  //管理员-经营范围
+  //获取经营范围列表
+  public getScopeList(curPageIndex, pageSize, success, failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.getScopeList,
+      data:{
+         index: curPageIndex,
+         pageSize: pageSize,
+      },
+         success: success,
+         failure: failure
+    })
+  }
+
+  //增加经营范围
+  public addScope(name, success, failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.addScope,
+      data:{
+        name:name
+      },
+         success: success,
+         failure: failure
+    })
+  }
+
+  //编辑范围
+  public editScope(scopeId,name, success, failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.editScope,
+      data:{
+        name:name,
+        scopeId:scopeId
+      },
+         success: success,
+         failure: failure
+    })
+  }
+
+  //删除范围
+  public delScope(scopeId, success, failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.delScope,
+      data:{
+         scopeId:scopeId
+      },
+         success: success,
+         failure: failure
+    })
   }
 
   /**
@@ -2822,7 +2959,7 @@ export class ApiCall {
       url: this.apiConfig.paths.updateRole,
       data: {
         roleId: roleId,
-        role: roleName
+        name: roleName
       },
       success: success,
       failure: failure
@@ -2838,6 +2975,97 @@ export class ApiCall {
       success: success,
       failure: failure
     });
+  }
+
+  public addRoleAuth(roleId,authorityId,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.addRoleAuth,
+      data:{
+        roleId:roleId,
+        authorityId:authorityId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  public roleAuthorityList(roleId:string,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.roleAuthorityList,
+      data:{
+        roleId:roleId
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //角色取消授权
+  public delRoleAuth(roleId,roleAuthId,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.delRoleAuth,
+      data:{
+        roleId:roleId,
+        roleAuthId:roleAuthId,
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+
+  //获取权限列表
+  public authorityList(success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.authorityList,
+      data:{
+
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //增加权限列表
+  public addAuthority(parentAuthorityId, name, authTag,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.addAuthority,
+      data:{
+        parentAuthorityId:parentAuthorityId,
+        name:name,
+        authTag:authTag
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+  //编辑权限列表
+  public updateAuthority(parentAuthorityId, name, authTag,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.updateAuthority,
+      data:{
+        parentAuthorityId:parentAuthorityId,
+        name:name,
+        authTag:authTag
+      },
+      success:success,
+      failure:failure
+    })
+  }
+
+   //删除权限列表
+  public delAuthority(parentAuthorityId, name, authTag,success,failure?):void{
+    this.apiCall({
+      url:this.apiConfig.paths.delAuthority,
+      data:{
+        parentAuthorityId:parentAuthorityId,
+        name:name,
+        authTag:authTag
+      },
+      success:success,
+      failure:failure
+    })
   }
 
   //推荐车险管理公司列表

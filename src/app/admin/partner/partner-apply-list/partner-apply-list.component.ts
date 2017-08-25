@@ -9,6 +9,8 @@ import {PartnerApplyList} from '../data-type/partner-apply-list';
 import { PartnerFunction } from '../data-type/partner-function';
 import { AdminFunc } from '../../../serv/admin.server';
 
+declare let layer: any;
+
 @Component({
   selector: 'partner-apply-list',
   templateUrl: './partner-apply-list.component.html',
@@ -71,7 +73,6 @@ export class PartnerApplyListComponent implements OnInit {
       this.perPageSize,
       (list, total) => {
         this.tableList = list;
-        console.log(this.tableList);
         this.total = total;
       }
     );
@@ -80,7 +81,6 @@ export class PartnerApplyListComponent implements OnInit {
   public getPartnerApplyInfo(partnerApplyId): void {
     this.apiCall.getPartnerApplyInfo(partnerApplyId, (data) => {
       this.readModalData = data.result;
-      console.log(this.readModalData);
     });
   }
 
@@ -102,20 +102,22 @@ export class PartnerApplyListComponent implements OnInit {
     this.apiCall.getAuditPass(this.readModalData.partner_apply_id,adminId,this.readModalData.agreement_code,this.readModalData.approve,this.readModalData.summary,this.readModalData.remark,status, (data) => {
       // this.readModalData = data.result;
       this.readModalData = data;
-      console.log(data);
       this.getPartnerApplyList(1);
       this.toggleCheckModal();
     });
   }
 
   public getReexamine(status):void{
-    let adminId = this.adminFunc.getAdminId();
-    this.apiCall.getReexamine(this.readModalData.partner_apply_id,adminId,this.readModalData.review,status,(data) => {
-      this.readModalData = data;
-      console.log(data);
-      this.getPartnerApplyList(1);
-      this.toggleCheckModal();
-    });
+    if(!this.readModalData.review){
+      layer.msg("请填写复核意见")
+    }else{
+      let adminId = this.adminFunc.getAdminId();
+      this.apiCall.getReexamine(this.readModalData.partner_apply_id,adminId,this.readModalData.review,status,(data) => {
+          this.readModalData = data;
+          this.getPartnerApplyList(1);
+          this.toggleCheckModal();
+      });
+    }
   }
 
   //审核窗

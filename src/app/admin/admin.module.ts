@@ -8,6 +8,11 @@ import {AdminComponent} from './admin.component';
 import {ChartModule} from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 
+//validate
+import { NumberValidator } from '../com/ng-validate/number.validate';
+import { DateValidator } from '../com/ng-validate/dateTime.validate';
+
+
 declare var require:any;
 
  export function highchartsFactory() {
@@ -34,7 +39,8 @@ import {
   ImgUploadListComponent,
   CityPickersServer,
   CityPickersComponent,
-  ChartComponent
+  ChartComponent,
+  TreeComponent
 } from '../com';
 
 
@@ -82,6 +88,7 @@ import {
   ShopListComponent,
   ShopServerListComponent,
   ShopOrderListComponent,
+  ShopRangeComponent,
 
   // 个人门店
   PShopListComponent,
@@ -111,6 +118,7 @@ import {
   CarSeriesListComponent,
   CarModelListComponent,
   CarBrandListComponent,
+  RoleManageMentComponent
 } from './pages';
 
 @NgModule({
@@ -138,6 +146,7 @@ import {
     ImgUploadListComponent,
     CityPickersComponent,
     ChartComponent,
+    TreeComponent,
     // 工作台
     BarGraphPageComponent,
     WorkbenchPageComponent,
@@ -182,6 +191,7 @@ import {
     ShopListComponent,
     ShopServerListComponent,
     ShopOrderListComponent,
+    ShopRangeComponent,
 
     // 个人门店
     PShopListComponent,
@@ -211,6 +221,11 @@ import {
     CarSeriesListComponent,
     CarModelListComponent,
     CarBrandListComponent,
+    RoleManageMentComponent,
+
+    //validate
+    NumberValidator,
+    DateValidator
   ],
   providers: [CityPickerServer,CityPickersServer, 
         {

@@ -5,16 +5,20 @@
   <div class="content" [style.height]="contentHeight + 'px'">
     <div class="content-wrapper">
       <div class="filter-bar">
-        <form class="clearfix" (ngSubmit)="getRegionRecommendInsurerList(1)">
-          <!-- <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleAddModal()">添加</a> -->
-        </form>
+         <form class="clearfix" (ngSubmit)="getInsuranceOrderList(1)"> 
+             <div class="input-group">
+              <label for="searchName">姓名/手机/订单编号</label>
+              <input type="text" name="searchName" [(ngModel)]="filterData.searchName">
+          </div>
+           <button class="text-btn text-sub" type="submit">搜索</button>
+         </form> 
       </div>
       <div class="manager-table">
         <table>
           <thead>
           <tr>
             <th>编号</th>
-            <th>订单名称</th>            
+            <th>订单编号</th>            
             <th>车主号码</th>
             <th>订单总额</th>
             <th>实收金额</th>
@@ -31,34 +35,135 @@
             <td>{{i + 1}}</td>
             <td>{{item.sn}}</td>
             <td>{{item.mobile}}</td>
-            <td>{{item.total_price}}</td>
-            <td>{{item.true_price}}</td>
-            <td>{{item.back_points}}</td>
+            <td>{{item.money}}</td>
+            <td>{{item.actual_money}}</td>
+            <td>{{item.rebate}}</td>
             <td>{{item.profit}}</td>
             <td>{{item.create_time}}</td>
             <td>{{systemFunction.getInsuranceOrderStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">关闭订单</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item.insurance_order_id)">查看</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !== 0 && item.status !== -1 && item.status !== 3" (click)="verificationConfirm(item.insurance_order_id)">关闭订单</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !== 0 && item.status !== 1 && item.status !== 3" (click)="toggleModal(item.insurance_order_id)">编辑</a>
+                <a class="table-btn" href="javascript:void(0);" (click)="toggleReadModal(item.insurance_order_id)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="expressModal(item.insurance_order_id)">快递</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.recommend_insurer_id)">修改</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !== 0 && item.status !== 1 && item.status !== 3" (click)="toggleUpdateModal(item)">修改</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="!tableList?.length" class="none-data">没有符合条件的数据</div>
-        <pagination-controls (pageChange)="getRegionRecommendInsurerList($event)" previousLabel="上一页"
+        <pagination-controls (pageChange)="getInsuranceOrderList($event)" previousLabel="上一页"
                              nextLabel="下一页"></pagination-controls>
       </div>
+    </div>
+  </div>
+</div>
+<!--查看  -->
+<div class="modal-wrapper" [class.hidden]="!readModalShow" *ngIf="readModalData">
+  <div class="modal-con readModal">
+    <form class="modal-form" (ngSubmit)="modalSubmit()">
+      <div class="modal-detail-content">
+        <h3 class="modal-h3-title">车主信息</h3>
+        <div class="modal-detail-item">
+          <label>车主姓名</label>
+          <div class="value">{{readModalData.name}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>车主身份证</label>
+          <div class="value">{{readModalData.idcard}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>车主手机号码</label>
+          <div class="value">{{readModalData.mobile}}</div>
+        </div>
+        <h3 class="modal-h3-title">车辆信息</h3>
+        <div class="modal-detail-item">
+          <label>车牌号码</label>
+          <div class="value">{{readModalData.car_number}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>品牌型号</label>
+          <div class="value">{{readModalData.car_brand_name}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>车架号</label>
+          <div class="value">{{readModalData.frame_no}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>发动机号</label>
+          <div class="value">{{readModalData.engine_no}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>登记日期</label>
+          <div class="value">{{readModalData.register_date}}</div>
+        </div>
+        <h3 class="modal-h3-title">保障内容</h3>
+        <div class="modal-detail-item">
+          <label class="modal-h3">保险公司</label>
+          <div class="value">{{readModalData.insurer_name}}</div>
+        </div>
+         <div class="modal-detail-item">
+          <table style="width:100%;margin:10px 0;">
+            <thead>
+              <tr>
+                <th>险种</th>
+                <th>保额</th>
+                <th>额费</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of readModalDataJson;let i = index">
+              <tr *ngIf="item.insuredPremium > 0">
+                <td style="text-align:left;"><span class="non-free" [class.hidden]="item.type != 1">不计免赔</span>{{item.name}}</td>
+                <td>{{item.insured_amount}}</td>
+                <td>
+                  {{item.insuredPremium}}
+                </td>
+              </tr>
+              <tr [class.hidden]="readModalDataJson">
+                <td>没有信息</td>
+                <td>没有信息</td>
+                <td>没有信息</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-detail-item">
+          <label class="modal-h3">商业险</label>
+          <div class="value">{{readModalData.bi_premium}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>生效日期</label>
+          <div class="value">{{readModalData.bi_begin_date}}</div>
+        </div>
+         <div class="modal-detail-item">
+          <label class="modal-h3">交强险</label>
+          <div class="value">{{readModalData.ci_premium}}</div>
+        </div>
+        <div class="modal-detail-item">
+          <label>生效日期</label>
+          <div class="value">{{readModalData.ci_begin_date}}</div>
+        </div>
+         <div class="modal-detail-item">
+          <label class="modal-h3">车船税</label>
+          <div class="value">{{readModalData.carship_tax}}</div>
+        </div>
+        <div class="modal-btn-group">
+          <button type="button" (click)="toggleReadModal()">关闭</button>
+        </div>
+        </div>
+    </form>
+    <div class="modal-close" (click)="toggleReadModal()">
+      <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
 </div>
 <!--编辑窗-->
 <div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con check-con">
-    <form class="modal-form" (ngSubmit)="modalSubmit()">
+    <ng-template [ngIf]="modalData.insurance_order_id">
+    <form class="modal-form" #updateForm="ngForm" (ngSubmit)="updateInsuranceOrder(updateForm)">
       <div class="modal-detail-content">
         <h3 class="modal-h3-title">车主信息</h3>
         <div class="modal-detail-item">
@@ -73,60 +178,152 @@
           <label>车主手机号码</label>
           <div class="value">{{modalData.mobile}}</div>
         </div>
-        <h3 class="modal-h3-title">车辆信息</h3>
-        <div class="modal-detail-item">
-          <label>车牌号码</label>
-          <div class="value">{{modalData.car_number}}</div>
+        <h3 class="modal-h3-title">车主证件信息</h3>
+        <div class="modal-input-group">
+          <ul class="img-file">
+            <li>
+               <img-upload [img]="{url:modalData.id_card_Front}"
+                      [selectable]="false"
+                      (afterChange)="modalData.id_card_Front = $event.url"></img-upload>
+                <p>身份证正面</p>
+                <p class="btn-image" (click)="toggleImageModal(modalData.id_card_Front)">查看</p>
+            </li>
+            <li>
+                <img-upload [img]="{url:modalData.id_card_back}"
+                      [selectable]="false"
+                      (afterChange)="modalData.id_card_back = $event.url"></img-upload>
+                <p>身份证反面</p>
+                <p class="btn-image" (click)="toggleImageModal(modalData.id_card_back)">查看</p>
+            </li>
+            <li>
+                <img-upload [img]="{url:modalData.driving_license}"
+                      [selectable]="false"
+                      (afterChange)="modalData.driving_license = $event.url"></img-upload>
+                <p>行驶证正面</p>
+                <p class="btn-image" (click)="toggleImageModal(modalData.driving_license)">查看</p>
+            </li>
+            <li>
+                <img-upload [img]="{url:modalData.driving_license_copy}"
+                      [selectable]="false"
+                      (afterChange)="modalData.driving_license_copy = $event.url"></img-upload>
+                <p>行驶证反面</p>
+                <p class="btn-image" (click)="toggleImageModal(modalData.driving_license_copy)">查看</p>
+            </li>
+            <li>
+                <img-upload [img]="{url:modalData.last_year_policy}"
+                      [selectable]="false"
+                      (afterChange)="modalData.last_year_policy = $event.url"></img-upload>
+                <p>上一年保单</p>
+                <p class="btn-image" (click)="toggleImageModal(modalData.last_year_policy)">查看</p>
+            </li>
+          </ul>
         </div>
-        <div class="modal-detail-item">
-          <label>品牌型号</label>
-          <div class="value">{{modalData.car_brand_name}}</div>
+        <div class="modal-input-group">
+          <label class="modal-h3">保险公司</label>
+          <select-box [options]="insurerList" [value]="insurecode+''"  [first]="{value:'',text:'请选择'}" [index]="-1" (optionSelect)="modalData.insurer_code = $event"></select-box>
         </div>
-        <div class="modal-detail-item">
-          <label>车架号</label>
-          <div class="value">{{modalData.frame_no}}</div>
+         <h3 class="modal-h3-title">车险生效时间</h3>
+        <div class="modal-input-group">
+          <label class="modal-h3">交强险生效时间</label>
+          <input type="text" value={{selDate}} (change)="setInputDate($event)" disabled="disabled" placeholder="请选择时间">
+          <date-picker
+               [value]="value"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               [disableDays]="disableDays"
+               [toContainPrevMonth]="toContainPrevMonth"
+               [toContainNextMonth]="toContainNextMonth"
+               (selectedDate)='setDate($event)'></date-picker>
         </div>
-        <div class="modal-detail-item">
-          <label>发动机号</label>
-          <div class="value">{{modalData.engine_no}}</div>
+        <div class="modal-input-group">
+          <label class="modal-h3">商业险生效时间</label>
+          <input type="text" value={{selDate2}} (change)="setInputDate2($event)" disabled="disabled" placeholder="请选择时间">
+          <date-picker
+               [value]="value2"
+               [minDate]="minDate2"
+               [maxDate]="maxDate2"
+               [disableDays]="disableDays2"
+               [toContainPrevMonth]="toContainPrevMonth2"
+               [toContainNextMonth]="toContainNextMonth2"
+               (selectedDate)='setDate2($event)'></date-picker>
         </div>
-        <div class="modal-detail-item">
-          <label>登记日期</label>
-          <div class="value">{{modalData.register_date}}</div>
+         <h3 class="modal-h3-title">险种价钱</h3>
+        <div class="modal-input-group">
+          <label>交强险</label>
+          <input type="text" name="ci_premium" [(ngModel)]="modalData.ci_premium" #ci_premium="ngModel" required validateNumber>
+          <p *ngIf="ci_premium.errors?.required" class="validate">必填</p>
+          <p *ngIf="ci_premium.errors?.validateNumber" class="validate">请填写数字</p>
+        </div>
+        <div class="modal-input-group">
+          <label>车船税</label>
+          <input type="text" name="carship_tax" [(ngModel)]="modalData.carship_tax" #carship_tax="ngModel" required validateNumber>
+          <p *ngIf="carship_tax.errors?.required" class="validate">必填</p>
+          <p *ngIf="carship_tax.errors?.validateNumber" class="validate">请填写数字</p>
+        </div>
+        <div class="modal-input-group">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:110px;">
+                  <span (click)="allCheck()"><span style="float:left;" (click)="allCheck()">全选</span><input type="checkbox" class="allSelect" name="" value="" style="width:30px;margin-top:5px;"></span>
+                  <span hidden>全不选:<input type="checkbox" name="" value=""></span>
+                </th>
+                <th>险种</th>
+                <th>保额</th>
+                <th>额费</th>
+              </tr>
+            </thead>
+              <tbody>
+                <tr *ngFor="let item of offline_arrList;let i = index">
+                <td style="width:60px;"><span *ngIf="item.type != 2"><input type="checkbox" class="check-box" [checked]="item.type" name="" value="" style="width:30px;margin-top:5px;" (click)="clickItem($event,item)">不计免赔</span></td>
+                <td style="text-align:left;">
+                  {{item.name}}
+                   <span *ngIf="item.name == '玻璃单独破碎险'" style="display:inline-block;position:absolute;">
+                      <select-box [options]="systemFunction.windowOptions" [value]="windowsOption" (optionSelect)="item.option = $event"></select-box>
+                  </span> 
+                </td>
+                <td [class.hidden]="item.insured_amount !='Y'">{{item.insured_amount}}</td>
+                <td [class.hidden]="item.insured_amount =='Y'"><select-box [options]="allarrList[i]" [value]="item.insured_amount" (optionSelect)="offline_arrList[i].insured_amount = $event"></select-box></td>
+                <td>
+                    <input type="text" name="insuredPremium{{i}}" [(ngModel)]="item.insuredPremium" placeholder="请填写数字"  validateNumber>   
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="modal-detail-item">
           <label class="modal-h3">商业险</label>
-          <div class="value">{{modalData.bi_premium}}</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>生效日期</label>
-          <div class="value">{{modalData.bi_begin_date}}</div>
-        </div>
-         <div class="modal-detail-item">
-          <label class="modal-h3">交强险</label>
-          <div class="value">{{modalData.ci_premium}}</div>
-        </div>
-        <div class="modal-detail-item">
-          <label>生效日期</label>
-          <div class="value">{{modalData.ci_begin_date}}</div>
-        </div>
-         <div class="modal-detail-item">
-          <label class="modal-h3">车船税</label>
-          <div class="value">{{modalData.carship_tax}}</div>
+              <div class="value"> 
+              {{allMoney([offline_arrList[0].insuredPremium,
+                offline_arrList[1].insuredPremium,
+                offline_arrList[2].insuredPremium,
+                offline_arrList[3].insuredPremium,
+                offline_arrList[4].insuredPremium,
+                offline_arrList[5].insuredPremium,
+                offline_arrList[6].insuredPremium,
+                offline_arrList[7].insuredPremium,
+                offline_arrList[8].insuredPremium,
+                offline_arrList[9].insuredPremium
+                ])}}
+          </div>   
         </div>
         <div class="modal-btn-group">
           <button type="submit">保存</button>
         </div>
         </div>
     </form>
+      </ng-template>
     <div class="modal-close" (click)="toggleModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
+    <div class="modal-loading" *ngIf="!modalData.insurance_order_id">
+      <i class="icon-font">&#xe64b;</i>
+    </div>
   </div>
 </div>
-<div class="modal-wrapper " [class.hidden]="!expressShow" *ngIf="expressList">
+ <div class="modal-wrapper " [class.hidden]="!expressShow" *ngIf="expressList">
   <div class="modal-con express-con">
-    <form class="modal-form" (ngSubmit)="modalSubmit()">
+    <form class="modal-form" #updateForm="ngForm" (ngSubmit)="modalSubmit(updateForm)">
       <div class="modal-detail-content">
         <h3 class="modal-h3-title">快递</h3>
         <div class="modal-input-group">
@@ -134,8 +331,9 @@
           <select-box [options]="expressList" (optionSelect)="expressId = $event"></select-box>
         </div>
         <div class="modal-input-group">
-          <label>快递单号</label>
-         <input type="text" name="waybillNumber" [(ngModel)]="waybillNumber">
+         <label>快递单号</label>
+         <input type="text" name="waybill_number" [(ngModel)]="waybillNumber" #waybill_number="ngModel" required> 
+         <p *ngIf="waybill_number.errors?.required" class="validate">必填</p>
         </div>
         <div class="modal-btn-group">
           <button type="submit">保存</button>
@@ -148,4 +346,63 @@
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>
+</div> 
+<!--修改-->
+ <div class="modal-wrapper " [class.hidden]="!updateShow" *ngIf="updateModal">
+  <div class="modal-con express-con">
+    <form class="modal-form" (ngSubmit)="updateInsuranceOrderMoney()">
+      <div class="modal-detail-content">
+        <h3 class="modal-h3-title">修改</h3>
+        <div class="modal-input-group">
+          <label>订单价格</label>
+          <input type="text" name="money" [(ngModel)]="updateModal.money" #money="ngModel" required validateNumber>
+          <p *ngIf="money.errors?.required" class="validate">必填</p>
+          <p *ngIf="money.errors?.validateNumber" class="validate">请填写数字</p>
+        </div>
+        <div class="modal-input-group">
+          <label>实收金额</label>
+          <input type="text" name="actual_money" [(ngModel)]="updateModal.actual_money" #actual_money="ngModel" required validateNumber>
+          <p *ngIf="actual_money.errors?.required" class="validate">必填</p>
+          <p *ngIf="actual_money.errors?.validateNumber" class="validate">请填写数字</p>
+        </div>
+        <div class="modal-input-group">
+          <label>返点</label>
+          <input type="text" name="rebate" [(ngModel)]="updateModal.rebate" #rebate="ngModel"  required validateNumber>
+          <p *ngIf="rebate.errors?.required" class="validate">必填</p>
+          <p *ngIf="rebate.errors?.validateNumber" class="validate">请填写数字</p>
+        </div>
+        <div class="modal-input-group">
+          <label>利润</label>
+          <input type="text" name="profit" [(ngModel)]="updateModal.profit" #profit="ngModel"  required validateNumber>
+          <p *ngIf="profit.errors?.required" class="validate">必填</p>
+          <p *ngIf="profit.errors?.validateNumber" class="validate">请填写数字</p>
+        </div>
+        <div class="modal-btn-group">
+          <button type="submit">保存</button>
+          <button type="button" (click)="toggleUpdateModal()">关闭</button>
+        </div> 
+        </div>
+    </form>
+    <div class="modal-close" (click)="toggleUpdateModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
 </div>
+<!--查看图片-->
+ <div class="modal-wrapper " [class.hidden]="!imageShow">
+  <div class="modal-con image-con">
+      <div class="modal-detail-content">
+        <h3 class="modal-h3-title">查看图片</h3>
+        <div class="modal-detail-item">
+          <div class="modal-image-content">
+             <img src="{{imageUrl}}" alt=""> 
+          </div>
+        </div>
+       <div class="modal-btn-group">
+          <button type="button" (click)="toggleImageModal()">关闭</button>
+       </div>
+    <div class="modal-close" (click)="toggleImageModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div> 

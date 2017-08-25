@@ -74,6 +74,14 @@ export class StoreFunction {
     }
   ];
 
+  //推荐位置
+  public static isRecommendOptions = [
+    {
+      value:'1',
+      text:'首页'
+    }
+  ]
+
   // 支付方式选项组
   public static payTypeOptions = [
     {
@@ -127,10 +135,10 @@ export class StoreFunction {
     let text: string;
     switch (status) {
       case 0:
-        text = '否';
+        text = '上架';
         break;
       case 1:
-        text = '是';
+        text = '下架';
         break;
       default:
         text = '未知'

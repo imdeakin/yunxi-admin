@@ -1,7 +1,7 @@
 .modal-con {
-  width: 500px;
+  width: 750px;
   height: 680px;
-  margin-left: -250px;
+  margin-left: -375px;
   margin-top: -340px;
 }
 
@@ -17,6 +17,9 @@
   height: 680px;
   margin-left: -400px;
   margin-top: -340px;
+}
+.modal-input-group{
+  padding-bottom:8px;
 }
 
 .modal-btn-group.bottom {

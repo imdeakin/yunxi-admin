@@ -6,7 +6,12 @@
     <div class="content-wrapper">
       <div class="filter-bar">
         <form class="clearfix" (ngSubmit)="getInsuranceOrderList(1)">
+          <div class="input-group">
+              <label for="searchName">姓名/手机/订单编号</label>
+              <input type="text" name="searchName" [(ngModel)]="filterData.searchName">
+          </div>
           <!-- <a class="text-btn float-right margin-large-right" href="javascript:void(0);" (click)="toggleAddModal()">添加</a> -->
+           <button class="text-btn text-sub" type="submit">搜索</button>
         </form>
       </div>
       <div class="manager-table">
@@ -36,13 +41,13 @@
             <td>{{item.rebate}}</td>
             <td>{{item.profit}}</td>
             <td>{{item.create_time}}</td>
-            <td>{{item.status}}</td>
+            <td>{{systemFunction.getInsuranceOrderStatusText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item)">关闭订单</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !== 0" (click)="verificationConfirm(item.insurance_order_id)">关闭订单</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="toggleModal(item.insurance_order_id)">查看</a>
                 <a class="table-btn" href="javascript:void(0);" (click)="expressModal(item.insurance_order_id)">快递</a>
-                <a class="table-btn" href="javascript:void(0);" (click)="verificationConfirm(item.recommend_insurer_id)">修改</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status !== 0 &&  item.status !== 3" (click)="toggleUpdateModal(item)">修改</a>
               </div>
             </td>
           </tr>
@@ -55,10 +60,10 @@
     </div>
   </div>
 </div>
-<!--编辑窗-->
+<!--查看-->
 <div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con check-con">
-    <form class="modal-form" (ngSubmit)="modalSubmit()">
+    <form class="modal-form">
       <div class="modal-detail-content">
         <h3 class="modal-h3-title">车主信息</h3>
         <div class="modal-detail-item">
@@ -94,9 +99,34 @@
           <label>登记日期</label>
           <div class="value">{{modalData.register_date}}</div>
         </div>
+        <h3 class="modal-h3-title">保障内容</h3>
+        <div class="modal-detail-item">
+          <label class="modal-h3">保险公司</label>
+          <div class="value">{{modalData.insurer_name}}</div>
+        </div>
         <div class="modal-detail-item">
           <label class="modal-h3">商业险</label>
           <div class="value">{{modalData.bi_premium}}</div>
+        </div>
+        <div class="modal-input-group">
+          <table style="width:100%;">
+            <thead>
+              <tr>
+                <th>险种</th>
+                <th>保额</th>
+                <th>额费</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of modalDataJson;let i = index">
+                <td [class.hidden]="item.coverageName == '交强险'">{{item.coverageName}}</td>
+                <td [class.hidden]="item.coverageName == '交强险'">{{item.insuredAmount}}</td>
+                <td [class.hidden]="item.coverageName == '交强险'">
+                  {{item.insuredPremium}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="modal-detail-item">
           <label>生效日期</label>
@@ -127,16 +157,17 @@
 <!--快递 -->
 <div class="modal-wrapper " [class.hidden]="!expressShow" *ngIf="expressList">
   <div class="modal-con express-con">
-    <form class="modal-form" (ngSubmit)="modalSubmit()">
+    <form class="modal-form" #updateForm="ngForm" (ngSubmit)="modalSubmit(updateForm)">
       <div class="modal-detail-content">
         <h3 class="modal-h3-title">快递</h3>
         <div class="modal-input-group">
           <label>快递公司</label>
-          <select-box [options]="expressList" (optionSelect)="expressId = $event"></select-box>
+          <select-box [options]="expressList" [value]="expressId" (optionSelect)="expressId = $event"></select-box>
         </div>
         <div class="modal-input-group">
           <label>快递单号</label>
-         <input type="text" name="waybillNumber" [(ngModel)]="waybillNumber">
+         <input type="text" name="waybillnumber" [(ngModel)]="waybillNumber"  #waybillnumber="ngModel" required>
+          <p *ngIf="waybillnumber.errors?.required" class="validate">必填</p> 
         </div>
         <div class="modal-btn-group">
           <button type="submit">保存</button>
@@ -146,6 +177,29 @@
         </div>
     </form>
     <div class="modal-close" (click)="expressModal()">
+      <i class="icon-font">&#xe6e9;</i>
+    </div>
+  </div>
+</div>
+<!--修改-->
+<div class="modal-wrapper " [class.hidden]="!updateShow">
+  <div class="modal-con express-con">
+    <form class="modal-form" #updateForm="ngForm" (ngSubmit)="updateInsuranceOrderMoney(updateForm)">
+      <div class="modal-detail-content">
+        <h3 class="modal-h3-title">修改</h3>
+        <div class="modal-input-group">
+          <label>订单价格</label>
+           <input type="text" name="Money" [(ngModel)]="money" #Money="ngModel" required validateNumber>
+          <p *ngIf="Money.errors?.required" class="validate">必填</p>
+          <p *ngIf="Money.errors?.validateNumber" class="validate">请填写数字</p> 
+        </div>
+        <div class="modal-btn-group">
+          <button type="submit">保存</button>
+          <button type="button" (click)="toggleUpdateModal()">关闭</button>
+        </div> 
+        </div>
+    </form>
+    <div class="modal-close" (click)="toggleUpdateModal()">
       <i class="icon-font">&#xe6e9;</i>
     </div>
   </div>

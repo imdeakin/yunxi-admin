@@ -6,6 +6,7 @@ import { Component,OnInit,ElementRef } from '@angular/core';
 import { FuncServer } from '../../../serv/func.server';
 import { ApiCall } from '../../../http/api-call';
 import { InsuranceFunction } from '../data-type/insurance-function';
+// import { NumberValidator } from '../../../com/ng-validate/number.validate';
 
 declare let layer: any;
 
@@ -22,22 +23,13 @@ export class OnlineProtectComponent implements OnInit {
   public total = 0;
   public perPageSize = 1;
   public curPageIndex = 1;
-  public tableList=[{
-    sn:'1234',
-    mobile:'18028106489',
-    total_price:'100',
-    true_price:'1234',
-    back_points:'2324',
-    profit:'23',
-    create_time:'2017-06-26 20:53:02',
-    status:'4'
-  }];
+  public tableList=[];
   //快递
   public expressShow:boolean = false;
   public expressList = [];
   public insuranceOrderId;
-  public expressId;
-  public waybillNumber;
+  public expressId = '';
+  public waybillNumber = '';
 
   public filterData = {
     searchName: '',
@@ -45,13 +37,17 @@ export class OnlineProtectComponent implements OnInit {
   };
 
   public modalData;
-
+  public modalDataJson;
   public carBrandOptions;
   public systemFunction = InsuranceFunction;
 
   // 模态窗
   public modalShow: boolean = false;
   public modalAddShow: boolean = false;
+
+  // 修改窗
+  public updateShow:boolean = false;
+  public money;
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -78,7 +74,7 @@ export class OnlineProtectComponent implements OnInit {
     }
     this.apiCall.getInsuranceOrderList(this.filterData.searchName,this.type,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-      console.log(this.tableList);
+
       this.total = total;
     });
   }
@@ -86,7 +82,9 @@ export class OnlineProtectComponent implements OnInit {
   public getInsuranceOrderDetails(insuranceOrderId):void{
     this.apiCall.getInsuranceOrderDetails(insuranceOrderId,(data)=>{
         this.modalData = data;
-        console.log(this.modalData);
+        if(this.modalData.coverage_list){
+          this.modalDataJson = JSON.parse(this.modalData.coverage_list);
+        }
       })
   }
 
@@ -94,6 +92,10 @@ export class OnlineProtectComponent implements OnInit {
     this.apiCall.updateExpress(this.insuranceOrderId,this.expressId,this.waybillNumber,(data)=>{
         this.expressModal();
         this.getInsuranceOrderList();
+    },(code,msg)=>{
+      if(code == 1){
+          layer.msg('请选择快递公司');
+      }
     })
   }
 
@@ -108,6 +110,13 @@ export class OnlineProtectComponent implements OnInit {
     })
   }
 
+  //关闭订单
+  public closeInsuranceOrder(insuranceOrderId):void{
+    this.apiCall.closeInsuranceOrder(insuranceOrderId,(data)=>{
+        this.getInsuranceOrderList();
+    })
+  }
+
   // 模态窗
   public toggleModal(insuranceOrderId?): void {
     if (insuranceOrderId){
@@ -115,7 +124,7 @@ export class OnlineProtectComponent implements OnInit {
     }
     this.modalShow = !this.modalShow;
     if (!this.modalShow) {
-      
+      this.modalDataJson = this.funcServer.emptyObj(this.modalDataJson);
     }
   }
 
@@ -132,64 +141,64 @@ export class OnlineProtectComponent implements OnInit {
     }
   }
 
-  // public updateRegionSupportInsurance(): void {
-  //   console.log(this.filterData.insurerId)
-  //   this.apiCall.updateRegionSupportInsurance(
-  //     this.filterData.recommendInsurerId,
-  //     this.filterData.insurerId,
-  //     (data) => {
-  //       this.toggleModal();
-  //       this.getInsuranceOrderList(1);
-  //     }
-  //   );
-  // }
-
-  // public removeRegionSupportInsurance(recommendInsurerId): void {
-  //   this.apiCall.removeRegionSupportInsurance(
-  //     recommendInsurerId,
-  //     (data) => {
-  //       this.getInsuranceOrderList(1);
-  //     }
-  //   );
-  // }
-
-  public modalSubmit():void {
-    if (this.insuranceOrderId) {
+  public modalSubmit(theForm):void {
+    let submit = false;
+    for(let key in theForm.controls){
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
+       if (this.insuranceOrderId) {
       this.updateExpress();
-    } 
+      } 
+    }
   }
 
-  // public toggleAddModal():void{
-  //   this.modalAddShow = !this.modalAddShow;
-  //   if(!this.modalAddShow){
-  //     this.addData = {
-  //         shortnameId:'',
-  //         insurerId:'',
-  //     }
-  //   }
-  // }
+  public updateInsuranceOrderMoney(theForm):void{
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
+      this.apiCall.updateInsuranceOrderMoney(this.insuranceOrderId,this.money,'','','',(data)=>{
+        this.toggleUpdateModal();
+        this.getInsuranceOrderList(1);
+      });
+    }
+  }
 
-  // public modaladdSubmit():void{
-  //   if(this.addData.shortnameId && this.addData.insurerId){
-  //         console.log(this.addData.shortnameId)
-  //         console.log(this.addData.insurerId)
-  //         this.apiCall.postRegionSupportInsurance(this.addData.shortnameId,this.addData.insurerId,(data)=>{
-  //           this.getRegionRecommendInsurerList();
-  //           this.toggleAddModal();
-  //         })
-  //   }
-  // }
+  //修改弹窗
+  public toggleUpdateModal(item?):void{
+    this.updateShow = !this.updateShow;
+    if(item){
+      this.money = this.funcServer.deepCopy(item.money);
+      this.insuranceOrderId = this.funcServer.deepCopy(item.insurance_order_id);
+    }
+    if(!this.updateShow){
+      this.money = '';
+      this.insuranceOrderId = '';
+    }
+  }
+
   //确认弹窗
-  public verificationConfirm(recommendInsurerId): void {
+  public verificationConfirm(insuranceOrderId): void {
     let adminId = '';
     let index = layer.confirm(
-      '请确认删除结果',
+      '确认关闭订单吗？',
       {
         title: '确认',
         btn: ["确认", "取消"]
       },
       () => {
-        // this.removeRegionSupportInsurance(recommendInsurerId);
+        this.closeInsuranceOrder(insuranceOrderId);
         layer.close(index);
       },
       () => {

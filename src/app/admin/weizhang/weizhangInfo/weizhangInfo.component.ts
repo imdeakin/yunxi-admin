@@ -59,7 +59,6 @@ export class WeiZhangeInfoComponent implements OnInit {
       this.tableList = list.peccancy_list;
       delete list.peccancy_list;
       this.dataList = list;
-      console.log(this.dataList);
       this.total = total;
     });
   }

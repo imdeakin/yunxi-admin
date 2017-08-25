@@ -48,7 +48,7 @@
               <td>发动机:{{item.engine_number}}</td>
               <td colspan="2">下单时间:{{item.create_time}}</td>
                <td>
-                <!-- <a href="javacript:void(0)" class="close-btn" [class.hidden]="item.status !== 1">订单成功</a> -->
+                 <a href="javacript:void(0)" class="close-btn" [class.hidden]="item.status != 1 && item.status != 5">订单完成</a> 
                 <a href="javacript:void(0)" class="close-btn" [class.hidden]="item.status !== 0 && item.status != -2" (click)="verificationConfirm(item.order_id)">关闭订单</a>
               </td>
             </tr>
@@ -64,17 +64,17 @@
               <td>{{item.punish_points}}</td>
               <td>{{item.service_fee}}</td>
               <td>{{item.cxy_service_fee}}</td>
-              <td>{{item.money}}</td>
+              <td>{{sloveTrunc(item.money)}}</td>
               <td>{{item.actual_money}}</td>
               <td>{{item.profit_money}}</td>
               <td>{{getWeiZhangfilterText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/cantweizhanginfo/' + item.order_id">违章详情</a>
-                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=-2' (click)="toggleEditModal(item)">受理</a>
+                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/cantweizhanginfo/' + item.order_id">查看</a>
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.peccancy_detail_count == '0'" (click)="toggleEditModal(item)">受理</a> 
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!= 0' (click)="toggleEditModal(item)">修改</a>
-                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1' (click)="comfirmOrderOfDoing(item.order_id)">办理</a> 
-                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3' [routerLink]="'/admin/cloudpay-verification-list/' + item.sn">确认</a> 
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=1' (click)="comfirmOrderOfDoing(item.order_id)">办理</a>  
+                <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=3' [routerLink]="'/admin/cloudpay-verification-list/' + item.sn">确认</a> 
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status!=4' (click)="comfirmOrderOfFinish(item.order_id)">完成</a> 
               </div>
             </td>
@@ -98,32 +98,42 @@
        <div class="modal-con">
         <h3 class="modal-title" [class.hidden]="modalData.status != -2">办理</h3>
         <h3 class="modal-title" [class.hidden]="modalData.status != 0">修改</h3>
-        <form class="modal-form" (ngSubmit)="modalSubmit()">
+        <form class="modal-form"  #updateForm="ngForm" (ngSubmit)="modalSubmit(updateForm)">
           <div class="modal-detail-content">
             <div class="modal-input-group">
                 <label>总罚款：</label>
-                <input type="text" name="punishMoney" [(ngModel)]="modalData.punish_money">
+                <input type="text" name="punishMoney" [(ngModel)]="modalData.punish_money" #punishMoney="ngModel" required validateNumber>
+                <p *ngIf="punishMoney.errors?.required" class="validate">必填</p>
+                <p *ngIf="punishMoney.errors?.validateNumber" class="validate">请填写数字</p>
             </div>
             <div class="modal-input-group">
                 <label>总扣分：</label>
-                <input type="text" name="punish_points" [(ngModel)]="modalData.punish_points">
+                <input type="text" name="punish_points" [(ngModel)]="modalData.punish_points" #punish_points="ngModel" required validateNumber>
+                <p *ngIf="punish_points.errors?.required" class="validate">必填</p>
+                <p *ngIf="punish_points.errors?.validateNumber" class="validate">请填写数字</p>
             </div>
             <div class="modal-input-group">
                 <label>服务费：</label>
-                <input type="text" name="service_fee" [(ngModel)]="modalData.service_fee">
+                <input type="text" name="service_fee" [(ngModel)]="modalData.service_fee" #service_fee="ngModel" required validateNumber>
+                <p *ngIf="service_fee.errors?.required" class="validate">必填</p>
+                <p *ngIf="service_fee.errors?.validateNumber" class="validate">请填写数字</p>
             </div>
             <div class="modal-input-group">
                 <label>车行易：</label>
-                <input type="text" name="cxy_service_fee" [(ngModel)]="modalData.cxy_service_fee">
+                <input type="text" name="cxy_service_fee" [(ngModel)]="modalData.cxy_service_fee" #cxy_service_fee="ngModel" required validateNumber>
+                <p *ngIf="cxy_service_fee.errors?.required" class="validate">必填</p>
+                <p *ngIf="cxy_service_fee.errors?.validateNumber" class="validate">请填写数字</p>
             </div>
             <div class="modal-input-group">
                 <label>订单总额：</label>
                 <!-- <div class="value">{{(modalData.punish_money+modalData.cxy_service_fee)*1.2}}</div> -->
-                  <input type="text" name="money" [(ngModel)]="modalData.money">  
+                <input type="text" name="money" [(ngModel)]="modalData.money" #money="ngModel" required validateNumber>
+                <p *ngIf="money.errors?.required" class="validate">必填</p>
+                <p *ngIf="money.errors?.validateNumber" class="validate">请填写数字</p>  
             </div>
             <div class="modal-detail-item">
                 <label>实收金额：</label>
-                 <div class="value">{{sloveTrunc(modalData.money*0.85)}}</div> 
+                 <div class="value">{{modalData.money*0.85}}</div> 
                  <!-- <input type="text" name="actual_money" [(ngModel)]="modalData.actual_money" disabled="disabled">  -->
             </div>
             <div class="modal-detail-item">

@@ -55,10 +55,12 @@
   <div class="modal-con">
     <h3 class="modal-title" [class.hidden]="modalData.oilPackageId">添加套餐</h3>
      <h3 class="modal-title" [class.hidden]="!modalData.oilPackageId">编辑套餐</h3>
-    <form class="modal-form" (ngSubmit)="modalSubmit()">
+    <form class="modal-form" #updateForm="ngForm" (ngSubmit)="modalSubmit(updateForm)">
       <div class="modal-input-group">
         <label>套餐类型</label>
-        <select-box [options]="youkaFunction.youkaTaocanClassifyOptions" [value]="modalData.classify + ''" (optionSelect)="modalData.classify = $event"></select-box>
+        <span disabled="disabled">
+        <select-box [options]="youkaFunction.youkaTaocanClassifyOptions" [first]="{value:'',text:'不用选择'}" [disabledBan]="false" [value]="modalData.classify + ''" (optionSelect)="modalData.classify = $event"></select-box>
+        </span>
       </div>
       <div class="modal-input-group">
         <label>优惠类型</label>
@@ -70,23 +72,31 @@
       </div>
       <div class="modal-input-group">
         <label>每期套餐金额</label>
-        <input type="text" name="price" [(ngModel)]="modalData.amount">
+        <input type="text" name="amount" [(ngModel)]="modalData.amount" #amount="ngModel" required validateNumber>
+        <p *ngIf="amount.errors?.required" class="validate">必填</p>
+        <p *ngIf="amount.errors?.validateNumber" class="validate">请填写数字</p>
       </div>
       <div class="modal-input-group">
         <label>类型（分期数）</label>
-        <input type="text" name="eachs" [(ngModel)]="modalData.eachs">
+        <input type="text" name="eachs" [(ngModel)]="modalData.eachs"  #eachs="ngModel" required validateNumber>
+        <p *ngIf="eachs.errors?.required" class="validate">必填</p>
+        <p *ngIf="eachs.errors?.validateNumber" class="validate">请填写数字</p>
       </div>
       <div class="modal-input-group">
         <label>到账总额</label>
-        <input type="text" name="payMoney" [(ngModel)]="modalData.payMoney">
+        <div class="value" style="font-size:16px;float:right;">{{modalData.amount * modalData.eachs}}</div>
       </div>
       <div class="modal-input-group">
         <label>所需积分</label>
-        <input type="text" name="type" [(ngModel)]="modalData.needPoints">
+        <input type="text" name="needPoints" [(ngModel)]="modalData.needPoints" #needPoints="ngModel" required validateNumber>
+        <p *ngIf="needPoints.errors?.required" class="validate">必填</p>
+        <p *ngIf="needPoints.errors?.validateNumber" class="validate">请填写数字</p>
       </div>
       <div class="modal-input-group">
         <label>套餐描述</label>
-        <textarea name="describe" placeholder="1~120字" [(ngModel)]="modalData.described"></textarea>
+        <textarea name="describe" placeholder="1~120字" [(ngModel)]="modalData.described" #described="ngModel" required maxlength="180"></textarea>
+        <p *ngIf="described.errors?.required" class="validate">必填</p>
+        <p *ngIf="described.errors?.maxlength" class="validate">请缩小字节</p>
       </div>
       <div class="modal-btn-group">
         <button type="submit">确定</button>

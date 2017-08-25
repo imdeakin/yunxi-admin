@@ -1,0 +1,11 @@
+.modal-con {
+  width: 460px;
+  height: 200px;
+  margin-left: -230px;
+  margin-top: -100px;
+}
+.role-con{
+  height:600px;
+  margin-top:-300px;
+  overflow-y:scroll;
+}

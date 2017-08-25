@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ApiConfig {
-  public server: string = 'http://yx.51meets.com'; // http://www.gzyueyun.com 本地192.168.3.125http://yx.51meets.com
+  public server: string = 'http://yx.51meets.com'; // http://www.gzyueyun.com 本地192.168.3.5http://yx.51meets.com
   public root: string = this.server + '';
   public imgRoot: string = this.server + '';
   public paths = {
@@ -48,6 +48,9 @@ export class ApiConfig {
     getInsuranceOrderList: this.root + '/insurancemanage/insuranceOrderList', // 获取车险订单列表
     getInsuranceOrderDetails:this.root + '/insurancemanage/insuranceOrderDetails',//获取车险详情
     updateExpress:this.root + '/insurancemanage/updateExpress',//车险快递
+    closeInsuranceOrder:this.root + '/insurancemanage/closeInsuranceOrder',//关闭订单
+    updateInsuranceOrderMoney:this.root + '/insurancemanage/updateInsuranceOrderMoney',//修改订单价格
+    updateInsuranceOrder:this.root + '/insurancemanage/updateInsuranceOrder',//修改车险详情
 
     //推荐车险管理
     getregionRecommendInsurerList: this.root + '/system/regionRecommendInsurerList',//推荐车险管理列表
@@ -75,6 +78,7 @@ export class ApiConfig {
     getPartnerApplyInfo: this.root + '/copartner/applyPartnerInfo', // 获取合伙人申请详情
     getAuditPass: this.root + '/copartner/auditPass',//审批
     getReexamine: this.root + '/copartner/reexamine',//复核
+    disableOrStart:this.root + '/copartner/disableOrStart',//启用和禁用
 
     /*
      * 商城管理
@@ -164,6 +168,12 @@ export class ApiConfig {
     removeAdminShopService: this.root + '/adminShop/delShopService', // 删除门店服务
     getAdminShopServiceOrderList: this.root + '/adminShop/mallShopServiceOrderList', // 获取门店服务订单列表
     getAdminShopServiceOrderInfo: this.root + '/adminShop/getMallShopServiceOrder', // 获取门店服务订单详情
+
+    //管理员-经营范围
+    getScopeList:this.root + '/adminShop/scopeList',//获取门店经营范围
+    addScope:this.root + '/adminShop/addScope',//增加门店经营范围
+    editScope:this.root + '/adminShop/editScope',//编辑门店经营范围
+    delScope:this.root + '/adminShop/delScope',//删除门店经验范围
 
     /*
      * 个人门店管理
@@ -263,6 +273,15 @@ export class ApiConfig {
     addRole: this.root + '/system/addRole', // 添加角色
     updateRole: this.root + '/system/updateRole', // 修改角色
     removeRole: this.root + '/system/delRole', // 删除角色
+    addRoleAuth:this.root + '/system/addRoleAuth',//添加角色权限
+    roleAuthorityList:this.root + '/system/roleAuthorityList',//获取角色权限列表
+    delRoleAuth:this.root + '/system/delRoleAuth',//角色取消授权
+
+    //权限
+    authorityList:this.root + '/system/authorityList',//获取权限列表
+    addAuthority:this.root + '/system/addAuthority',//增加角色
+    updateAuthority:this.root + '/system/updateAuthority',//编辑权限分类
+    delAuthority:this.root + '/system/delAuthority',//删除权限
 
     //文案管理
     getDocumentList: this.root + '/system/getDocumentList',//查询文案列表

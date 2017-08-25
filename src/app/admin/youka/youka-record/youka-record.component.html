@@ -8,8 +8,8 @@
         <form class="clearfix">
            <div class="input-group">
             <label>选择查询</label>
-              <select-box [options]="youkaFunction.youkaSelectOptions2" [first]="{value:'',text:'请选择'}" (optionSelect)="modalData.nowData = $event"></select-box>
-             <input type="text" name="oilCard" value="" placeholder="请输入" [(ngModel)]="modalData.searchData">
+              <select-box [options]="youkaFunction.youkaSelectOptions2" [first]="{value:'',text:'请选择'}" (optionSelect)="filter.nowData = $event"></select-box>
+             <input type="text" name="oilCard" value="" placeholder="请输入" [(ngModel)]="filter.searchData">
           </div>
           <div class="input-group">
             <button class="text-btn text-sub" (click)="selectValue();">搜索</button>
@@ -55,21 +55,17 @@
     </div>
   </div>
 </div>
-<div class="modal-wrapper" [class.hidden]="!modalShow">
+<div class="modal-wrapper" [class.hidden]="!modalShow" *ngIf="modalData">
   <div class="modal-con">
     <h3 class="modal-title">订单详情</h3>
     <form class="modal-form">
       <div class="modal-input-group">
         <label>加油卡号</label>
-        <div class="text">{{modalData.oilCard}}</div>
+        <div class="text">{{modalData.oil_card}}</div>
       </div>
       <div class="modal-input-group">
         <label>订单流水号</label>
         <div class="text">{{modalData.sn}}</div>
-      </div>
-      <div class="modal-input-group">
-        <label>交易流水号</label>
-        <div class="text">{{modalData.tradeCode}}</div>
       </div>
       <div class="modal-input-group">
         <label>用户</label>
@@ -77,23 +73,23 @@
       </div>
       <div class="modal-input-group">
         <label>类型(分期)</label>
-        <div class="text">{{modalData.totalPeriods}}</div>
+        <div class="text">{{modalData.total_periods}}</div>
       </div>
       <div class="modal-input-group">
         <label>已到账期数</label>
-        <div class="text">{{modalData.usedPeriods}}</div>
+        <div class="text">{{modalData.used_periods}}</div>
       </div>
       <div class="modal-input-group">
         <label>充值日期</label>
-        <div class="text">{{modalData.payTime}}</div>
+        <div class="text">{{modalData.pay_time}}</div>
       </div>
       <div class="modal-input-group">
         <label>最近到账时间</label>
-        <div class="text">{{modalData.createTime}}</div>
+        <div class="text">{{modalData.create_time}}</div>
       </div>
       <div class="modal-input-group">
         <label>金额</label>
-        <div class="text">{{modalData.payMoney}}</div>
+        <div class="text">{{modalData.pay_money}}</div>
       </div>
       <div class="modal-input-group">
         <label>每期金额</label>
@@ -101,11 +97,11 @@
       </div>
       <div class="modal-input-group">
         <label>套餐类型</label>
-        <div class="text">{{modalData.type}}</div>
+        <div class="text">{{youkaFunction.getYoucaTaocanClassText(modalData.type)}}</div>
       </div>
       <div class="modal-input-group">
         <label>状态</label>
-        <div class="text">{{modalData.status}}</div>
+        <div class="text">{{youkaFunction.getYoukaOrderStatus(modalData.status)}}</div>
       </div>
       <div class="modal-btn-group">
         <button (click)="toggleModal()">关闭</button>

@@ -1,11 +1,13 @@
 /**
  * Created by Deakin on 2017/5/8 0008.
  */
-import {Component, ElementRef, OnInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import {ApiCall} from '../../../http/api-call';
 import {YoukaTaocan} from '../data-type/youka-taocan';
 import {YoukaFunction} from '../data-type/youka-function';
 import {FuncServer} from '../../../serv/func.server';
+import {NgForm} from "@angular/forms";
+import { NumberValidator } from '../../../com/ng-validate/number.validate';
 
 declare let layer: any;
 
@@ -14,7 +16,7 @@ declare let layer: any;
   templateUrl: './youka-taocan.component.html',
   styleUrls: ['./youka-taocan.component.css']
 })
-export class YoukaTaocanComponent implements OnInit {
+export class YoukaTaocanComponent implements OnInit,DoCheck{
   public title = '油卡套餐';
   public contentHeight = 0;
   public total = 0;
@@ -34,9 +36,9 @@ export class YoukaTaocanComponent implements OnInit {
     payMoney:0,
     amount: 0,
     needPoints: 0,
-    type: 0, 
-    eachs: 0,
-    oilCardType:0,
+    type: '', 
+    eachs: 1,
+    oilCardType:'',
     described: ''
   };
 
@@ -46,6 +48,16 @@ export class YoukaTaocanComponent implements OnInit {
   public ngOnInit(): void {
     this.computeOnResize();
     this.getYoukaTaocanList();
+  }
+
+  public ngDoCheck():void{
+    if(this.modalData.type === '3' || this.modalData.type === '2'){
+      this.modalData.classify = '2';
+    }
+
+    if(this.modalData.type === '1'){
+      this.modalData.classify = '1';
+    }
   }
 
   public computeOnResize() {
@@ -125,15 +137,16 @@ export class YoukaTaocanComponent implements OnInit {
         payMoney:0,
         amount: 0,
         needPoints: 0,
-        type: 0,
+        type: '',
         eachs: 0,
-        oilCardType:0,
+        oilCardType:'',
         described: ''
       }
     } 
   }
 
   public updateYoukaTaocanList(oilPackageId?): void {
+   this.modalData.payMoney = this.modalData.amount * this.modalData.eachs;
    this.apiCall.updateYoukaTaocanList(
         this.modalData.oilPackageId,
         this.modalData.classify,
@@ -155,6 +168,7 @@ export class YoukaTaocanComponent implements OnInit {
    * 增加油卡套餐列表
    */
   public addYoukaTancanlist(): void {
+  this.modalData.payMoney = this.modalData.amount * this.modalData.eachs;
     this.apiCall.addYoukaTaocanList(
       this.modalData.classify,
       this.modalData.payMoney,
@@ -167,6 +181,9 @@ export class YoukaTaocanComponent implements OnInit {
       (data) => {
         this.toggleEditModal();
         this.getYoukaTaocanList(1);
+      },
+      (data,msg) =>{
+        layer.msg('请选择类型')
       }
     );
   }
@@ -199,11 +216,20 @@ export class YoukaTaocanComponent implements OnInit {
   }
   
 
-  public modalSubmit(): void {
-    if (this.modalData.oilPackageId) {
+  public modalSubmit(theForm): void {
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+
+    if (!submit&&this.modalData.oilPackageId) {
       this.updateYoukaTaocanList(this.modalData.oilPackageId);
     } else {
-      console.log(123);
       this.addYoukaTancanlist();
     }
   }

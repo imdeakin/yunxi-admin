@@ -6,6 +6,7 @@ import {FuncServer} from '../../../serv/func.server';
 import {ApiCall} from '../../../http/api-call';
 import {weiZhangFunction } from '../date-type/weizhang-function';
 import {Router,Route, NavigationEnd, ActivatedRoute} from '@angular/router';
+import { NumberValidator } from '../../../com/ng-validate/number.validate';
 
 declare let layer: any;
 declare var $:any;
@@ -35,7 +36,6 @@ export class cantWeizhangComponent implements OnInit {
       searchName:''
   }
   public modalData;
-  
   private selDate: string = '';
   private minDate: string = '1970/01/01';
   private maxDate: string = '9999/12/31';
@@ -51,7 +51,6 @@ export class cantWeizhangComponent implements OnInit {
     this.computeOnResize();
     this.getCantWeiZhangList();
      $(function(){
-       console.log()
       $('.ng2-pagination').css({'position':'relative'});
     })
   }
@@ -79,7 +78,6 @@ export class cantWeizhangComponent implements OnInit {
     }
     this.apiCall.getCantWeiZhangList(this.filter.searchName,this.cantType,this.curPageIndex, this.perPageSize, (list, total) => {
       this.tableList = list;
-      console.log(this.tableList);
       this.total = total;
     });
   }
@@ -122,14 +120,24 @@ export class cantWeizhangComponent implements OnInit {
       } 
   }
 
-  public modalSubmit(){
+  public modalSubmit(theForm){
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
       if(this.modalData.order_id){
           this.setOrderMoneyAndServiceFee()
       }else{
           this.toggleEditModal();
           this.getCantWeiZhangList();
       }
-
+    }
   }
 
   public setInputDate(event) {
@@ -147,5 +155,29 @@ export class cantWeizhangComponent implements OnInit {
   public sloveTrunc(data):number{
     let text  = Math.ceil(data);
     return text;
+  }
+
+    //关闭订单
+  public closeOrder(orderId):void{
+    this.apiCall.closeOrder(orderId,(data)=>{
+        this.getCantWeiZhangList();
+    })
+  }
+
+    public verificationConfirm(orderId): void {
+      let index = layer.confirm(
+      '请确认关闭订单',
+      {
+        title: '是否确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.closeOrder(orderId);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
   }
 }

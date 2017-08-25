@@ -7,6 +7,9 @@ import { ApiCall } from '../../../http/api-call';
 import { weiZhangFunction } from '../date-type/weizhang-function';
 import { ApiConfig } from '../../../http/api-config';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { NumberValidator } from '../../../com/ng-validate/number.validate';
+import { DateValidator } from '../../../com/ng-validate/dateTime.validate';
+
 
 declare let layer: any;
 
@@ -87,7 +90,6 @@ export class CantWeiZhangeInfoComponent implements OnInit {
       this.tableList = list.peccancy_list;
       delete list.peccancy_list;
       this.dataList = list;
-      console.log(this.dataList);
       this.total = total;
     });
   }
@@ -103,9 +105,14 @@ export class CantWeiZhangeInfoComponent implements OnInit {
   }
 
   public addPeccancy():void{
-    this.apiCall.addPeccancy(this.orderId,this.modalData.peccancy_id,this.modalData.punish_money,this.modalData.punish_points,this.modalData.peccancy_date,this.modalData.address,this.modalData.punish_reason,(data)=>{
+
+    this.apiCall.addPeccancy(this.orderId,this.modalData.peccancy_id,this.modalData.punish_money,this.modalData.punish_points,this.modalData.peccancy_date,this.modalData.address,encodeURI(this.modalData.punish_reason),(data)=>{
         this.addtoggleModal();
         this.peccancyDetailsList();
+    },(code,message) => {
+      if(code == 221){
+        layer.msg('时间格式不正确')
+      }
     })
   }
 
@@ -115,12 +122,23 @@ export class CantWeiZhangeInfoComponent implements OnInit {
     })
   }
 
-  public modalSubmit():void{
+  public modalSubmit(theForm):void{
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
       if(this.modalData.peccancy_id){
         this.addPeccancy();
       }else{
         this.addPeccancy();
       }
+    }
   }
 
     // 核验弹窗

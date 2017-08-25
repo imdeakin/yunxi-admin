@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {User} from '../data-type/user';
 import {UsersFunction} from '../data-type/users-function';
 import { AdminFunc } from '../../../serv/admin.server';
+import { validateNumber } from '../../../com/ng-validate/number.validate';
+
 
 declare let layer: any;
 declare var $:any;
@@ -45,7 +47,7 @@ export class UserListComponent implements OnInit {
   private selDate: string = '';
   private minDate: string = '1970/01/01';
   private maxDate: string = '9999/12/31';
-  private disableDays: number[] = [0, 6];    //For Sunday and Saturday
+  private disableDays: number[] = [-1, 7];    //For Sunday and Saturday
   private toContainPrevMonth: boolean = false;
   private toContainNextMonth: boolean = false;
   private value: string = '';
@@ -60,7 +62,7 @@ export class UserListComponent implements OnInit {
   public selDate2: string = '';
   public minDate2: string = '1970/01/01';
   public maxDate2: string = '9999/12/31';
-  public disableDays2: number[] = [0, 6];    //For Sunday and Saturday
+  public disableDays2: number[] = [-1, 7];    //For Sunday and Saturday
   public toContainPrevMonth2: boolean = false;
   public toContainNextMonth2: boolean = false;
   public value2: string = '';
@@ -149,7 +151,6 @@ export class UserListComponent implements OnInit {
   public getUserInfo(memberId):void {
     this.apiCall.getUserInfo(memberId, (data) => {
         this.modalData = data;
-        console.log(this.modalData);
     });
   }
 
@@ -221,9 +222,20 @@ export class UserListComponent implements OnInit {
     if(item){
        this.banModal.memberId = item.member_id;
     }
-     this.apiCall.banOrRecoveryMember(this.banModal.memberId,status,this.selDate2+' 23:59:00',this.banModal.reason,(data)=>{
+    if(this.selDate2){
+       let time = new Date(this.selDate2);
+       let nowDate = new Date();
+       if(time.getTime() < nowDate.getTime()){
+         layer.msg('选择的日期请大于今日日期');
+         return;
+       }
+    } 
+    this.apiCall.banOrRecoveryMember(this.banModal.memberId,status,this.selDate2+' 23:59:00',this.banModal.reason,(data)=>{
+        layer.msg('成功');
         this.getUserList(1);
-      })
+    },(message) => {
+        layer.msg(message);
+    })
     if(status == 0){
          this.forbiddenModal();
     }
@@ -238,11 +250,32 @@ export class UserListComponent implements OnInit {
     })
   }
 
-  public recharge():void{
-      let adminId = this.adminFunc.getAdminId();
+  public recharge(theForm):void{
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
+          let adminId = this.adminFunc.getAdminId();
+          this.manualCharge(adminId)
+    } 
+  }
+
+  public manualCharge(adminId):void{
       this.apiCall.manualCharge(adminId,this.rechargeModal.userId,this.rechargeModal.quota,this.rechargeModal.type,this.rechargeModal.change,this.rechargeModal.described,(data)=>{
           this.toggleRecharge();
           this.getUserList(1);
+      },(code,message) =>{
+        if(code === 1){
+          layer.msg("请选择变化")
+        }else if(code === 77){
+          layer.msg(message)
+        }
       });
   }
 
@@ -276,6 +309,7 @@ export class UserListComponent implements OnInit {
   }
 
   public changeRechargeType(numType?):void{
+      this.cleanRechargeModal();
       if(numType){
           switch(numType){
           case 1:
@@ -293,7 +327,7 @@ export class UserListComponent implements OnInit {
             this.gradeShow = true;
         }
       }else{
-        this. cleanRechargeModal();
+        this.cleanRechargeModal();
       }
   }
 

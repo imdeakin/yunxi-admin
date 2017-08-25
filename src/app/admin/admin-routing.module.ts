@@ -48,6 +48,7 @@ import {
   ShopListComponent,
   ShopServerListComponent,
   ShopOrderListComponent,
+  ShopRangeComponent,
 
   // 个人门店
   PShopListComponent,
@@ -77,6 +78,8 @@ import {
   CarSeriesListComponent,
   CarModelListComponent,
   CarBrandListComponent,
+  RoleManageMentComponent,
+  
 } from './pages';
 
 const AdminRoutes: Routes = [
@@ -91,7 +94,7 @@ const AdminRoutes: Routes = [
       // 违章管理
       {path: 'canweizhang',component:canWeizhangComponent},
       {path: 'cantweizhang',component:cantWeizhangComponent},
-      {path: 'weizhanginfo/:orderId',component:WeiZhangeInfoComponent},
+      {path: 'canweizhang/:orderId',component:WeiZhangeInfoComponent},
       {path: 'cantweizhanginfo/:orderId',component:CantWeiZhangeInfoComponent},
 
       // 油卡管理
@@ -103,9 +106,9 @@ const AdminRoutes: Routes = [
 
       // 车险管理
       {path: 'insurance-order-list', component: InsuranceOrderListPageComponent},
-      {path:'car-protect-list',component:CarProtectComponent},
-      {path:'online-protect',component:OnlineProtectComponent},
-      {path:'offline-protect',component:OfflineProtectComponent},
+      {path: 'car-protect-list',component:CarProtectComponent},
+      {path: 'online-protect',component:OnlineProtectComponent},
+      {path: 'offline-protect',component:OfflineProtectComponent},
 
       // 会员管理
       {path: 'user-list', component: UserListComponent},
@@ -129,8 +132,9 @@ const AdminRoutes: Routes = [
       {path: 'shop-list', component: ShopListComponent},
       {path: 'shop-list/:shopId', component: ShopServerListComponent},
       {path: 'shop-order-list', component: ShopOrderListComponent},
+      {path: 'shop-range', component:  ShopRangeComponent},
 
-      // 门店管理
+      // 个人门店管理
       {path: 'pshop-list', component: PShopListComponent},
       {path: 'pshop-list/:shopId', component: PShopServerListComponent},
       {path: 'pshop-server-list', component: PShopServerListComponent},
@@ -156,6 +160,7 @@ const AdminRoutes: Routes = [
 
       // 系统管理
       {path: 'admin-list', component: AdminListComponent},
+      {path: 'role-list', component: RoleManageMentComponent},
       {path: 'article-list', component: ArticleListComponent},
       {path: 'car-series-list', component: CarSeriesListComponent},
       {path: 'car-model-list', component: CarModelListComponent},

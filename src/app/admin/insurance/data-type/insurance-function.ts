@@ -41,6 +41,16 @@ export class InsuranceFunction {
     }
   ];
 
+  public static windowOptions = [
+    {
+      value:'1',
+      text:'国产玻璃'
+    },{
+      value:'2',
+      text:'进口玻璃'
+    }
+  ]
+
   // 订单同步返回结果类型
   public static insuranceOrderSyncTypeOptions = [
     {

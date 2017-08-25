@@ -39,6 +39,7 @@ export class HeadBarComponent implements OnInit {
     public getAdminInfo(): void {
         this.adminId = this.adminFunc.getAdminId();
         this.apiCall.getAdminInfo(this.adminId, (data) => {
+            console.log(this.adminInfo);
             this.adminInfo = data;
             console.log(this.adminInfo);
         });

@@ -8,6 +8,7 @@ import {CityPickerServer} from '../../../com/city-picker';
 import { OrderList } from '../data-type/order-list';
 import {StoreFunction} from '../data-type/store-function';
 import { element } from 'protractor';
+import { NumberValidator } from '../../../com/ng-validate/number.validate';
 
 declare let layer: any;
 declare var $:any;
@@ -116,8 +117,18 @@ export class OrderListComponent implements OnInit {
     this.editModalShow = !this.editModalShow;
   }
 
-  public editSubmit(): void {
-    this.apiCall.updateStoreOrder(
+  public editSubmit(theForm): void {
+    let submit = false;
+    for(let key in theForm.controls){
+      // theForm.controls.key.errors;
+      if(theForm.controls[key].errors){
+        layer.msg(`填写错误，请按照指示填写`)
+        submit = true;
+        break;
+      }
+    }
+    if(!submit){
+      this.apiCall.updateStoreOrder(
       this.editModalData.orderId,
       parseFloat(this.editModalData.freight),
       parseFloat(this.editModalData.price),
@@ -127,8 +138,9 @@ export class OrderListComponent implements OnInit {
       (data) => {
         this.toggleEditModal();
         this.getStoreOrderList(1);
-      }
-    );
+        }
+      );
+    }
   }
 
   public getMallOrderDetails(orderId):void{
@@ -221,6 +233,7 @@ export class OrderListComponent implements OnInit {
     this.orderData.orderDetailsIds = this.orderDetailsIds.join(",");
     this.apiCall.updateStoreOrderExpress(this.orderData.orderDetailsIds,this.orderData.expressId,this.orderData.waybillNumber,(data)=>{
       this.getDeliveryMallOrderDetails(this.orderListDate.order_id);
+      this.getStoreOrderList();
       this.orderDetailsIds = [];
       this.orderData.waybillNumber = '';
       this.allEle = this.elementRef.nativeElement.querySelector('.allSelect');

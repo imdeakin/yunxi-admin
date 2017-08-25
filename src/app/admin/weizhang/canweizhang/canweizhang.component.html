@@ -32,8 +32,8 @@
             <th>利润</th>
             <!-- <th>云洗利润</th> -->
             <!-- <th>状态</th> -->
-             <th>车行易保存订单状态</th> 
-             <th>车行易订单状态</th>  
+            <th>车行易保存订单状态</th>  
+            <th>车行易订单状态</th>   
             <th>状态</th>
             <th>操作</th>
           </tr>
@@ -64,16 +64,15 @@
             <td>{{item.punish_points}}</td>
             <td>{{item.service_fee}}</td>
             <td>{{item.cxy_service_fee}}</td>
-            <td>{{item.money}}</td>
+            <td>{{sloveTrunc(item.money)}}</td>
             <td>{{item.actual_money}}</td>
             <td>{{item.profit_money}}</td>
-             <!-- <td>{{getWeiZhangfilterText(item.status)}}</td>  -->
-            <td>{{getweiZhanghandleStatusText(item.handle_status)}}</td> 
-            <td>{{getweiZhangCxyPayStatusText(item.cxy_pay_status)}}</td> 
+            <td>{{getweiZhanghandleStatusText(item.handle_status)}}</td>  
+            <td>{{getweiZhangCxyPayStatusText(item.cxy_pay_status)}}</td>  
             <td>{{getWeiZhangfilterText(item.status)}}</td>
             <td>
               <div class="table-btns">
-                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/weizhanginfo/' + item.order_id">查看详情</a>
+                <a class="table-btn" href="javascript:void(0);" [routerLink]="'/admin/canweizhang/' + item.order_id">查看详情</a>
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]="item.status != 0" (click)="togglePriceModal(item)">修改</a>
                 <a class="table-btn" href="javascript:void(0);" [class.hidden]='item.status !=1' (click)="toggleEditModal(item)">办理</a>
                 <a class="table-btn" href="javascript:void(0);" [hidden]="item.cxy_pay_status !=='' || item.handle_status !==0 "(click)="comfirmCxyPayOrder(item.order_id)">确认支付</a>
@@ -225,11 +224,13 @@
   <div class="content"  [style.height]="contentHeight + 'px'">
     <div class="modal-con priceModal">
       <ng-template [ngIf]="!afterUpdate">
-        <form class="modal-form" (ngSubmit)="updateOrderMoney()">
+        <form class="modal-form" #updateForm="ngForm" (ngSubmit)="updateOrderMoney(updateForm)">
           <h3 class="modal-title">修改价格</h3>
           <div class="modal-input-group">
             <label>订单总额</label>
-            <input type="text" name="totalPrice" [(ngModel)]="totalPrice">
+            <input type="text" name="Price" [(ngModel)]="totalPrice" #Price="ngModel" required validateNumber>
+            <p *ngIf="Price.errors?.required" class="validate">必填</p>
+            <p *ngIf="Price.errors?.validateNumber" class="validate">请填写数字</p>
           </div>
           <div class="modal-btn-group">
             <button type="submit">保存</button>

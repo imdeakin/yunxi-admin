@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {GoodsList} from '../data-type/godds-list';
 import {StoreFunction} from '../data-type/store-function';
 import {UploadImage} from '../../../com/ng2-file-upload';
+import { Params } from '@angular/router';
+import { NumberValidator } from '../../../com/ng-validate/number.validate';
 
 declare let layer: any;
 
@@ -28,6 +30,11 @@ export class GoodsListComponent implements OnInit, DoCheck {
     goodsName: '',
     status: ''
   };
+
+  public file = {
+    url:'',
+    file_id:''
+  };
   public storeFunction = StoreFunction;
 
   public storeGoodsTypeOptions; // 商品类型选项组
@@ -41,6 +48,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public goodsTypeAttrList; // 商品类型参数列表
   public goodsTypeAttrValList; // 商品类型参数值列表
   public goodsSKUList; // 商品销售属性列表
+  public goodSKUAttrList;//商品销售属性类型列表
   public goodsSKUAttrList; // 商品销售属性参数列表
   public goodsAllAttrValList; // 商品所有参数的参数值列表
 
@@ -55,7 +63,11 @@ export class GoodsListComponent implements OnInit, DoCheck {
     on_sale: '',
     freight: '',
     described: '',
-    instruction: ''
+    instruction: '',
+    sort:'',
+    is_recommend:'',
+    url:'',
+    recommend_file_id:''
   };
 
   public editGoodsDetailModalShow: boolean = false; // 商品详情编辑窗的显示状态
@@ -72,8 +84,11 @@ export class GoodsListComponent implements OnInit, DoCheck {
     attr_id: '',
     param_id: '',
     param_name: '',
-    value_id: ''
+    value_id: '',
+    url:''
   };
+
+  public sku = '';
 
   public goodsSKUListModalShow: boolean = false; // 商品销售属性列表的显示状态
   public editGoodsSKUModalShow: boolean = false; // 商品销售属性编辑窗的显示状态
@@ -97,6 +112,10 @@ export class GoodsListComponent implements OnInit, DoCheck {
   public originalGoodsSlideList = []; // 当前选中的商品的未经处理的轮播图数组
   public curGoodsSlideList: UploadImage[] = []; // 当前选中的商品的轮播图数组
   public oldGoodsSlideList: UploadImage[] = []; // 缓存起来 用于比较
+
+  public addArrtList = [];//增加的商品类型参数
+  public ArrTypeList;//判断是否是更新还是增加
+  public skuArrJson = [];//商品类型参数存储
 
   constructor(private elRef: ElementRef,
               private apiCall: ApiCall,
@@ -196,7 +215,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
     this.apiCall.getStoreGoodsInfo(
       sn,
       (data) => {
+        console.log(data);
         this.editBaseInfoModalData = data;
+        this.file.url = this.editBaseInfoModalData.url;
       });
   }
 
@@ -206,8 +227,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
       this.getStoreGoodsInfo(item.sn);
     } else if (!this.editBaseInfoModalShow) { // 将显示出来用于添加
       this.editBaseInfoModalData = this.funcServer.emptyObj(this.editBaseInfoModalData);
+      this.file.file_id = '';
+      this.file.url = '';
     }
-
     this.editBaseInfoModalShow = !this.editBaseInfoModalShow;
   }
 
@@ -224,6 +246,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
   // 保存商品基本信息
   public saveGoodsBaseInfo(): void {
     // 保存
+    this.editBaseInfoModalData.recommend_file_id = this.file.file_id;
     this.apiCall.addStoreGoodsInfo(
       this.editBaseInfoModalData.goods_id,
       this.editBaseInfoModalData.goods_type_id,
@@ -233,6 +256,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
       this.editBaseInfoModalData.described,
       this.editBaseInfoModalData.freight,
       this.editBaseInfoModalData.on_sale,
+      this.editBaseInfoModalData.is_recommend,
+      this.editBaseInfoModalData.recommend_file_id,
+      this.editBaseInfoModalData.sort,
       (data) => {
         this.editBaseInfoModalData.goods_id = data.goods_id;
         // 进入下一步
@@ -536,7 +562,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
     this.apiCall.getStoreGoodsSKUList(
       this.curGoodsId,
       (list) => {
-        console.log(list);
         this.goodsSKUList = list;
       }
     )
@@ -550,7 +575,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
       this.curGoodsTypeId,
       '1',
       (list) => {
-        console.log(list);
         this.goodsSKUAttrList = list;
 
         // 获取所有的参数值列表
@@ -571,7 +595,6 @@ export class GoodsListComponent implements OnInit, DoCheck {
         for (let i = 0, len = arr.length; i < len; i++) {
           optionsArr.push(this.getStoreGoodsSKUAttrValOptions(arr[i].param_id))
         }
-        console.log(optionsArr);
         this.goodsSKUAttrValOptionsArr = optionsArr;
       }
     )
@@ -605,9 +628,11 @@ export class GoodsListComponent implements OnInit, DoCheck {
   }
 
   // 获取销售属性值名称
-  public getStoreGoodsSKUAttrValueName(paramId): string {
+  public getStoreGoodsSKUAttrValueName(paramId,skuId): string {
+    // console.log(paramId);
     let value = '';
     let list = this.editGoodsSKUModalData.sku_arr_json;
+    // console.log(list);
     for (let i = 0, len = list.length; i < len; i++) {
       if (list[i].param_id === paramId) {
         value = list[i].value;
@@ -618,28 +643,53 @@ export class GoodsListComponent implements OnInit, DoCheck {
 
   // 获取商品销售属性信息
   public getStoreGoodsSKU(skuId) {
-    this.editGoodsSKUModalData = null;
     this.apiCall.getStoreGoodsSKU(
       skuId,
       (data) => {
-        console.log(data);
-        alert(data);
-        this.editGoodsSKUModalData = data;
+        console.log(data[0]);
+        this.editGoodsSKUModalData = data[0];
+        this.file.url = this.editGoodsAttrModalData.url;
+        console.log(this.editGoodsSKUModalData);
       }
     );
   }
 
   // 改变SKU参数值
   public goodsSKUAttrValChange(valueId, paramId) {
-    console.log(valueId,paramId);
-    console.log(this.editGoodsSKUModalData);
     let list = this.editGoodsSKUModalData.sku_arr_json;
-    console.log(list);
-    for (let i = 0, len = list.length; i < len; i++) {
-      if (list[i].param_id === paramId) {
-        list[i].value_id = valueId;
-        break;
+    if (this.ArrTypeList == 'update') {
+      for (let i = 0, len = list.length; i < len; i++) {
+        if (list[i].param_id === paramId) {
+          list[i].value_id = valueId;
+          break;
+        }
       }
+    }
+    if (this.ArrTypeList == 'add') {
+      this.addArrtList = this.editGoodsSKUModalData.sku_arr_json;
+      if (this.addArrtList.length === 0) {
+        this.addArrtList.push({
+          value_id: valueId,
+          param_id: paramId
+        })
+      } else {
+        let result = false;
+        for (let i = 0; i < this.addArrtList.length; i++) {
+          if (this.addArrtList[i].param_id === paramId) {
+            this.addArrtList[i].value_id = valueId;
+            result = true;
+            break;
+          }
+        }
+        if(!result){
+            this.addArrtList.push({
+            value_id: valueId,
+            param_id: paramId
+          })
+        }
+      }
+    console.log(this.editGoodsSKUModalData.sku_arr_json);
+    console.log(this.addArrtList);
     }
   }
 
@@ -681,19 +731,36 @@ export class GoodsListComponent implements OnInit, DoCheck {
   /*
    * 编辑商品销售属性
    */
-  public toggleEditGoodsSKUModal(skuId?): void {
+  public toggleEditGoodsSKUModal(skuId?,skuArrJson?): void {
     if (skuId) {
-      this.getStoreGoodsSKU(skuId);
+      // console.log(skuArrJson);
+      // for(let i = 0;i <skuArrJson.length;i++){
+      //   this.skuArrJson.push({
+      //     value:skuArrJson.value_id,
+      //     text:skuArrJson.value
+      //   })
+      // }
+      this.getStoreGoodsSKU(skuId);;
+      this.ArrTypeList = 'update';
+    }else{
+      this.ArrTypeList = 'add';
+      this.sku = '';
     }
-
     this.editGoodsSKUModalShow = !this.editGoodsSKUModalShow;
 
     if (!this.editGoodsSKUModalShow) {
       this.editGoodsSKUModalData = this.funcServer.emptyObj(this.editGoodsSKUModalData);
+      this.ArrTypeList = '';
+      this.addArrtList = [];
+      this.skuArrJson = [];
+      this.editGoodsSKUModalData.sku_arr_json = [];
+      this.file.url = '';
+      this.file.file_id = '';
     }
   }
 
   public addGoodsSKU(): void {
+    this.editGoodsSKUModalData.file_id = this.file.file_id;
     this.apiCall.addStoreGoodsSKU(
       this.editGoodsSKUModalData.sku_id,
       this.curGoodsId,
@@ -704,7 +771,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
       this.editGoodsSKUModalData.inventory,
       this.editGoodsSKUModalData.sales_volume,
       this.editGoodsSKUModalData.file_id,
-      this.editGoodsSKUModalData.sku_arr_json,
+      JSON.stringify(this.editGoodsSKUModalData.sku_arr_json),
       (data) => {
         this.toggleEditGoodsSKUModal();
         this.getStoreGoodsSKUList();
@@ -713,7 +780,9 @@ export class GoodsListComponent implements OnInit, DoCheck {
   }
 
   public editGoodsSKU(): void {
+    this.editGoodsSKUModalData.file_id = this.file.file_id;
     this.apiCall.updateStoreGoodsSKU(
+      this.editGoodsSKUModalData.sku_id,
       this.curGoodsId,
       this.editGoodsSKUModalData.outer_code,
       this.editGoodsSKUModalData.product_code,
@@ -722,7 +791,7 @@ export class GoodsListComponent implements OnInit, DoCheck {
       this.editGoodsSKUModalData.inventory,
       this.editGoodsSKUModalData.sales_volume,
       this.editGoodsSKUModalData.file_id,
-      this.editGoodsSKUModalData.sku_arr_json,
+      JSON.stringify(this.editGoodsSKUModalData.sku_arr_json),
       (data) => {
         this.toggleEditGoodsSKUModal();
         this.getStoreGoodsSKUList();

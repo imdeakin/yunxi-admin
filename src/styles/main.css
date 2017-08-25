@@ -302,6 +302,15 @@ html, body {
   padding: 10px 5px;
   overflow: hidden;
 }
+.modal-input-group .validate{
+  font-size:10px;
+  color:#009be8;
+  text-align: right;
+  position: absolute;
+  top:0;
+  right:6%;
+  padding:2px;
+}
 
 .modal-input-group .text-btn {
   display: inline-block;

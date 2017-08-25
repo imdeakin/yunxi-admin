@@ -7,6 +7,7 @@ import {YoukaRecord} from '../data-type/youka-record';
 import {YoukaFunction} from '../data-type/youka-function';
 import {FuncServer} from '../../../serv/func.server';
 // import { ModalWindowComponent } from '../../../../../../yunxi-admin/src/app/com/modal-window/modal-window.component';
+import { AdminFunc } from '../../../serv/admin.server';
 
 @Component({
   selector: 'youka-recordManage',
@@ -20,6 +21,7 @@ export class YoukaRecordManageComponent implements OnInit {
   public perPageSize = 1;
   public curPageIndex = 1;
   public tableList: YoukaRecord[];
+  public adminId = '';
   public youkaFunction = YoukaFunction;
 
   public modalData ={
@@ -47,10 +49,14 @@ export class YoukaRecordManageComponent implements OnInit {
   public modalShow: boolean = false;
   public submitShow:boolean = false;
 
-  constructor(private elRef: ElementRef, private apiCall: ApiCall, private funcServer: FuncServer) {
+  constructor(private elRef: ElementRef, 
+              private apiCall: ApiCall, 
+              private funcServer: FuncServer,
+              private adminFunc:AdminFunc) {
   }
 
   public ngOnInit(): void {
+    this.adminId = this.adminFunc.getAdminId();
     this.computeOnResize();
     this.getYoukaRecordList();
   }
@@ -73,7 +79,6 @@ export class YoukaRecordManageComponent implements OnInit {
 
    //匹配油卡搜索查询
   public getYoukaSelectOptions():void{
-    console.log(this.modalData);
       switch(this.modalData.nowData){
         case 'oilCard':
           this.modalData.oilCard = this.modalData.searchData;
@@ -159,7 +164,6 @@ export class YoukaRecordManageComponent implements OnInit {
 
   public submitModal(chargeOrderId?){
     this.submitShow = !this.submitShow;
-     console.log(chargeOrderId)
     if(chargeOrderId){
       this.modalData.chargeOrderId = chargeOrderId;
     }else{
@@ -169,7 +173,7 @@ export class YoukaRecordManageComponent implements OnInit {
 
   public modalSubmit(chargeOrderId?){
       if(chargeOrderId){
-        this.apiCall.YouCardOrderReturn(chargeOrderId,(data)=>{
+        this.apiCall.YouCardOrderReturn(this.adminId,chargeOrderId,(data)=>{
             this.submitModal()
             this.getYoukaRecordList()
         })

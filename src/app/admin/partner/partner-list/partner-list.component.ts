@@ -8,6 +8,8 @@ import {CityPickerServer} from '../../../com/city-picker';
 import {PartnerList} from '../data-type/partner-list';
 import {PartnerFunction} from '../data-type/partner-function';
 
+declare let layer: any;
+
 @Component({
   selector: 'partner-list',
   templateUrl: './partner-list.component.html',
@@ -73,6 +75,13 @@ export class PartnerListComponent implements OnInit {
       this.modalData = data;
     });
   }
+  
+  //启用和禁用
+  public disableOrStart(item,status):void{
+    this.apiCall.disableOrStart(item.partner_id,status,(data)=>{
+        this.getPartnerList();
+    })
+  }
 
   // 模态窗
   public toggleModal(item?): void {
@@ -83,5 +92,22 @@ export class PartnerListComponent implements OnInit {
     if (!this.modalShow) {
       this.modalData = null;
     }
+  }
+
+  public verificationConfirm(item,status): void {
+    let index = layer.confirm(
+      '确认是否此操作',
+      {
+        title: '是否确认',
+        btn: ["确认", "取消"]
+      },
+      () => {
+        this.disableOrStart(item,status);
+        layer.close(index);
+      },
+      () => {
+        layer.close(index);
+      }
+    )
   }
 }

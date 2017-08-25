@@ -47,15 +47,15 @@ export class YoukaFunction {
   public static youcaTaocanClassOptions = [
     {
       value: '1',
-      text: '默认套餐'
+      text: '油卡充值'
     },
     {
       value: '2',
-      text: '优惠活动'
+      text: '积分提额'
     },
     {
       value: '3',
-      text: '会员专享'
+      text: '钻石专享'
     }
   ];
 
@@ -100,13 +100,13 @@ export class YoukaFunction {
     let text: string;
     switch (classify) {
       case 1:
-        text = '默认套餐';
+        text = '油卡充值';
         break;
       case 2:
-        text = '优惠活动';
+        text = '积分提额';
         break;
       case 3:
-        text = '会员专享';
+        text = '钻石专享';
         break;
       default:
         text = '未知'
